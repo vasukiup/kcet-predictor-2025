@@ -87,7 +87,7 @@ def parse_annexure_data(pdf_path, pages, ann):
         for pg in pages:
             text = pdf.pages[pg-1].extract_text() or ""
             lines = text.splitlines()
-            for line in lines:
+            for idx, line in enumerate(lines):
                 stripped = line.strip()
                 if not stripped:
                     continue
@@ -125,6 +125,12 @@ def parse_annexure_data(pdf_path, pages, ann):
                         current_courses.append(current_course)
                         
                     course_name = m_rk.group(1).strip()
+                    # Peek next line for short code
+                    if idx + 1 < len(lines):
+                        next_line = lines[idx + 1].strip()
+                        if re.match(r'^[A-Z]{2,6}$', next_line):
+                            course_name = f"{course_name} ({next_line})"
+                            
                     intake = int(m_rk.group(2))
                     kea_rk = int(m_rk.group(3))
                     ph_rk = int(m_rk.group(4))
@@ -167,21 +173,21 @@ def parse_annexure_data(pdf_path, pages, ann):
                 "courses": current_courses
             })
             
+    # SPLITS mapping for Aided/Unaided colleges in Annexure E:
+    # (aided_course_count, aided_code, unaided_code)
+    SPLITS = {
+        "BMSCOLLEGEOFENGINEERING": (5, "E003", "E048"),
+        "BASAVESHWARAENGINEERINGCOLLEGE": (6, "E031", "E049"),
+        "BVVSANGHASBASAVESHWARA": (6, "E031", "E049"),
+        "DRAMBEDKARINSTITUTEOFTECHNOLOGY": (8, "E004", "E060"),
+        "MALNADCOLLEGEOFENGINEERING": (4, "E024", "E047"),
+        "SRIJAYACHAMARAJENDRA": (9, "E021", "E284"),
+        "THENATIONALINSTITUTEOFENGINEERING": (3, "E022", "E056")
+    }
+
     # Format into target JSON structure
     formatted_colleges = []
     for c in colleges:
-        courses_json = []
-        for cr_rec in c["courses"]:
-            # HK-RK KEA total is kea_rk + kea_hk, which is the expected KEA quota total in E/V
-            kea_tot_val = cr_rec["kea_rk"] + cr_rec["kea_hk"]
-            kea_quota_seats = kea_tot_val
-            courses_json.append(
-                cr(cr_rec["name"], cr_rec["intake"], kea_quota_seats,
-                   cr_rec["ph_rk"] + cr_rec["ph_hk"],
-                   cr_rec["spl_rk"] + cr_rec["spl_hk"],
-                   cr_rec["kea_hk"], cr_rec["kea_rk"], kea_tot_val)
-            )
-            
         # Address and District mapping
         addr = ""
         # Look up baseline if exists
@@ -194,55 +200,98 @@ def parse_annexure_data(pdf_path, pages, ann):
                 
         dist = normalize_district("", c["name"], addr)
         
-        type_name = "Government" if ann == "E" else "Private University" # standard type name mappings or custom mapping
-        # Let's map type based on annexure
-        # E: Government / VTU or Autonomous/Private depending on page. Wait!
-        # E header says: "(New Courses/Intake Detailed Matrix for CAT - 1 GOVT KEA Seats)"
-        # But wait, E is Government or Private?
-        # Let's look up ANN_LABELS in regen_stats.py:
-        # A: Government / VTU, B: Govt Aided, C: Private Unaided, D: Private Minority, M: Public University, O: Private University, P: Deemed University, Z: Government (Higher Fees)
-        # Wait, what is Annexure E and V label?
-        # Let's check user's request: "proceed to remaining annexures".
-        # Let's see what the web app labels them. We will add labels for E and V.
-        # Let's define the college type for E and V.
-        # Annexure E is: "Government (Autonomous)" or similar? Let's check page 122:
-        # "1 CONSTITUENT COLLEGE OF VTU..." (Constituent), "2 GOVERNMENT ENGINEERING COLLEGE..." (Government),
-        # "192 SDM College of Engineering, Dharwad (AUTONOMOUS)" (Autonomous/Private).
-        # Ah! E has Government, Aided, Autonomous, Private colleges! It is a mixture of colleges with "New Courses/Intake"!
-        # Wait, since E contains new courses/intake for ALL college types under KEA,
-        # we can set college_type to "New Intake / Courses" or keep it matching their original type?
-        # But since they are grouped in Annexure E in the PDF, let's set college_type to "Annexure E" or "New Intake".
-        # Let's see what is the label of E and V. Let's call them:
-        # E: "New Intake (Govt/Pvt)"
-        # V: "New Intake (Univ/Deemed)"
-        # Let's keep it clean! We can use:
-        # college_type: "New Intake" or "Annexure E" and "Annexure V".
-        # Let's use:
-        # E -> "New Courses / Intake"
-        # V -> "New Courses / Univ"
-        
-        type_label = "New Intake (Govt/Pvt)" if ann == "E" else "New Intake (Univ)"
-        # Try finding college_type from baseline colleges
-        for old_c in d["colleges"]:
-            if re.sub(r'[^A-Z0-9]', '', old_c["college_name"].upper()) == clean_name:
-                type_label = old_c.get("college_type", type_label)
+        split_info = None
+        for key, val in SPLITS.items():
+            if key in clean_name:
+                split_info = val
                 break
-        
-        formatted_colleges.append({
-            "college_number": c["num"],
-            "college_name": c["name"],
-            "address": addr if addr else c["name"],
-            "annexure": ann,
-            "college_type": type_label,
-            "district": dist,
-            "cat1_pct": 100 if ann == "E" else 40, # KEA seats percentage
-            "cat2_pct": 0,
-            "cat3_pct": 0,
-            "total_intake": sum(cr_rec["total_intake"] for cr_rec in courses_json),
-            "total_kea_seats": sum(cr_rec["total_kea_seats"] for cr_rec in courses_json),
-            "courses": courses_json
-        })
-        
+                
+        if split_info:
+            split_idx, aided_code, unaided_code = split_info
+            
+            # Aided Entry
+            aided_courses_json = []
+            for cr_rec in c["courses"][:split_idx]:
+                kea_tot_val = cr_rec["kea_rk"] + cr_rec["kea_hk"]
+                aided_courses_json.append(
+                    cr(cr_rec["name"], cr_rec["intake"], kea_tot_val,
+                       cr_rec["ph_rk"] + cr_rec["ph_hk"],
+                       cr_rec["spl_rk"] + cr_rec["spl_hk"],
+                       cr_rec["kea_hk"], cr_rec["kea_rk"], kea_tot_val)
+                )
+            formatted_colleges.append({
+                "college_number": c["num"],
+                "college_name": c["name"],
+                "address": addr if addr else c["name"],
+                "annexure": ann,
+                "college_type": "New Intake (Aided)",
+                "district": dist,
+                "cat1_pct": 100 if ann == "E" else 40,
+                "cat2_pct": 0,
+                "cat3_pct": 0,
+                "total_intake": sum(cr_rec["total_intake"] for cr_rec in aided_courses_json),
+                "total_kea_seats": sum(cr_rec["total_kea_seats"] for cr_rec in aided_courses_json),
+                "kea_code": aided_code,
+                "courses": aided_courses_json
+            })
+            
+            # Unaided Entry
+            unaided_courses_json = []
+            for cr_rec in c["courses"][split_idx:]:
+                kea_tot_val = cr_rec["kea_rk"] + cr_rec["kea_hk"]
+                unaided_courses_json.append(
+                    cr(cr_rec["name"], cr_rec["intake"], kea_tot_val,
+                       cr_rec["ph_rk"] + cr_rec["ph_hk"],
+                       cr_rec["spl_rk"] + cr_rec["spl_hk"],
+                       cr_rec["kea_hk"], cr_rec["kea_rk"], kea_tot_val)
+                )
+            formatted_colleges.append({
+                "college_number": c["num"],
+                "college_name": c["name"],
+                "address": addr if addr else c["name"],
+                "annexure": ann,
+                "college_type": "New Intake (Unaided)",
+                "district": dist,
+                "cat1_pct": 100 if ann == "E" else 40,
+                "cat2_pct": 0,
+                "cat3_pct": 0,
+                "total_intake": sum(cr_rec["total_intake"] for cr_rec in unaided_courses_json),
+                "total_kea_seats": sum(cr_rec["total_kea_seats"] for cr_rec in unaided_courses_json),
+                "kea_code": unaided_code,
+                "courses": unaided_courses_json
+            })
+        else:
+            courses_json = []
+            for cr_rec in c["courses"]:
+                kea_tot_val = cr_rec["kea_rk"] + cr_rec["kea_hk"]
+                courses_json.append(
+                    cr(cr_rec["name"], cr_rec["intake"], kea_tot_val,
+                       cr_rec["ph_rk"] + cr_rec["ph_hk"],
+                       cr_rec["spl_rk"] + cr_rec["spl_hk"],
+                       cr_rec["kea_hk"], cr_rec["kea_rk"], kea_tot_val)
+                )
+                
+            type_label = "New Intake (Govt/Pvt)" if ann == "E" else "New Intake (Univ)"
+            for old_c in d["colleges"]:
+                if re.sub(r'[^A-Z0-9]', '', old_c["college_name"].upper()) == clean_name:
+                    type_label = old_c.get("college_type", type_label)
+                    break
+                    
+            formatted_colleges.append({
+                "college_number": c["num"],
+                "college_name": c["name"],
+                "address": addr if addr else c["name"],
+                "annexure": ann,
+                "college_type": type_label,
+                "district": dist,
+                "cat1_pct": 100 if ann == "E" else 40,
+                "cat2_pct": 0,
+                "cat3_pct": 0,
+                "total_intake": sum(cr_rec["total_intake"] for cr_rec in courses_json),
+                "total_kea_seats": sum(cr_rec["total_kea_seats"] for cr_rec in courses_json),
+                "courses": courses_json
+            })
+            
     return formatted_colleges
 
 ann_e_colleges = parse_annexure_data("Seat_Matrix_05072025.pdf", range(122, 324), "E")
