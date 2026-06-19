@@ -134,6 +134,11 @@ AIDED_UNITS = {
         "B": "E022",
         "C": "E056",
         "E": "E056"
+    },
+    "university b.d.t college of engineering, davanagere": {
+        "A": "E061",
+        "Z": "E066",
+        "E": "E061"
     }
 }
 

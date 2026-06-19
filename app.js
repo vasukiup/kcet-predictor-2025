@@ -1530,7 +1530,7 @@ function renderPredictionResults(results, selectedRound) {
   tbody.querySelectorAll('.pred-row').forEach(row => {
     row.addEventListener('click', () => {
       const colNum = row.dataset.collegeNumber;
-      const collegeObj = allData.colleges.find(c => c.college_number === colNum);
+      const collegeObj = allData.colleges.find(c => c.college_number == colNum);
       if (collegeObj) {
         openModal(collegeObj);
       }

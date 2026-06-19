@@ -12,53 +12,186 @@ SHORT_CODE_MAP = {
     "AM": ["artificial intelligence and machine learning", "artificial intelligence & machine learning"],
     "AS": ["aero"],
     "AT": ["auto", "automobile"],
+    "ATMO": ["automobile", "automotive"],
     "BD": ["big data"],
+    "BM": ["medical", "bio"],
+    "BR": ["biomedical", "robotic"],
     "BT": ["bio", "biotech"],
     "CADS": ["artificial intelligence and data science", "artificial intelligence & data science"],
-    "CAM": ["artificial intelligence and machine learning", "artificial intelligence & machine learning"],
+    "CAI": ["computer science", "artificial intelligence"],
+    "CAM": ["artificial intelligence and machine learning", "artificial intelligence & machine learning", "computer science and engineering"],
     "CB": ["business", "system"],
+    "CC": ["internet of things", "cyber security", "block chain"],
+    "CCS": ["cyber"],
     "CE": ["civil"],
+    "CEK": ["civil", "kannada"],
+    "CEV": ["environmental"],
     "CG": ["computer science and technology", "computer science & technology"],
     "CH": ["chemical"],
-    "CI": ["computer science and design", "computer science & design"],
+    "CI": ["computer science and design", "computer science & design", "design"],
     "CMP": ["medical"],
     "CO": ["computer science", "iot", "internet of things"],
+    "CR": ["ceramics", "cement"],
     "CS": ["computer science and engineering", "computer science & engineering"],
+    "CSA": ["computer science", "artificial intelligence"],
+    "CSC": ["computer science"],
+    "CSD": ["design", "computer science"],
     "CSS": ["computer science and engineering(data science)", "computer science and engineering(dat a science)"],
+    "CST": ["computer science", "technology"],
+    "CTM": ["construction", "technology", "management"],
     "CY": ["cyber"],
     "DESIGN": ["design"],
+    "DG": ["design"],
     "DO": ["devops"],
     "DS": ["data science"],
+    "DT": ["data"],
+    "EAT": ["advanced", "communication"],
     "EC": ["communication", "telecommunication"],
+    "ECS": ["electronics", "computer science"],
     "EE": ["electrical"],
     "EIE": ["instrumentation"],
+    "EII": ["industrial", "integrated"],
     "EIT": ["instrumentation"],
+    "ELCE": ["electrical", "computer"],
     "EN": ["environmental"],
     "ENV": ["environmental"],
     "EO": ["electronics and computer", "electronics & computer"],
     "ET": ["telecommunication"],
     "EV": ["vlsi"],
     "IAL": ["ial"],
-    "IB": ["ib"],
+    "IB": ["iot", "blockchain"],
     "IEM": ["management"],
+    "IIT": ["industrial", "iot"],
     "IN": ["information science"],
     "IO": ["internet of things", "iot"],
+    "IOT": ["iot", "internet of things"],
     "IP": ["production"],
-    "IS": ["information science"],
+    "IS": ["information science engineering", "information science and engineering"],
     "IT": ["information technology"],
-    "IY": ["iy"],
-    "LC": ["lc"],
-    "MC": ["mechatronics"],
+    "IY": ["blockchain"],
+    "LC": ["information science and technology", "information science & technology", "technology"],
+    "MC": ["computing", "math", "mechatronics"],
     "ME": ["mechanical"],
-    "MS": ["ms"],
+    "MEE": ["medical", "electronics"],
+    "MEK": ["mechanical", "kannada"],
+    "MM": ["manufacturing", "mechanical", "smart"],
+    "MN": ["mining"],
+    "MR": ["marine"],
+    "MS": ["mechatronics"],
+    "MX": ["mechatronics"],
     "PE": ["petroleum"],
     "PT": ["polymer"],
     "RA": ["robotics", "automation"],
     "RAI": ["robotics", "artificial intelligence"],
     "RE": ["robotic"],
     "RO": ["robotics"],
+    "ST": ["silk"],
+    "TX": ["textile", "textiles"],
+    "UP": ["planning"],
     "VLSI": ["vlsi"]
 }
+
+SHORT_CODE_TO_FULL_NAME = {
+    "AD": "Artificial Intelligence and Data Science",
+    "AE": "Aeronautical Engineering",
+    "AG": "Agricultural Engineering",
+    "AI": "Artificial Intelligence and Machine Learning",
+    "AM": "Artificial Intelligence and Machine Learning",
+    "AS": "Aeronautical Engineering",
+    "AT": "Automobile Engineering",
+    "ATMO": "Automobile Engineering",
+    "BD": "Computer Science and Technology (Big Data)",
+    "BM": "Bio-Medical Engineering",
+    "BR": "Biomedical and Robotic Engineering",
+    "BT": "Bio-Technology",
+    "CADS": "Artificial Intelligence and Data Science",
+    "CAI": "Computer Science and Engineering (Artificial Intelligence)",
+    "CAM": "Computer Science and Engineering (Artificial Intelligence and Machine Learning)",
+    "CB": "Computer Science and Business Systems",
+    "CC": "Computer Science and Engineering (Internet of Things & Cyber Security including Block Chain Technology)",
+    "CCS": "Computer Science and Engineering (Cyber Security)",
+    "CE": "Civil Engineering",
+    "CEK": "Civil Engineering (Kannada Medium)",
+    "CEV": "Civil Environmental Engineering",
+    "CG": "Computer Science and Technology",
+    "CH": "Chemical Engineering",
+    "CI": "Computer Science and Design",
+    "CMP": "Computer Science and Engineering (Medical Electronics)",
+    "CO": "Computer Science and Engineering (Internet of Things)",
+    "CR": "Ceramics & Cement Engineering",
+    "CS": "Computer Science and Engineering",
+    "CSA": "Computer Science and Engineering (Artificial Intelligence)",
+    "CSC": "Computer Science",
+    "CSD": "Computer Science and Design",
+    "CSS": "Computer Science and Engineering (Data Science)",
+    "CST": "Computer Science & Technology",
+    "CTM": "Construction Technology and Management",
+    "CY": "Computer Science and Engineering (Cyber Security)",
+    "DESIGN": "Design Engineering",
+    "DG": "Design",
+    "DO": "Computer Science and Technology (DevOps)",
+    "DS": "Computer Science and Engineering (Data Science)",
+    "DT": "Data Sciences",
+    "EAT": "Electronics and Communication (Advanced Communication Technology)",
+    "EC": "Electronics and Communication Engineering",
+    "ECS": "Electronics & Computer Science",
+    "EE": "Electrical and Electronics Engineering",
+    "EIE": "Electronics and Instrumentation Engineering",
+    "EII": "Electronics & Communication Engineering (Industrial Integrated)",
+    "EIT": "Electronics and Instrumentation Engineering",
+    "ELCE": "Electrical & Computer Engineering",
+    "EN": "Environmental Engineering",
+    "ENV": "Environmental Engineering",
+    "EO": "Electronics and Computer Engineering",
+    "ET": "Telecommunication Engineering",
+    "EV": "VLSI Design and Technology",
+    "IAL": "Industrial and Production Engineering",
+    "IB": "Computer Science and Engineering (IoT and Blockchain)",
+    "IEM": "Industrial Engineering and Management",
+    "IIT": "Industrial IoT",
+    "IN": "Information Science and Engineering",
+    "IO": "Computer Science and Engineering (Internet of Things)",
+    "IOT": "Computer Science and Engineering (Internet of Things)",
+    "IP": "Industrial and Production Engineering",
+    "IS": "Information Science and Engineering",
+    "IT": "Information Technology",
+    "IY": "Computer Science and Engineering (Blockchain)",
+    "LC": "Information Science and Technology",
+    "MC": "Mathematics and Computing",
+    "ME": "Mechanical Engineering",
+    "MEE": "Medical Electronics Engineering",
+    "MEK": "Mechanical Engineering (Kannada Medium)",
+    "MM": "Mechanical and Smart Manufacturing",
+    "MN": "Mining Engineering",
+    "MR": "Marine Engineering",
+    "MS": "Mechatronics Engineering",
+    "MX": "Mechatronics Engineering",
+    "PE": "Petroleum Engineering",
+    "PT": "Polymer Science and Technology",
+    "RA": "Robotics and Automation",
+    "RAI": "Robotics and Artificial Intelligence",
+    "RE": "Robotics Engineering",
+    "RO": "Robotics and Automation",
+    "ST": "Silk Technology",
+    "TX": "Textiles Technology",
+    "UP": "Urban and Regional Planning",
+    "VLSI": "VLSI Design and Technology"
+}
+
+def expand_short_code(name):
+    name_clean = name.strip()
+    short_code = None
+    m_paren = re.search(r'\(([A-Za-z0-9]{2,6})\)', name_clean)
+    if m_paren:
+        short_code = m_paren.group(1).upper()
+    else:
+        m_direct = re.match(r'^([A-Za-z0-9]{2,6})(\s+in)?$', name_clean)
+        if m_direct:
+            short_code = m_direct.group(1).upper()
+            
+    if short_code and short_code in SHORT_CODE_TO_FULL_NAME:
+        return SHORT_CODE_TO_FULL_NAME[short_code]
+    return to_title_case(name)
 
 def super_clean(name):
     n = name.lower()
@@ -151,7 +284,7 @@ def run_standardization():
             # Just clean existing names for unmapped colleges
             for c in col["courses"]:
                 old_name = c["course_name"]
-                new_name = to_title_case(old_name)
+                new_name = expand_short_code(old_name)
                 new_name = new_name.replace("Engineering Engineering", "Engineering")
                 if old_name != new_name:
                     c["course_name"] = new_name
@@ -170,7 +303,7 @@ def run_standardization():
             # No cutoff data found, just clean existing names
             for c in col["courses"]:
                 old_name = c["course_name"]
-                new_name = to_title_case(old_name)
+                new_name = expand_short_code(old_name)
                 new_name = new_name.replace("Engineering Engineering", "Engineering")
                 if old_name != new_name:
                     c["course_name"] = new_name
@@ -302,7 +435,7 @@ def run_standardization():
                 cut_name = mapping[idx]
                 new_name = to_title_case(cut_name)
             else:
-                new_name = to_title_case(old_name)
+                new_name = expand_short_code(old_name)
                 
             new_name = new_name.replace("Engineering Engineering", "Engineering")
             if old_name != new_name:

@@ -125,13 +125,18 @@ def parse_annexure_data(pdf_path, pages, ann):
                         current_courses.append(current_course)
                         
                     course_name = m_rk.group(1).strip()
+                    intake_str = m_rk.group(2)
                     # Peek next line for short code
                     if idx + 1 < len(lines):
                         next_line = lines[idx + 1].strip()
-                        if re.match(r'^[A-Z]{2,6}$', next_line):
+                        m_wrap = re.match(r'^([A-Z]{2,6})\s+(\d)$', next_line)
+                        if m_wrap:
+                            course_name = f"{course_name} ({m_wrap.group(1)})"
+                            intake_str = intake_str + m_wrap.group(2)
+                        elif re.match(r'^[A-Z]{2,6}$', next_line):
                             course_name = f"{course_name} ({next_line})"
                             
-                    intake = int(m_rk.group(2))
+                    intake = int(intake_str)
                     kea_rk = int(m_rk.group(3))
                     ph_rk = int(m_rk.group(4))
                     spl_rk = int(m_rk.group(5))
@@ -182,7 +187,8 @@ def parse_annexure_data(pdf_path, pages, ann):
         "DRAMBEDKARINSTITUTEOFTECHNOLOGY": (8, "E004", "E060"),
         "MALNADCOLLEGEOFENGINEERING": (4, "E024", "E047"),
         "SRIJAYACHAMARAJENDRA": (9, "E021", "E284"),
-        "THENATIONALINSTITUTEOFENGINEERING": (3, "E022", "E056")
+        "THENATIONALINSTITUTEOFENGINEERING": (3, "E022", "E056"),
+        "UNIVERSITYBDT": (7, "E061", "E066")
     }
 
     # Format into target JSON structure
@@ -323,4 +329,4 @@ def verify(ann, target_totals):
         print(f"  {k:<8} Target: {val:>8,} | Parsed: {s[k]:>8,} | Diff: {s[k]-val:>+3}")
 
 verify("E", {"intake":114196, "kea":53052, "ph":3900, "spl":1080, "hk":7172, "rk":45880})
-verify("V", {"intake":32704, "kea":13919, "ph":1001, "spl":273, "hk":1740, "rk":12179})
+verify("V", {"intake":33838, "kea":13919, "ph":1001, "spl":273, "hk":1740, "rk":12179})

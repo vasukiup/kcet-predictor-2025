@@ -79,6 +79,13 @@ d["stats"] = {
     "by_course": by_course,
 }
 
+# Rebuild all_courses list with standardized course names
+all_courses_set = set()
+for c in colleges:
+    for cr in c["courses"]:
+        all_courses_set.add(cr["course_name"].strip())
+d["all_courses"] = sorted(list(all_courses_set))
+
 with open("seat_matrix_data.json", "w", encoding="utf-8") as f:
     json.dump(d, f, indent=2, ensure_ascii=False)
 
