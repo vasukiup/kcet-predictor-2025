@@ -187,19 +187,41 @@ def run_mapping():
     with open("round3_cutoffs.json", "r", encoding="utf-8") as f:
         r3_cutoff = json.load(f)
         
-    # Pre-clean cutoff data
+    # Load unified course mapping
+    with open("course_standardization_map.json", "r", encoding="utf-8") as f:
+        std_map = json.load(f)
+        
+    # Helper to standardise cutoff dictionaries
+    def standardize_cutoff_dict(cutoff_dict):
+        std_cutoff = {}
+        for code, info in cutoff_dict.items():
+            std_courses = {}
+            for raw_cname, data in info["courses"].items():
+                std_cname = std_map.get(raw_cname, raw_cname)
+                std_courses[std_cname] = data
+            std_cutoff[code] = {
+                "college_name": info["college_name"],
+                "courses": std_courses
+            }
+        return std_cutoff
+
+    print("Standardizing cutoff course names in memory...")
+    r1_cutoff = standardize_cutoff_dict(r1_cutoff)
+    r2_cutoff = standardize_cutoff_dict(r2_cutoff)
+    r3_cutoff = standardize_cutoff_dict(r3_cutoff)
+        
+    # Pre-clean cutoff data for college matching
     cutoff_cleaned = {}
     for code, info in r1_cutoff.items():
         cutoff_cleaned[code] = {
             'name': info['college_name'],
             'clean': clean_name(info['college_name']),
             'core': get_core_keywords(info['college_name']),
-            'courses': set(c.lower().strip() for c in info['courses'].keys())
+            'courses': set(info['courses'].keys())
         }
         
     mapped_count = 0
     skipped_count = 0
-    mismatches = []
     
     for sm_col in sm_data["colleges"]:
         name = sm_col["college_name"]
@@ -219,7 +241,7 @@ def run_mapping():
         else:
             sm_clean = clean_name(name)
             sm_core = get_core_keywords(name)
-            sm_courses = set(c["course_name"].lower().strip() for c in sm_col["courses"])
+            sm_courses = set(c["course_name"] for c in sm_col["courses"])
             
             scored = []
             for code, info in cutoff_cleaned.items():
@@ -253,29 +275,10 @@ def run_mapping():
         for sm_course in sm_col["courses"]:
             c_name = sm_course["course_name"]
             
-            # Helper to find course key in cutoff list
             def get_cutoff_data(cutoff_dict, code, course_name):
                 if code not in cutoff_dict:
                     return {}
-                info = cutoff_dict[code]
-                
-                def super_clean_local(name):
-                    n = name.lower()
-                    n = re.sub(r'^(b\.?\s*tech\s*(in)?|btech\s*(in)?)\s+', '', n)
-                    n = n.replace('&', 'and')
-                    n = n.replace('engg', 'engineering')
-                    n = n.replace('technology', 'tech')
-                    n = re.sub(r'[^a-z0-9]', '', n)
-                    n = n.replace('artifical', 'artificial')
-                    n = n.replace('cpgs', '')
-                    return n
-                
-                c_clean = super_clean_local(course_name)
-                # Exact or clean name match
-                for cut_c_name, cut_data in info["courses"].items():
-                    if super_clean_local(cut_c_name) == c_clean:
-                        return cut_data
-                return {}
+                return cutoff_dict[code]["courses"].get(course_name, {})
                 
             sm_course["round1_cutoff"] = get_cutoff_data(r1_cutoff, best_match, c_name)
             sm_course["round2_cutoff"] = get_cutoff_data(r2_cutoff, best_match, c_name)

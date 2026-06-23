@@ -85,7 +85,7 @@ function populateFilters() {
   courseSel.innerHTML = '<option value="">All Courses</option>';
   sortedCourses.forEach(c => {
     const opt = document.createElement('option');
-    opt.value = c; opt.textContent = titleCase(c);
+    opt.value = c; opt.textContent = c;
     courseSel.appendChild(opt);
   });
 
@@ -94,7 +94,7 @@ function populateFilters() {
     predCourseSel.innerHTML = '<option value="">All Courses</option>';
     sortedCourses.forEach(c => {
       const opt = document.createElement('option');
-      opt.value = c; opt.textContent = titleCase(c);
+      opt.value = c; opt.textContent = c;
       predCourseSel.appendChild(opt);
     });
   }
@@ -303,7 +303,7 @@ function renderCourseTable() {
     const pctClass = pct >= 60 ? 'pct-high' : pct >= 40 ? 'pct-mid' : 'pct-low';
     const barWidth = Math.round((row.total / maxTotal) * 100);
     return `<tr>
-      <td>${titleCase(row.name)}</td>
+      <td>${row.name}</td>
       <td>${row.colleges}</td>
       <td>${row.total.toLocaleString()}</td>
       <td>${row.kea.toLocaleString()}</td>
@@ -422,7 +422,7 @@ function renderCourseBarChart() {
     const w = Math.round((d.total / maxVal) * 100);
     const color = CHART_COLORS[i % CHART_COLORS.length];
     return `<div class="bar-item horizontal">
-      <div class="bar-label" title="${titleCase(name)}">${titleCase(name)}</div>
+      <div class="bar-label" title="${name}">${name}</div>
       <div class="bar-bg">
         <div class="bar-fill" style="width:${w}%; background:${color}; display:flex; align-items:center;">
         </div>
@@ -481,7 +481,7 @@ function openModal(college) {
     const initialCutoffR3 = r3_cutoff_val ? parseInt(r3_cutoff_val).toLocaleString() : '—';
 
     return `<tr>
-      <td>${titleCase(c.course_name)}</td>
+      <td>${c.course_name}</td>
       <td class="td-total">${c.total_intake || 0}</td>
       <td class="td-kea">${c.total_kea_seats || 0}</td>
       ${comEdkCol || '<td>—</td>'}
@@ -1107,11 +1107,40 @@ function escHtml(str) {
 
 function titleCase(str) {
   if (!str) return '';
-  const exceptions = new Set(['AND', 'OF', 'IN', 'THE', 'FOR', 'WITH', 'A', 'AN', 'TO', 'AT', 'BY', 'OR', '&']);
-  return str.toLowerCase().split(' ').map((w, i) => {
-    const upper = w.toUpperCase();
-    if (i === 0 || !exceptions.has(upper)) return w.charAt(0).toUpperCase() + w.slice(1);
-    return w;
+  const exceptions = new Set(['and', 'of', 'in', 'the', 'for', 'with', 'a', 'an', 'to', 'at', 'by', 'or', '&']);
+  const specialWords = {
+    'vlsi': 'VLSI',
+    'iot': 'IoT',
+    'devops': 'DevOps',
+    'ai': 'AI',
+    'ml': 'ML',
+    'ds': 'DS',
+    'ar/vr': 'AR/VR',
+    'pwd': 'PWD'
+  };
+  
+  return str.split(' ').map((w, i) => {
+    const cleanWord = w.replace(/[^a-zA-Z]/g, '').toLowerCase();
+    
+    // Check if it's a special acronym
+    if (specialWords[cleanWord]) {
+      return w.replace(/[a-zA-Z]+/g, specialWords[cleanWord]);
+    }
+    
+    // Find the first alphabetical character
+    let firstLetterIdx = -1;
+    for (let j = 0; j < w.length; j++) {
+      if (/[a-zA-Z]/.test(w[j])) {
+        firstLetterIdx = j;
+        break;
+      }
+    }
+    if (firstLetterIdx === -1) return w;
+    
+    if (i === 0 || !exceptions.has(cleanWord)) {
+      return w.slice(0, firstLetterIdx) + w.charAt(firstLetterIdx).toUpperCase() + w.slice(firstLetterIdx + 1).toLowerCase();
+    }
+    return w.toLowerCase();
   }).join(' ');
 }
 
@@ -1519,7 +1548,7 @@ function renderPredictionResults(results, selectedRound) {
     return `<tr class="pred-row" data-college-number="${col.college_number}" style="cursor:pointer; transition:background 0.2s;">
       <td><span class="card-type-pill pill-${col.annexure}" style="font-size:11px; padding: 2px 6px;">${col.kea_code || col.college_number}</span></td>
       <td><strong>${escHtml(col.college_name)}</strong><br><small style="color:var(--text-muted)">📍 ${escHtml(col.district)}</small></td>
-      <td>${titleCase(res.courseName)}</td>
+      <td>${res.courseName}</td>
       <td style="font-family:var(--font-display); font-weight:700; text-align:right;">${res.cutoff.toLocaleString()}</td>
       <td class="${diffClass}" style="font-family:var(--font-display); font-weight:700; text-align:right;">${diffText}</td>
       <td style="text-align:center;"><span class="badge-chance ${res.chanceClass}">${res.chance}</span></td>

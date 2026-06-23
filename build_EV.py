@@ -2,8 +2,8 @@
 Extract all colleges and courses from Annexures E and V.
 Maps districts using known mappings or geographical keywords, ensuring NO 'Other' or 'Mangalore' districts.
 Verifies against calculated grand totals:
-  E: 114,196 intake | 53,052 KEA | 3,900 PH | 1,080 SPL | 7,172 HK | 45,880 RK
-  V:  32,704 intake | 13,919 KEA | 1,001 PH |   273 SPL | 1,740 HK | 12,179 RK
+  E: 115,276 intake | 53,052 KEA | 3,900 PH | 1,080 SPL | 7,172 HK | 45,880 RK
+  V:  36,160 intake | 13,919 KEA | 1,001 PH |   273 SPL | 1,740 HK | 12,179 RK
 """
 import pdfplumber, re, json, sys
 sys.stdout.reconfigure(encoding="utf-8")
@@ -87,9 +87,13 @@ def parse_annexure_data(pdf_path, pages, ann):
         for pg in pages:
             text = pdf.pages[pg-1].extract_text() or ""
             lines = text.splitlines()
-            for idx, line in enumerate(lines):
+            lines = text.splitlines()
+            i = 0
+            while i < len(lines):
+                line = lines[i]
                 stripped = line.strip()
                 if not stripped:
+                    i += 1
                     continue
                 
                 # College header
@@ -105,6 +109,7 @@ def parse_annexure_data(pdf_path, pages, ann):
                     current_college = m_hdr.group(2).strip()
                     current_courses = []
                     current_course = None
+                    i += 1
                     continue
                 
                 # TOT row: marks page total
@@ -112,10 +117,12 @@ def parse_annexure_data(pdf_path, pages, ann):
                     if current_course:
                         current_courses.append(current_course)
                         current_course = None
+                    i += 1
                     continue
                 
                 # Header rows to ignore
                 if stripped.startswith("Intake") or stripped.startswith("Cat Tot") or "government notification" in stripped.lower():
+                    i += 1
                     continue
                 
                 # RK row
@@ -126,24 +133,76 @@ def parse_annexure_data(pdf_path, pages, ann):
                         
                     course_name = m_rk.group(1).strip()
                     intake_str = m_rk.group(2)
-                    # Peek next line for short code
-                    if idx + 1 < len(lines):
-                        next_line = lines[idx + 1].strip()
-                        m_wrap = re.match(r'^([A-Z]{2,6})\s+(\d)$', next_line)
-                        if m_wrap:
-                            course_name = f"{course_name} ({m_wrap.group(1)})"
-                            intake_str = intake_str + m_wrap.group(2)
-                        elif re.match(r'^[A-Z]{2,6}$', next_line):
-                            course_name = f"{course_name} ({next_line})"
-                            
-                    intake = int(intake_str)
                     kea_rk = int(m_rk.group(3))
                     ph_rk = int(m_rk.group(4))
                     spl_rk = int(m_rk.group(5))
                     
+                    # Consume subsequent lines that are part of the wrapped course name
+                    wrapped_parts = []
+                    i += 1
+                    while i < len(lines):
+                        next_line = lines[i].strip()
+                        if not next_line:
+                            i += 1
+                            continue
+                        
+                        # 1. Check if next line is a single digit (wrapped last digit of intake)
+                        m_single_digit = re.match(r'^(\d)$', next_line)
+                        if m_single_digit:
+                            intake_str += m_single_digit.group(1)
+                            i += 1
+                            break
+                            
+                        # 2. Check if next line is a short code followed by a single digit
+                        m_code_digit = re.match(r'^([A-Z]{2,6})\s+(\d)$', next_line)
+                        if m_code_digit:
+                            wrapped_parts.append(m_code_digit.group(1))
+                            intake_str += m_code_digit.group(2)
+                            i += 1
+                            break
+                        
+                        # Stop conditions:
+                        if next_line.startswith("RK ") or next_line.startswith("HK ") or \
+                           next_line.startswith("TOT ") or next_line.startswith("TOT\t") or \
+                           "government notification" in next_line.lower() or \
+                           re.match(r'^(\d{1,3})\s+([A-Z][A-Za-z\s\(\)&\.\,\'\-\/`]+)$', next_line):
+                            break
+                            
+                        if next_line.upper().startswith("KM QUOTA"):
+                            break
+                            
+                        # If it is a pure numbers line (KM QUOTA seats)
+                        if re.match(r'^\d+(\s+\d+){7,11}$', next_line):
+                            break
+                            
+                        # It is a wrapped course name part!
+                        m_trail = re.search(r'\s+(\d+(\s+\d+){7,11})$', next_line)
+                        if m_trail:
+                            part_text = next_line[:m_trail.start()].strip()
+                            if part_text:
+                                wrapped_parts.append(part_text)
+                            i += 1
+                            break
+                        else:
+                            wrapped_parts.append(next_line)
+                            i += 1
+                            
+                    if wrapped_parts:
+                        joined_wrap = ""
+                        for part in wrapped_parts:
+                            if joined_wrap == "":
+                                joined_wrap = part
+                            elif joined_wrap.endswith("-"):
+                                joined_wrap = joined_wrap + part
+                            else:
+                                joined_wrap = joined_wrap + " " + part
+                        
+                        course_name = f"{course_name} {joined_wrap}"
+                        course_name = re.sub(r'\s+', ' ', course_name).strip()
+                        
                     current_course = {
                         "name": course_name,
-                        "intake": intake,
+                        "intake": int(intake_str),
                         "kea_rk": kea_rk,
                         "kea_hk": 0,
                         "ph_rk": ph_rk,
@@ -164,11 +223,10 @@ def parse_annexure_data(pdf_path, pages, ann):
                         current_course["kea_hk"] = kea_hk
                         current_course["ph_hk"] = ph_hk
                         current_course["spl_hk"] = spl_hk
+                    i += 1
                     continue
                 
-                # KM QUOTA row: ignore for KEA seats totals
-                if "KM QUOTA" in stripped:
-                    continue
+                i += 1
                     
         # Append final college
         if current_college_num is not None:
@@ -328,5 +386,5 @@ def verify(ann, target_totals):
     for k, val in target_totals.items():
         print(f"  {k:<8} Target: {val:>8,} | Parsed: {s[k]:>8,} | Diff: {s[k]-val:>+3}")
 
-verify("E", {"intake":114196, "kea":53052, "ph":3900, "spl":1080, "hk":7172, "rk":45880})
-verify("V", {"intake":33838, "kea":13919, "ph":1001, "spl":273, "hk":1740, "rk":12179})
+verify("E", {"intake":115276, "kea":53052, "ph":3900, "spl":1080, "hk":7172, "rk":45880})
+verify("V", {"intake":36160, "kea":13919, "ph":1001, "spl":273, "hk":1740, "rk":12179})

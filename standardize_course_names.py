@@ -1,97 +1,82 @@
 import json
 import re
-import difflib
-from collections import Counter
 
-# Dictionary of short codes to keyword matches
-SHORT_CODE_MAP = {
-    "AD": ["artificial intelligence", "data science"],
-    "AE": ["aero"],
-    "AG": ["agri"],
-    "AI": ["artificial intelligence and machine learning", "artificial intelligence & machine learning"],
-    "AM": ["artificial intelligence and machine learning", "artificial intelligence & machine learning"],
-    "AS": ["aero"],
-    "AT": ["auto", "automobile"],
-    "ATMO": ["automobile", "automotive"],
-    "BD": ["big data"],
-    "BM": ["medical", "bio"],
-    "BR": ["biomedical", "robotic"],
-    "BT": ["bio", "biotech"],
-    "CADS": ["artificial intelligence and data science", "artificial intelligence & data science"],
-    "CAI": ["computer science", "artificial intelligence"],
-    "CAM": ["artificial intelligence and machine learning", "artificial intelligence & machine learning", "computer science and engineering"],
-    "CB": ["business", "system"],
-    "CC": ["internet of things", "cyber security", "block chain"],
-    "CCS": ["cyber"],
-    "CE": ["civil"],
-    "CEK": ["civil", "kannada"],
-    "CEV": ["environmental"],
-    "CG": ["computer science and technology", "computer science & technology"],
-    "CH": ["chemical"],
-    "CI": ["computer science and design", "computer science & design", "design"],
-    "CMP": ["medical"],
-    "CO": ["computer science", "iot", "internet of things"],
-    "CR": ["ceramics", "cement"],
-    "CS": ["computer science and engineering", "computer science & engineering"],
-    "CSA": ["computer science", "artificial intelligence"],
-    "CSC": ["computer science"],
-    "CSD": ["design", "computer science"],
-    "CSS": ["computer science and engineering(data science)", "computer science and engineering(dat a science)"],
-    "CST": ["computer science", "technology"],
-    "CTM": ["construction", "technology", "management"],
-    "CY": ["cyber"],
-    "DESIGN": ["design"],
-    "DG": ["design"],
-    "DO": ["devops"],
-    "DS": ["data science"],
-    "DT": ["data"],
-    "EAT": ["advanced", "communication"],
-    "EC": ["communication", "telecommunication"],
-    "ECS": ["electronics", "computer science"],
-    "EE": ["electrical"],
-    "EIE": ["instrumentation"],
-    "EII": ["industrial", "integrated"],
-    "EIT": ["instrumentation"],
-    "ELCE": ["electrical", "computer"],
-    "EN": ["environmental"],
-    "ENV": ["environmental"],
-    "EO": ["electronics and computer", "electronics & computer"],
-    "ET": ["telecommunication"],
-    "EV": ["vlsi"],
-    "IAL": ["ial"],
-    "IB": ["iot", "blockchain"],
-    "IEM": ["management"],
-    "IIT": ["industrial", "iot"],
-    "IN": ["information science"],
-    "IO": ["internet of things", "iot"],
-    "IOT": ["iot", "internet of things"],
-    "IP": ["production"],
-    "IS": ["information science engineering", "information science and engineering"],
-    "IT": ["information technology"],
-    "IY": ["blockchain"],
-    "LC": ["information science and technology", "information science & technology", "technology"],
-    "MC": ["computing", "math", "mechatronics"],
-    "ME": ["mechanical"],
-    "MEE": ["medical", "electronics"],
-    "MEK": ["mechanical", "kannada"],
-    "MM": ["manufacturing", "mechanical", "smart"],
-    "MN": ["mining"],
-    "MR": ["marine"],
-    "MS": ["mechatronics"],
-    "MX": ["mechatronics"],
-    "PE": ["petroleum"],
-    "PT": ["polymer"],
-    "RA": ["robotics", "automation"],
-    "RAI": ["robotics", "artificial intelligence"],
-    "RE": ["robotic"],
-    "RO": ["robotics"],
-    "ST": ["silk"],
-    "TX": ["textile", "textiles"],
-    "UP": ["planning"],
-    "VLSI": ["vlsi"]
+# Dictionary of raw course name -> canonical course name
+# This contains the direct overrides for specific dirty course names in the seat matrix
+MANUAL_OVERRIDE_MAP = {
+    "Aero Space Engineering": "Aerospace Engineering",
+    "Agriculture Engineering": "Agricultural Engineering",
+    "Automotive Engineering": "Automobile Engineering",
+    "Bio- Technology": "Bio-Technology",
+    "Bio-technology": "Bio-Technology",
+    "Biotechnology & Bio- Engineering": "Bio-Technology",
+    "Biotechnology & Bio-engineering": "Bio-Technology",
+    "Biotechnology & Bio-Engineering": "Bio-Technology",
+    "Bio-medical Engineering": "Bio-Medical Engineering",
+    "Biomedical Engineering": "Bio-Medical Engineering",
+    "Analytics": "Information Technology (Data Analytics)",
+    "B.plan": "Urban and Regional Planning",
+    "Planning": "Urban and Regional Planning",
+    "B.tech Cs-softwa Re Dev": "Computer Engineering (Software Product Development)",
+    "B Tech (Hons) Computer Science and Engineering(Data Science)": "Computer Science and Engineering (Data Science)",
+    "Ce Ca": "Civil Engineering with Computer Application",
+    "Ce Se": "Civil Engineering",
+    "Cmp in Med Engineering": "Computer Science and Medical Engineering",
+    "Cs (Ai & Ds)": "Computer Science and Engineering (Artificial Intelligence and Data Science)",
+    "Cs (Ai &": "Computer Science and Engineering (Artificial Intelligence and Data Science)",
+    "Cs (AI and": "Computer Science and Engineering (Artificial Intelligence and Data Science)",
+    "Cs Ai": "Computer Science and Engineering (Artificial Intelligence)",
+    "Cs Aiml": "Computer Science and Engineering (Artificial Intelligence and Machine Learning)",
+    "Cs Cc": "Computer Science and Engineering (Cloud Computing)",
+    "Cs Cy": "Computer Science and Engineering (Cyber Security)",
+    "Cs Ds": "Computer Science and Engineering (Data Science)",
+    "Cs Iot": "Computer Science and Engineering (Internet of Things)",
+    "Cs Ro": "Computer Science and Engineering (Robotics)",
+    "Cs Sec": "Computer Science and Engineering (Cyber Security)",
+    "Cs Tech (Pwd Only)": "Computer Science & Technology",
+    "Cse Cb": "Computer Science and Business Systems",
+    "Da": "Computer Science and Engineering (Data Analytics)",
+    "Ec Vlsi": "Electronics and Communication Engineering (VLSI Design and Technology)",
+    "Ee Cs": "Electrical Engineering and Computer Science",
+    "Ele Veh": "Electrical Engineering (Electric Vehicle Technology)",
+    "Es and Vlsi": "Embedded Systems and VLSI",
+    "Me As": "Mechanical and Aerospace Engineering",
+    "Vlsi": "VLSI Design and Technology",
+    "Vr": "Information Technology (Augmented Reality and Virtual Reality)",
+    "B.tech In Es And Vlsi": "Embedded Systems and VLSI",
+    "Es And Vlsi": "Embedded Systems and VLSI",
+    
+    # New overrides
+    "AI and Future Tech": "Computer Science and Engineering (Artificial Intelligence and Future Technologies)",
+    "AI and ML": "Artificial Intelligence and Machine Learning",
+    "Computer Science and Engineering (AI and Machine Learning)": "Computer Science and Engineering (Artificial Intelligence and Machine Learning)",
+    "Computer Science and Engineering (AI/ML)": "Computer Science and Engineering (Artificial Intelligence and Machine Learning)",
+    "Computer Science and Engineering (Aiml)": "Computer Science and Engineering (Artificial Intelligence and Machine Learning)",
+    "Computer Science and Engineering (Cybsec)": "Computer Science and Engineering (Cyber Security)",
+    "Data Sciences": "Computer Science and Engineering (Data Science)",
+    "Electronics": "Electronics Engineering",
+    "Life Style and Access": "Lifestyle and Accessory Design",
+    "Life Style and Accessory Design": "Lifestyle and Accessory Design",
+    "Industr Ial Design": "Industrial Design",
+    "Commu Nicatio N Design": "Communication Design",
+    "Medical Electronics": "Medical Electronics Engineering",
+    "Productio N Engineering": "Production Engineering",
+    "Pharma": "Pharmaceutical Engineering",
+    
+    # Baseline truncated names
+    "Mechanical and Smart": "Mechanical and Smart Manufacturing",
+    "Artificial Intelligence and Data": "Artificial Intelligence and Data Science",
+    "Robotics and Artificial": "Robotics and Artificial Intelligence",
+    "Electronics and Computer": "Electronics and Computer Engineering",
+    "Computer Science and": "Computer Science and Engineering",
+    "Electronics and": "Telecommunication Engineering",
+    "Industrial Engineering and": "Industrial Engineering and Management",
+    "Industrial Engineering &": "Industrial Engineering and Management",
+    "Computer and Communication": "Computer and Communication Engineering"
 }
 
-SHORT_CODE_TO_FULL_NAME = {
+# Short code mapping to full name (used for unmapped/generic codes in parentheses)
+SHORT_CODE_MAP = {
     "AD": "Artificial Intelligence and Data Science",
     "AE": "Aeronautical Engineering",
     "AG": "Agricultural Engineering",
@@ -178,20 +163,65 @@ SHORT_CODE_TO_FULL_NAME = {
     "VLSI": "VLSI Design and Technology"
 }
 
-def expand_short_code(name):
-    name_clean = name.strip()
-    short_code = None
-    m_paren = re.search(r'\(([A-Za-z0-9]{2,6})\)', name_clean)
-    if m_paren:
-        short_code = m_paren.group(1).upper()
-    else:
-        m_direct = re.match(r'^([A-Za-z0-9]{2,6})(\s+in)?$', name_clean)
-        if m_direct:
-            short_code = m_direct.group(1).upper()
-            
-    if short_code and short_code in SHORT_CODE_TO_FULL_NAME:
-        return SHORT_CODE_TO_FULL_NAME[short_code]
-    return to_title_case(name)
+def clean_typos(name):
+    # Replace & with and
+    name = name.replace('&', ' and ')
+    
+    # Common spacing issues / text wrapping errors in PDF extraction
+    name = re.sub(r'\bDAT\s+A\s+SCIENCE\b', 'DATA SCIENCE', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bD\s+ATA\s+SCIENCE\b', 'DATA SCIENCE', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bCYB\s+ER\s+SECURITY\b', 'CYBER SECURITY', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bC\s+YBER\s+SECURITY\b', 'CYBER SECURITY', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bBLO\s+CK\s+CHAIN\b', 'BLOCK CHAIN', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bARTI\s+FICIAL\b', 'ARTIFICIAL', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bARTI\s+FICAL\b', 'ARTIFICIAL', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bA\s+RTIFICIAL\b', 'ARTIFICIAL', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bARTIFICAL\b', 'ARTIFICIAL', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bARTIFICIA\s+L\b', 'ARTIFICIAL', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bUNIVERISTY\b', 'UNIVERSITY', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bCOMMUNICATION\s+ENGG\b', 'COMMUNICATION ENGINEERING', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bCOMMUNICATIO\s+N\s+ENGG\b', 'COMMUNICATION ENGINEERING', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bCOMMUNICATIO\s+N\b', 'COMMUNICATION', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bENGG\b', 'ENGINEERING', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bSOFTWA\s+RE\b', 'SOFTWARE', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bSOFT\s+WARE\b', 'SOFTWARE', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bSOF\s+TWARE\b', 'SOFTWARE', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bINTERNE\s+T\b', 'INTERNET', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bELECTR\s+ONICS\b', 'ELECTRONICS', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bTELECOMMUNICAT\s+ION\b', 'TELECOMMUNICATION', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bTELECOMMUNIC\s+ATION\b', 'TELECOMMUNICATION', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bANLYTS\b', 'ANALYTICS', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bIND\s+USTRIAL\b', 'INDUSTRIAL', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bV\s+LSI\b', 'VLSI', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bINTEGTATED\b', 'INTEGRATED', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bMATHAMATICS\b', 'MATHEMATICS', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bVIRUTAL\b', 'VIRTUAL', name, flags=re.IGNORECASE)
+    
+    # New split word corrections
+    name = re.sub(r'\bBIOTECHNOLOG\s+Y\b', 'BIOTECHNOLOGY', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bCLOU\s+D\b', 'CLOUD', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bMANUFACTURIN\s+G\b', 'MANUFACTURING', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bPHARMACEUTIC\s+AL\b', 'PHARMACEUTICAL', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bENVIRONMENTA\s+L\b', 'ENVIRONMENTAL', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bINSTRUMENTATI\s+ON\b', 'INSTRUMENTATION', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bBIO-\s+ENGINEERING\b', 'BIO-ENGINEERING', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bI\s+OT\b', 'IoT', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bS\s+OFTWARE\b', 'SOFTWARE', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bDEV\s+OPS\b', 'DEVOPS', name, flags=re.IGNORECASE)
+    
+    # Abbreviation expansion to unify names and prevent repeats
+    name = re.sub(r'\bAI\b', 'Artificial Intelligence', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bML\b', 'Machine Learning', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bDS\b', 'Data Science', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bDs\b', 'Data Science', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bIOT\b', 'Internet of Things', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bIoT\b', 'Internet of Things', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bVLSI\b', 'VLSI', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bVlsi\b', 'VLSI', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bAR\b', 'Augmented Reality', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bVR\b', 'Virtual Reality', name, flags=re.IGNORECASE)
+    name = re.sub(r'\bMGMT\b', 'Management', name, flags=re.IGNORECASE)
+    return name
 
 def super_clean(name):
     n = name.lower()
@@ -204,30 +234,38 @@ def super_clean(name):
     n = n.replace('cpgs', '')
     return n
 
-def clean_typos(name):
-    # Remove weird spaces inside common words
-    name = re.sub(r'\bDAT\s+A\s+SCIENCE\b', 'DATA SCIENCE', name, flags=re.IGNORECASE)
-    name = re.sub(r'\bD\s+ATA\s+SCIENCE\b', 'DATA SCIENCE', name, flags=re.IGNORECASE)
-    name = re.sub(r'\bCYB\s+ER\s+SECURITY\b', 'CYBER SECURITY', name, flags=re.IGNORECASE)
-    name = re.sub(r'\bC\s+YBER\s+SECURITY\b', 'CYBER SECURITY', name, flags=re.IGNORECASE)
-    name = re.sub(r'\bBLO\s+CK\s+CHAIN\b', 'BLOCK CHAIN', name, flags=re.IGNORECASE)
-    name = re.sub(r'\bARTI\s+FICIAL\b', 'ARTIFICIAL', name, flags=re.IGNORECASE)
-    name = re.sub(r'\bARTI\s+FICAL\b', 'ARTIFICIAL', name, flags=re.IGNORECASE)
-    name = re.sub(r'\bA\s+RTIFICIAL\b', 'ARTIFICIAL', name, flags=re.IGNORECASE)
-    name = re.sub(r'\bARTIFICAL\b', 'ARTIFICIAL', name, flags=re.IGNORECASE)
-    name = re.sub(r'\bUNIVERISTY\b', 'UNIVERSITY', name, flags=re.IGNORECASE)
-    name = re.sub(r'\bCOMMUNICATION\s+ENGG\b', 'COMMUNICATION ENGINEERING', name, flags=re.IGNORECASE)
-    name = re.sub(r'\bCOMMUNICATIO\s+N\s+ENGG\b', 'COMMUNICATION ENGINEERING', name, flags=re.IGNORECASE)
-    name = re.sub(r'\bCOMMUNICATIO\s+N\b', 'COMMUNICATION', name, flags=re.IGNORECASE)
-    name = re.sub(r'\bENGG\b', 'ENGINEERING', name, flags=re.IGNORECASE)
-    return name
-
-def to_title_case(name):
-    # Strip B Tech In prefix
-    n = re.sub(r'^(B\s*TECH\s*IN|B\.?\s*TECH\s*IN|BTECH\s*IN)\s+', '', name, flags=re.IGNORECASE)
+def standardize_single_name(name):
+    # 1. Check direct override mapping case-insensitively and using super_clean
+    name_stripped = name.strip()
+    name_lower = name_stripped.lower()
+    for raw_k, clean_v in MANUAL_OVERRIDE_MAP.items():
+        if name_lower == raw_k.lower().strip() or super_clean(name_stripped) == super_clean(raw_k):
+            return clean_v
+            
+    # 2. Strip B Tech / Hons / in prefixes first!
+    n = re.sub(r'^(B\s*TECH\s*\(?HONS\)?|B\.?\s*TECH\s*\(?HONS\)?|B\s*TECH\s*IN|B\.?\s*TECH\s*IN|BTECH\s*IN|B\s*TECH|B\.?\s*TECH|BTECH)\s+(?=\w)', '', name_stripped, flags=re.IGNORECASE).strip()
     n = clean_typos(n)
     
-    # Capitalize words correctly, keeping parentheses contents in Title Case too
+    # 3. Check if the remaining string is a short code (either in parens or alone)
+    short_code = None
+    m_paren = re.search(r'\(([A-Za-z0-9]{2,6})\)', n)
+    if m_paren:
+        short_code = m_paren.group(1).upper()
+    else:
+        m_direct = re.match(r'^([A-Za-z0-9]{2,6})(\s+in)?$', n, re.IGNORECASE)
+        if m_direct:
+            short_code = m_direct.group(1).upper()
+            
+    if short_code and short_code in SHORT_CODE_MAP:
+        return SHORT_CODE_MAP[short_code]
+        
+    # 4. Standardize spacing around parentheses
+    n = re.sub(r'\s*\(\s*', ' (', n)
+    n = re.sub(r'\s*\)\s*', ')', n)
+    n = re.sub(r'(\w)\(', r'\1 (', n)
+    n = re.sub(r'\s+', ' ', n).strip()
+    
+    # 5. Correct words to Title Case with standard acronyms
     words = []
     for word in re.split(r'(\s+|[()&/])', n):
         if not word.strip():
@@ -236,219 +274,215 @@ def to_title_case(name):
         if word in ['(', ')', '&', '/']:
             words.append(word)
             continue
-        # Convert words like "and", "of", "in" to lowercase unless they start the name or follow a parenthesis
+        
         w_lower = word.lower()
         if w_lower in ['and', 'of', 'in', 'including', 'with', 'for'] and len(words) > 0 and not words[-1].endswith('('):
             words.append(w_lower)
         else:
-            # Title case
-            words.append(word.capitalize())
-            
+            if w_lower in ['vlsi']:
+                words.append('VLSI')
+            elif w_lower in ['iot']:
+                words.append('IoT')
+            elif w_lower in ['ai']:
+                words.append('AI')
+            elif w_lower in ['ml']:
+                words.append('ML')
+            elif w_lower in ['ar/vr']:
+                words.append('AR/VR')
+            elif w_lower in ['ar']:
+                words.append('AR')
+            elif w_lower in ['vr']:
+                words.append('VR')
+            elif w_lower in ['btech']:
+                words.append('BTech')
+            elif w_lower in ['devops']:
+                words.append('DevOps')
+            elif w_lower in ['pwd']:
+                words.append('PWD')
+            else:
+                words.append(word.capitalize())
+                
     res = "".join(words).strip()
+    res = re.sub(r'\s+', ' ', res)
+    res = res.replace("Engineering Engineering", "Engineering")
+    
+    # 6. Direct normalization rules using normalized string matching
+    norm_lower = res.lower().strip()
+    
+    # Check overrides again on the normalized title-cased name
+    for raw_k, clean_v in MANUAL_OVERRIDE_MAP.items():
+        if norm_lower == raw_k.lower().strip() or super_clean(res) == super_clean(raw_k):
+            return clean_v
+            
+    if norm_lower == "computer science":
+        return "Computer Science"
+    elif norm_lower == "planning" or norm_lower == "b.plan" or norm_lower == "b.plan.":
+        return "Urban and Regional Planning"
+    elif norm_lower == "automobile" or norm_lower == "automobile engineering" or norm_lower == "automotive" or norm_lower == "automotive engineering":
+        return "Automobile Engineering"
+        
+    # Check more specific patterns first
+    if "computer science" in norm_lower:
+        if "artificial intelligence" in norm_lower and "future technologies" in norm_lower:
+            return "Computer Science and Engineering (Artificial Intelligence and Future Technologies)"
+        elif "artificial intelligence" in norm_lower and "machine learning" in norm_lower:
+            return "Computer Science and Engineering (Artificial Intelligence and Machine Learning)"
+        elif "artificial intelligence" in norm_lower and "data science" in norm_lower:
+            return "Computer Science and Engineering (Artificial Intelligence and Data Science)"
+        elif "internet of things" in norm_lower and "cyber security" in norm_lower:
+            return "Computer Science and Engineering (Internet of Things & Cyber Security including Block Chain Technology)"
+        elif "iot" in norm_lower and "cyber security" in norm_lower:
+            return "Computer Science and Engineering (Internet of Things & Cyber Security including Block Chain Technology)"
+        elif "cyber security" in norm_lower:
+            return "Computer Science and Engineering (Cyber Security)"
+        elif "data science" in norm_lower:
+            return "Computer Science and Engineering (Data Science)"
+        elif "artificial intelligence" in norm_lower:
+            return "Computer Science and Engineering (Artificial Intelligence)"
+        elif "business" in norm_lower:
+            return "Computer Science and Business Systems"
+        elif "design" in norm_lower:
+            return "Computer Science and Design"
+        elif "internet of things" in norm_lower or "iot" in norm_lower:
+            return "Computer Science and Engineering (Internet of Things)"
+        elif "cloud" in norm_lower:
+            return "Computer Science and Engineering (Cloud Computing)"
+        elif "blockchain" in norm_lower or "block chain" in norm_lower:
+            return "Computer Science and Engineering (Blockchain)"
+        elif "medical" in norm_lower:
+            return "Computer Science and Medical Engineering"
+        elif "information technology" in norm_lower:
+            return "Computer Science and Information Technology"
+        elif "technology" in norm_lower:
+            return "Computer Science and Technology"
+            
+    # Non-computer science specific check
+    if "artificial intelligence" in norm_lower and "machine learning" in norm_lower:
+        return "Artificial Intelligence and Machine Learning"
+    elif "artificial intelligence" in norm_lower and "data science" in norm_lower:
+        return "Artificial Intelligence and Data Science"
+        
+    if "telecommunication" in norm_lower:
+        return "Telecommunication Engineering"
+        
+    if "information science" in norm_lower:
+        if "technology" in norm_lower:
+            return "Information Science and Technology"
+        return "Information Science and Engineering"
+        
+    if "electronics" in norm_lower and "communication" in norm_lower:
+        if "vlsi" in norm_lower:
+            return "Electronics and Communication Engineering (VLSI Design and Technology)"
+        elif "advanced" in norm_lower:
+            return "Electronics and Communication (Advanced Communication Technology)"
+        elif "industrial" in norm_lower:
+            return "Electronics and Communication Engineering (Industrial Integrated)"
+        return "Electronics and Communication Engineering"
+        
+    if "electronics" in norm_lower and "instrumentation" in norm_lower:
+        return "Electronics and Instrumentation Engineering"
+    elif "electrical" in norm_lower and "electronics" in norm_lower:
+        return "Electrical and Electronics Engineering"
+    elif "mechanical" in norm_lower and "aerospace" in norm_lower:
+        return "Mechanical and Aerospace Engineering"
+    elif "robotics" in norm_lower and "automation" in norm_lower:
+        return "Robotics and Automation"
+    elif "robotics" in norm_lower and "artificial intelligence" in norm_lower:
+        return "Robotics and Artificial Intelligence"
+    elif "biomedical" in norm_lower and "robotic" in norm_lower:
+        return "Biomedical and Robotic Engineering"
+    elif "bio" in norm_lower and "technology" in norm_lower:
+        return "Bio-Technology"
+    elif "bio" in norm_lower and "medical" in norm_lower:
+        return "Bio-Medical Engineering"
+    elif "civil" in norm_lower and "kannada" in norm_lower:
+        return "Civil Engineering (Kannada Medium)"
+    elif "mechanical" in norm_lower and "kannada" in norm_lower:
+        return "Mechanical Engineering (Kannada Medium)"
+    elif "civil" in norm_lower and "computer application" in norm_lower:
+        return "Civil Engineering with Computer Application"
+    elif "civil" in norm_lower and "environmental" in norm_lower:
+        return "Civil Environmental Engineering"
+    elif "environmental" in norm_lower:
+        return "Environmental Engineering"
+    elif "mechatronics" in norm_lower:
+        return "Mechatronics Engineering"
+    elif "mathematics" in norm_lower and "computing" in norm_lower:
+        return "Mathematics and Computing"
+    elif "mathamatics" in norm_lower and "computing" in norm_lower:
+        return "Mathematics and Computing"
+    elif "industrial" in norm_lower and "production" in norm_lower:
+        return "Industrial and Production Engineering"
+    elif "industrial" in norm_lower and "management" in norm_lower:
+        return "Industrial Engineering and Management"
+    elif "textile" in norm_lower:
+        return "Textiles Technology"
+    elif "vlsi" in norm_lower:
+        return "VLSI Design and Technology"
+    elif "ar/vr" in norm_lower:
+        return "Information Technology (Augmented Reality and Virtual Reality)"
+    elif "augmented reality" in norm_lower:
+        return "Information Technology (Augmented Reality and Virtual Reality)"
+    elif "data analytics" in norm_lower:
+        return "Information Technology (Data Analytics)"
+        
     return res
 
 def run_standardization():
-    print("Loading databases...")
+    print("Loading seat_matrix_data.json...")
     with open("seat_matrix_data.json", "r", encoding="utf-8") as f:
         sm_data = json.load(f)
         
-    with open("round1_cutoffs.json", "r", encoding="utf-8") as f:
-        r1 = json.load(f)
-    with open("round2_cutoffs.json", "r", encoding="utf-8") as f:
-        r2 = json.load(f)
-    with open("round3_cutoffs.json", "r", encoding="utf-8") as f:
-        r3 = json.load(f)
+    # Load unified course mapping
+    mapping = {}
+    import os
+    if os.path.exists("course_standardization_map.json"):
+        print("Loading course_standardization_map.json...")
+        with open("course_standardization_map.json", "r", encoding="utf-8") as f:
+            mapping = json.load(f)
+    else:
+        print("Warning: course_standardization_map.json not found! Falling back to dynamic standardization.")
         
-    print("Standardizing course names...")
+    # Step 1: Collect all unique course names from the seat matrix
+    unique_names = set()
+    for col in sm_data["colleges"]:
+        for c in col["courses"]:
+            unique_names.add(c["course_name"])
+            
+    print(f"Found {len(unique_names)} unique course names in seat matrix.")
     
-    corrected_colleges = 0
-    total_courses_modified = 0
-    
-    # We will load a fresh baseline to overwrite and clean up name changes
-    # so we don't compound previous erroneous runs
-    with open("seat_matrix_data_v1_baseline.json", "r", encoding="utf-8") as f:
-        baseline_data = json.load(f)
+    # Step 2: Create a mapping of old_name -> standardized_name
+    course_name_mapping = {}
+    for old_name in unique_names:
+        if old_name in mapping:
+            course_name_mapping[old_name] = mapping[old_name]
+        else:
+            std = standardize_single_name(old_name)
+            print(f"Warning: '{old_name}' not found in map. Standardized dynamically to '{std}'.")
+            course_name_mapping[old_name] = std
+            
+    # Print the mapping changes
+    changes = {k: v for k, v in course_name_mapping.items() if k != v}
+    print(f"Mapping will change {len(changes)} course names:")
+    for k, v in sorted(changes.items()):
+        print(f"  '{k}' -> '{v}'")
         
-    # Copy baseline college list except keep the rebuilt colleges list (since we rebuilt colleges and mapped them)
-    # Actually, we can just edit the active seat_matrix_data.json, but wait,
-    # did we run build_EV.py just now? Yes! That wrote to seat_matrix_data.json.
-    # So we should read from the current active seat_matrix_data.json.
-    # But wait! If we run on the active seat_matrix_data.json, will it have names like "Civil Engineering Engineering"?
-    # Yes, from the previous run. So we should clean them. Our new to_title_case does not have the "Civil" -> "Civil Engineering" bug,
-    # and clean_typos expands "ENGG" -> "ENGINEERING".
-    # Let's clean up "Engineering Engineering" -> "Engineering" dynamically!
-    
-    for col_idx, col in enumerate(sm_data["colleges"]):
-        code = col.get("kea_code")
-        if not code:
-            # Just clean existing names for unmapped colleges
-            for c in col["courses"]:
-                old_name = c["course_name"]
-                new_name = expand_short_code(old_name)
-                new_name = new_name.replace("Engineering Engineering", "Engineering")
-                if old_name != new_name:
-                    c["course_name"] = new_name
-                    total_courses_modified += 1
-            continue
-            
-        # Gather all cutoff course names for this college across all rounds in insertion order
-        cut_courses = []
-        for r_data in [r1, r2, r3]:
-            if code in r_data:
-                for cc in r_data[code].get("courses", {}).keys():
-                    if cc not in cut_courses:
-                        cut_courses.append(cc)
-                        
-        if not cut_courses:
-            # No cutoff data found, just clean existing names
-            for c in col["courses"]:
-                old_name = c["course_name"]
-                new_name = expand_short_code(old_name)
-                new_name = new_name.replace("Engineering Engineering", "Engineering")
-                if old_name != new_name:
-                    c["course_name"] = new_name
-                    total_courses_modified += 1
-            continue
-            
-        # Match seat matrix courses to cutoff courses
-        sm_courses = col["courses"]
-        
-        mapping = {} # sm_course index -> cutoff course name
-        unmapped_sm_indices = list(range(len(sm_courses)))
-        available_cut_courses = list(cut_courses)
-        
-        # 1. Exact clean name matching first (only for unique course names in SM)
-        sm_counts = Counter(super_clean(c["course_name"]) for c in sm_courses)
-        for idx in list(unmapped_sm_indices):
-            sm_c = sm_courses[idx]
-            sm_clean = super_clean(sm_c["course_name"])
-            
-            if sm_counts[sm_clean] > 1:
-                continue
-                
-            exact_matches = [cc for cc in available_cut_courses if super_clean(cc) == sm_clean]
-            if len(exact_matches) == 1:
-                mapping[idx] = exact_matches[0]
-                unmapped_sm_indices.remove(idx)
-                available_cut_courses.remove(exact_matches[0])
-
-        # 2. Try prefix clean matching (only for unique course names in SM)
-        # E.g. 'COMPUTER SCIENCE AND BUSINESS' starts with / is prefix of 'COMPUTER SCIENCE AND BUSINESS SYSTEMS'
-        # and there's only one such match in the cutoff list.
-        # 2. Try prefix clean matching (only for unique course names in SM, and NOT for short codes)
-        for idx in list(unmapped_sm_indices):
-            sm_c = sm_courses[idx]
-            name_raw = sm_c["course_name"].strip()
-            if re.match(r'^[A-Z]{2,4}$', name_raw, re.IGNORECASE) or name_raw.lower() in ['ce', 'ec', 'ee', 'me', 'cs', 'is', 'bt', 'ch', 'ad', 'ai', 'cb', 'ci', 'ds', 'cy', 'cg', 'ip', 'im', 'iem', 'pt', 'et', 'ev']:
-                continue
-                
-            sm_clean = super_clean(name_raw)
-            
-            if sm_counts[sm_clean] > 1:
-                continue
-                
-            prefix_matches = []
-            for cc in available_cut_courses:
-                cc_clean = super_clean(cc)
-                if cc_clean.startswith(sm_clean) or sm_clean.startswith(cc_clean):
-                    prefix_matches.append(cc)
-                    
-            if len(prefix_matches) == 1:
-                mapping[idx] = prefix_matches[0]
-                unmapped_sm_indices.remove(idx)
-                available_cut_courses.remove(prefix_matches[0])
-
-        # 3. Match short codes (e.g. CE, EC, (AM), (AS), CS, etc.)
-        for idx in list(unmapped_sm_indices):
-            sm_c = sm_courses[idx]
-            name_clean = sm_c["course_name"].strip()
-            short_code = None
-            m_paren = re.search(r'\(([A-Z]{2,6})\)', name_clean, re.IGNORECASE)
-            if m_paren:
-                short_code = m_paren.group(1).upper()
-            else:
-                m_direct = re.match(r'^([A-Z]{2,6})(\s+in)?$', name_clean, re.IGNORECASE)
-                if m_direct:
-                    short_code = m_direct.group(1).upper()
-                    
-            if short_code:
-                keywords = SHORT_CODE_MAP.get(short_code, [])
-                if keywords:
-                    scored = []
-                    for cc in available_cut_courses:
-                        cc_clean = super_clean(cc)
-                        matches = sum(1 for kw in keywords if super_clean(kw) in cc_clean)
-                        if matches > 0:
-                            scored.append((cc, matches))
-                    if scored:
-                        scored.sort(key=lambda x: (-x[1], '(' in x[0]))
-                        best_cc = scored[0][0]
-                        mapping[idx] = best_cc
-                        unmapped_sm_indices.remove(idx)
-                        available_cut_courses.remove(best_cc)
-
-        # 4. Match remaining duplicates sequentially
-        generic_groups = {} # base_clean_name -> list of unmatched sm indices
-        for idx in unmapped_sm_indices:
-            sm_c = sm_courses[idx]
-            sm_clean = super_clean(sm_c["course_name"])
-            
-            # Clean duplicate course names: e.g. multiple "computer science and engineering"
-            # We want to match them to cutoff courses starting with the same clean name
-            base = sm_clean
-            if len(base) > 12:
-                base = base[:12]
-            
-            matched_group = False
-            for g_base in list(generic_groups.keys()):
-                if g_base.startswith(base) or base.startswith(g_base):
-                    generic_groups[g_base].append(idx)
-                    matched_group = True
-                    break
-            if not matched_group:
-                generic_groups[base] = [idx]
-                
-        for g_base, indices in generic_groups.items():
-            if len(indices) == 0:
-                continue
-            matching_cut_courses = []
-            for cc in available_cut_courses:
-                cc_clean = super_clean(cc)
-                if cc_clean.startswith(g_base) or g_base.startswith(cc_clean[:12]):
-                    matching_cut_courses.append(cc)
-                    
-            if matching_cut_courses:
-                indices.sort()
-                # Maintain the original insertion order from cut_courses list
-                matching_cut_courses.sort(key=lambda x: cut_courses.index(x))
-                
-                for i, idx in enumerate(indices):
-                    if i < len(matching_cut_courses):
-                        mapping[idx] = matching_cut_courses[i]
-                        unmapped_sm_indices.remove(idx)
-                        available_cut_courses.remove(matching_cut_courses[i])
-                        
-        # 5. Apply standardized course names
-        for idx, sm_c in enumerate(sm_courses):
-            old_name = sm_c["course_name"]
-            if idx in mapping:
-                cut_name = mapping[idx]
-                new_name = to_title_case(cut_name)
-            else:
-                new_name = expand_short_code(old_name)
-                
-            new_name = new_name.replace("Engineering Engineering", "Engineering")
+    # Step 3: Apply the mapping to all courses in seat_matrix_data.json
+    total_modified = 0
+    for col in sm_data["colleges"]:
+        for c in col["courses"]:
+            old_name = c["course_name"]
+            new_name = course_name_mapping[old_name]
             if old_name != new_name:
-                sm_c["course_name"] = new_name
-                total_courses_modified += 1
+                c["course_name"] = new_name
+                total_modified += 1
                 
-        corrected_colleges += 1
-
-    print(f"Standardized course names in {corrected_colleges} colleges.")
-    print(f"Total course names modified: {total_courses_modified}")
+    print(f"Standardized {total_modified} courses across all colleges.")
     
+    # Save the updated database
     with open("seat_matrix_data.json", "w", encoding="utf-8") as f:
         json.dump(sm_data, f, indent=2, ensure_ascii=False)
+        
     print("Saved standardized seat_matrix_data.json successfully!")
 
 if __name__ == "__main__":
