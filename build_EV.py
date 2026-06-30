@@ -246,7 +246,10 @@ def parse_annexure_data(pdf_path, pages, ann):
         "MALNADCOLLEGEOFENGINEERING": (4, "E024", "E047"),
         "SRIJAYACHAMARAJENDRA": (9, "E021", "E284"),
         "THENATIONALINSTITUTEOFENGINEERING": (3, "E022", "E056"),
-        "UNIVERSITYBDT": (7, "E061", "E066")
+        "UNIVERSITYBDT": (7, "E061", "E066"),
+        "CONSTITUENTCOLLEGEOFVTUCHINTAMANI": (4, "E308", "E309"),
+        "PDACOLLEGEOFENGINEERING": (5, "E041", "E059"),
+        "PESCOLLEGEOFENGINEERINGMANDYA": (4, "E023", "E058")
     }
 
     # Format into target JSON structure
@@ -276,12 +279,15 @@ def parse_annexure_data(pdf_path, pages, ann):
             # Aided Entry
             aided_courses_json = []
             for cr_rec in c["courses"][:split_idx]:
-                kea_tot_val = cr_rec["kea_rk"] + cr_rec["kea_hk"]
+                total_kea_val = cr_rec["kea_rk"] + cr_rec["kea_hk"]
+                ph_val = cr_rec["ph_rk"] + cr_rec["ph_hk"]
+                spl_val = cr_rec["spl_rk"] + cr_rec["spl_hk"]
+                exclusive_rk = cr_rec["kea_rk"] - cr_rec["ph_rk"] - cr_rec["spl_rk"]
+                exclusive_hk = cr_rec["kea_hk"] - cr_rec["ph_hk"] - cr_rec["spl_hk"]
                 aided_courses_json.append(
-                    cr(cr_rec["name"], cr_rec["intake"], kea_tot_val,
-                       cr_rec["ph_rk"] + cr_rec["ph_hk"],
-                       cr_rec["spl_rk"] + cr_rec["spl_hk"],
-                       cr_rec["kea_hk"], cr_rec["kea_rk"], kea_tot_val)
+                    cr(cr_rec["name"], cr_rec["intake"], total_kea_val,
+                       ph_val, spl_val,
+                       exclusive_hk, exclusive_rk, total_kea_val)
                 )
             formatted_colleges.append({
                 "college_number": c["num"],
@@ -302,12 +308,15 @@ def parse_annexure_data(pdf_path, pages, ann):
             # Unaided Entry
             unaided_courses_json = []
             for cr_rec in c["courses"][split_idx:]:
-                kea_tot_val = cr_rec["kea_rk"] + cr_rec["kea_hk"]
+                total_kea_val = cr_rec["kea_rk"] + cr_rec["kea_hk"]
+                ph_val = cr_rec["ph_rk"] + cr_rec["ph_hk"]
+                spl_val = cr_rec["spl_rk"] + cr_rec["spl_hk"]
+                exclusive_rk = cr_rec["kea_rk"] - cr_rec["ph_rk"] - cr_rec["spl_rk"]
+                exclusive_hk = cr_rec["kea_hk"] - cr_rec["ph_hk"] - cr_rec["spl_hk"]
                 unaided_courses_json.append(
-                    cr(cr_rec["name"], cr_rec["intake"], kea_tot_val,
-                       cr_rec["ph_rk"] + cr_rec["ph_hk"],
-                       cr_rec["spl_rk"] + cr_rec["spl_hk"],
-                       cr_rec["kea_hk"], cr_rec["kea_rk"], kea_tot_val)
+                    cr(cr_rec["name"], cr_rec["intake"], total_kea_val,
+                       ph_val, spl_val,
+                       exclusive_hk, exclusive_rk, total_kea_val)
                 )
             formatted_colleges.append({
                 "college_number": c["num"],
@@ -327,12 +336,15 @@ def parse_annexure_data(pdf_path, pages, ann):
         else:
             courses_json = []
             for cr_rec in c["courses"]:
-                kea_tot_val = cr_rec["kea_rk"] + cr_rec["kea_hk"]
+                total_kea_val = cr_rec["kea_rk"] + cr_rec["kea_hk"]
+                ph_val = cr_rec["ph_rk"] + cr_rec["ph_hk"]
+                spl_val = cr_rec["spl_rk"] + cr_rec["spl_hk"]
+                exclusive_rk = cr_rec["kea_rk"] - cr_rec["ph_rk"] - cr_rec["spl_rk"]
+                exclusive_hk = cr_rec["kea_hk"] - cr_rec["ph_hk"] - cr_rec["spl_hk"]
                 courses_json.append(
-                    cr(cr_rec["name"], cr_rec["intake"], kea_tot_val,
-                       cr_rec["ph_rk"] + cr_rec["ph_hk"],
-                       cr_rec["spl_rk"] + cr_rec["spl_hk"],
-                       cr_rec["kea_hk"], cr_rec["kea_rk"], kea_tot_val)
+                    cr(cr_rec["name"], cr_rec["intake"], total_kea_val,
+                       ph_val, spl_val,
+                       exclusive_hk, exclusive_rk, total_kea_val)
                 )
                 
             type_label = "New Intake (Govt/Pvt)" if ann == "E" else "New Intake (Univ)"
@@ -359,7 +371,61 @@ def parse_annexure_data(pdf_path, pages, ann):
     return formatted_colleges
 
 ann_e_colleges = parse_annexure_data("Seat_Matrix_05072025.pdf", range(122, 324), "E")
-ann_v_colleges = parse_annexure_data("Seat_Matrix_05072025.pdf", range(325, 361), "V")
+# Parse Annexure V including the additional page 434 (1-based, so 434 is page 434)
+ann_v_colleges = parse_annexure_data("Seat_Matrix_05072025.pdf", list(range(325, 361)) + [434], "V")
+
+# Page 434 manual data for Amity University (College Number 4)
+amity_page434 = {
+    "college_number": 4,
+    "college_name": "AMITY UNIVERSITY",
+    "address": "National Highway 648 (old 207), Devanahalli - Doddaballapur Road",
+    "annexure": "V",
+    "college_type": "Private University",
+    "district": "Bangalore",
+    "cat1_pct": 40,
+    "cat2_pct": 0,
+    "cat3_pct": 0,
+    "total_intake": 180,
+    "total_kea_seats": 72,
+    "courses": [
+        cr("B TECH IN COMPUTER SCIENCE AND ENGINEERING (CLOUD COMPUTING)", 60, 24, 1, 0, 2, 21, 23),
+        cr("B TECH IN COMPUTER SCIENCE AND ENGINEERING(DEV OPS)", 60, 24, 1, 0, 2, 21, 23),
+        cr("B.Tech in Computer Science and Engineering(Full Stack Development)", 60, 24, 2, 0, 1, 21, 22)
+    ]
+}
+ann_v_colleges.append(amity_page434)
+
+def merge_colleges(col_list):
+    merged = []
+    seen = {}
+    for col in col_list:
+        clean_col = re.sub(r'[^A-Z0-9]', '', col["college_name"].upper())
+        key = (clean_col, col["annexure"], col.get("kea_code"))
+        if key in seen:
+            existing = merged[seen[key]]
+            for course in col["courses"]:
+                clean_cr = re.sub(r'[^A-Z0-9]', '', course["course_name"].upper())
+                match = None
+                for ex_course in existing["courses"]:
+                    clean_ex_cr = re.sub(r'[^A-Z0-9]', '', ex_course["course_name"].upper())
+                    if clean_ex_cr == clean_cr:
+                        match = ex_course
+                        break
+                if match:
+                    for field in ["total_intake", "total_kea_seats", "kea_ph", "kea_spl", "kea_hk", "kea_rk", "kea_tot"]:
+                        match[field] = match.get(field, 0) + course.get(field, 0)
+                else:
+                    existing["courses"].append(course)
+            existing["total_intake"] = sum(c["total_intake"] for c in existing["courses"])
+            existing["total_kea_seats"] = sum(c["total_kea_seats"] for c in existing["courses"])
+        else:
+            seen[key] = len(merged)
+            merged.append(json.loads(json.dumps(col)))
+    return merged
+
+# Merge E and V colleges to combine duplicates (e.g. Amity University)
+ann_e_colleges = merge_colleges(ann_e_colleges)
+ann_v_colleges = merge_colleges(ann_v_colleges)
 
 d["colleges"].extend(ann_e_colleges)
 d["colleges"].extend(ann_v_colleges)
@@ -387,4 +453,4 @@ def verify(ann, target_totals):
         print(f"  {k:<8} Target: {val:>8,} | Parsed: {s[k]:>8,} | Diff: {s[k]-val:>+3}")
 
 verify("E", {"intake":115276, "kea":53052, "ph":3900, "spl":1080, "hk":7172, "rk":45880})
-verify("V", {"intake":36160, "kea":13919, "ph":1001, "spl":273, "hk":1740, "rk":12179})
+verify("V", {"intake":36340, "kea":13991, "ph":1005, "spl":273, "hk":1745, "rk":12242})

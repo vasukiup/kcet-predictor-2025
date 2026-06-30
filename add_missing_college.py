@@ -4,7 +4,7 @@ Data read from user-provided image.
 """
 import json
 
-with open("seat_matrix_data.json", encoding="utf-8") as f:
+with open("seat_matrix_data_v1_baseline.json", encoding="utf-8") as f:
     data = json.load(f)
 
 new_college = {
@@ -131,7 +131,7 @@ else:
             data["all_courses"].sort()
             data["metadata"]["total_courses_offered"] = len(data["all_courses"])
 
-    with open("seat_matrix_data.json", "w", encoding="utf-8") as f:
+    with open("seat_matrix_data_v1_baseline.json", "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
     print("Added: Visvesvaraya Technological University, VTU, CPGS, Mysuru")

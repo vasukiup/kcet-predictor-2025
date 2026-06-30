@@ -5,6 +5,9 @@ import difflib
 
 sys.stdout.reconfigure(encoding='utf-8')
 
+from standardize_course_names import standardize_single_name, MANUAL_OVERRIDE_MAP
+from merge_zero_intake_duplicates import courses_are_compatible
+
 # Aided/Unaided split overrides and other exact overrides
 MANUAL_OVERRIDES = {
     # Sapthagiri
@@ -197,7 +200,18 @@ def run_mapping():
         for code, info in cutoff_dict.items():
             std_courses = {}
             for raw_cname, data in info["courses"].items():
-                std_cname = std_map.get(raw_cname, raw_cname)
+                matched_override = None
+                for raw_k, clean_v in MANUAL_OVERRIDE_MAP.items():
+                    if raw_cname.upper().strip() == raw_k.upper().strip():
+                        matched_override = clean_v
+                        break
+                
+                if matched_override:
+                    std_cname = matched_override
+                elif raw_cname in std_map:
+                    std_cname = standardize_single_name(std_map[raw_cname])
+                else:
+                    std_cname = standardize_single_name(raw_cname)
                 std_courses[std_cname] = data
             std_cutoff[code] = {
                 "college_name": info["college_name"],
@@ -276,9 +290,29 @@ def run_mapping():
             c_name = sm_course["course_name"]
             
             def get_cutoff_data(cutoff_dict, code, course_name):
-                if code not in cutoff_dict:
-                    return {}
-                return cutoff_dict[code]["courses"].get(course_name, {})
+                # 1. Determine codes to try (with E056 South Campus falling back to E178 North Campus for CS courses)
+                codes_to_try = [code]
+                if code == "E056":
+                    codes_to_try.append("E178")
+                
+                # 2. Standardize target course name using same logic as cutoff standardizer
+                std_cname = standardize_single_name(course_name)
+                
+                for c_code in codes_to_try:
+                    if c_code not in cutoff_dict:
+                        continue
+                    
+                    # 2.1 Try standardized lookup
+                    if std_cname in cutoff_dict[c_code]["courses"]:
+                        return cutoff_dict[c_code]["courses"][std_cname]
+                    # 2.2 Try direct lookup
+                    if course_name in cutoff_dict[c_code]["courses"]:
+                        return cutoff_dict[c_code]["courses"][course_name]
+                    # 2.3 Try compatible match fallback
+                    for cut_cname, cut_data in cutoff_dict[c_code]["courses"].items():
+                        if courses_are_compatible(course_name, cut_cname) or courses_are_compatible(std_cname, cut_cname):
+                            return cut_data
+                return {}
                 
             sm_course["round1_cutoff"] = get_cutoff_data(r1_cutoff, best_match, c_name)
             sm_course["round2_cutoff"] = get_cutoff_data(r2_cutoff, best_match, c_name)

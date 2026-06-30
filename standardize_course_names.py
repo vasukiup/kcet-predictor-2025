@@ -19,6 +19,8 @@ MANUAL_OVERRIDE_MAP = {
     "Planning": "Urban and Regional Planning",
     "B.tech Cs-softwa Re Dev": "Computer Engineering (Software Product Development)",
     "B Tech (Hons) Computer Science and Engineering(Data Science)": "Computer Science and Engineering (Data Science)",
+    "B TECH IN COMPUTER SCIENCE AND ENGG (DATA ANALYTICS)": "Computer Science and Engineering (Data Analytics)",
+    "B.TECH IN COMPUTER SICENCE AND ENGG (DATA ANALYTICS)": "Computer Science and Engineering (Data Analytics)",
     "Ce Ca": "Civil Engineering with Computer Application",
     "Ce Se": "Civil Engineering",
     "Cmp in Med Engineering": "Computer Science and Medical Engineering",
@@ -32,7 +34,7 @@ MANUAL_OVERRIDE_MAP = {
     "Cs Ds": "Computer Science and Engineering (Data Science)",
     "Cs Iot": "Computer Science and Engineering (Internet of Things)",
     "Cs Ro": "Computer Science and Engineering (Robotics)",
-    "Cs Sec": "Computer Science and Engineering (Cyber Security)",
+    "Cs Sec": "Computer Science (Information Security)",
     "Cs Tech (Pwd Only)": "Computer Science & Technology",
     "Cse Cb": "Computer Science and Business Systems",
     "Da": "Computer Science and Engineering (Data Analytics)",
@@ -47,6 +49,7 @@ MANUAL_OVERRIDE_MAP = {
     "Es And Vlsi": "Embedded Systems and VLSI",
     
     # New overrides
+    "AI": "Artificial Intelligence and Machine Learning",
     "AI and Future Tech": "Computer Science and Engineering (Artificial Intelligence and Future Technologies)",
     "AI and ML": "Artificial Intelligence and Machine Learning",
     "Computer Science and Engineering (AI and Machine Learning)": "Computer Science and Engineering (Artificial Intelligence and Machine Learning)",
@@ -72,7 +75,17 @@ MANUAL_OVERRIDE_MAP = {
     "Electronics and": "Telecommunication Engineering",
     "Industrial Engineering and": "Industrial Engineering and Management",
     "Industrial Engineering &": "Industrial Engineering and Management",
-    "Computer and Communication": "Computer and Communication Engineering"
+    "Computer and Communication": "Computer and Communication Engineering",
+    
+    # Overrides to prevent divergence for Presidency University
+    "B Tech in AM": "Computer Science and Engineering (Artificial Intelligence and Machine Learning)",
+    "B Tech in BD": "Computer Science and Technology (Big Data)",
+    "B Tech in DO": "Computer Science and Technology (DevOps)",
+    "B Tech in DS": "Computer Science and Engineering (Data Science)",
+    "B.Tech in VLSI": "VLSI Design and Technology",
+    "B.TECH IN VLSI": "VLSI Design and Technology",
+    "B TECH IN COMPUTER SCIENCE AND TECHNOLOGY (BIG DATA)": "Computer Science and Technology (Big Data)",
+    "B TECH IN COMPUTER SCIENCE AND TECHNOLOGY (DEV OPS)": "Computer Science and Technology (DevOps)"
 }
 
 # Short code mapping to full name (used for unmapped/generic codes in parentheses)
@@ -82,7 +95,7 @@ SHORT_CODE_MAP = {
     "AG": "Agricultural Engineering",
     "AI": "Artificial Intelligence and Machine Learning",
     "AM": "Artificial Intelligence and Machine Learning",
-    "AS": "Aeronautical Engineering",
+    "AS": "Aerospace Engineering",
     "AT": "Automobile Engineering",
     "ATMO": "Automobile Engineering",
     "BD": "Computer Science and Technology (Big Data)",
@@ -100,7 +113,7 @@ SHORT_CODE_MAP = {
     "CEV": "Civil Environmental Engineering",
     "CG": "Computer Science and Technology",
     "CH": "Chemical Engineering",
-    "CI": "Computer Science and Design",
+    "CI": "Computer Science and Engineering (Internet of Things & Cyber Security including Block Chain Technology)",
     "CMP": "Computer Science and Engineering (Medical Electronics)",
     "CO": "Computer Science and Engineering (Internet of Things)",
     "CR": "Ceramics & Cement Engineering",
@@ -225,7 +238,7 @@ def clean_typos(name):
 
 def super_clean(name):
     n = name.lower()
-    n = re.sub(r'^(b\.?\s*tech\s*(in)?|btech\s*(in)?)\s+', '', n)
+    n = re.sub(r'^(b\.?\s*tech\s*(in)?|btech\s*(in)?|b\.?\s*technology\s*(in)?)\s+', '', n)
     n = n.replace('&', 'and')
     n = n.replace('engg', 'engineering')
     n = n.replace('technology', 'tech')
@@ -243,7 +256,7 @@ def standardize_single_name(name):
             return clean_v
             
     # 2. Strip B Tech / Hons / in prefixes first!
-    n = re.sub(r'^(B\s*TECH\s*\(?HONS\)?|B\.?\s*TECH\s*\(?HONS\)?|B\s*TECH\s*IN|B\.?\s*TECH\s*IN|BTECH\s*IN|B\s*TECH|B\.?\s*TECH|BTECH)\s+(?=\w)', '', name_stripped, flags=re.IGNORECASE).strip()
+    n = re.sub(r'^(B\.?\s*TECHNOLOGY\s*(IN)?|B\s*TECH\s*\(?HONS\)?|B\.?\s*TECH\s*\(?HONS\)?|B\s*TECH\s*IN|B\.?\s*TECH\s*IN|BTECH\s*IN|B\s*TECH|B\.?\s*TECH|BTECH)\s+(?=\w)', '', name_stripped, flags=re.IGNORECASE).strip()
     n = clean_typos(n)
     
     # 3. Check if the remaining string is a short code (either in parens or alone)
@@ -321,7 +334,47 @@ def standardize_single_name(name):
     elif norm_lower == "automobile" or norm_lower == "automobile engineering" or norm_lower == "automotive" or norm_lower == "automotive engineering":
         return "Automobile Engineering"
         
-    # Check more specific patterns first
+    # Top-level specific mappings to avoid wrong fallbacks
+    if "cyber security" in norm_lower or "cybersecurity" in norm_lower:
+        return "Computer Science and Engineering (Cyber Security)"
+    if "electronics" in norm_lower and "computer" in norm_lower:
+        if "science" in norm_lower:
+            return "Electronics & Computer Science"
+        return "Electronics and Computer Engineering"
+    if "industrial" in norm_lower and ("iot" in norm_lower or "internet of things" in norm_lower):
+        return "Industrial Internet of Things"
+    if "electric vehicle" in norm_lower or "electrical vehicle" in norm_lower:
+        if "electronics" in norm_lower:
+            return "Electrical and Electronics Engineering (Electric Vehicle Technology)"
+        return "Electrical Engineering (Electric Vehicle Technology)"
+
+    # AI & ML / AI & DS / VLSI / Robotics / Civil Construction / Design Engineering first
+    if "artificial intelligence" in norm_lower and "machine learning" in norm_lower:
+        if "computer science" not in norm_lower:
+            return "Artificial Intelligence and Machine Learning"
+    if "artificial intelligence" in norm_lower and "data science" in norm_lower:
+        if "computer science" not in norm_lower:
+            return "Artificial Intelligence and Data Science"
+    if "vlsi" in norm_lower:
+        return "VLSI Design and Technology"
+    if "robotics" in norm_lower or "robotic" in norm_lower:
+        if "computer science" not in norm_lower:
+            if "artificial intelligence" in norm_lower:
+                return "Robotics and Artificial Intelligence"
+            if "biomedical" in norm_lower:
+                return "Biomedical and Robotic Engineering"
+            return "Robotics and Automation"
+    if "civil construction" in norm_lower:
+        return "Civil Engineering"
+    if norm_lower == "design engineering":
+        return "Design"
+    if norm_lower == "computer engineering":
+        return "Computer Science and Engineering (Internet of Things)"
+    if "internet of things" in norm_lower or "iot" in norm_lower:
+        if "cyber security" in norm_lower or "cybsec" in norm_lower or "cybersecurity" in norm_lower:
+            return "Computer Science and Engineering (Internet of Things & Cyber Security including Block Chain Technology)"
+        return "Computer Science and Engineering (Internet of Things)"
+
     if "computer science" in norm_lower:
         if "artificial intelligence" in norm_lower and "future technologies" in norm_lower:
             return "Computer Science and Engineering (Artificial Intelligence and Future Technologies)"
@@ -329,11 +382,7 @@ def standardize_single_name(name):
             return "Computer Science and Engineering (Artificial Intelligence and Machine Learning)"
         elif "artificial intelligence" in norm_lower and "data science" in norm_lower:
             return "Computer Science and Engineering (Artificial Intelligence and Data Science)"
-        elif "internet of things" in norm_lower and "cyber security" in norm_lower:
-            return "Computer Science and Engineering (Internet of Things & Cyber Security including Block Chain Technology)"
-        elif "iot" in norm_lower and "cyber security" in norm_lower:
-            return "Computer Science and Engineering (Internet of Things & Cyber Security including Block Chain Technology)"
-        elif "cyber security" in norm_lower:
+        elif "cyber security" in norm_lower or "cybersecurity" in norm_lower:
             return "Computer Science and Engineering (Cyber Security)"
         elif "data science" in norm_lower:
             return "Computer Science and Engineering (Data Science)"
@@ -343,8 +392,6 @@ def standardize_single_name(name):
             return "Computer Science and Business Systems"
         elif "design" in norm_lower:
             return "Computer Science and Design"
-        elif "internet of things" in norm_lower or "iot" in norm_lower:
-            return "Computer Science and Engineering (Internet of Things)"
         elif "cloud" in norm_lower:
             return "Computer Science and Engineering (Cloud Computing)"
         elif "blockchain" in norm_lower or "block chain" in norm_lower:
@@ -353,15 +400,33 @@ def standardize_single_name(name):
             return "Computer Science and Medical Engineering"
         elif "information technology" in norm_lower:
             return "Computer Science and Information Technology"
+        elif "devops" in norm_lower or "dev ops" in norm_lower:
+            if "technology" in norm_lower:
+                return "Computer Science and Technology (DevOps)"
+            return "Computer Science and Engineering (DevOps)"
+        elif "full stack" in norm_lower:
+            if "technology" in norm_lower:
+                return "Computer Science and Technology (Full Stack Development)"
+            return "Computer Science and Engineering (Full Stack Development)"
+        elif "big data" in norm_lower:
+            if "technology" in norm_lower:
+                return "Computer Science and Technology (Big Data)"
+            return "Computer Science and Engineering (Big Data)"
+        elif "data analytics" in norm_lower:
+            if "technology" in norm_lower:
+                return "Computer Science and Technology (Data Analytics)"
+            return "Computer Science and Engineering (Data Analytics)"
+        elif "robotics" in norm_lower or "robotic" in norm_lower:
+            return "Computer Science and Engineering (Robotics)"
+        elif "electrical engineering" in norm_lower:
+            return "Electrical Engineering and Computer Science"
+        elif "information security" in norm_lower:
+            return "Computer Science (Information Security)"
         elif "technology" in norm_lower:
             return "Computer Science and Technology"
-            
-    # Non-computer science specific check
-    if "artificial intelligence" in norm_lower and "machine learning" in norm_lower:
-        return "Artificial Intelligence and Machine Learning"
-    elif "artificial intelligence" in norm_lower and "data science" in norm_lower:
-        return "Artificial Intelligence and Data Science"
+        return "Computer Science and Engineering"
         
+    # Non-computer science specific check
     if "telecommunication" in norm_lower:
         return "Telecommunication Engineering"
         
@@ -371,9 +436,7 @@ def standardize_single_name(name):
         return "Information Science and Engineering"
         
     if "electronics" in norm_lower and "communication" in norm_lower:
-        if "vlsi" in norm_lower:
-            return "Electronics and Communication Engineering (VLSI Design and Technology)"
-        elif "advanced" in norm_lower:
+        if "advanced" in norm_lower:
             return "Electronics and Communication (Advanced Communication Technology)"
         elif "industrial" in norm_lower:
             return "Electronics and Communication Engineering (Industrial Integrated)"
@@ -385,10 +448,6 @@ def standardize_single_name(name):
         return "Electrical and Electronics Engineering"
     elif "mechanical" in norm_lower and "aerospace" in norm_lower:
         return "Mechanical and Aerospace Engineering"
-    elif "robotics" in norm_lower and "automation" in norm_lower:
-        return "Robotics and Automation"
-    elif "robotics" in norm_lower and "artificial intelligence" in norm_lower:
-        return "Robotics and Artificial Intelligence"
     elif "biomedical" in norm_lower and "robotic" in norm_lower:
         return "Biomedical and Robotic Engineering"
     elif "bio" in norm_lower and "technology" in norm_lower:
@@ -417,8 +476,6 @@ def standardize_single_name(name):
         return "Industrial Engineering and Management"
     elif "textile" in norm_lower:
         return "Textiles Technology"
-    elif "vlsi" in norm_lower:
-        return "VLSI Design and Technology"
     elif "ar/vr" in norm_lower:
         return "Information Technology (Augmented Reality and Virtual Reality)"
     elif "augmented reality" in norm_lower:
@@ -454,8 +511,16 @@ def run_standardization():
     # Step 2: Create a mapping of old_name -> standardized_name
     course_name_mapping = {}
     for old_name in unique_names:
-        if old_name in mapping:
-            course_name_mapping[old_name] = mapping[old_name]
+        matched_override = None
+        for raw_k, clean_v in MANUAL_OVERRIDE_MAP.items():
+            if old_name.upper().strip() == raw_k.upper().strip():
+                matched_override = clean_v
+                break
+                
+        if matched_override:
+            course_name_mapping[old_name] = matched_override
+        elif old_name in mapping:
+            course_name_mapping[old_name] = standardize_single_name(mapping[old_name])
         else:
             std = standardize_single_name(old_name)
             print(f"Warning: '{old_name}' not found in map. Standardized dynamically to '{std}'.")

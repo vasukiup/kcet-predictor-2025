@@ -38,44 +38,88 @@ def detect_annexure_on_page(text):
 # Returns list of course dicts
 # ─────────────────────────────────────────────────────────
 def parse_course_rows(lines, annexure):
-    courses = []
+    course_blocks = []
+    current_block = None
+    
     i = 0
     while i < len(lines):
         line = lines[i].strip()
-
-        # Match: "N COURSE NAME ... numbers"
-        # Course number at start, then name (can be multi-word), then digits
-        m = re.match(r'^(\d{1,3})\s+([A-Z][A-Z0-9\s&()\-\'/,\.]+?)\s+(\d{2,4})\s+(\d{2,4})', line)
-        if not m:
-            # Some course names wrap to next line — try joining with next line
-            if i + 1 < len(lines):
-                combined = line + " " + lines[i+1].strip()
-                m = re.match(r'^(\d{1,3})\s+([A-Z][A-Z0-9\s&()\-\'/,\.]+?)\s+(\d{2,4})\s+(\d{2,4})', combined)
-                if m:
-                    line = combined
-                    i += 1  # consumed next line too
         
+        # Skip noise lines that are definitely not courses or wrapped names
+        if (not line
+            or "ANNEXURE" in line
+            or "ENGINEERING SEATS" in line
+            or "GOVERNMENT NOTIFICATION" in line
+            or "Seats in " in line
+            or line.startswith("Sl.N")
+            or line.startswith("Intake")
+            or "SNQ" in line
+            or "HK-RK" in line
+            or "KRLMP" in line
+            or "COMEDK" in line
+            or re.match(r'^\d+$', line)       # bare page number
+        ):
+            i += 1
+            continue
+            
+        m_start = re.match(r'^(\d+)\s+([A-Z].*)$', line)
+        is_course_start = False
+        if m_start:
+            nums = re.findall(r'\d+', line)
+            if len(nums) >= 3:
+                is_course_start = True
+                
+        if is_course_start:
+            if current_block:
+                course_blocks.append(current_block)
+            current_block = {
+                "start_line": line,
+                "wrapped_lines": []
+            }
+        elif current_block:
+            if not re.match(r'^Ins\s+Total', line, re.IGNORECASE) and not re.match(r'^Address', line, re.IGNORECASE):
+                current_block["wrapped_lines"].append(line)
+                
+        i += 1
+        
+    if current_block:
+        course_blocks.append(current_block)
+        
+    courses = []
+    for block in course_blocks:
+        start_line = block["start_line"]
+        wrapped = block["wrapped_lines"]
+        
+        m = re.match(r'^(\d+)\s+([A-Z][A-Z0-9\s&Parentheses()\-\'/,\.]+?)\s+(\d{2,4})\s+(\d{2,4})', start_line)
+        if not m:
+            m = re.match(r'^(\d+)\s+(.+?)\s+(\d{2,4})\s+(\d{2,4})', start_line)
+            
         if m:
-            course_name = m.group(2).strip()
+            course_name_part = m.group(2).strip()
+            
+            full_course_name = course_name_part
+            for wl in wrapped:
+                full_course_name += " " + wl.strip()
+            
+            full_course_name = re.sub(r'\s+', ' ', full_course_name).strip()
+            
             # Skip if it looks like a page number or total line
-            if re.match(r'^(Ins Total|TOTAL|Page|TOT)', course_name, re.IGNORECASE):
-                i += 1
+            if re.match(r'^(Ins Total|TOTAL|Page|TOT)', full_course_name, re.IGNORECASE):
                 continue
 
-            rest = line[m.start(3):]
+            rest = start_line[m.start(3):]
             nums = re.findall(r'\d+', rest)
-
+            
             if len(nums) >= 2:
                 total_intake = int(nums[0])
                 total_kea = int(nums[1])
-
+                
                 # Sanity check - intakes should be reasonable
                 if total_intake > 5000 or total_intake < 10:
-                    i += 1
                     continue
 
                 course = {
-                    "course_name": course_name,
+                    "course_name": full_course_name,
                     "total_intake": total_intake,
                     "total_kea_seats": total_kea,
                     "snq_5pct":   int(nums[2]) if len(nums) > 2 else 0,
@@ -96,8 +140,7 @@ def parse_course_rows(lines, annexure):
                     course["over_above"] = int(nums[10]) if len(nums) > 10 else 0
 
                 courses.append(course)
-
-        i += 1
+            
     return courses
 
 # ─────────────────────────────────────────────────────────
@@ -124,17 +167,28 @@ def is_college_header(lines, idx):
         return None
     num = int(m.group(1))
     name = m.group(2).strip()
+    
     # Must be followed (within 3 lines) by "Address :"
+    found_address = False
     for k in range(idx+1, min(idx+4, len(lines))):
-        if lines[k].strip().startswith("Address"):
-            return num, name
+        l_strip = lines[k].strip()
+        if l_strip.startswith("Address"):
+            found_address = True
+            break
         # name can wrap to next line
-        if lines[k].strip() and not lines[k].strip().startswith("Address") and not re.match(r'^Sl', lines[k].strip()):
-            name += " " + lines[k].strip()
-    # Check again
-    for k in range(idx+1, min(idx+4, len(lines))):
-        if lines[k].strip().startswith("Address"):
-            return num, name
+        if (l_strip 
+            and not l_strip.startswith("Address") 
+            and not re.match(r'^Sl', l_strip)
+            and not re.match(r'^\d+\s', l_strip)
+            and "Ins Total" not in l_strip
+            and "Total" not in l_strip
+        ):
+            name += " " + l_strip
+        else:
+            break
+            
+    if found_address:
+        return num, name
     return None
 
 # ─────────────────────────────────────────────────────────
@@ -259,11 +313,8 @@ def extract_all():
                     continue
 
                 # ── Accumulate course candidate lines ────
-                if current_college and re.match(r'^\d+\s+[A-Z]', line):
+                if current_college:
                     page_course_lines.append(line)
-                    # Also grab next line in case name wraps
-                    if i + 1 < len(lines) and lines[i+1].strip() and not re.match(r'^\d+\s', lines[i+1]):
-                        page_course_lines.append(lines[i+1].strip())
 
                 i += 1
 
@@ -525,6 +576,9 @@ if __name__ == "__main__":
     with open("seat_matrix_data.json", "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
 
+    with open("seat_matrix_data_v1_baseline.json", "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
+
     s = output["stats"]
     print("=" * 60)
     print("EXTRACTION v2 COMPLETE")
@@ -538,4 +592,4 @@ if __name__ == "__main__":
     for ann, info in s["by_annexure"].items():
         print(f"  [{ann}] {info['label']:<35} {info['colleges']:>4} colleges | {info['total_seats']:>7,} seats | {info['kea_seats']:>7,} KEA")
     print()
-    print("Saved to seat_matrix_data.json")
+    print("Saved to seat_matrix_data.json and seat_matrix_data_v1_baseline.json")

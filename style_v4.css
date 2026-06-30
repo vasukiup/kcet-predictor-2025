@@ -801,6 +801,8 @@ body {
 .td-mgmt { color: var(--orange); }
 .td-hk { color: var(--teal); font-size: 12px; }
 .td-rk { color: var(--text-muted); font-size: 12px; }
+.td-ph { color: var(--pink); font-size: 12px; }
+.td-spl { color: var(--green); font-size: 12px; }
 .td-cutoff-r1 { color: var(--blue) !important; }
 .td-cutoff-r2 { color: var(--purple) !important; }
 .td-cutoff-r3 { color: var(--pink) !important; }
@@ -1179,3 +1181,93 @@ body {
 .text-orange {
   color: var(--orange) !important;
 }
+
+/* ===========================
+   Q&A Assistant Styles
+   =========================== */
+#tab-content-assistant {
+  animation: fadeUp 0.4s ease both;
+}
+
+#assistant-input:focus {
+  border-color: var(--blue) !important;
+  box-shadow: 0 0 12px var(--blue-glow) !important;
+  outline: none;
+}
+
+#assistant-send-btn {
+  transition: all 0.2s ease !important;
+}
+#assistant-send-btn:hover {
+  background: #3a7be0 !important;
+  box-shadow: 0 0 16px rgba(79, 142, 247, 0.3);
+  transform: translateY(-1px);
+}
+#assistant-send-btn:active {
+  transform: translateY(0);
+}
+
+#assistant-suggestions .chip {
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+#assistant-suggestions .chip:hover {
+  background: var(--blue-dim) !important;
+  border-color: rgba(79, 142, 247, 0.4) !important;
+  color: var(--text) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(79, 142, 247, 0.15);
+}
+
+#assistant-response-container {
+  animation: assistantFadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes assistantFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Typing Indicator Animation */
+.typing-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+}
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--text-muted);
+  border-radius: 50%;
+  animation: typingBounce 1.4s infinite ease-in-out both;
+}
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+.typing-dot:nth-child(3) { animation-delay: 0s; }
+
+@keyframes typingBounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+/* Assistant Results custom table tweaks */
+.assistant-row-click:hover {
+  background: rgba(255, 255, 255, 0.03) !important;
+}
+
+.style-low {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+

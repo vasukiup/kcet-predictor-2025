@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="style.css?v=3"/>
+  <link rel="stylesheet" href="style_v4.css"/>
 </head>
 <body>
   <!-- Header -->
@@ -53,8 +53,6 @@
           <button class="chip" data-annexure="O">🌍 Pvt Univ.</button>
           <button class="chip" data-annexure="P">🎖️ Deemed</button>
           <button class="chip" data-annexure="Z">🏛️ Govt (Higher Fees)</button>
-          <button class="chip" data-annexure="E">✨ New Intake (Govt/Pvt)</button>
-          <button class="chip" data-annexure="V">⚡ New Intake (Univ)</button>
         </div>
       </div>
 
@@ -97,6 +95,7 @@
           <option value="Z">Annexure Z - Govt (Higher Fees)</option>
           <option value="E">Annexure E - New Intake (Govt/Pvt)</option>
           <option value="V">Annexure V - New Intake (Univ)</option>
+          <option value="Undefined">Annexure Undefined - Special Category</option>
         </select>
         <div style="display: flex; gap: 8px;">
           <button class="select-filter" id="btn-download-json" style="flex: 1; padding: 8px; text-align: center; font-weight: 600; background: var(--blue-dim); border-color: var(--blue); color: var(--blue); border-radius: var(--radius-sm);">JSON</button>
@@ -121,6 +120,7 @@
         <button class="tab" data-tab="totals" id="tab-totals">🪑 Seat Totals</button>
         <button class="tab" data-tab="stats" id="tab-stats">📈 Statistics</button>
         <button class="tab" data-tab="predictor" id="tab-predictor">🔮 Rank Predictor</button>
+        <button class="tab" data-tab="assistant" id="tab-assistant">💬 Assistant</button>
       </div>
 
       <!-- Colleges tab -->
@@ -175,8 +175,6 @@
           <button class="totals-ann-btn" data-ann="O">🌍 Pvt Univ.</button>
           <button class="totals-ann-btn" data-ann="P">🎖️ Deemed</button>
           <button class="totals-ann-btn" data-ann="Z">🏛️ Govt (Higher Fees)</button>
-          <button class="totals-ann-btn" data-ann="E">✨ New Intake (Govt/Pvt)</button>
-          <button class="totals-ann-btn" data-ann="V">⚡ New Intake (Univ)</button>
         </div>
 
         <!-- Grand summary cards -->
@@ -342,6 +340,53 @@
           <div class="empty-state-text">Enter your rank and click Predict to view your potential seat allotments.</div>
         </div>
       </div>
+
+      <!-- Q&A Assistant tab -->
+      <div class="tab-content" id="tab-content-assistant">
+        <div class="predictor-card" style="background: var(--bg-card2); border: 1px solid var(--border); border-radius: 20px; padding: 24px; margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+          <div style="font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px;">💬 KCET Intelligent Query Assistant</div>
+          <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Type your query in natural English (e.g. cutoffs, seat counts, college locations, or fee details) and get instant answers.</div>
+          
+          <div style="display: flex; gap: 12px; margin-bottom: 20px; align-items: stretch;">
+            <input type="text" id="assistant-input" class="search-input" placeholder="e.g. Can I get CSE at BMS with rank 12000 in GM?" style="flex: 1; margin: 0; padding: 12px; box-sizing: border-box; font-size: 14px;" autocomplete="off"/>
+            <button id="assistant-send-btn" style="padding: 0 24px; font-weight: 700; background: var(--blue); color: #fff; border: none; border-radius: var(--radius); cursor: pointer; transition: background 0.2s; font-family: var(--font); display: flex; align-items: center; justify-content: center; gap: 6px;">🔮 Ask</button>
+          </div>
+          
+          <div style="font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px;">💡 Try asking:</div>
+          <div class="filter-chips" id="assistant-suggestions" style="flex-wrap: wrap; gap: 8px; display: flex;">
+            <button class="chip active" style="margin: 0; background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--text-muted); font-size: 11px; padding: 6px 12px; font-weight: 500;" data-query="Can I get CSE in RV College with rank 5000?">Can I get CSE in RV College with rank 5000?</button>
+            <button class="chip active" style="margin: 0; background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--text-muted); font-size: 11px; padding: 6px 12px; font-weight: 500;" data-query="What is the cutoff for ECE at BMS College for GM?">What is the cutoff for ECE at BMS College for GM?</button>
+            <button class="chip active" style="margin: 0; background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--text-muted); font-size: 11px; padding: 6px 12px; font-weight: 500;" data-query="How many seats are there for Mechanical in Government colleges?">How many seats are there for Mechanical in Government colleges?</button>
+            <button class="chip active" style="margin: 0; background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--text-muted); font-size: 11px; padding: 6px 12px; font-weight: 500;" data-query="Show colleges in Mysore offering Computer Science">Show colleges in Mysore offering Computer Science</button>
+            <button class="chip active" style="margin: 0; background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--text-muted); font-size: 11px; padding: 6px 12px; font-weight: 500;" data-query="What is the fee for Government colleges?">What is the fee for Government colleges?</button>
+            <button class="chip active" style="margin: 0; background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--text-muted); font-size: 11px; padding: 6px 12px; font-weight: 500;" data-query="Private universities in Bangalore">Private universities in Bangalore</button>
+          </div>
+        </div>
+        
+        <!-- Assistant Output Response area -->
+        <div id="assistant-response-container" style="display: none; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 24px; box-shadow: 0 4px 24px rgba(0,0,0,0.05); margin-bottom: 24px;">
+          <!-- User Chat Bubble -->
+          <div style="display: flex; gap: 12px; margin-bottom: 20px; background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 12px 18px; border-radius: var(--radius); align-items: center;">
+            <div style="font-size: 16px; background: var(--blue-dim); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">👤</div>
+            <div>
+              <div style="font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">Your Query</div>
+              <div id="assistant-user-text" style="font-size: 14px; font-weight: 600; color: var(--text);"></div>
+            </div>
+          </div>
+          
+          <!-- System Response -->
+          <div style="display: flex; gap: 16px; align-items: flex-start; border-top: 1px solid var(--border); padding-top: 20px;">
+            <div style="font-size: 18px; background: var(--purple-dim); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 12px rgba(168,85,247,0.2);">🤖</div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Assistant Response</div>
+              <div id="assistant-text-response" style="font-size: 14px; color: var(--text); line-height: 1.6; margin-bottom: 20px;"></div>
+              
+              <!-- Result cards or tables will render here dynamically -->
+              <div id="assistant-results-wrapper"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   </div>
 
@@ -353,6 +398,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=3"></script>
+  <script src="app_v4.js"></script>
 </body>
 </html>

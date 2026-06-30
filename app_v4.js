@@ -53,12 +53,44 @@ async function init() {
   try {
     const res = await fetch('seat_matrix_data.json?t=' + new Date().getTime());
     allData = await res.json();
+
+    // Preprocess KEA seats to include RK + HK + SPL + PH across the board
+    allData.colleges.forEach(col => {
+      let colKea = 0;
+      col.courses.forEach(c => {
+        const computedKea = (c.kea_rk || 0) + (c.kea_hk || 0) + (c.kea_spl || 0) + (c.kea_ph || 0);
+        c.total_kea_seats = computedKea;
+        c.kea_tot = computedKea;
+        colKea += computedKea;
+      });
+      col.total_kea_seats = colKea;
+    });
+
+    // Re-calculate statistics dynamically to ensure accuracy across dashboards/summary cards
+    let totalKea = 0;
+    allData.colleges.forEach(col => {
+      totalKea += col.total_kea_seats;
+    });
+    allData.stats.total_kea_seats = totalKea;
+
+    // Re-calculate by_annexure KEA seats
+    if (allData.stats && allData.stats.by_annexure) {
+      for (const ann in allData.stats.by_annexure) {
+        let annKea = 0;
+        allData.colleges.filter(c => c.annexure === ann).forEach(col => {
+          annKea += col.total_kea_seats;
+        });
+        allData.stats.by_annexure[ann].kea_seats = annKea;
+      }
+    }
+
     populateFilters();
     updateHeaderStats();
     applyFilters();
     renderStats();
     renderTotals('ALL');
     bindEvents();
+    initAssistant();
   } catch (e) {
     console.error('Failed to load data:', e);
     document.getElementById('colleges-grid').innerHTML =
@@ -142,6 +174,7 @@ function applyFilters() {
   const q = search.toLowerCase().trim();
 
   filtered = allData.colleges.filter(c => {
+    if (c.annexure === 'E' || c.annexure === 'V') return false;
     if (annexure !== 'all' && c.annexure !== annexure) return false;
     if (district && c.district !== district) return false;
     if (course) {
@@ -163,6 +196,11 @@ function applyFilters() {
   renderColleges();
   updateSidebarStats();
   renderCourseTable();
+
+  // Update totals tab
+  const activeBtn = document.querySelector('.totals-ann-btn.active');
+  const activeAnnFilter = activeBtn ? activeBtn.dataset.ann : 'ALL';
+  renderTotals(activeAnnFilter);
 }
 
 function sortFiltered() {
@@ -254,7 +292,7 @@ function renderCollegeCard(college, index) {
   `;
 
   return `
-    <div class="college-card" style="animation-delay:${Math.min(index * 0.03, 0.3)}s" data-index="${index}">
+    <div class="college-card" style="animation-delay:${Math.min(index * 0.03, 0.3)}s" data-index="${index}" data-college-number="${college.college_number}">
       <div class="card-top">
         <div class="card-badge badge-${ann}">${ANNEXURE_ICONS[ann]}</div>
         <div class="card-info">
@@ -265,6 +303,7 @@ function renderCollegeCard(college, index) {
               <circle cx="12" cy="9" r="2.5"/>
             </svg>
             ${escHtml(college.district || 'Karnataka')}
+            ${college.kea_code ? `<span class="card-kea-badge" style="margin-left:8px; padding:1px 5px; font-weight:700; background:rgba(255,255,255,0.08); border-radius:4px; font-size:10px; color:var(--blue); font-family:var(--font-display);">${college.kea_code}</span>` : ''}
           </div>
         </div>
         <span class="card-type-pill pill-${ann}">${annLabel}</span>
@@ -462,11 +501,20 @@ function openModal(college) {
   const predCatEl = document.getElementById('pred-category');
   const defaultCat = predCatEl ? predCatEl.value : 'GM';
 
+  const hasComDk = college.courses.some(c => c.cat2_seats > 0);
+  const hasMgmt = college.courses.some(c => c.cat3_seats > 0);
+  const hasPh = college.courses.some(c => (c.kea_ph || 0) > 0);
+  const hasSpl = college.courses.some(c => (c.kea_spl || 0) > 0);
+  const hasHk = college.courses.some(c => (c.kea_hk || 0) > 0);
+  const hasRk = college.courses.some(c => (c.kea_rk || 0) > 0);
+
   const courseRows = college.courses.map((c, idx) => {
-    const comEdkCol = c.cat2_seats > 0 ? `<td class="td-comedk">${c.cat2_seats}</td>` : '';
-    const mgmtCol = c.cat3_seats > 0 ? `<td class="td-mgmt">${c.cat3_seats}</td>` : '';
-    const hkCol = (c.kea_hk || 0) > 0 ? `<td class="td-hk">${c.kea_hk}</td>` : '';
-    const rkCol = (c.kea_rk || 0) > 0 ? `<td class="td-rk">${c.kea_rk}</td>` : '';
+    const comEdkCol = hasComDk ? `<td class="td-comedk">${parseInt(c.cat2_seats) || 0}</td>` : '';
+    const mgmtCol = hasMgmt ? `<td class="td-mgmt">${parseInt(c.cat3_seats) || 0}</td>` : '';
+    const phCol = hasPh ? `<td class="td-ph">${parseInt(c.kea_ph) || 0}</td>` : '';
+    const splCol = hasSpl ? `<td class="td-spl">${parseInt(c.kea_spl) || 0}</td>` : '';
+    const hkCol = hasHk ? `<td class="td-hk">${parseInt(c.kea_hk) || 0}</td>` : '';
+    const rkCol = hasRk ? `<td class="td-rk">${parseInt(c.kea_rk) || 0}</td>` : '';
     
     const r1_cutoffs = c.round1_cutoff || {};
     const r1_cutoff_val = r1_cutoffs[defaultCat];
@@ -480,23 +528,24 @@ function openModal(college) {
     const r3_cutoff_val = r3_cutoffs[defaultCat];
     const initialCutoffR3 = r3_cutoff_val ? parseInt(r3_cutoff_val).toLocaleString() : '—';
 
+    const feeVal = getCourseFee(college, c.course_name, c.total_kea_seats);
+
     return `<tr>
       <td>${c.course_name}</td>
       <td class="td-total">${c.total_intake || 0}</td>
       <td class="td-kea">${c.total_kea_seats || 0}</td>
-      ${comEdkCol || '<td>—</td>'}
-      ${mgmtCol || '<td>—</td>'}
-      ${hkCol || '<td>—</td>'}
-      ${rkCol || '<td>—</td>'}
+      ${comEdkCol}
+      ${mgmtCol}
+      ${phCol}
+      ${splCol}
+      ${hkCol}
+      ${rkCol}
+      <td>${feeVal}</td>
       <td class="td-cutoff-r1" data-course-idx="${idx}" style="color:var(--blue); text-align:right; font-family:var(--font-display); font-weight:700;">${initialCutoffR1}</td>
       <td class="td-cutoff-r2" data-course-idx="${idx}" style="color:var(--purple); text-align:right; font-family:var(--font-display); font-weight:700;">${initialCutoffR2}</td>
       <td class="td-cutoff-r3" data-course-idx="${idx}" style="color:var(--pink); text-align:right; font-family:var(--font-display); font-weight:700;">${initialCutoffR3}</td>
     </tr>`;
   }).join('');
-
-  const hasComDk = college.courses.some(c => c.cat2_seats > 0);
-  const hasMgmt = college.courses.some(c => c.cat3_seats > 0);
-  const hasHk = college.courses.some(c => (c.kea_hk || 0) > 0);
 
   // Fee calculation
   const feeInfo = getSeatFees(college);
@@ -603,10 +652,13 @@ function openModal(college) {
             <th>Course</th>
             <th>Total</th>
             <th>KEA</th>
-            <th>${hasComDk ? 'COMEDK' : '—'}</th>
-            <th>${hasMgmt ? 'Mgmt' : '—'}</th>
-            <th>${hasHk ? 'HK' : '—'}</th>
-            <th>RK</th>
+            ${hasComDk ? '<th>COMEDK</th>' : ''}
+            ${hasMgmt ? '<th>Mgmt</th>' : ''}
+            ${hasPh ? '<th>PH</th>' : ''}
+            ${hasSpl ? '<th>SPL</th>' : ''}
+            ${hasHk ? '<th>HK</th>' : ''}
+            ${hasRk ? '<th>RK</th>' : ''}
+            <th>Fee (1st Yr)</th>
             <th style="color:var(--blue); text-align:right;">R1 Cut-off</th>
             <th style="color:var(--purple); text-align:right;">R2 Cut-off</th>
             <th style="color:var(--pink); text-align:right;">R3 Cut-off</th>
@@ -736,7 +788,25 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-// Helper to determine fees by college type & course names (from KEA_FEES_2025.pdf)
+function getCourseFee(college, courseName, keaSeats) {
+  const type = college.college_type || '';
+  if (type.includes('Government / VTU Constituent')) {
+    const concessionCourses = ['civil', 'mechanical', 'textile', 'silk', 'automobile'];
+    const isConcession = concessionCourses.some(cc => courseName.toLowerCase().includes(cc));
+    return isConcession ? '₹28,450' : '₹44,200';
+  }
+  if (type.includes('Government Aided')) {
+    return '₹44,200';
+  }
+  if (type.includes('Public University')) {
+    return '₹49,600';
+  }
+  if (type.includes('Government (Higher Fees)')) {
+    return '₹1,02,410';
+  }
+  return '₹1,12,410';
+}
+
 function getSeatFees(college) {
   const type = college.college_type || '';
   const result = {
@@ -1030,6 +1100,12 @@ function bindEvents() {
       tab.classList.add('active');
       currentTab = tab.dataset.tab;
       document.getElementById(`tab-content-${currentTab}`).classList.add('active');
+      
+      if (currentTab === 'totals') {
+        const activeBtn = document.querySelector('.totals-ann-btn.active');
+        const activeAnnFilter = activeBtn ? activeBtn.dataset.ann : 'ALL';
+        renderTotals(activeAnnFilter);
+      }
     });
   });
 
@@ -1174,8 +1250,8 @@ document.addEventListener('DOMContentLoaded', init);
 // Seat Totals Tab
 // ─────────────────────────────────────────────────────
 function renderTotals(annFilter) {
-  const colleges = allData.colleges.filter(c =>
-    annFilter === 'ALL' || c.annexure === annFilter
+  const colleges = filtered.filter(c =>
+    annFilter === 'ALL' ? ['A','B','C','D','M','O','P','Z'].includes(c.annexure) : c.annexure === annFilter
   );
 
   // Aggregate everything from course level
@@ -1252,7 +1328,7 @@ function renderTotals(annFilter) {
 
   // ── Annexure-wise breakdown ───────────────────────────
   const annexures = annFilter === 'ALL'
-    ? ['A','B','C','D','M','O','P','Z','E','V']
+    ? ['A','B','C','D','M','O','P','Z']
     : [annFilter];
 
   const annLabels = {
@@ -1264,7 +1340,7 @@ function renderTotals(annFilter) {
   const annIcons = { A:'🏛️', B:'🤝', C:'🏢', D:'⭐', M:'🎓', O:'🌍', P:'🎖️', Z:'🏛️', E:'✨', V:'⚡' };
 
   const annRows = annexures.map(ann => {
-    const cols = allData.colleges.filter(c => c.annexure === ann);
+    const cols = colleges.filter(c => c.annexure === ann);
     let ai=0, ak=0, a2=0, a3=0;
     cols.forEach(col => col.courses.forEach(c => {
       ai += c.total_intake || 0;
@@ -1280,15 +1356,15 @@ function renderTotals(annFilter) {
       <td>${cols.length}</td>
       <td class="td-seats">${ai.toLocaleString()}</td>
       <td class="td-kea">${ak.toLocaleString()}</td>
-      <td class="td-comedk">${a2 > 0 ? a2.toLocaleString() : '—'}</td>
-      <td class="td-mgmt">${a3 > 0 ? a3.toLocaleString() : '—'}</td>
+      <td class="td-comedk">${a2.toLocaleString()}</td>
+      <td class="td-mgmt">${a3.toLocaleString()}</td>
       <td><span class="kea-pct-badge ${pctCls}">${keaPct}%</span></td>
     </tr>`;
   });
 
   // Grand total row
-  const gt2 = totalCat2 > 0 ? totalCat2.toLocaleString() : '—';
-  const gt3 = totalCat3 > 0 ? totalCat3.toLocaleString() : '—';
+  const gt2 = totalCat2.toLocaleString();
+  const gt3 = totalCat3.toLocaleString();
   const gtPct = totalIntake > 0 ? Math.round((totalKea/totalIntake)*100) : 0;
   annRows.push(`<tr class="total-row">
     <td colspan="2"><strong>GRAND TOTAL</strong></td>
@@ -1304,7 +1380,7 @@ function renderTotals(annFilter) {
 
   // ── KEA internal quota breakdown ──────────────────────
   const keaRows = annexures.map(ann => {
-    const cols = allData.colleges.filter(c => c.annexure === ann);
+    const cols = colleges.filter(c => c.annexure === ann);
     let ph=0,spl=0,hk=0,rk=0,tot=0,over=0;
     cols.forEach(col => col.courses.forEach(c => {
       ph   += c.kea_ph || 0;
@@ -1350,6 +1426,19 @@ function downloadJSON() {
   if (annSel === 'ALL') {
     dataToDownload = allData.colleges;
     filename = 'karnataka_seat_matrix_2025_all.json';
+  } else if (annSel === 'Undefined') {
+    dataToDownload = allData.colleges.map(col => {
+      const specCourses = col.courses.filter(c => 
+        (c.sports || 0) > 0 || (c.ncc || 0) > 0 || (c.sct_guides || 0) > 0 ||
+        (c.defence || 0) > 0 || (c.k_defence || 0) > 0 || (c.ex_defence || 0) > 0 ||
+        (c.capf || 0) > 0 || (c.ai || 0) > 0 || (c.xcapf || 0) > 0 || (c.tot_special_seats || 0) > 0
+      );
+      if (specCourses.length > 0) {
+        return { ...col, courses: specCourses };
+      }
+      return null;
+    }).filter(col => col !== null);
+    filename = 'karnataka_seat_matrix_2025_annexure_Undefined.json';
   } else {
     dataToDownload = allData.colleges.filter(c => c.annexure === annSel);
     filename = `karnataka_seat_matrix_2025_annexure_${annSel}.json`;
@@ -1364,6 +1453,71 @@ function downloadCSV() {
   const annSel = document.getElementById('download-ann-select').value;
   let colleges;
   let filename;
+
+  if (annSel === 'Undefined') {
+    const headers = [
+      'College Number',
+      'College Name',
+      'Address',
+      'Annexure',
+      'College Type',
+      'District',
+      'Course Name',
+      'Sports',
+      'NCC',
+      'Scouts & Guides',
+      'Defence',
+      'K-Defence',
+      'Ex-Defence',
+      'CAPF',
+      'AI',
+      'XCAPF',
+      'Total Seats'
+    ];
+    const csvRows = [headers.join(',')];
+    colleges = allData.colleges.map(col => {
+      const specCourses = col.courses.filter(c => 
+        (c.sports || 0) > 0 || (c.ncc || 0) > 0 || (c.sct_guides || 0) > 0 ||
+        (c.defence || 0) > 0 || (c.k_defence || 0) > 0 || (c.ex_defence || 0) > 0 ||
+        (c.capf || 0) > 0 || (c.ai || 0) > 0 || (c.xcapf || 0) > 0 || (c.tot_special_seats || 0) > 0
+      );
+      if (specCourses.length > 0) {
+        return { ...col, courses: specCourses };
+      }
+      return null;
+    }).filter(col => col !== null);
+
+    colleges.forEach(col => {
+      col.courses.forEach(c => {
+        const row = [
+          col.college_number,
+          `"${col.college_name.replace(/"/g, '""')}"`,
+          `"${(col.address || '').replace(/"/g, '""')}"`,
+          col.annexure,
+          `"${col.college_type}"`,
+          col.district || '',
+          `"${c.course_name}"`,
+          c.sports || 0,
+          c.ncc || 0,
+          c.sct_guides || 0,
+          c.defence || 0,
+          c.k_defence || 0,
+          c.ex_defence || 0,
+          c.capf || 0,
+          c.ai || 0,
+          c.xcapf || 0,
+          c.tot_special_seats || 0
+        ];
+        csvRows.push(row.join(','));
+      });
+    });
+    
+    filename = 'karnataka_seat_matrix_2025_annexure_Undefined.csv';
+    const csvStr = csvRows.join('\n');
+    const blob = new Blob([csvStr], { type: 'text/csv;charset=utf-8;' });
+    triggerDownload(blob, filename);
+    return;
+  }
 
   if (annSel === 'ALL') {
     colleges = allData.colleges;
@@ -1566,3 +1720,849 @@ function renderPredictionResults(results, selectedRound) {
     });
   });
 }
+
+// ─────────────────────────────────────────────────────
+// Q&A Assistant Logic
+// ─────────────────────────────────────────────────────
+function initAssistant() {
+  const sendBtn = document.getElementById('assistant-send-btn');
+  const inputEl = document.getElementById('assistant-input');
+  const suggestionsBox = document.getElementById('assistant-suggestions');
+
+  if (sendBtn && inputEl) {
+    sendBtn.addEventListener('click', () => {
+      runAssistantQuery(inputEl.value);
+    });
+
+    inputEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        runAssistantQuery(inputEl.value);
+      }
+    });
+  }
+
+  if (suggestionsBox) {
+    suggestionsBox.addEventListener('click', (e) => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      const queryText = chip.dataset.query || chip.textContent;
+      if (inputEl) {
+        inputEl.value = queryText;
+        runAssistantQuery(queryText);
+      }
+    });
+  }
+}
+
+function runAssistantQuery(query) {
+  const q = query.trim();
+  if (!q) return;
+
+  const container = document.getElementById('assistant-response-container');
+  const userText = document.getElementById('assistant-user-text');
+  const textResponse = document.getElementById('assistant-text-response');
+  const resultsWrapper = document.getElementById('assistant-results-wrapper');
+
+  if (!container || !userText || !textResponse || !resultsWrapper) return;
+
+  // Show container
+  container.style.display = 'block';
+  
+  // Set user query text
+  userText.textContent = q;
+
+  // Clear previous response and show typing indicator
+  textResponse.innerHTML = `
+    <div class="typing-indicator">
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+    </div>
+  `;
+  resultsWrapper.innerHTML = '';
+
+  // Scroll response container into view smoothly
+  container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  // Simulate typing delay for premium UX
+  setTimeout(() => {
+    try {
+      const analysis = parseAssistantQuery(q);
+      const response = generateAssistantResponse(analysis);
+      
+      // Render text response
+      textResponse.innerHTML = formatMarkdown(response.text);
+
+      // Render HTML results (cards or table)
+      resultsWrapper.innerHTML = response.html || '';
+
+      // Bind click events on cards inside assistant results
+      resultsWrapper.querySelectorAll('.college-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const colNum = card.dataset.collegeNumber;
+          const collegeObj = allData.colleges.find(c => c.college_number == colNum);
+          if (collegeObj) {
+            openModal(collegeObj);
+          }
+        });
+      });
+
+      // Bind click events on table rows
+      resultsWrapper.querySelectorAll('.assistant-row-click').forEach(row => {
+        row.addEventListener('click', () => {
+          const colNum = row.dataset.collegeNumber;
+          const collegeObj = allData.colleges.find(c => c.college_number == colNum);
+          if (collegeObj) {
+            openModal(collegeObj);
+          }
+        });
+      });
+
+    } catch (err) {
+      console.error(err);
+      textResponse.innerHTML = `<span style="color:#ef4444;">⚠️ Sorry, I encountered an error processing your query. Please try again.</span>`;
+    }
+  }, 450);
+}
+
+function parseAssistantQuery(queryStr) {
+  let norm = queryStr.toLowerCase();
+  
+  // Remove periods from acronyms (e.g. c.s.e. -> cse, c.s -> cs)
+  norm = norm.replace(/\./g, '');
+  
+  // Remove other punctuation
+  norm = norm.replace(/[?,!]/g, '');
+  
+  // Normalize spacing in common acronyms (e.g. c s e -> cse, i s e -> ise, e c e -> ece, e e e -> eee, c s -> cs)
+  norm = norm.replace(/\b(c)\s+(s)\s+(e)\b/g, 'cse');
+  norm = norm.replace(/\b(i)\s+(s)\s+(e)\b/g, 'ise');
+  norm = norm.replace(/\b(e)\s+(c)\s+(e)\b/g, 'ece');
+  norm = norm.replace(/\b(e)\s+(e)\s+(e)\b/g, 'eee');
+  norm = norm.replace(/\b(c)\s+(s)\b/g, 'cs');
+  norm = norm.replace(/\b(i)\s+(s)\b/g, 'is');
+  norm = norm.replace(/\b(e)\s+(e)\b/g, 'ee');
+  norm = norm.replace(/\b(d)\s+(s)\b/g, 'ds');
+  norm = norm.replace(/\b(b)\s+(t)\b/g, 'bt');
+  norm = norm.replace(/\b(a)\s+(e)\b/g, 'ae');
+  norm = norm.replace(/\b(t)\s+(c)\b/g, 'tc');
+
+  // Replace multiple spaces with a single space
+  norm = norm.replace(/\s+/g, ' ').trim();
+  
+  // 1. Extract Rank
+  let rank = null;
+  const kMatch = norm.match(/\b(\d+(?:\.\d+)?)\s*k\b/);
+  if (kMatch) {
+    rank = Math.round(parseFloat(kMatch[1]) * 1000);
+  } else {
+    const numMatch = norm.match(/\b\d{3,6}\b/);
+    if (numMatch) {
+      rank = parseInt(numMatch[0]);
+    }
+  }
+
+  // 2. Extract Category
+  let category = null;
+  const catRegex = /\b(gmk|gmr|gm|1g|1k|1r|2ag|2ak|2ar|2bg|2bk|2br|3ag|3ak|3ar|3bg|3bk|3br|scg|sck|scr|stg|stk|str)\b/i;
+  const catMatch = norm.match(catRegex);
+  if (catMatch) {
+    category = catMatch[1].toUpperCase();
+  }
+
+  // 3. Extract District
+  let district = null;
+  const districtAliases = {
+    'bangalore': 'Bangalore', 'bengaluru': 'Bangalore',
+    'mysore': 'Mysore', 'mysuru': 'Mysore',
+    'mangalore': 'Mangalore', 'mangaluru': 'Mangalore',
+    'belgaum': 'Belgaum', 'belagavi': 'Belgaum',
+    'gulbarga': 'Gulbarga', 'kalaburagi': 'Gulbarga',
+    'shimoga': 'Shimoga', 'shivamogga': 'Shimoga',
+    'tumkur': 'Tumkur', 'tumakuru': 'Tumkur',
+    'hubli': 'Dharwad', 'dharwad': 'Dharwad', 'hubballi': 'Dharwad',
+    'hassan': 'Hassan', 'udupi': 'Udupi', 'karwar': 'Karwar',
+    'davanagere': 'Davanagere', 'bellary': 'Bellary', 'ballari': 'Bellary',
+    'mandya': 'Mandya', 'kolar': 'Kolar', 'chickballapur': 'Chickballapur',
+    'chamarajanagar': 'Chamarajanagar', 'bidar': 'Bidar', 'raichur': 'Raichur',
+    'koppal': 'Koppal', 'gadag': 'Gadag', 'haveri': 'Haveri',
+    'bagalkot': 'Bagalkot', 'bijapur': 'Bijapur', 'vijayapura': 'Bijapur',
+    'chitradurga': 'Chitradurga', 'chikmagalur': 'Chikmagalur', 'kodagu': 'Kodagu',
+    'coorg': 'Kodagu', 'yadgir': 'Yadgir', 'ramanagara': 'Ramanagara'
+  };
+  
+  for (const alias in districtAliases) {
+    if (norm.includes(alias)) {
+      district = districtAliases[alias];
+      break;
+    }
+  }
+
+  // 4. Extract College Type
+  let collegeType = null;
+  if (norm.includes('government') || norm.includes('govt')) {
+    collegeType = 'govt';
+  } else if (norm.includes('aided')) {
+    collegeType = 'aided';
+  } else if (norm.includes('private')) {
+    collegeType = 'private';
+  } else if (norm.includes('university') || norm.includes('universities')) {
+    collegeType = 'university';
+  }
+
+  // 5. Extract Course
+  let courseName = null;
+  const courseAbbrMap = {
+    'cse': 'Computer Science and Engineering',
+    'computer science': 'Computer Science and Engineering',
+    'comp sci': 'Computer Science and Engineering',
+    'cs': 'Computer Science and Engineering',
+    
+    'ece': 'Electronics and Communication Engineering',
+    'electronics': 'Electronics and Communication Engineering',
+    
+    'ise': 'Information Science and Engineering',
+    'information science': 'Information Science and Engineering',
+    'info sci': 'Information Science and Engineering',
+    
+    'eee': 'Electrical and Electronics Engineering',
+    'ee': 'Electrical and Electronics Engineering',
+    'electrical': 'Electrical and Electronics Engineering',
+    
+    'tc': 'Telecommunication Engineering',
+    'telecom': 'Telecommunication Engineering',
+    'bt': 'Bio-Technology',
+    'ae': 'Aerospace Engineering',
+    
+    'mech': 'Mechanical Engineering',
+    'mechanical': 'Mechanical Engineering',
+    
+    'civil': 'Civil Engineering',
+    
+    'aiml': 'Artificial Intelligence and Machine Learning',
+    'ai & ml': 'Artificial Intelligence and Machine Learning',
+    'ai and ml': 'Artificial Intelligence and Machine Learning',
+    'ai/ml': 'Artificial Intelligence and Machine Learning',
+    
+    'aids': 'Artificial Intelligence and Data Science',
+    'ai & ds': 'Artificial Intelligence and Data Science',
+    'ai and ds': 'Artificial Intelligence and Data Science',
+    'ai/ds': 'Artificial Intelligence and Data Science',
+    
+    'data science': 'Data Science',
+    'ds': 'Data Science',
+    
+    'vlsi': 'VLSI',
+    'biotech': 'Biotechnology',
+    'biotechnology': 'Biotechnology',
+    'aero': 'Aerospace Engineering',
+    'aerospace': 'Aerospace Engineering',
+    'chemical': 'Chemical Engineering',
+    'chem': 'Chemical Engineering'
+  };
+
+  let longestMatchLen = 0;
+  for (const phrase in courseAbbrMap) {
+    let hasMatch = false;
+    if (phrase.length <= 3) {
+      const escPhrase = phrase.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+      hasMatch = new RegExp('\\b' + escPhrase + '\\b', 'i').test(norm);
+    } else {
+      hasMatch = norm.includes(phrase);
+    }
+
+    if (hasMatch && phrase.length > longestMatchLen) {
+      courseName = courseAbbrMap[phrase];
+      longestMatchLen = phrase.length;
+    }
+  }
+
+  if (!courseName && allData.all_courses) {
+    for (const cName of allData.all_courses) {
+      if (norm.includes(cName.toLowerCase())) {
+        courseName = cName;
+        break;
+      }
+    }
+  }
+
+  // 6. Extract College
+  let colleges = [];
+  const collegeAcronyms = {
+    'rv': 'R.V. College of Engineering',
+    'rvce': 'R.V. College of Engineering',
+    'bms': 'B.M.S. College of Engineering',
+    'bmsce': 'B.M.S. College of Engineering',
+    'bmsit': 'B.M.S. Institute of Technology',
+    'pes': 'PES University',
+    'pesu': 'PES University',
+    'msrit': 'M.S. Ramaiah Institute of Technology',
+    'ramaiah': 'M.S. Ramaiah Institute of Technology',
+    'uvce': 'University Visvesvaraya College of Engineering',
+    'bit': 'Bangalore Institute of Technology',
+    'dsce': 'Dayananda Sagar College of Engineering',
+    'dayananda sagar': 'Dayananda Sagar',
+    'sit': 'Siddaganga Institute of Technology',
+    'siddaganga': 'Siddaganga',
+    'nie': 'National Institute of Engineering',
+    'sjbit': 'SJB Institute of Technology',
+    'sjb': 'SJB Institute of Technology',
+    'mvj': 'MVJ College of Engineering',
+    'nmit': 'Nitte Meenakshi Institute of Technology'
+  };
+
+  let matchedAcronym = false;
+  for (const acr in collegeAcronyms) {
+    if (new RegExp('\\b' + acr + '\\b', 'i').test(norm)) {
+      const colName = collegeAcronyms[acr];
+      const found = allData.colleges.filter(c => c.college_name.toLowerCase().includes(colName.toLowerCase()));
+      if (found.length > 0) {
+        colleges = found;
+        matchedAcronym = true;
+        break;
+      }
+    }
+  }
+
+  if (colleges.length === 0) {
+    const queryWords = norm.split(/\s+/).filter(w => w.length > 3 && !['college', 'engineering', 'institute', 'technology', 'aided', 'private', 'minority', 'government', 'university', 'what', 'show', 'fees', 'seat', 'seats', 'rank', 'with', 'from', 'offering', 'in', 'near'].includes(w));
+    
+    const scoredColleges = allData.colleges.map(c => {
+      let score = 0;
+      const cNameNorm = c.college_name.toLowerCase();
+      queryWords.forEach(w => {
+        if (cNameNorm.includes(w)) {
+          score += w.length;
+        }
+      });
+      return { college: c, score };
+    }).filter(sc => sc.score > 0);
+
+    if (scoredColleges.length > 0) {
+      scoredColleges.sort((a, b) => b.score - a.score);
+      const maxScore = scoredColleges[0].score;
+      colleges = scoredColleges.filter(sc => sc.score === maxScore).map(sc => sc.college);
+    }
+  }
+
+  // 7. Detect Intent
+  let intent = 'SEARCH';
+  if (norm.includes('fee') || norm.includes('fees') || norm.includes('cost') || norm.includes('charge') || norm.includes('rupees') || norm.includes('price') || norm.includes('how much')) {
+    intent = 'FEE_INQUIRY';
+  } else if (norm.includes('seat') || norm.includes('seats') || norm.includes('intake') || norm.includes('capacity') || norm.includes('matrix')) {
+    intent = 'SEAT_INQUIRY';
+  } else if (rank !== null || norm.includes('chance') || norm.includes('predict') || norm.includes('admission') || norm.includes('allotment') || norm.includes('get a seat') || norm.includes('cutoff')) {
+    intent = 'PREDICT';
+  }
+
+  return {
+    query: queryStr,
+    rank,
+    category: category || 'GM',
+    categorySpecified: !!category,
+    district,
+    collegeType,
+    courseName,
+    colleges,
+    intent
+  };
+}
+
+function getCutoffForCategory(courseObj, category) {
+  const r3 = courseObj.round3_cutoff && courseObj.round3_cutoff[category];
+  if (r3) return { cutoff: parseFloat(r3), round: 'Round 3' };
+  
+  const r2 = courseObj.round2_cutoff && courseObj.round2_cutoff[category];
+  if (r2) return { cutoff: parseFloat(r2), round: 'Round 2' };
+  
+  const r1 = courseObj.round1_cutoff && courseObj.round1_cutoff[category];
+  if (r1) return { cutoff: parseFloat(r1), round: 'Round 1' };
+  
+  return null;
+}
+
+function generateAssistantResponse(analysis) {
+  const category = analysis.category;
+  const rank = analysis.rank;
+  const courseName = analysis.courseName;
+  const colleges = analysis.colleges;
+  const district = analysis.district;
+  const collegeType = analysis.collegeType;
+  const intent = analysis.intent;
+
+  let text = '';
+  let html = '';
+
+  const filterCollegesList = (list) => {
+    return list.filter(c => {
+      if (district && c.district !== district) return false;
+      if (collegeType) {
+        const type = c.college_type.toLowerCase();
+        if (collegeType === 'govt' && !type.includes('government') && !type.includes('vtu')) return false;
+        if (collegeType === 'aided' && !type.includes('aided')) return false;
+        if (collegeType === 'private' && !type.includes('private')) return false;
+        if (collegeType === 'university' && !type.includes('university') && !type.includes('constituent')) return false;
+      }
+      return true;
+    });
+  };
+
+  // Case 1: PREDICT (Cutoff & Admission Chances)
+  if (intent === 'PREDICT') {
+    if (rank === null) {
+      text = `I detected you are asking for cutoffs or admission predictions. Could you please specify your **UGCET Rank**? For example: *'Can I get CSE at RV College with rank 5000?'*`;
+      return { text, html };
+    }
+
+    const targetCategory = category || 'GM';
+
+    // Subcase 1.1: Specific College and Course
+    if (colleges.length === 1 && courseName) {
+      const college = colleges[0];
+      const course = college.courses.find(c => c.course_name.toLowerCase().includes(courseName.toLowerCase()) || courseName.toLowerCase().includes(c.course_name.toLowerCase()));
+      
+      if (!course) {
+        text = `**${college.college_name}** does not offer a course matching **${courseName}**. Click one of these courses to search cutoffs:`;
+        html = `<div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;">` + 
+          college.courses.map(c => `<span class="chip active" style="margin:0; background:rgba(255,255,255,0.03); border:1px solid var(--border); color:var(--text-muted); font-size:11px; padding:6px 12px; font-weight:500;" onclick="window.setAssistantInputAndAsk('Can I get ${c.course_name} at ${college.college_name} with rank ${rank} in ${targetCategory}?')">${abbrCourseName(c.course_name)}</span>`).join('') + 
+          `</div>`;
+        return { text, html };
+      }
+
+      const cutoffInfo = getCutoffForCategory(course, targetCategory);
+      
+      if (!cutoffInfo) {
+        text = `At **${college.college_name}**, there is no cutoff rank recorded for **${course.course_name}** under category **${targetCategory}**. This usually means no seats were allotted to this category in 2025.`;
+        return { text, html };
+      }
+
+      const cutoff = cutoffInfo.cutoff;
+      const roundUsed = cutoffInfo.round;
+
+      const diff = cutoff - rank;
+      let chance = 'Low';
+      let chanceClass = 'badge-borderline';
+      let explanation = '';
+
+      if (diff >= 5000) {
+        chance = 'Very High';
+        chanceClass = 'badge-very-high';
+        explanation = `Your rank (**${rank.toLocaleString()}**) is significantly better than the ${roundUsed} cutoff of **${cutoff.toLocaleString()}** (by **+${diff.toLocaleString()}** ranks). You are highly likely to get admitted here.`;
+      } else if (diff >= 0) {
+        chance = 'High';
+        chanceClass = 'badge-high';
+        explanation = `Your rank (**${rank.toLocaleString()}**) is better than the ${roundUsed} cutoff of **${cutoff.toLocaleString()}** (by **+${diff.toLocaleString()}** ranks). You have a very good chance of getting this seat.`;
+      } else if (diff >= -3000) {
+        chance = 'Borderline';
+        chanceClass = 'badge-borderline';
+        explanation = `Your rank (**${rank.toLocaleString()}**) is slightly worse than the ${roundUsed} cutoff of **${cutoff.toLocaleString()}** (by **${diff.toLocaleString()}** ranks). You might stand a chance in final or casual vacancy rounds, but it's borderline.`;
+      } else {
+        chance = 'Low';
+        chanceClass = 'style-low';
+        explanation = `Your rank (**${rank.toLocaleString()}**) is significantly behind the ${roundUsed} cutoff of **${cutoff.toLocaleString()}** (by **${diff.toLocaleString()}** ranks). It is unlikely you will get this seat under category ${targetCategory}.`;
+      }
+
+      text = `Here is your admission chance for **${course.course_name}** at **${college.college_name}** under category **${targetCategory}**:\n\n` +
+             `• **Category**: ${targetCategory}\n` +
+             `• **${roundUsed} Cutoff**: **${cutoff.toLocaleString()}**\n` +
+             `• **Your Rank**: **${rank.toLocaleString()}**\n` +
+             `• **Chances**: **${chance}**\n\n` +
+             explanation;
+
+      html = `<div style="margin-top:16px;">` + renderCollegeCard(college, 0) + `</div>`;
+      return { text, html };
+    }
+
+    // Subcase 1.2: Specific College (List all courses cutoff and user chances)
+    if (colleges.length === 1 && !courseName) {
+      const college = colleges[0];
+      text = `Here are the cutoff ranks and your admission chances for all courses at **${college.college_name}** for category **${targetCategory}** with your rank of **${rank.toLocaleString()}**:`;
+      
+      const courseRows = college.courses.map(c => {
+        const cutoffInfo = getCutoffForCategory(c, targetCategory);
+        if (!cutoffInfo) {
+          return `<tr>
+            <td><strong>${c.course_name}</strong></td>
+            <td style="text-align:right; color:var(--text-muted);">—</td>
+            <td style="text-align:right; color:var(--text-muted);">—</td>
+            <td style="text-align:center;"><span class="badge-chance" style="background:rgba(255,255,255,0.03); color:var(--text-muted); border:1px solid var(--border);">No Cutoff</span></td>
+          </tr>`;
+        }
+        const cutoff = cutoffInfo.cutoff;
+        
+        const diff = cutoff - rank;
+        const diffText = diff >= 0 ? `+${diff.toLocaleString()}` : diff.toLocaleString();
+        const diffClass = diff >= 0 ? 'text-green' : 'text-orange';
+        
+        let chance = 'Low';
+        let chanceClass = 'badge-borderline';
+        if (diff >= 5000) { chance = 'Very High'; chanceClass = 'badge-very-high'; }
+        else if (diff >= 0) { chance = 'High'; chanceClass = 'badge-high'; }
+        else if (diff >= -3000) { chance = 'Borderline'; chanceClass = 'badge-borderline'; }
+        else { chance = 'Low'; chanceClass = 'style-low'; }
+
+        return `<tr>
+          <td><strong>${c.course_name}</strong></td>
+          <td style="font-family:var(--font-display); font-weight:700; text-align:right;">${cutoff.toLocaleString()}</td>
+          <td class="${diffClass}" style="font-family:var(--font-display); font-weight:700; text-align:right;">${diffText}</td>
+          <td style="text-align:center;"><span class="badge-chance ${chanceClass}">${chance}</span></td>
+        </tr>`;
+      }).join('');
+
+      html = `
+        <div class="table-container" style="overflow-x:auto; margin-top:16px; border:1px solid var(--border); border-radius:10px;">
+          <table class="modal-courses-table" style="width:100%;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border);">
+                <th style="text-align:left;">Course Name</th>
+                <th style="text-align:right;">Cutoff (R3)</th>
+                <th style="text-align:right;">Diff</th>
+                <th style="text-align:center;">Chance</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${courseRows}
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:16px;">` + renderCollegeCard(college, 0) + `</div>
+      `;
+      return { text, html };
+    }
+
+    // Subcase 1.3: Specific Course or general (List colleges sorted by cutoff showing chances)
+    let filteredColleges = allData.colleges;
+    if (courseName) {
+      filteredColleges = filteredColleges.filter(col => col.courses.some(c => c.course_name.toLowerCase().includes(courseName.toLowerCase()) || courseName.toLowerCase().includes(c.course_name.toLowerCase())));
+    }
+    filteredColleges = filterCollegesList(filteredColleges);
+
+    if (filteredColleges.length === 0) {
+      text = `No colleges found offering **${courseName || 'any course'}** matching your criteria.`;
+      return { text, html };
+    }
+
+    const matchingResults = [];
+    const seenCol = new Set();
+    
+    filteredColleges.forEach(college => {
+      college.courses.forEach(c => {
+        if (courseName && !(c.course_name.toLowerCase().includes(courseName.toLowerCase()) || courseName.toLowerCase().includes(c.course_name.toLowerCase()))) return;
+        
+        const cutoffInfo = getCutoffForCategory(c, targetCategory);
+        if (!cutoffInfo) return;
+        const cutoff = cutoffInfo.cutoff;
+        
+        const key = `${college.college_number}_${c.course_name}`;
+        if (seenCol.has(key)) return;
+        seenCol.add(key);
+        
+        const diff = cutoff - rank;
+        if (diff < -3000) return;
+        
+        let chance = 'Borderline';
+        let chanceClass = 'badge-borderline';
+        if (diff >= 5000) { chance = 'Very High'; chanceClass = 'badge-very-high'; }
+        else if (diff >= 0) { chance = 'High'; chanceClass = 'badge-high'; }
+        
+        matchingResults.push({
+          college,
+          courseName: c.course_name,
+          cutoff,
+          diff,
+          chance,
+          chanceClass
+        });
+      });
+    });
+
+    matchingResults.sort((a, b) => a.cutoff - b.cutoff);
+
+    if (matchingResults.length === 0) {
+      text = `Based on your rank of **${rank.toLocaleString()}** under category **${targetCategory}**, I couldn't find colleges offering **${courseName || 'this course'}** where your rank is within the cutoff margin. You may want to consider a different category, location, or course.`;
+      return { text, html };
+    }
+
+    const countToShow = Math.min(matchingResults.length, 10);
+    const displayedResults = matchingResults.slice(0, countToShow);
+
+    text = `Based on your rank of **${rank.toLocaleString()}** under category **${targetCategory}**, here are the top **${countToShow}** colleges offering **${courseName || 'Engineering'}** where you have a **High** or **Borderline** chance of admission (ordered by competitive cutoff ranks):`;
+
+    const tableRows = displayedResults.map(res => {
+      const col = res.college;
+      const diffText = res.diff >= 0 ? `+${res.diff.toLocaleString()}` : res.diff.toLocaleString();
+      const diffClass = res.diff >= 0 ? 'text-green' : 'text-orange';
+      
+      return `<tr class="pred-row assistant-row-click" data-college-number="${col.college_number}" style="cursor:pointer; transition:background 0.2s;">
+        <td><span class="card-type-pill pill-${col.annexure}" style="font-size:11px; padding: 2px 6px;">${col.kea_code || col.college_number}</span></td>
+        <td><strong>${col.college_name}</strong><br><small style="color:var(--text-muted)">📍 ${col.district}</small></td>
+        <td>${abbrCourseName(res.courseName)}</td>
+        <td style="font-family:var(--font-display); font-weight:700; text-align:right;">${res.cutoff.toLocaleString()}</td>
+        <td class="${diffClass}" style="font-family:var(--font-display); font-weight:700; text-align:right;">${diffText}</td>
+        <td style="text-align:center;"><span class="badge-chance ${res.chanceClass}">${res.chance}</span></td>
+      </tr>`;
+    }).join('');
+
+    html = `
+      <div class="table-container" style="overflow-x:auto; margin-top:16px; border:1px solid var(--border); border-radius:10px;">
+        <table class="modal-courses-table" style="width:100%;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);">
+              <th style="text-align:left;">Code</th>
+              <th style="text-align:left;">College</th>
+              <th style="text-align:left;">Course</th>
+              <th style="text-align:right;">Cutoff</th>
+              <th style="text-align:right;">Diff</th>
+              <th style="text-align:center;">Chance</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${tableRows}
+          </tbody>
+        </table>
+      </div>
+      <div style="font-size:11px; color:var(--text-muted); margin-top:8px;">💡 Clicking any row in the table will open the college detail modal.</div>
+    `;
+
+    return { text, html };
+  }
+
+  // Case 2: SEAT_INQUIRY (Seat Count / Matrix)
+  if (intent === 'SEAT_INQUIRY') {
+    if (colleges.length === 1) {
+      const college = colleges[0];
+      
+      if (courseName) {
+        const course = college.courses.find(c => c.course_name.toLowerCase().includes(courseName.toLowerCase()) || courseName.toLowerCase().includes(c.course_name.toLowerCase()));
+        if (!course) {
+          text = `**${college.college_name}** does not offer **${courseName}**.`;
+          return { text, html };
+        }
+        
+        text = `Here is the seat matrix for **${course.course_name}** at **${college.college_name}**:\n\n` +
+               `• **Total Intake**: **${(course.total_intake || 0).toLocaleString()}** seats\n` +
+               `• **KEA / Govt Seats**: **${(course.total_kea_seats || 0).toLocaleString()}** seats\n` +
+               `  - Hyderabad-Karnataka (HK): ${(course.kea_hk || 0).toLocaleString()} seats\n` +
+               `  - Rest of Karnataka (RK): ${(course.kea_rk || 0).toLocaleString()} seats\n` +
+               `  - Special Quotas: ${(course.kea_spl || 0).toLocaleString()} seats\n` +
+               `  - PH Quota: ${(course.kea_ph || 0).toLocaleString()} seats\n` +
+               `• **COMEDK Seats**: **${(course.cat2_seats || 0).toLocaleString()}** seats\n` +
+               `• **Management Seats**: **${(course.cat3_seats || 0).toLocaleString()}** seats\n` +
+               `• **Supernumerary SNQ Seats**: **${(course.over_above_5pct || 0).toLocaleString()}** seats`;
+
+        html = `<div style="margin-top:16px;">` + renderCollegeCard(college, 0) + `</div>`;
+        return { text, html };
+      } else {
+        let totalIntake = 0, totalKea = 0, totalComedk = 0, totalMgmt = 0;
+        college.courses.forEach(c => {
+          totalIntake += c.total_intake || 0;
+          totalKea += c.total_kea_seats || 0;
+          totalComedk += c.cat2_seats || 0;
+          totalMgmt += c.cat3_seats || 0;
+        });
+
+        text = `**${college.college_name}** offers **${college.courses.length}** courses with a total intake of **${totalIntake.toLocaleString()}** seats. Under KEA/Govt quota, there are **${totalKea.toLocaleString()}** seats. Here is the course-wise seat matrix:`;
+
+        const hasComDk = college.courses.some(c => (c.cat2_seats || 0) > 0);
+        const hasMgmt = college.courses.some(c => (c.cat3_seats || 0) > 0);
+
+        const courseRows = college.courses.map(c => {
+          const comedkCol = hasComDk ? `<td style="text-align:right; color:var(--purple);">${(c.cat2_seats || 0).toLocaleString()}</td>` : '';
+          const mgmtCol = hasMgmt ? `<td style="text-align:right; color:var(--orange);">${(c.cat3_seats || 0).toLocaleString()}</td>` : '';
+          const feeVal = getCourseFee(college, c.course_name, c.total_kea_seats);
+          return `
+            <tr>
+              <td><strong>${c.course_name}</strong></td>
+              <td style="text-align:right;">${(c.total_intake || 0).toLocaleString()}</td>
+              <td style="text-align:right; color:var(--green); font-weight:600;">${(c.total_kea_seats || 0).toLocaleString()}</td>
+              ${comedkCol}
+              ${mgmtCol}
+              <td style="text-align:right;">${feeVal}</td>
+            </tr>
+          `;
+        }).join('');
+
+        html = `
+          <div class="table-container" style="overflow-x:auto; margin-top:16px; border:1px solid var(--border); border-radius:10px;">
+            <table class="modal-courses-table" style="width:100%;">
+              <thead>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <th style="text-align:left;">Course Name</th>
+                  <th style="text-align:right;">Total</th>
+                  <th style="text-align:right; color:var(--green);">KEA</th>
+                  ${hasComDk ? '<th style="text-align:right; color:var(--purple);">COMEDK</th>' : ''}
+                  ${hasMgmt ? '<th style="text-align:right; color:var(--orange);">Mgmt</th>' : ''}
+                  <th style="text-align:right;">KEA Fee</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${courseRows}
+              </tbody>
+            </table>
+          </div>
+          <div style="margin-top:16px;">` + renderCollegeCard(college, 0) + `</div>
+        `;
+        return { text, html };
+      }
+    }
+
+    let filteredColleges = allData.colleges;
+    if (courseName) {
+      filteredColleges = filteredColleges.filter(col => col.courses.some(c => c.course_name.toLowerCase().includes(courseName.toLowerCase()) || courseName.toLowerCase().includes(c.course_name.toLowerCase())));
+    }
+    filteredColleges = filterCollegesList(filteredColleges);
+
+    let sumIntake = 0, sumKea = 0, sumComedk = 0, sumMgmt = 0;
+    filteredColleges.forEach(col => {
+      col.courses.forEach(c => {
+        if (courseName && !(c.course_name.toLowerCase().includes(courseName.toLowerCase()) || courseName.toLowerCase().includes(c.course_name.toLowerCase()))) return;
+        sumIntake += c.total_intake || 0;
+        sumKea += c.total_kea_seats || 0;
+        sumComedk += c.cat2_seats || 0;
+        sumMgmt += c.cat3_seats || 0;
+      });
+    });
+
+    const filterDesc = [];
+    if (collegeType) filterDesc.push(`**${collegeType.toUpperCase()}**`);
+    if (district) filterDesc.push(`in **${district}**`);
+    const filterDescStr = filterDesc.length > 0 ? ' ' + filterDesc.join(' ') : '';
+
+    text = `Across **${filteredColleges.length}** colleges${filterDescStr} offering **${courseName || 'Engineering'}**, here are the total seat statistics:\n\n` +
+           `• **Total Intake**: **${sumIntake.toLocaleString()}** seats\n` +
+           `• **KEA Govt Quota**: **${sumKea.toLocaleString()}** seats\n` +
+           `• **COMEDK Quota**: **${sumComedk.toLocaleString()}** seats\n` +
+           `• **Management Quota**: **${sumMgmt.toLocaleString()}** seats`;
+
+    const topColleges = filteredColleges.slice(0, 6);
+    html = `
+      <div style="font-weight:600; font-size:12px; color:var(--text-muted); margin:16px 0 10px; text-transform:uppercase; letter-spacing:0.05em;">Matching Colleges (showing top ${topColleges.length} of ${filteredColleges.length}):</div>
+      <div class="colleges-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:16px;">
+        ${topColleges.map((c, i) => renderCollegeCard(c, i)).join('')}
+      </div>
+    `;
+    return { text, html };
+  }
+
+  // Case 3: FEE_INQUIRY (Fee Details)
+  if (intent === 'FEE_INQUIRY') {
+    if (colleges.length === 1) {
+      const college = colleges[0];
+      const feeInfo = getSeatFees(college);
+
+      text = `Here is the annual fee structure for **${college.college_name}** (College Type: *${college.college_type}*):\n\n` +
+             `Private/Deemed colleges may charge Option A or Option B fees depending on consensual agreements. An additional "Other Fee" up to ₹20,000/- per annum can be collected by KEA.`;
+
+      const feeRows = feeInfo.rows.map(r => `
+        <tr>
+          <td><strong>${r.seatType}</strong></td>
+          <td style="text-align:right; font-family:var(--font-display); font-weight:700; color:var(--green);">${r.year1}</td>
+          <td style="text-align:right; font-family:var(--font-display); font-weight:700; color:var(--green);">${r.subsequent}</td>
+          <td style="font-size:11px; color:var(--text-muted); padding-left:12px; text-align:left;">${r.note}</td>
+        </tr>
+      `).join('');
+
+      html = `
+        <div class="table-container" style="overflow-x:auto; margin-top:16px; border:1px solid var(--border); border-radius:10px;">
+          <table class="modal-courses-table fee-table" style="width:100%;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border);">
+                <th style="text-align:left;">Quota Type</th>
+                <th style="text-align:right;">1st Year</th>
+                <th style="text-align:right;">Subsequent</th>
+                <th style="text-align:left; padding-left:12px;">Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${feeRows}
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:16px;">` + renderCollegeCard(college, 0) + `</div>
+      `;
+      return { text, html };
+    }
+
+    text = `Here is the general annual fee structure for engineering colleges in Karnataka for 2025 (as per KEA guidelines):\n\n` +
+           `• **Government & VTU constituent colleges**:\n` +
+           `  - General Quota: **₹44,200** (1st Year) / **₹42,200** (subsequent years).\n` +
+           `  - Concession rate (CE/ME/TX/ST/AT courses): **₹28,450** (1st Year) / **₹26,450** (subsequent years).\n` +
+           `  - SNQ quota: **₹20,610** per year.\n\n` +
+           `• **Private Aided colleges**:\n` +
+           `  - General Quota (Aided course): **₹44,200** (1st Year) / **₹42,200** (subsequent years).\n` +
+           `  - SNQ quota: **₹20,610** per year.\n\n` +
+           `• **Public Universities (e.g. UVCE)**:\n` +
+           `  - General Quota: **₹49,600** (1st Year) / **₹48,250** (subsequent years).\n` +
+           `  - SNQ quota: **₹20,610** per year.\n\n` +
+           `• **Private Unaided / Minority / Deemed / Private Universities**:\n` +
+           `  - Option A KEA Quota: **₹1,12,410** per year.\n` +
+           `  - Option B KEA Quota: **₹1,21,610** per year.\n` +
+           `  - COMEDK Quota: **₹2,81,100** or **₹2,00,000** per year.\n` +
+           `  - SNQ quota: **₹30,610** per year.`;
+
+    html = `
+      <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); padding:16px; border-radius:10px; margin-top:16px; font-size:13px;">
+        ℹ️ Private institutions operate under consensual agreements. An additional "Other Fee" up to ₹20,000/- per annum can be collected by KEA during admission.
+      </div>
+    `;
+    return { text, html };
+  }
+
+  // Case 4: SEARCH (College Search / Default)
+  if (intent === 'SEARCH') {
+    let filteredColleges = allData.colleges;
+    if (courseName) {
+      filteredColleges = filteredColleges.filter(col => col.courses.some(c => c.course_name.toLowerCase().includes(courseName.toLowerCase()) || courseName.toLowerCase().includes(c.course_name.toLowerCase())));
+    }
+    filteredColleges = filterCollegesList(filteredColleges);
+
+    if (colleges.length > 0 && !courseName && !district && !collegeType) {
+      text = `I found **${colleges.length}** colleges matching your query. Click any card below to view their complete details, courses, cutoffs, and fees:`;
+      html = `
+        <div class="colleges-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:16px; margin-top:16px;">
+          ${colleges.map((c, i) => renderCollegeCard(c, i)).join('')}
+        </div>
+      `;
+      return { text, html };
+    }
+
+    if (filteredColleges.length === 0) {
+      text = `I couldn't find any colleges matching your criteria. Try adjusting your keywords (e.g., location, course, or college type).`;
+      return { text, html };
+    }
+
+    const typeStr = collegeType ? `**${collegeType.toUpperCase()}** ` : '';
+    const locStr = district ? `in **${district}** ` : '';
+    const crsStr = courseName ? `offering **${courseName}** ` : '';
+
+    text = `I found **${filteredColleges.length}** ${typeStr}colleges ${locStr}${crsStr}in the database. Click any card below to view full details:`;
+
+    const topColleges = filteredColleges.slice(0, 12);
+    html = `
+      <div class="colleges-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:16px; margin-top:16px;">
+        ${topColleges.map((c, i) => renderCollegeCard(c, i)).join('')}
+      </div>
+      ${filteredColleges.length > 12 ? `<div style="font-size:12px; color:var(--text-muted); text-align:center; margin-top:16px;">Showed top 12 of ${filteredColleges.length} colleges. Refine your search to see others.</div>` : ''}
+    `;
+
+    return { text, html };
+  }
+
+  text = `I'm not sure about your query. You can ask me questions like:
+  - "Can I get CSE in RV College with rank 5000 in GM?"
+  - "What is the fee for Government colleges?"
+  - "How many seats are there for Mechanical in Government colleges?"
+  - "Show colleges in Mysore offering Computer Science"`;
+  
+  return { text, html };
+}
+
+function formatMarkdown(text) {
+  if (!text) return '';
+  let escaped = escHtml(text);
+  escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  escaped = escaped.replace(/\*(.*?)\*/g, '<em>$1</em>');
+  escaped = escaped.replace(/\n/g, '<br>');
+  return escaped;
+}
+

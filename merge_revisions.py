@@ -78,15 +78,138 @@ MANUAL_MAPPINGS = {
     "GANDHIINSTITUTEOFTECHNOLOGYANDMANAGEMENTGITAMOFFCAMPUSBENGALURU": ("P", "GANDHI INSTITUTE OF TECHNOLOGY AND MANAGEMENT (GITAM) OFF CAMPUS BENGALURU", "Deemed University"),
     
     # SSIT Deemed University
-    "SRISIDDHARTHAINSTITUTEOFTECHNOLOGY": ("P", "Sri Siddhartha Institute of Technology", "Deemed University")
+    "SRISIDDHARTHAINSTITUTEOFTECHNOLOGY": ("P", "Sri Siddhartha Institute of Technology", "Deemed University"),
+    
+    # Alliance and Presidency Universities manual mapping (Consolidated revisions from Annexure V to Annexure O)
+    "ALLIANCEUNIVERSITY": ("O", "ALLIANCE University", "Private University"),
+    "PRESIDENCYUNIVERSITY": ("O", "PRESIDENCY University", "Private University")
 }
+
+def copy_special_seats(source_col, target_col, all_revisions=None):
+    # Copies special seats fields from source_col's courses to target_col's courses.
+    # Also appends any courses from source_col that only have special seats (intake=0) and don't exist in target_col.
+    special_fields = ["sports", "ncc", "sct_guides", "defence", "k_defence", "ex_defence", "capf", "ai", "xcapf", "tot_special_seats"]
+    
+    target_course_map = {}
+    for tc in target_col.get("courses", []):
+        target_course_map[norm(tc["course_name"])] = tc
+        
+    for sc in source_col.get("courses", []):
+        # Check if this source course has any special seats
+        has_special = any(sc.get(f, 0) > 0 for f in special_fields)
+        if not has_special:
+            continue
+            
+        # Try to find matching course in target
+        tc = target_course_map.get(norm(sc["course_name"]))
+        if tc:
+            # Copy fields
+            for f in special_fields:
+                if f in sc:
+                    tc[f] = sc[f]
+        else:
+            # If not found, and it has special seats, check if another revision of the same college has it!
+            is_offered_elsewhere = False
+            if all_revisions:
+                for r in all_revisions:
+                    r_code = r.get("kea_code")
+                    r_target = None
+                    if r_code in KEA_CODE_TO_BASELINE:
+                        r_target = KEA_CODE_TO_BASELINE[r_code]
+                    else:
+                        r_n = norm(r["college_name"])
+                        if r_n in MANUAL_MAPPINGS:
+                            r_target = (MANUAL_MAPPINGS[r_n][0], None)
+                        elif r_n in baseline_by_name:
+                            bcs = baseline_by_name[r_n]
+                            if not (len(bcs) == 2 and {bc["annexure"] for bc in bcs} == {"B", "C"}):
+                                r_target = (bcs[0]["annexure"], bcs[0]["college_number"])
+                    
+                    if r_target and target_col.get("college_number"):
+                        if r_target[0] == target_col["annexure"] and r_target[1] == target_col["college_number"]:
+                            # Check if this other revision has the course with positive intake
+                            for rc in r.get("courses", []):
+                                if norm(rc["course_name"]) == norm(sc["course_name"]) and rc.get("total_intake", 0) > 0:
+                                    is_offered_elsewhere = True
+                                    break
+                    if is_offered_elsewhere:
+                        break
+                        
+            if is_offered_elsewhere:
+                print(f"  Skipping copy of special seat for '{sc['course_name']}' to '{target_col['college_name']}' ({target_col.get('kea_code')}) because another revision offers it.")
+                continue
+
+            # If not found, and it has special seats, append it to target courses
+            # We copy the entire course but set intake/kea to 0 (since it doesn't exist in the revision)
+            new_c = {
+                "course_name": sc["course_name"],
+                "total_intake": 0,
+                "total_kea_seats": 0,
+                "snq_5pct": 0, "kea_ph": 0, "kea_spl": 0, "kea_hk": 0, "kea_rk": 0, "kea_tot": 0,
+                "cat2_seats": 0, "cat3_seats": 0, "over_above_5pct": 0,
+            }
+            for f in special_fields:
+                if f in sc:
+                    new_c[f] = sc[f]
+            target_col["courses"].append(new_c)
 
 merged_colleges = []
 replaced_baseline_keys = set() # (annexure, college_number) of replaced baseline colleges
 
 # Process E and V colleges
+KEA_CODE_TO_BASELINE = {
+    # BMS
+    "E003": ("B", 1),
+    "E048": ("C", 16),
+    # Basaveshwara
+    "E031": ("B", 2),
+    "E049": ("C", 19),
+    # Dr. Ambedkar
+    "E004": ("B", 3),
+    "E060": ("C", 44),
+    # Malnad
+    "E024": ("B", 4),
+    "E047": ("C", 82),
+    # SJCE
+    "E021": ("B", 7),
+    "E284": ("C", 128),
+    # NIE
+    "E022": ("B", 8),
+    "E056": ("C", 137),
+    # UBDT
+    "E061": ("A", 19),
+    "E066": ("Z", 2),
+    # PDA
+    "E041": ("B", 5),
+    "E059": ("C", 92),
+    # PES Mandya
+    "E023": ("B", 6),
+    "E058": ("C", 93),
+    # Chintamani
+    "E308": ("A", 1),
+    "E309": ("Z", 1),
+}
+
 revisions = e_colleges + v_colleges
 for rev in revisions:
+    # 1. KEA code exact matching
+    code = rev.get("kea_code")
+    if code in KEA_CODE_TO_BASELINE:
+        target_ann, target_num = KEA_CODE_TO_BASELINE[code]
+        bc = next((c for c in baseline_colleges if c["annexure"] == target_ann and c["college_number"] == target_num), None)
+        if bc:
+            rev["annexure"] = target_ann
+            rev["college_type"] = bc["college_type"]
+            rev["college_number"] = bc["college_number"]
+            
+            # COPY SPECIAL SEATS!
+            copy_special_seats(bc, rev, revisions)
+                
+            merged_colleges.append(rev)
+            replaced_baseline_keys.add((target_ann, target_num))
+            print(f"Mapped revised college '{rev['college_name']}' via KEA code '{code}' to [{target_ann}] #{target_num}")
+            continue
+
     n = norm(rev["college_name"])
     
     # Check manual mappings first
@@ -101,6 +224,8 @@ for rev in revisions:
             if name_key in baseline_by_name:
                 for bc in baseline_by_name[name_key]:
                     replaced_baseline_keys.add((bc["annexure"], bc["college_number"]))
+                    # COPY SPECIAL SEATS!
+                    copy_special_seats(bc, rev, revisions)
                     print(f"Marked baseline college to replace: [{bc['annexure']}] #{bc['college_number']} {bc['college_name']}")
                     
         merged_colleges.append(rev)
@@ -143,6 +268,10 @@ for rev in revisions:
             rev_c["total_intake"] = sum(cr["total_intake"] for cr in rev_c["courses"])
             rev_c["total_kea_seats"] = sum(cr["total_kea_seats"] for cr in rev_c["courses"])
             
+            # COPY SPECIAL SEATS!
+            copy_special_seats(b_bc, rev_b, revisions)
+            copy_special_seats(c_bc, rev_c, revisions)
+            
             merged_colleges.append(rev_b)
             merged_colleges.append(rev_c)
             
@@ -156,6 +285,8 @@ for rev in revisions:
             rev["annexure"] = bc["annexure"]
             rev["college_type"] = bc["college_type"]
             rev["college_number"] = bc["college_number"]
+            # COPY SPECIAL SEATS!
+            copy_special_seats(bc, rev, revisions)
             merged_colleges.append(rev)
             replaced_baseline_keys.add((bc["annexure"], bc["college_number"]))
             print(f"Mapped revised college '{rev['college_name']}' to Annexure {bc['annexure']}")
