@@ -2566,3 +2566,95 @@ function formatMarkdown(text) {
   return escaped;
 }
 
+// AI Chatbot Frontend Integration
+document.addEventListener('DOMContentLoaded', () => {
+  const chatToggle = document.getElementById('agent-chat-toggle');
+  const chatContainer = document.getElementById('agent-chat-container');
+  const chatClose = document.getElementById('agent-chat-close');
+  const chatMessages = document.getElementById('agent-chat-messages');
+  const chatInput = document.getElementById('agent-chat-input');
+  const chatSend = document.getElementById('agent-chat-send');
+  
+  if (!chatToggle) return;
+  
+  let chatHistory = [];
+  
+  chatToggle.addEventListener('click', () => {
+    chatContainer.classList.toggle('open');
+    if (chatContainer.classList.contains('open')) {
+      chatInput.focus();
+    }
+  });
+  
+  chatClose.addEventListener('click', () => {
+    chatContainer.classList.remove('open');
+  });
+  
+  async function sendMessage() {
+    const text = chatInput.value.trim();
+    if (!text) return;
+    
+    appendMessage('user', text);
+    chatInput.value = '';
+    
+    const loadingId = appendMessage('agent', '<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>');
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: text,
+          history: chatHistory
+        })
+      });
+      
+      const data = await response.json();
+      
+      const loadingEl = document.getElementById(loadingId);
+      if (loadingEl) loadingEl.remove();
+      
+      if (data.reply) {
+        let formattedReply = formatMarkdown(data.reply);
+        
+        if (data.sql_queries && data.sql_queries.length > 0) {
+          formattedReply += '<div style="margin-top: 12px; font-size: 11px; border-top: 1px dashed var(--border); padding-top: 6px; color: var(--text-muted);">🔍 SQL Queries Executed:</div>';
+          data.sql_queries.forEach(q => {
+            formattedReply += `<div class="agent-msg-sql-log"><code>${escHtml(q.query)}</code></div>`;
+          });
+        }
+        
+        appendMessage('agent', formattedReply);
+        
+        chatHistory.push({ role: 'user', content: text });
+        chatHistory.push({ role: 'model', content: data.reply });
+      } else {
+        appendMessage('agent', 'Error: Received empty response from agent.');
+      }
+    } catch (err) {
+      const loadingEl = document.getElementById(loadingId);
+      if (loadingEl) loadingEl.remove();
+      appendMessage('agent', 'Error: Could not connect to the server API.');
+      console.error(err);
+    }
+    
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+  
+  function appendMessage(role, content) {
+    const msgId = 'msg-' + Math.random().toString(36).substr(2, 9);
+    const msgDiv = document.createElement('div');
+    msgDiv.id = msgId;
+    msgDiv.className = `agent-msg ${role}`;
+    msgDiv.innerHTML = content;
+    chatMessages.appendChild(msgDiv);
+    return msgId;
+  }
+  
+  chatSend.addEventListener('click', sendMessage);
+  chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendMessage();
+  });
+});
+

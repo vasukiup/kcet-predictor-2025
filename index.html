@@ -398,6 +398,35 @@
     </div>
   </div>
 
+  <!-- Floating AI Chatbot Widget -->
+  <button class="agent-chat-toggle" id="agent-chat-toggle" title="Ask AI Admission Assistant">💬</button>
+  
+  <div class="agent-chat-container" id="agent-chat-container">
+    <div class="agent-chat-header">
+      <div class="agent-chat-title-row">
+        <div class="agent-status-indicator"></div>
+        <div class="agent-chat-title">KCET AI Agent</div>
+      </div>
+      <button class="agent-chat-close" id="agent-chat-close">✕</button>
+    </div>
+    <div class="agent-chat-messages" id="agent-chat-messages">
+      <div class="agent-msg agent">
+        👋 Hello! I am your KCET AI Assistant. I can query the seat matrix and cutoff database directly. 
+        <br><br>
+        Ask me things like:
+        <ul>
+          <li><em>Which colleges can I get with rank 5000 in GM?</em></li>
+          <li><em>What is the total intake for RV College of Engineering?</em></li>
+          <li><em>Are there any sports quota seats in BMS College?</em></li>
+        </ul>
+      </div>
+    </div>
+    <div class="agent-chat-input-row">
+      <input type="text" class="agent-chat-input" id="agent-chat-input" placeholder="Type a message..." autocomplete="off">
+      <button class="agent-chat-send" id="agent-chat-send">Send</button>
+    </div>
+  </div>
+
   <script src="app_v4.js"></script>
 </body>
 </html>
