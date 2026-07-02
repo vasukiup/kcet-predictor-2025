@@ -26,7 +26,8 @@ You have access to a SQLite database 'backend/kcet.db' with the following schema
 
 1. colleges:
    - id (INTEGER PRIMARY KEY)
-   - college_number (INTEGER) -- The KEA college code (e.g. 3, 48, etc.)
+   - college_number (INTEGER) -- The sequential row number in KEA Seat Matrix PDF
+   - kea_code (TEXT) -- The unique KEA college code (e.g. 'E001', 'E005')
    - college_name (TEXT)
    - address (TEXT)
    - annexure (TEXT) -- E.g. 'A', 'B', 'C', 'D', 'M', 'O', 'P', 'Z'

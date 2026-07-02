@@ -435,6 +435,28 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+.kea-code-badge {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--blue);
+  background: var(--blue-dim);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  padding: 1px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  vertical-align: middle;
+  margin-right: 4px;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+}
+.kea-code-badge.large {
+  font-size: 13px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-right: 8px;
+}
 .card-location { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
 .card-location svg { flex-shrink: 0; }
 

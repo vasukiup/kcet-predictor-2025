@@ -661,7 +661,8 @@ function applyFilters() {
       const nameMatch = c.college_name.toLowerCase().includes(q);
       const addrMatch = (c.address || '').toLowerCase().includes(q);
       const distMatch = (c.district || '').toLowerCase().includes(q);
-      if (!nameMatch && !addrMatch && !distMatch) return false;
+      const codeMatch = (c.kea_code || '').toLowerCase().includes(q);
+      if (!nameMatch && !addrMatch && !distMatch && !codeMatch) return false;
     }
     return true;
   });
@@ -771,14 +772,13 @@ function renderCollegeCard(college, index) {
       <div class="card-top">
         <div class="card-badge badge-${ann}">${ANNEXURE_ICONS[ann]}</div>
         <div class="card-info">
-          <div class="card-name">${escHtml(college.college_name)}</div>
+          <div class="card-name">${college.kea_code ? `<span class="kea-code-badge">${college.kea_code}</span> ` : ''}${escHtml(college.college_name)}</div>
           <div class="card-location">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-              <circle cx="12" cy="9" r="2.5"/>
+               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+               <circle cx="12" cy="9" r="2.5"/>
             </svg>
             ${escHtml(college.district || 'Karnataka')}
-            ${college.kea_code ? `<span class="card-kea-badge" style="margin-left:8px; padding:1px 5px; font-weight:700; background:rgba(255,255,255,0.08); border-radius:4px; font-size:10px; color:var(--blue); font-family:var(--font-display);">${college.kea_code}</span>` : ''}
           </div>
         </div>
         <span class="card-type-pill pill-${ann}">${annLabel}</span>
@@ -1214,7 +1214,7 @@ function openModal(college) {
           📍 ${escHtml(college.district || 'Karnataka')}
         </span>
       </div>
-      <div class="modal-title">${escHtml(college.college_name)}</div>
+      <div class="modal-title">${college.kea_code ? `<span class="kea-code-badge large">${college.kea_code}</span> ` : ''}${escHtml(college.college_name)}</div>
       <div class="modal-address">📌 ${escHtml(college.address || 'Karnataka')}</div>
     </div>
 
