@@ -293,7 +293,8 @@ GENERIC_WORDS = {
     'campus', 'city', 'district', 'town', 'village',
     'bangalore', 'bengaluru', 'mysore', 'mysuru', 'mangalore', 'mangaluru', 
     'belgaum', 'belagavi',
-    'south', 'north', 'east', 'west'
+    'south', 'north', 'east', 'west',
+    'kr', 'puram'
 }
 
 def get_core_keywords(name):

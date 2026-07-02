@@ -189,17 +189,64 @@ function getCourseBranch(name) {
 function getCleanCollegeName(name) {
   if (!name) return '';
   let n = name.toLowerCase();
+  
+  // 1. Remove parenthesized text (like "(autonomous)", "(formerly...)", "(e003)")
+  n = n.replace(/\(.*?\)/g, ' ');
+  
+  // 2. Fix common spelling variations and typos
+  n = n.replace(/univeristy/g, 'university');
+  n = n.replace(/uniersity/g, 'university');
+  n = n.replace(/visveswaraya/g, 'visvesvaraya');
+  n = n.replace(/visveswariah/g, 'visvesvaraya');
+  n = n.replace(/visvesvariah/g, 'visvesvaraya');
+  n = n.replace(/visvesvar/g, 'visvesvaraya');
+  n = n.replace(/achitecture/g, 'architecture');
+  n = n.replace(/architchure/g, 'architecture');
+  n = n.replace(/institutute/g, 'institute');
+  
+  // 3. Normalize abbreviations
+  n = n.replace(/engineering/g, 'engg');
+  n = n.replace(/technology/g, 'tech');
+  n = n.replace(/institute/g, 'inst');
+  n = n.replace(/school/g, 'sch');
+  
+  // 4. Remove specific address descriptors and campus locations
+  const addressTerms = [
+    'kottar chowki', 'boloor village', 'doddakalisandra', 'chandapura', 'yelahanka',
+    'white field', 'whitefield', 'k r puram', 'kr puram', 'bg nagara', 'jnanabharathi campus',
+    'hunasamaranahalli', 'electronic city campus', 'electronic city', 'chagalatti',
+    'devanahalli', 'mallohalli', 'doddaballapur', 'karur village', 'davangere',
+    'basavanagudi', 'kengeri', 'uthrahalli road', 'chikkaballapur', 'chintamani',
+    'mysore', 'mysuru', 'mangalore', 'mangaluru', 'belgaum', 'belagavi', 'hubli',
+    'tumkur', 'nippani', 'bagalkote', 'bagalkot', 'gulbarga', 'mandya', 'hassan',
+    'moodabidri', 'bangalore', 'bengaluru', 'gitam'
+  ];
+  for (const term of addressTerms) {
+    n = n.replace(new RegExp('\\b' + term + '\\b', 'g'), ' ');
+  }
+
+  // 5. Remove non-alphanumeric characters
   n = n.replace(/[^a-z0-9]/g, ' ');
+  
+  // 6. Join single letters (e.g. "s j m" -> "sjm", "m s" -> "ms")
   while (/\b([a-z])\s+([a-z])\b/.test(n)) {
     n = n.replace(/\b([a-z])\s+([a-z])\b/g, '$1$2');
   }
+  
+  // 7. Clean up whitespace
   n = n.replace(/\s+/g, ' ').trim();
-  n = n.replace(/engineering/g, 'engg');
-  n = n.replace(/technology/g, 'tech');
-  n = n.replace(/autonomous/g, '');
-  n = n.replace(/ramanagaram/g, 'ramanagara');
-  n = n.replace(/kushalanagar/g, 'kushalnagar');
-  return n.trim();
+  
+  // 8. Name Equivalents Mapping
+  const equivalents = {
+    "anuvartik mirji bharatesh inst of tech": "bharatesh inst of tech",
+    "vs ms somashekhar r kothiwale inst of tech": "vs ms inst of tech",
+    "gandhi inst of tech and management off campus": "gandhi inst of tech and management gitam off campus"
+  };
+  if (equivalents[n]) {
+    return equivalents[n];
+  }
+  
+  return n;
 }
 
 function renderYoYStats() {
