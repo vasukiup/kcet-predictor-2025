@@ -186,6 +186,21 @@ function getCourseBranch(name) {
   }
   return 'Other Branches';
 }
+function getCleanCollegeName(name) {
+  if (!name) return '';
+  let n = name.toLowerCase();
+  n = n.replace(/[^a-z0-9]/g, ' ');
+  while (/\b([a-z])\s+([a-z])\b/.test(n)) {
+    n = n.replace(/\b([a-z])\s+([a-z])\b/g, '$1$2');
+  }
+  n = n.replace(/\s+/g, ' ').trim();
+  n = n.replace(/engineering/g, 'engg');
+  n = n.replace(/technology/g, 'tech');
+  n = n.replace(/autonomous/g, '');
+  n = n.replace(/ramanagaram/g, 'ramanagara');
+  n = n.replace(/kushalanagar/g, 'kushalnagar');
+  return n.trim();
+}
 
 function renderYoYStats() {
   if (!cache2024 || !cache2025) return;
@@ -360,31 +375,32 @@ function renderYoYStats() {
   if (elCooling) elCooling.innerHTML = cooling.map(item => renderShiftItem(item, false)).join('');
 
   // YoY Structural Shifts - Colleges Added/Removed
-  const codes24 = new Set(cache2024.colleges.map(col => col.kea_code).filter(Boolean));
-  const codes25 = new Set(cache2025.colleges.map(col => col.kea_code).filter(Boolean));
+  const clean24Names = new Set(cache2024.colleges.map(c => getCleanCollegeName(c.college_name)));
+  const clean25Names = new Set(cache2025.colleges.map(c => getCleanCollegeName(c.college_name)));
 
-  const addedColCodes = [...codes25].filter(x => !codes24.has(x));
-  const removedColCodes = [...codes24].filter(x => !codes25.has(x));
+  const addedColleges = cache2025.colleges.filter(c => !clean24Names.has(getCleanCollegeName(c.college_name)));
+  const removedColleges = cache2024.colleges.filter(c => !clean25Names.has(getCleanCollegeName(c.college_name)));
 
-  const getColName = (cache, code) => {
-    const col = cache.colleges.find(c => c.kea_code === code);
-    return col ? col.college_name : code;
-  };
-
-  const addedColHtml = addedColCodes.length > 0 
-    ? addedColCodes.map(code => `
-        <div style="font-size:11px; color:var(--text); padding:4px 6px; background:rgba(74,222,128,0.05); border-radius:6px; border:1px solid rgba(74,222,128,0.1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${getColName(cache2025, code)}">
-          🟢 <strong>${code}</strong> - ${getColName(cache2025, code)}
-        </div>
-      `).join('')
+  const addedColHtml = addedColleges.length > 0 
+    ? addedColleges.map(col => {
+        const codeDisplay = col.kea_code ? `<strong>${col.kea_code}</strong> - ` : '';
+        return `
+          <div style="font-size:11px; color:var(--text); padding:4px 6px; background:rgba(74,222,128,0.05); border-radius:6px; border:1px solid rgba(74,222,128,0.1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${col.college_name}">
+            🟢 ${codeDisplay}${col.college_name}
+          </div>
+        `;
+      }).join('')
     : '<div style="font-size:11px; color:var(--text-muted);">None detected</div>';
 
-  const removedColHtml = removedColCodes.length > 0
-    ? removedColCodes.map(code => `
-        <div style="font-size:11px; color:var(--text); padding:4px 6px; background:rgba(244,63,94,0.05); border-radius:6px; border:1px solid rgba(244,63,94,0.1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${getColName(cache2024, code)}">
-          🔴 <strong>${code}</strong> - ${getColName(cache2024, code)}
-        </div>
-      `).join('')
+  const removedColHtml = removedColleges.length > 0
+    ? removedColleges.map(col => {
+        const codeDisplay = col.kea_code ? `<strong>${col.kea_code}</strong> - ` : '';
+        return `
+          <div style="font-size:11px; color:var(--text); padding:4px 6px; background:rgba(244,63,94,0.05); border-radius:6px; border:1px solid rgba(244,63,94,0.1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${col.college_name}">
+            🔴 ${codeDisplay}${col.college_name}
+          </div>
+        `;
+      }).join('')
     : '<div style="font-size:11px; color:var(--text-muted);">None detected</div>';
 
   const elColAdded = document.getElementById('colleges-added-list');
@@ -393,11 +409,11 @@ function renderYoYStats() {
   if (elColRemoved) elColRemoved.innerHTML = removedColHtml;
 
   // YoY Structural Shifts - Courses Added/Removed
-  const courses24 = new Set(cache2024.colleges.flatMap(col => col.courses.map(c => c.course_name)));
-  const courses25 = new Set(cache2025.colleges.flatMap(col => col.courses.map(c => c.course_name)));
+  const courses24Clean = new Set(cache2024.colleges.flatMap(col => col.courses.map(c => c.course_name.toUpperCase().trim())));
+  const courses25Clean = new Set(cache2025.colleges.flatMap(col => col.courses.map(c => c.course_name.toUpperCase().trim())));
 
-  const addedCourses = [...courses25].filter(x => !courses24.has(x));
-  const removedCourses = [...courses24].filter(x => !courses25.has(x));
+  const addedCourses = [...courses25Clean].filter(x => !courses24Clean.has(x));
+  const removedCourses = [...courses24Clean].filter(x => !courses25Clean.has(x));
 
   const addedCoursesHtml = addedCourses.length > 0
     ? addedCourses.map(c => `
