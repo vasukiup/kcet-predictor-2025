@@ -1,11 +1,48 @@
 import os
+import base64
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import Response
 from pydantic import BaseModel
-from typing import List, Optional, Dict, Any
-from backend.agent import run_agent
+from typing import List, Optional
+from backend.agent import run_agent, load_dotenv
 import uvicorn
+
+# Ensure environment variables are loaded
+load_dotenv()
+
+# Global Basic Auth Middleware
+class BasicAuthMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        # Expose custom username and password from environment (default: admin / kcet2025)
+        username = os.environ.get("PORTAL_USERNAME", "admin")
+        password = os.environ.get("PORTAL_PASSWORD", "kcet2025")
+        
+        # Bypass healthcheck or docs if needed, otherwise secure everything
+        auth_header = request.headers.get("Authorization")
+        if not auth_header or not auth_header.startswith("Basic "):
+            return Response(
+                "Unauthorized",
+                status_code=401,
+                headers={"WWW-Authenticate": "Basic realm='KCET Predictor Portal'"}
+            )
+            
+        try:
+            auth_type, encoded_creds = auth_header.split(" ", 1)
+            decoded_creds = base64.b64decode(encoded_creds).decode("utf-8")
+            req_username, req_password = decoded_creds.split(":", 1)
+            if req_username == username and req_password == password:
+                return await call_next(request)
+        except Exception:
+            pass
+            
+        return Response(
+            "Unauthorized",
+            status_code=401,
+            headers={"WWW-Authenticate": "Basic realm='KCET Predictor Portal'"}
+        )
 
 app = FastAPI(title="KCET Predictor AI Agent Backend")
 
@@ -17,6 +54,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Apply global authentication middleware
+app.add_middleware(BasicAuthMiddleware)
 
 class ChatMessage(BaseModel):
     role: str
@@ -35,14 +75,11 @@ async def chat_endpoint(req: ChatRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# Mount static files from root directory
-# E.g. index.html, app_v4.js, style_v4.css, seat_matrix_data.json
-# Note: Mount at "/" should be last
+# Mount static files from root directory last
 root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 app.mount("/", StaticFiles(directory=root_dir, html=True), name="static")
 
 if __name__ == "__main__":
-    # Get port from environment or default to 8000
     port = int(os.environ.get("PORT", 8000))
-    print(f"Starting server on port {port}...")
+    print(f"Starting secure server on port {port}...")
     uvicorn.run("backend.app:app", host="0.0.0.0", port=port, reload=True)

@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS colleges (
     college_type TEXT,
     district TEXT,
     total_intake INTEGER,
-    total_kea_seats INTEGER
+    total_kea_seats INTEGER,
+    year INTEGER DEFAULT 2025
 );
 
 CREATE TABLE IF NOT EXISTS courses (
@@ -37,6 +38,7 @@ CREATE TABLE IF NOT EXISTS courses (
     ai INTEGER DEFAULT 0,
     xcapf INTEGER DEFAULT 0,
     tot_special_seats INTEGER DEFAULT 0,
+    year INTEGER DEFAULT 2025,
     FOREIGN KEY(college_id) REFERENCES colleges(id) ON DELETE CASCADE
 );
 
@@ -46,10 +48,14 @@ CREATE TABLE IF NOT EXISTS cutoffs (
     round INTEGER NOT NULL,
     category TEXT NOT NULL,
     cutoff_rank INTEGER NOT NULL,
+    year INTEGER DEFAULT 2025,
     FOREIGN KEY(course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 
 CREATE INDEX IF NOT EXISTS idx_colleges_annexure ON colleges(annexure);
+CREATE INDEX IF NOT EXISTS idx_colleges_year ON colleges(year);
 CREATE INDEX IF NOT EXISTS idx_courses_college ON courses(college_id);
+CREATE INDEX IF NOT EXISTS idx_courses_year ON courses(year);
 CREATE INDEX IF NOT EXISTS idx_cutoffs_course ON cutoffs(course_id);
+CREATE INDEX IF NOT EXISTS idx_cutoffs_year ON cutoffs(year);
 CREATE INDEX IF NOT EXISTS idx_cutoffs_lookup ON cutoffs(category, cutoff_rank);

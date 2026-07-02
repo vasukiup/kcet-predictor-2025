@@ -49,9 +49,10 @@ let filters = { search: '', annexure: 'all', district: '', course: '', minSeats:
 // ─────────────────────────────
 // Boot
 // ─────────────────────────────
-async function init() {
+async function loadYearData(year) {
+  const filename = year === '2024' ? 'seat_matrix_data_2024.json' : 'seat_matrix_data.json';
   try {
-    const res = await fetch('seat_matrix_data.json?t=' + new Date().getTime());
+    const res = await fetch(filename + '?t=' + new Date().getTime());
     allData = await res.json();
 
     // Preprocess KEA seats to include RK + HK + SPL + PH across the board
@@ -89,13 +90,49 @@ async function init() {
     applyFilters();
     renderStats();
     renderTotals('ALL');
-    bindEvents();
-    initAssistant();
+
+    // Update document subtitle
+    const subtitleEl = document.getElementById('brand-subtitle');
+    if (subtitleEl) {
+      subtitleEl.textContent = `Engineering Admissions ${year}`;
+    }
   } catch (e) {
     console.error('Failed to load data:', e);
     document.getElementById('colleges-grid').innerHTML =
       `<div class="empty-state"><div class="empty-state-icon">⚠️</div>
-       <div class="empty-state-text">Could not load seat_matrix_data.json.<br>Make sure the file is in the same directory.</div></div>`;
+       <div class="empty-state-text">Could not load ${filename}.<br>Make sure the file is in the same directory.</div></div>`;
+  }
+}
+
+async function init() {
+  await loadYearData('2025');
+  bindEvents();
+  initAssistant();
+
+  // Bind Year Selector Event
+  const yearSelect = document.getElementById('year-select');
+  if (yearSelect) {
+    yearSelect.addEventListener('change', async (e) => {
+      const selectedYear = e.target.value;
+      
+      // Reset sidebar filters first
+      filters = { search: '', annexure: 'all', district: '', course: '', minSeats: 0 };
+      const searchInput = document.getElementById('search-input');
+      if (searchInput) searchInput.value = '';
+      const distFilter = document.getElementById('district-filter');
+      if (distFilter) distFilter.value = '';
+      const courseFilter = document.getElementById('course-filter');
+      if (courseFilter) courseFilter.value = '';
+      const slider = document.getElementById('min-seats');
+      if (slider) slider.value = 0;
+      const sliderVal = document.getElementById('min-seats-val');
+      if (sliderVal) sliderVal.textContent = '0+';
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      const allChip = document.querySelector('[data-annexure="all"]');
+      if (allChip) allChip.classList.add('active');
+
+      await loadYearData(selectedYear);
+    });
   }
 }
 
