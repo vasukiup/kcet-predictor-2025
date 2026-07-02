@@ -33,7 +33,14 @@
         <div class="hstat"><span class="hstat-val" id="hs-kea">—</span><span class="hstat-lbl">KEA Seats</span></div>
         <div class="hstat"><span class="hstat-val" id="hs-courses">—</span><span class="hstat-lbl">Courses</span></div>
       </div>
-      <div class="notification" id="notification">ED 170 TEC 2025 &nbsp;·&nbsp; 05-07-2025</div>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="notification" id="notification">ED 170 TEC 2025 &nbsp;·&nbsp; 05-07-2025</div>
+        <div id="user-profile-chip" class="user-profile-chip" style="display: none; align-items: center; gap: 8px; padding: 4px 10px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 20px; font-size: 11px; font-weight: 600; color: #fff; cursor: pointer; transition: all 0.2s;">
+          <span id="user-role-badge" style="background: var(--blue); padding: 1px 6px; border-radius: 10px; font-size: 9px; text-transform: uppercase; color: #fff;">Student</span>
+          <span id="user-display-name">Guest User</span>
+          <button id="logout-btn" style="background: none; border: none; color: var(--pink); cursor: pointer; padding: 0; font-size: 11px; margin-left: 4px; font-weight: 700; outline: none;">Logout</button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -42,6 +49,34 @@
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
+      <!-- Student Profile Card (Only visible to students) -->
+      <div class="sidebar-section" id="student-profile-section" style="display: none; background: rgba(59, 130, 246, 0.05); border: 1px dashed rgba(59, 130, 246, 0.2); border-radius: 12px; padding: 14px; margin-bottom: 16px;">
+        <div class="filter-label" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; color: var(--text);">
+          <span>👨‍🎓 Student Profile</span>
+          <span style="font-size: 9px; background: var(--blue); color: #fff; padding: 1px 5px; border-radius: 4px; text-transform: uppercase; font-weight: 800;">Active</span>
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+          <label class="form-label" style="font-size: 9px;">UGCET Rank</label>
+          <input type="number" id="profile-rank" class="form-input" style="padding: 4px 8px; font-size: 12px;" min="1">
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+          <label class="form-label" style="font-size: 9px;">Category</label>
+          <select id="profile-category" class="form-select" style="padding: 4px 8px; font-size: 12px;">
+            <option value="GM">GM</option>
+            <option value="GMK">GMK</option>
+            <option value="GMR">GMR</option>
+            <option value="1G">1G</option>
+            <option value="2AG">2AG</option>
+            <option value="2BG">2BG</option>
+            <option value="3AG">3AG</option>
+            <option value="3BG">3BG</option>
+            <option value="SCG">SCG</option>
+            <option value="STG">STG</option>
+          </select>
+        </div>
+        <div style="font-size: 10px; color: var(--text-muted); line-height: 1.3;">Changing these values dynamically updates your predictor and advantages.</div>
+      </div>
+
       <div class="sidebar-section">
         <div class="filter-label">🔍 Search</div>
         <input type="text" id="search-input" class="search-input" placeholder="College name, location…" autocomplete="off"/>
@@ -119,6 +154,14 @@
 
     <!-- Main content -->
     <main class="main">
+      <!-- Scrolling Announcement Marquee -->
+      <div class="scrolling-announcements-wrap" id="scrolling-announcements-wrap">
+        <span class="scrolling-announcements-label">Alerts</span>
+        <div class="scrolling-announcements-ticker">
+          <div class="scrolling-announcements-text" id="scrolling-announcements-text">⚠️ KEA Seat Matrix & Prediction Portal is online for candidate counselling validation.</div>
+        </div>
+      </div>
+
       <!-- Tab bar -->
       <div class="tabs">
         <button class="tab active" data-tab="colleges" id="tab-colleges">🏫 Colleges</button>
@@ -127,6 +170,8 @@
         <button class="tab" data-tab="stats" id="tab-stats">📈 Statistics</button>
         <button class="tab" data-tab="predictor" id="tab-predictor">🔮 Rank Predictor</button>
         <button class="tab" data-tab="assistant" id="tab-assistant">💬 Assistant</button>
+        <button class="tab" data-tab="institution" id="tab-institution" style="display: none;">🏫 Inst Admin</button>
+        <button class="tab" data-tab="authority" id="tab-authority" style="display: none;">🛡️ Authority Panel</button>
       </div>
 
       <!-- Colleges tab -->
@@ -563,6 +608,150 @@
           </div>
         </div>
       </div>
+
+      <!-- Institution tab -->
+      <div class="tab-content" id="tab-content-institution">
+        <div class="predictor-card" style="background:var(--bg-card2); border:1px solid var(--border); border-radius:20px; padding:24px; margin-bottom:24px;">
+          <div style="font-family:var(--font-display); font-size:18px; font-weight:700; color:var(--text); margin-bottom:4px;">🏫 Group Administration Console</div>
+          <div id="inst-console-subtitle" style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">Manage seats, fees, and allocations for colleges in your institution group.</div>
+
+          <!-- Group stats cards -->
+          <div class="summary-cards" id="inst-summary-cards" style="margin-bottom:24px;">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- Form and queue grid -->
+          <div class="form-grid" style="grid-template-columns:1.2fr 0.8fr; gap:24px; margin-bottom:24px; display:grid;">
+            <!-- Form to edit seats -->
+            <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:20px;">
+              <div style="font-family:var(--font-display); font-size:14px; font-weight:700; color:var(--text); margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:8px;">📝 Submit Seat Matrix Change Request</div>
+              
+              <div class="form-group">
+                <label class="form-label">Select College</label>
+                <select id="inst-edit-college" class="form-select"></select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Select Course</label>
+                <select id="inst-edit-course" class="form-select"></select>
+              </div>
+              
+              <div class="form-grid" style="margin-top:12px; margin-bottom:12px;">
+                <div class="form-group">
+                  <label class="form-label">Total Intake</label>
+                  <input type="number" id="inst-edit-intake" class="form-input" min="0">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">KEA / Govt Seats</label>
+                  <input type="number" id="inst-edit-kea" class="form-input" min="0">
+                </div>
+                <div class="form-group" id="inst-edit-comedk-group">
+                  <label class="form-label">COMEDK Seats</label>
+                  <input type="number" id="inst-edit-comedk" class="form-input" min="0">
+                </div>
+                <div class="form-group" id="inst-edit-mgmt-group">
+                  <label class="form-label">Management Seats</label>
+                  <input type="number" id="inst-edit-mgmt" class="form-input" min="0">
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Tuition Fee per Annum (₹)</label>
+                <input type="number" id="inst-edit-fee" class="form-input" min="0">
+              </div>
+              
+              <button class="auth-submit-btn" id="btn-inst-submit-change" style="margin-top:8px;">Submit Change to KCET Authority</button>
+            </div>
+
+            <!-- Predefined download area & requests history -->
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:20px; flex:1;">
+                <div style="font-family:var(--font-display); font-size:14px; font-weight:700; color:var(--text); margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:8px;">⏳ Change Request History</div>
+                <div id="inst-requests-history" style="max-height:220px; overflow-y:auto; display:flex; flex-direction:column; gap:10px;">
+                  <div style="font-size:12px; color:var(--text-muted); text-align:center; padding:20px 0;">No changes submitted in this session.</div>
+                </div>
+              </div>
+
+              <!-- Tailored Data Downloads for Institution -->
+              <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:20px;">
+                <div style="font-family:var(--font-display); font-size:14px; font-weight:700; color:var(--text); margin-bottom:12px; border-bottom:1px solid var(--border); padding-bottom:8px;">📥 Tailored Data Downloads</div>
+                <div style="font-size:11px; color:var(--text-muted); margin-bottom:14px; line-height:1.4;">Download seat matrices and fee registers scoped exclusively to your institutions.</div>
+                <div style="display:flex; flex-direction:column; gap:8px;">
+                  <button class="auth-submit-btn" id="btn-inst-download-csv" style="margin:0; background:rgba(255,255,255,0.03); border:1px solid var(--border); color:var(--text); font-weight:600; padding:8px;">Download Group Matrix (CSV)</button>
+                  <button class="auth-submit-btn" id="btn-inst-download-json" style="margin:0; background:rgba(255,255,255,0.03); border:1px solid var(--border); color:var(--text); font-weight:600; padding:8px;">Download Group Dataset (JSON)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KCET Authority tab -->
+      <div class="tab-content" id="tab-content-authority">
+        <div class="predictor-card" style="background:var(--bg-card2); border:1px solid var(--border); border-radius:20px; padding:24px; margin-bottom:24px;">
+          <div style="font-family:var(--font-display); font-size:18px; font-weight:700; color:var(--text); margin-bottom:4px;">🛡️ KCET Authority Control Console</div>
+          <div style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">Approve seat changes, modify fees, publish global notifications, and view simulation logs.</div>
+
+          <!-- Pending Approvals list -->
+          <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:20px; margin-bottom:24px;">
+            <div style="font-family:var(--font-display); font-size:14px; font-weight:700; color:var(--text); margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:8px;">📥 Pending Seat Matrix Request Approvals</div>
+            <div class="table-container" style="overflow-x:auto;">
+              <table class="modal-courses-table" style="font-size:12px;" id="table-authority-approvals">
+                <thead>
+                  <tr>
+                    <th>College</th>
+                    <th>Course</th>
+                    <th>Metric Type</th>
+                    <th>Requested Seat Matrix / Fees Change</th>
+                    <th style="text-align:center; width:180px;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="authority-pending-tbody">
+                  <tr>
+                    <td colspan="5" style="text-align:center; color:var(--text-muted); padding:30px;">No pending seat change requests from colleges.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Forms and System Logs Grid -->
+          <div class="form-grid" style="grid-template-columns:1fr 1fr; gap:24px; display:grid;">
+            <!-- Left Side: System Control Forms -->
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <!-- global announcement publisher -->
+              <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:20px;">
+                <div style="font-family:var(--font-display); font-size:14px; font-weight:700; color:var(--text); margin-bottom:12px; border-bottom:1px solid var(--border); padding-bottom:8px;">📣 Publish Global Announcement Ticker</div>
+                <div class="form-group" style="margin-bottom:12px;">
+                  <label class="form-label">Ticker Notification Text</label>
+                  <input type="text" id="auth-announcement-input" class="form-input" placeholder="e.g. Round 1 Options Entry Extended until July 8, 2025.">
+                </div>
+                <button class="auth-submit-btn" id="btn-auth-publish" style="margin:0;">Publish to Marquee</button>
+              </div>
+
+              <!-- Tailored Data Downloads for Authority -->
+              <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:20px;">
+                <div style="font-family:var(--font-display); font-size:14px; font-weight:700; color:var(--text); margin-bottom:12px; border-bottom:1px solid var(--border); padding-bottom:8px;">📥 System Consolidated Downloads</div>
+                <div style="font-size:11px; color:var(--text-muted); margin-bottom:14px; line-height:1.4;">Download global databases, compiled matrix reports, and audit logs.</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                  <button class="auth-submit-btn" id="btn-auth-download-consolidated" style="margin:0; background:rgba(255,255,255,0.03); border:1px solid var(--border); color:var(--text); font-weight:600; padding:8px;">Global Matrix (CSV)</button>
+                  <button class="auth-submit-btn" id="btn-auth-download-audit" style="margin:0; background:rgba(255,255,255,0.03); border:1px solid var(--border); color:var(--text); font-weight:600; padding:8px;">System Logs (TXT)</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Side: System Audit Logs -->
+            <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:20px; display:flex; flex-direction:column; height:320px;">
+              <div style="font-family:var(--font-display); font-size:14px; font-weight:700; color:var(--text); margin-bottom:12px; border-bottom:1px solid var(--border); padding-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+                <span>🛠️ System Operations Audit Logs</span>
+                <button id="btn-clear-logs" style="background:none; border:none; color:var(--pink); font-size:11px; font-weight:700; cursor:pointer;">Clear</button>
+              </div>
+              <div id="auth-audit-logs" style="flex:1; background:rgba(0,0,0,0.3); border:1px solid var(--border); border-radius:8px; padding:12px; font-family:monospace; font-size:11px; color:var(--green); overflow-y:auto; line-height:1.5; white-space:pre-wrap; box-sizing:border-box;">
+                <!-- Logs rendered dynamically -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   </div>
 
@@ -600,6 +789,104 @@
     <div class="agent-chat-input-row">
       <input type="text" class="agent-chat-input" id="agent-chat-input" placeholder="Type a message..." autocomplete="off">
       <button class="agent-chat-send" id="agent-chat-send">Send</button>
+    </div>
+  </div>
+
+  <!-- Auth Modal Overlay -->
+  <div class="auth-overlay" id="auth-overlay">
+    <div class="auth-container">
+      <div class="auth-header-logo">
+        <span class="auth-logo-icon">🎓</span>
+        <h2 class="auth-logo-title">KCET Admissions Portal</h2>
+        <p class="auth-logo-subtitle">Access seat matrices, cutoff predictions, and institution controls</p>
+      </div>
+
+      <div class="auth-role-tabs">
+        <button class="auth-role-tab active" data-role="student">👨‍🎓 Student</button>
+        <button class="auth-role-tab" data-role="institution">🏫 Institution</button>
+        <button class="auth-role-tab" data-role="authority">🛡️ KCET Authority</button>
+      </div>
+
+      <!-- Student Registration Form -->
+      <div class="auth-form active" id="auth-form-student">
+        <div class="form-title">Student Registration</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="reg-name" class="form-input" placeholder="Enter your name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="reg-email" class="form-input" placeholder="name@domain.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="reg-password" class="form-input" placeholder="••••••••" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">UGCET Rank</label>
+            <input type="number" id="reg-rank" class="form-input" placeholder="e.g. 5000" min="1" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Reservation Category</label>
+            <select id="reg-category" class="form-select">
+              <option value="GM">General Merit (GM)</option>
+              <option value="GMK">GM Kannada (GMK)</option>
+              <option value="GMR">GM Rural (GMR)</option>
+              <option value="1G">Category 1 General (1G)</option>
+              <option value="2AG">Category 2A General (2AG)</option>
+              <option value="2BG">Category 2B General (2BG)</option>
+              <option value="3AG">Category 3A General (3AG)</option>
+              <option value="3BG">Category 3B General (3BG)</option>
+              <option value="SCG">Scheduled Caste General (SCG)</option>
+              <option value="STG">Scheduled Tribe General (STG)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Region / Quota</label>
+            <select id="reg-region" class="form-select">
+              <option value="non-hk">Non-Hyderabad Karnataka (General)</option>
+              <option value="hk">Hyderabad-Karnataka (HK)</option>
+            </select>
+          </div>
+        </div>
+        <button class="auth-submit-btn" id="btn-submit-student">Register & Explore Portal</button>
+      </div>
+
+      <!-- Institution Group Login Form -->
+      <div class="auth-form" id="auth-form-institution">
+        <div class="form-title">Institution Login</div>
+        <div class="form-group">
+          <label class="form-label">Institution Group</label>
+          <select id="inst-group" class="form-select">
+            <option value="rvgroup">RV Group of Institutions (RVCE, RVITM, RVU)</option>
+            <option value="bmsgroup">BMS Group of Institutions (BMSCE, BMSIT, BMSCA)</option>
+            <option value="pesgroup">PES Group of Institutions (PESU, PESCE, PESITM)</option>
+            <option value="dsgroup">Dayananda Sagar Group (DSCE, DSATM, DSU)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Access Code / Password</label>
+          <input type="password" id="inst-password" class="form-input" placeholder="Enter group password (kcet2025)">
+        </div>
+        <div id="inst-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid group password. Try 'kcet2025'.</div>
+        <button class="auth-submit-btn" id="btn-submit-institution">Login as Institution Admin</button>
+      </div>
+
+      <!-- KCET Authority Login Form -->
+      <div class="auth-form" id="auth-form-authority">
+        <div class="form-title">KCET Authority Authentication</div>
+        <div class="form-group">
+          <label class="form-label">Authority Admin ID</label>
+          <input type="text" id="auth-id" class="form-input" placeholder="e.g. authority">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Secret Security Key</label>
+          <input type="password" id="auth-password" class="form-input" placeholder="Enter authority key (kcet2025)">
+        </div>
+        <div id="auth-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid Admin ID or password. Use 'authority' / 'kcet2025'.</div>
+        <button class="auth-submit-btn" id="btn-submit-authority">Authenticate & Unlock Console</button>
+      </div>
     </div>
   </div>
 

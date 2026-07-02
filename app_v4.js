@@ -49,6 +49,45 @@ let sortMode = 'name';
 let viewMode = 'grid';
 let filters = { search: '', annexure: 'all', district: '', course: '', minSeats: 0 };
 
+// Predefined groups for Institutions
+const INSTITUTION_GROUPS = {
+  rvgroup: {
+    name: "RV Group of Institutions",
+    patterns: ["rv college", "r v college", "rv institute", "r v institute", "rv university", "rv arch"],
+    colleges: []
+  },
+  bmsgroup: {
+    name: "BMS Group of Institutions",
+    patterns: ["bms college", "b m s college", "bms institute", "b m s institute", "bms school"],
+    colleges: []
+  },
+  pesgroup: {
+    name: "PES Group of Institutions",
+    patterns: ["pes university", "p e s university", "pes college", "p e s college", "pes institute", "p e s institute"],
+    colleges: []
+  },
+  dsgroup: {
+    name: "Dayananda Sagar Group",
+    patterns: ["dayananda sagar", "dayanandasagar", "dsce", "dsatm", "dsu"],
+    colleges: []
+  }
+};
+
+function getCollegeGroup(name) {
+  const lower = name.toLowerCase();
+  for (const [groupId, group] of Object.entries(INSTITUTION_GROUPS)) {
+    if (group.patterns.some(p => lower.includes(p))) {
+      return groupId;
+    }
+  }
+  return null;
+}
+
+let currentUser = null;
+let pendingIntakeRequests = []; // Stores intake requests from institutions
+let systemAnnouncements = ["⚠️ KEA Seat Matrix & Prediction Portal is online for candidate counselling validation."];
+let authorityLogs = [`[System] Console initialized. Ready for operations.`];
+
 // ─────────────────────────────
 // Boot
 // ─────────────────────────────
@@ -546,6 +585,7 @@ async function init() {
   await loadYearData('2025');
   bindEvents();
   initAssistant();
+  initAuth();
 
   // Bind Year Selector Event
   const yearSelect = document.getElementById('year-select');
@@ -641,6 +681,575 @@ function formatNum(n) {
   return n.toLocaleString();
 }
 
+function initAuth() {
+  const overlay = document.getElementById('auth-overlay');
+  const profileChip = document.getElementById('user-profile-chip');
+  const roleBadge = document.getElementById('user-role-badge');
+  const nameDisplay = document.getElementById('user-display-name');
+  const logoutBtn = document.getElementById('logout-btn');
+
+  // Load from local storage
+  const savedUser = localStorage.getItem('kcet_user');
+  if (savedUser) {
+    currentUser = JSON.parse(savedUser);
+    overlay.style.display = 'none';
+    applyUserRole();
+  } else {
+    overlay.style.display = 'flex';
+  }
+
+  // Role switching
+  document.querySelectorAll('.auth-role-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.auth-role-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+      tab.classList.add('active');
+      const role = tab.dataset.role;
+      document.getElementById(`auth-form-${role}`).classList.add('active');
+    });
+  });
+
+  // Submit Student
+  document.getElementById('btn-submit-student').addEventListener('click', () => {
+    const name = document.getElementById('reg-name').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const password = document.getElementById('reg-password').value;
+    const rank = parseInt(document.getElementById('reg-rank').value);
+    const category = document.getElementById('reg-category').value;
+    const region = document.getElementById('reg-region').value;
+
+    if (!name || !email || !password || !rank) {
+      alert("Please fill in all registration fields.");
+      return;
+    }
+
+    currentUser = { role: 'student', name, email, rank, category, region };
+    localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+    overlay.style.display = 'none';
+    applyUserRole();
+  });
+
+  // Submit Institution
+  document.getElementById('btn-submit-institution').addEventListener('click', () => {
+    const groupVal = document.getElementById('inst-group').value;
+    const groupText = document.getElementById('inst-group').options[document.getElementById('inst-group').selectedIndex].text;
+    const password = document.getElementById('inst-password').value;
+    const errorEl = document.getElementById('inst-error');
+
+    if (password === 'kcet2025') {
+      errorEl.style.display = 'none';
+      currentUser = { role: 'institution', name: groupText, institutionGroup: groupVal };
+      localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+      overlay.style.display = 'none';
+      applyUserRole();
+    } else {
+      errorEl.style.display = 'block';
+    }
+  });
+
+  // Submit Authority
+  document.getElementById('btn-submit-authority').addEventListener('click', () => {
+    const authId = document.getElementById('auth-id').value.trim();
+    const password = document.getElementById('auth-password').value;
+    const errorEl = document.getElementById('auth-error');
+
+    if (authId === 'authority' && password === 'kcet2025') {
+      errorEl.style.display = 'none';
+      currentUser = { role: 'authority', name: "KEA Admin Console" };
+      localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+      overlay.style.display = 'none';
+      applyUserRole();
+    } else {
+      errorEl.style.display = 'block';
+    }
+  });
+
+  // Logout
+  logoutBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    localStorage.removeItem('kcet_user');
+    currentUser = null;
+    overlay.style.display = 'flex';
+    applyUserRole();
+  });
+
+  // Bind Student Profile updates in sidebar
+  const profileRank = document.getElementById('profile-rank');
+  const profileCat = document.getElementById('profile-category');
+  
+  if (profileRank) {
+    profileRank.addEventListener('change', () => {
+      const val = parseInt(profileRank.value);
+      if (val > 0 && currentUser && currentUser.role === 'student') {
+        currentUser.rank = val;
+        localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+        
+        // Sync to Predictor Tab
+        const prRank = document.getElementById('pred-rank');
+        if (prRank) prRank.value = val;
+        
+        // Sync header displays or modal calculations
+        applyFilters();
+      }
+    });
+  }
+
+  if (profileCat) {
+    profileCat.addEventListener('change', () => {
+      const val = profileCat.value;
+      if (val && currentUser && currentUser.role === 'student') {
+        currentUser.category = val;
+        localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+        
+        // Sync to Predictor Tab
+        const prCat = document.getElementById('pred-category');
+        if (prCat) prCat.value = val;
+        
+        applyFilters();
+      }
+    });
+  }
+
+  // Bind Institution form change request button
+  const submitChangeBtn = document.getElementById('btn-inst-submit-change');
+  if (submitChangeBtn) {
+    submitChangeBtn.addEventListener('click', () => {
+      if (!currentUser || currentUser.role !== 'institution') return;
+      const colNum = document.getElementById('inst-edit-college').value;
+      const colText = document.getElementById('inst-edit-college').options[document.getElementById('inst-edit-college').selectedIndex].text;
+      const courseName = document.getElementById('inst-edit-course').value;
+      
+      const intake = parseInt(document.getElementById('inst-edit-intake').value);
+      const kea = parseInt(document.getElementById('inst-edit-kea').value);
+      const comedk = parseInt(document.getElementById('inst-edit-comedk').value);
+      const mgmt = parseInt(document.getElementById('inst-edit-mgmt').value);
+      const fee = parseInt(document.getElementById('inst-edit-fee').value);
+
+      if (isNaN(intake) || isNaN(kea) || isNaN(comedk) || isNaN(mgmt) || isNaN(fee)) {
+        alert("Please enter valid seat and fee numbers.");
+        return;
+      }
+
+      const collegeObj = allData.colleges.find(c => c.college_number == colNum);
+      const reqId = Date.now();
+      const newRequest = {
+        id: reqId,
+        group: currentUser.institutionGroup,
+        collegeNum: colNum,
+        collegeName: colText,
+        keaCode: collegeObj ? collegeObj.kea_code : 'N/A',
+        courseName: courseName,
+        intake: intake,
+        kea: kea,
+        comedk: comedk,
+        mgmt: mgmt,
+        fee: fee,
+        status: 'Pending'
+      };
+
+      pendingIntakeRequests.push(newRequest);
+      alert(`Seat modification request for ${courseName} at ${colText} submitted to KCET Authority!`);
+      
+      renderInstitutionHistory();
+      
+      // Log in system logs
+      const time = new Date().toLocaleTimeString();
+      authorityLogs.push(`[${time}] REQUEST: ${colText} requested Intake to ${intake}, Fee to ₹${fee.toLocaleString()} for ${courseName}`);
+    });
+  }
+
+  // Bind Authority announcement publish button
+  const publishBtn = document.getElementById('btn-auth-publish');
+  if (publishBtn) {
+    publishBtn.addEventListener('click', () => {
+      const input = document.getElementById('auth-announcement-input');
+      const txt = input.value.trim();
+      if (txt) {
+        systemAnnouncements.push(txt);
+        input.value = '';
+        alert("Announcement published successfully!");
+        
+        // Log in system logs
+        const time = new Date().toLocaleTimeString();
+        authorityLogs.push(`[${time}] ANNOUNCEMENT: Published "${txt}"`);
+        
+        // Refresh alert display
+        applyUserRole();
+      }
+    });
+  }
+
+  // Bind Clear Logs
+  const clearBtn = document.getElementById('btn-clear-logs');
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      authorityLogs = [`[System] Console cleared.`];
+      renderAuthorityDashboard();
+    });
+  }
+
+  // Bind Downloads
+  const downloadInstCsv = document.getElementById('btn-inst-download-csv');
+  if (downloadInstCsv) {
+    downloadInstCsv.addEventListener('click', () => downloadInstitutionData('csv'));
+  }
+  const downloadInstJson = document.getElementById('btn-inst-download-json');
+  if (downloadInstJson) {
+    downloadInstJson.addEventListener('click', () => downloadInstitutionData('json'));
+  }
+  const downloadAuthCsv = document.getElementById('btn-auth-download-consolidated');
+  if (downloadAuthCsv) {
+    downloadAuthCsv.addEventListener('click', () => downloadAuthorityData('csv'));
+  }
+  const downloadAuthAudit = document.getElementById('btn-auth-download-audit');
+  if (downloadAuthAudit) {
+    downloadAuthAudit.addEventListener('click', () => downloadAuthorityData('txt'));
+  }
+}
+
+function setupInstitutionGroupColleges() {
+  if (!allData || !currentUser || currentUser.role !== 'institution') return;
+  const groupId = currentUser.institutionGroup;
+  if (!groupId || !INSTITUTION_GROUPS[groupId]) return;
+
+  const group = INSTITUTION_GROUPS[groupId];
+  group.colleges = allData.colleges.filter(c => {
+    const clean = getCleanCollegeName(c.college_name);
+    return group.patterns.some(p => clean.includes(p));
+  });
+}
+
+function renderInstitutionDashboard() {
+  if (currentUser.role !== 'institution') return;
+  const groupId = currentUser.institutionGroup;
+  const group = INSTITUTION_GROUPS[groupId];
+  if (!group) return;
+
+  // 1. Calculate Group Stats
+  const colleges = allData.colleges.filter(c => {
+    const clean = getCleanCollegeName(c.college_name);
+    return group.patterns.some(p => clean.includes(p));
+  });
+
+  let totalIntake = 0, totalKea = 0, totalComedk = 0, totalMgmt = 0;
+  colleges.forEach(col => {
+    col.courses.forEach(c => {
+      totalIntake += c.total_intake || 0;
+      totalKea    += c.total_kea_seats || 0;
+      totalComedk += c.cat2_seats || 0;
+      totalMgmt   += c.cat3_seats || 0;
+    });
+  });
+
+  const cardsHtml = `
+    <div class="summary-card" style="background:var(--bg-card); border:1px solid var(--border); padding:16px; border-radius:12px; display:flex; flex-direction:column; gap:6px;">
+      <span style="font-size:11px; color:var(--text-muted); font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">Group Colleges</span>
+      <span style="font-size:24px; font-weight:800; font-family:var(--font-display); color:var(--text);">${colleges.length}</span>
+    </div>
+    <div class="summary-card" style="background:var(--bg-card); border:1px solid var(--border); padding:16px; border-radius:12px; display:flex; flex-direction:column; gap:6px;">
+      <span style="font-size:11px; color:var(--text-muted); font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">Total Group Intake</span>
+      <span style="font-size:24px; font-weight:800; font-family:var(--font-display); color:var(--blue);">${totalIntake.toLocaleString()}</span>
+    </div>
+    <div class="summary-card" style="background:var(--bg-card); border:1px solid var(--border); padding:16px; border-radius:12px; display:flex; flex-direction:column; gap:6px;">
+      <span style="font-size:11px; color:var(--text-muted); font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">KEA Seats</span>
+      <span style="font-size:24px; font-weight:800; font-family:var(--font-display); color:var(--green);">${totalKea.toLocaleString()}</span>
+    </div>
+    <div class="summary-card" style="background:var(--bg-card); border:1px solid var(--border); padding:16px; border-radius:12px; display:flex; flex-direction:column; gap:6px;">
+      <span style="font-size:11px; color:var(--text-muted); font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">COMEDK vs Mgmt</span>
+      <span style="font-size:16px; font-weight:800; font-family:var(--font-display); color:var(--purple); display:flex; gap:10px; align-items:center; height:100%;">
+        🎓 ${totalComedk.toLocaleString()} <span style="font-size:10px; color:var(--text-muted); font-weight:500;">vs</span> 💼 ${totalMgmt.toLocaleString()}
+      </span>
+    </div>
+  `;
+  document.getElementById('inst-summary-cards').innerHTML = cardsHtml;
+
+  // 2. Populate College Dropdown
+  const colSelect = document.getElementById('inst-edit-college');
+  colSelect.innerHTML = colleges.map(c => `<option value="${c.college_number}">${c.college_name}</option>`).join('');
+
+  // Course update listener
+  const updateCoursesDropdown = () => {
+    const colNum = colSelect.value;
+    const college = colleges.find(c => c.college_number == colNum);
+    const courseSelect = document.getElementById('inst-edit-course');
+    if (college) {
+      courseSelect.innerHTML = college.courses.map(c => `<option value="${escHtml(c.course_name)}">${c.course_name}</option>`).join('');
+      updateSeatInputs();
+    }
+  };
+
+  const updateSeatInputs = () => {
+    const colNum = colSelect.value;
+    const courseName = document.getElementById('inst-edit-course').value;
+    const college = colleges.find(c => c.college_number == colNum);
+    if (college) {
+      const course = college.courses.find(c => c.course_name === courseName);
+      if (course) {
+        document.getElementById('inst-edit-intake').value = course.total_intake || 0;
+        document.getElementById('inst-edit-kea').value = course.total_kea_seats || 0;
+        document.getElementById('inst-edit-comedk').value = course.cat2_seats || 0;
+        document.getElementById('inst-edit-mgmt').value = course.cat3_seats || 0;
+        document.getElementById('inst-edit-fee').value = getSeatFees(college).rows[0]?.year1?.replace(/[^0-9]/g, '') || 120000;
+      }
+    }
+  };
+
+  colSelect.onchange = updateCoursesDropdown;
+  document.getElementById('inst-edit-course').onchange = updateSeatInputs;
+
+  updateCoursesDropdown();
+  renderInstitutionHistory();
+}
+
+function renderInstitutionHistory() {
+  const container = document.getElementById('inst-requests-history');
+  if (pendingIntakeRequests.length === 0) {
+    container.innerHTML = `<div style="font-size:12px; color:var(--text-muted); text-align:center; padding:20px 0;">No changes submitted in this session.</div>`;
+    return;
+  }
+
+  const groupRequests = pendingIntakeRequests.filter(r => r.group === currentUser.institutionGroup);
+  if (groupRequests.length === 0) {
+    container.innerHTML = `<div style="font-size:12px; color:var(--text-muted); text-align:center; padding:20px 0;">No changes submitted in this session.</div>`;
+    return;
+  }
+
+  container.innerHTML = groupRequests.map(r => {
+    let statusBadge = '';
+    if (r.status === 'Pending') statusBadge = '<span style="color:var(--purple); font-weight:700;">⏳ PENDING</span>';
+    else if (r.status === 'Approved') statusBadge = '<span style="color:var(--green); font-weight:700;">🟢 APPROVED</span>';
+    else statusBadge = '<span style="color:var(--pink); font-weight:700;">🔴 REJECTED</span>';
+
+    return `
+      <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); padding:10px 12px; border-radius:8px; display:flex; flex-direction:column; gap:4px; font-size:11px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <strong style="color:var(--text); text-overflow:ellipsis; overflow:hidden; white-space:nowrap; max-width:180px;">${r.collegeName}</strong>
+          ${statusBadge}
+        </div>
+        <div style="color:var(--text-muted); font-size:10px;">Course: ${r.courseName}</div>
+        <div style="color:var(--text-muted); margin-top:2px;">Requested: Intake ${r.intake} | KEA ${r.kea} | COMEDK ${r.comedk} | Mgmt ${r.mgmt} | Fee ₹${r.fee.toLocaleString()}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderAuthorityDashboard() {
+  if (currentUser.role !== 'authority') return;
+
+  // 1. Populate Approvals Queue
+  const tbody = document.getElementById('authority-pending-tbody');
+  const pending = pendingIntakeRequests.filter(r => r.status === 'Pending');
+
+  if (pending.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5" style="text-align:center; color:var(--text-muted); padding:30px;">No pending seat change requests from colleges.</td>
+      </tr>
+    `;
+  } else {
+    tbody.innerHTML = pending.map(r => `
+      <tr>
+        <td><strong>${r.collegeName}</strong><br><small style="color:var(--text-muted)">Code: ${r.keaCode || 'N/A'}</small></td>
+        <td>${r.courseName}</td>
+        <td>Intake & Fee matrix</td>
+        <td>
+          Intake: <strong>${r.intake}</strong> (KEA: ${r.kea}, COMEDK: ${r.comedk}, Mgmt: ${r.mgmt})<br>
+          Proposed Fee: <strong>₹${r.fee.toLocaleString()}</strong>
+        </td>
+        <td style="text-align:center;">
+          <div style="display:flex; gap:6px; justify-content:center;">
+            <button class="auth-submit-btn" onclick="approveRequest(${r.id})" style="margin:0; padding:6px 12px; font-size:11px; background:var(--green); border-radius:4px;">Approve</button>
+            <button class="auth-submit-btn" onclick="rejectRequest(${r.id})" style="margin:0; padding:6px 12px; font-size:11px; background:var(--pink); border-radius:4px;">Reject</button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  // 2. Render Audit Logs
+  const logEl = document.getElementById('auth-audit-logs');
+  logEl.textContent = authorityLogs.join('\n');
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+function approveRequest(id) {
+  const req = pendingIntakeRequests.find(r => r.id === id);
+  if (req) {
+    req.status = 'Approved';
+    
+    // Update raw seat matrix data in-memory
+    const college = allData.colleges.find(c => c.college_number == req.collegeNum);
+    if (college) {
+      const course = college.courses.find(c => c.course_name === req.courseName);
+      if (course) {
+        course.total_intake = req.intake;
+        course.total_kea_seats = req.kea;
+        course.cat2_seats = req.comedk;
+        course.cat3_seats = req.mgmt;
+        
+        // Update fees locally
+        if (college.courses_fee) {
+          college.courses_fee[req.courseName] = req.fee;
+        } else {
+          college.courses_fee = { [req.courseName]: req.fee };
+        }
+      }
+    }
+
+    const time = new Date().toLocaleTimeString();
+    authorityLogs.push(`[${time}] APPROVED: ${req.collegeName} (${req.courseName}) intake set to ${req.intake}, fee set to ₹${req.fee.toLocaleString()}`);
+    
+    renderAuthorityDashboard();
+    applyFilters();
+  }
+}
+
+function rejectRequest(id) {
+  const req = pendingIntakeRequests.find(r => r.id === id);
+  if (req) {
+    req.status = 'Rejected';
+    const time = new Date().toLocaleTimeString();
+    authorityLogs.push(`[${time}] REJECTED: ${req.collegeName} (${req.courseName}) seat modification request`);
+    
+    renderAuthorityDashboard();
+  }
+}
+
+function downloadInstitutionData(format) {
+  if (!currentUser || currentUser.role !== 'institution') return;
+  const groupId = currentUser.institutionGroup;
+  const group = INSTITUTION_GROUPS[groupId];
+  if (!group) return;
+
+  const groupColleges = allData.colleges.filter(c => {
+    const clean = getCleanCollegeName(c.college_name);
+    return group.patterns.some(p => clean.includes(p));
+  });
+
+  if (format === 'csv') {
+    let csv = "College Code,College Name,Course Name,Total Intake,KEA Seats,COMEDK Seats,Management Seats\n";
+    groupColleges.forEach(col => {
+      col.courses.forEach(c => {
+        csv += `"${col.kea_code || ''}","${col.college_name}","${c.course_name}",${c.total_intake || 0},${c.total_kea_seats || 0},${c.cat2_seats || 0},${c.cat3_seats || 0}\n`;
+      });
+    });
+    triggerFileDownload(csv, `${groupId}_seat_matrix.csv`, "text/csv");
+  } else if (format === 'json') {
+    const jsonStr = JSON.stringify(groupColleges, null, 2);
+    triggerFileDownload(jsonStr, `${groupId}_seat_matrix.json`, "application/json");
+  }
+}
+
+function downloadAuthorityData(format) {
+  if (!currentUser || currentUser.role !== 'authority') return;
+
+  if (format === 'csv') {
+    let csv = "College Code,College Name,District,Annexure,Course Name,Total Intake,KEA Seats,COMEDK Seats,Management Seats\n";
+    allData.colleges.forEach(col => {
+      col.courses.forEach(c => {
+        csv += `"${col.kea_code || ''}","${col.college_name}","${col.district || ''}","${col.annexure || ''}","${c.course_name}",${c.total_intake || 0},${c.total_kea_seats || 0},${c.cat2_seats || 0},${c.cat3_seats || 0}\n`;
+      });
+    });
+    triggerFileDownload(csv, "kcet_consolidated_seat_matrix_2025.csv", "text/csv");
+  } else if (format === 'txt') {
+    const logStr = authorityLogs.join("\n");
+    triggerFileDownload(logStr, "authority_audit_logs.txt", "text/plain");
+  }
+}
+
+function triggerFileDownload(content, filename, contentType) {
+  const blob = new Blob([content], { type: contentType });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// Make helper functions globally accessible for inline actions
+window.approveRequest = approveRequest;
+window.rejectRequest = rejectRequest;
+
+function applyUserRole() {
+  const profileChip = document.getElementById('user-profile-chip');
+  const roleBadge = document.getElementById('user-role-badge');
+  const nameDisplay = document.getElementById('user-display-name');
+  const studentProfileSection = document.getElementById('student-profile-section');
+  const tabInst = document.getElementById('tab-institution');
+  const tabAuth = document.getElementById('tab-authority');
+  const scrollingWrap = document.getElementById('scrolling-announcements-wrap');
+
+  // Toggle scrolling alerts bar
+  if (scrollingWrap) {
+    scrollingWrap.style.display = systemAnnouncements.length > 0 ? 'flex' : 'none';
+    const textEl = document.getElementById('scrolling-announcements-text');
+    if (textEl) textEl.textContent = systemAnnouncements.join(" | ");
+  }
+
+  if (!currentUser) {
+    if (profileChip) profileChip.style.display = 'none';
+    if (studentProfileSection) studentProfileSection.style.display = 'none';
+    if (tabInst) tabInst.style.display = 'none';
+    if (tabAuth) tabAuth.style.display = 'none';
+    return;
+  }
+
+  // Display user profile status
+  if (profileChip) {
+    profileChip.style.display = 'flex';
+    nameDisplay.textContent = currentUser.name;
+    roleBadge.textContent = currentUser.role;
+    if (currentUser.role === 'student') {
+      roleBadge.style.background = 'var(--blue)';
+    } else if (currentUser.role === 'institution') {
+      roleBadge.style.background = 'var(--teal)';
+    } else {
+      roleBadge.style.background = 'var(--pink)';
+    }
+  }
+
+  // Role-specific sidebar profiles & tab buttons
+  if (currentUser.role === 'student') {
+    if (studentProfileSection) {
+      studentProfileSection.style.display = 'block';
+      document.getElementById('profile-rank').value = currentUser.rank;
+      document.getElementById('profile-category').value = currentUser.category;
+    }
+    if (tabInst) tabInst.style.display = 'none';
+    if (tabAuth) tabAuth.style.display = 'none';
+    
+    // Sync to Predictor Tab
+    const prRank = document.getElementById('pred-rank');
+    const prCat = document.getElementById('pred-category');
+    if (prRank) prRank.value = currentUser.rank;
+    if (prCat) prCat.value = currentUser.category;
+  } else if (currentUser.role === 'institution') {
+    if (studentProfileSection) studentProfileSection.style.display = 'none';
+    if (tabInst) tabInst.style.display = 'block';
+    if (tabAuth) tabAuth.style.display = 'none';
+    
+    // Setup group colleges in database
+    setupInstitutionGroupColleges();
+    renderInstitutionDashboard();
+  } else if (currentUser.role === 'authority') {
+    if (studentProfileSection) studentProfileSection.style.display = 'none';
+    if (tabInst) tabInst.style.display = 'none';
+    if (tabAuth) tabAuth.style.display = 'block';
+    
+    renderAuthorityDashboard();
+  }
+
+  // Go to Colleges tab by default on role change
+  const collegesTab = document.getElementById('tab-colleges');
+  if (collegesTab) collegesTab.click();
+
+  // Apply filtering
+  applyFilters();
+}
+
 // ─────────────────────────────
 // Filtering
 // ─────────────────────────────
@@ -648,7 +1257,17 @@ function applyFilters() {
   const { search, annexure, district, course, minSeats } = filters;
   const q = search.toLowerCase().trim();
 
-  filtered = allData.colleges.filter(c => {
+  let baseColleges = allData.colleges;
+  if (currentUser && currentUser.role === 'institution') {
+    const groupId = currentUser.institutionGroup;
+    if (groupId && INSTITUTION_GROUPS[groupId]) {
+      const groupColleges = INSTITUTION_GROUPS[groupId].colleges;
+      const groupCleanNames = new Set(groupColleges.map(col => getCleanCollegeName(col.college_name)));
+      baseColleges = allData.colleges.filter(col => groupCleanNames.has(getCleanCollegeName(col.college_name)));
+    }
+  }
+
+  filtered = baseColleges.filter(c => {
     if (c.annexure === 'E' || c.annexure === 'V') return false;
     if (annexure !== 'all' && c.annexure !== annexure) return false;
     if (district && c.district !== district) return false;
@@ -847,7 +1466,7 @@ function renderQuotaDistributionChart() {
   let totalComedk = 0;
   let totalMgmt = 0;
 
-  allData.colleges.forEach(col => {
+  filtered.forEach(col => {
     col.courses.forEach(c => {
       totalKea += (c.total_kea_seats || 0);
       totalComedk += (c.cat2_seats || 0);
@@ -879,13 +1498,25 @@ function renderQuotaDistributionChart() {
 }
 
 function renderDonutChart() {
-  const s = allData.stats.by_annexure;
-  const items = Object.entries(s).map(([k, v], i) => ({
-    label: v.label,
-    value: v.total_seats,
-    color: CHART_COLORS[i]
-  }));
+  const annCounts = {};
+  filtered.forEach(c => {
+    let colSeats = 0;
+    c.courses.forEach(cr => { colSeats += cr.total_intake || 0; });
+    annCounts[c.annexure] = (annCounts[c.annexure] || 0) + colSeats;
+  });
+
+  const items = Object.entries(ANNEXURE_LABELS).map(([k, label], i) => ({
+    label: label,
+    value: annCounts[k] || 0,
+    color: CHART_COLORS[i % CHART_COLORS.length]
+  })).filter(item => item.value > 0);
+
   const total = items.reduce((s, i) => s + i.value, 0);
+  if (total === 0) {
+    const wrap = document.getElementById('donut-svg-wrap');
+    if (wrap) wrap.innerHTML = `<div style="font-size:12px; color:var(--text-muted); text-align:center; padding:50px 0;">No seat data.</div>`;
+    return;
+  }
 
   // SVG donut
   const size = 180, cx = 90, cy = 90, r = 70, strokeW = 24;
@@ -919,43 +1550,51 @@ function renderDonutChart() {
   const svg = `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
     ${svgPaths}
     <circle cx="${cx}" cy="${cy}" r="40" fill="var(--bg-card)"/>
-    <text x="${cx}" y="${cy-6}" text-anchor="middle" fill="#e8eaf0" font-size="14" font-weight="700" font-family="Space Grotesk">${formatNum(total)}</text>
-    <text x="${cx}" y="${cy+12}" text-anchor="middle" fill="#6b7799" font-size="9" font-family="Inter">total seats</text>
   </svg>`;
 
-  document.getElementById('donut-type').innerHTML = svg;
-  document.getElementById('legend-type').innerHTML = `<div class="donut-legend">` +
-    arcs.map(a => `
-      <div class="legend-item">
-        <div class="legend-dot" style="background:${a.color}"></div>
-        <span class="legend-name">${a.label}</span>
-        <span class="legend-val">${a.value.toLocaleString()}</span>
-      </div>
-    `).join('') + `</div>`;
+  const wrap = document.getElementById('donut-svg-wrap');
+  if (wrap) wrap.innerHTML = svg;
+
+  // Legends
+  const legends = items.map(a => `
+    <div class="legend-item" style="display:flex; align-items:center; gap:8px; font-size:11px; margin-bottom:4px;">
+      <span style="width:10px; height:10px; border-radius:50%; background:${a.color}; display:inline-block;"></span>
+      <span style="color:var(--text); font-weight:500;">${a.label}:</span>
+      <span style="color:var(--text-muted);">${a.value.toLocaleString()} (${Math.round((a.value/total)*100)}%)</span>
+    </div>
+  `).join('');
+  const legWrap = document.getElementById('donut-legends');
+  if (legWrap) legWrap.innerHTML = legends;
 }
 
 function polarToCart(cx, cy, r, angle) {
   const rad = (angle * Math.PI) / 180;
-  return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+  return { x: cx + r * Math.cos(rad), y: cx + r * Math.sin(rad) };
 }
 
 function renderDistrictBarChart() {
-  const s = allData.stats.by_district;
-  const rows = Object.entries(s)
-    .filter(([k]) => k !== 'Other')
-    .sort((a, b) => b[1].total - a[1].total)
-    .slice(0, 12);
-  const maxVal = rows[0]?.[1].total || 1;
+  const distCounts = {};
+  filtered.forEach(c => {
+    let colSeats = 0;
+    c.courses.forEach(cr => { colSeats += cr.total_intake || 0; });
+    const dist = c.district || 'Other';
+    distCounts[dist] = (distCounts[dist] || 0) + colSeats;
+  });
 
-  const html = rows.map(([dist, d], i) => {
-    const w = Math.round((d.total / maxVal) * 100);
+  const rows = Object.entries(distCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 12);
+  const maxVal = rows[0]?.[1] || 1;
+
+  const html = rows.map(([dist, total], i) => {
+    const w = Math.round((total / maxVal) * 100);
     const color = CHART_COLORS[i % CHART_COLORS.length];
     return `<div class="bar-item">
       <div class="bar-label">${dist}</div>
       <div class="bar-bg">
         <div class="bar-fill" style="width:${w}%; background:${color};"></div>
       </div>
-      <div class="bar-val">${d.total.toLocaleString()}</div>
+      <div class="bar-val">${total.toLocaleString()}</div>
     </div>`;
   }).join('');
 
@@ -986,14 +1625,20 @@ function getYoYCutoffData(currentYear, keaCode, courseName) {
 }
 
 function renderCourseBarChart() {
-  const s = allData.stats.by_course;
-  const rows = Object.entries(s)
-    .sort((a, b) => b[1].total - a[1].total)
-    .slice(0, 15);
-  const maxVal = rows[0]?.[1].total || 1;
+  const courseCounts = {};
+  filtered.forEach(c => {
+    c.courses.forEach(cr => {
+      courseCounts[cr.course_name] = (courseCounts[cr.course_name] || 0) + (cr.total_intake || 0);
+    });
+  });
 
-  const html = rows.map(([name, d], i) => {
-    const w = Math.round((d.total / maxVal) * 100);
+  const rows = Object.entries(courseCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 15);
+  const maxVal = rows[0]?.[1] || 1;
+
+  const html = rows.map(([name, total], i) => {
+    const w = Math.round((total / maxVal) * 100);
     const color = CHART_COLORS[i % CHART_COLORS.length];
     return `<div class="bar-item horizontal">
       <div class="bar-label" title="${name}">${name}</div>
@@ -1001,7 +1646,7 @@ function renderCourseBarChart() {
         <div class="bar-fill" style="width:${w}%; background:${color}; display:flex; align-items:center;">
         </div>
       </div>
-      <div class="bar-val">${d.total.toLocaleString()}</div>
+      <div class="bar-val">${total.toLocaleString()}</div>
     </div>`;
   }).join('');
 
@@ -1858,6 +2503,10 @@ function bindEvents() {
       } else if (currentTab === 'stats') {
         renderStats();
         renderYoYStats();
+      } else if (currentTab === 'institution') {
+        renderInstitutionDashboard();
+      } else if (currentTab === 'authority') {
+        renderAuthorityDashboard();
       }
     });
   });
@@ -2222,11 +2871,21 @@ function downloadJSON() {
   let dataToDownload;
   let filename;
 
+  let sourceColleges = allData.colleges;
+  if (currentUser && currentUser.role === 'institution') {
+    const groupId = currentUser.institutionGroup;
+    if (groupId && INSTITUTION_GROUPS[groupId]) {
+      const groupColleges = INSTITUTION_GROUPS[groupId].colleges;
+      const groupCleanNames = new Set(groupColleges.map(col => getCleanCollegeName(col.college_name)));
+      sourceColleges = allData.colleges.filter(col => groupCleanNames.has(getCleanCollegeName(col.college_name)));
+    }
+  }
+
   if (annSel === 'ALL') {
-    dataToDownload = allData.colleges;
+    dataToDownload = sourceColleges;
     filename = `karnataka_seat_matrix_${selectedYear}_all.json`;
   } else if (annSel === 'Undefined') {
-    dataToDownload = allData.colleges.map(col => {
+    dataToDownload = sourceColleges.map(col => {
       const specCourses = col.courses.filter(c => 
         (c.sports || 0) > 0 || (c.ncc || 0) > 0 || (c.sct_guides || 0) > 0 ||
         (c.defence || 0) > 0 || (c.k_defence || 0) > 0 || (c.ex_defence || 0) > 0 ||
@@ -2239,7 +2898,7 @@ function downloadJSON() {
     }).filter(col => col !== null);
     filename = `karnataka_seat_matrix_${selectedYear}_annexure_Undefined.json`;
   } else {
-    dataToDownload = allData.colleges.filter(c => c.annexure === annSel);
+    dataToDownload = sourceColleges.filter(c => c.annexure === annSel);
     filename = `karnataka_seat_matrix_${selectedYear}_annexure_${annSel}.json`;
   }
 
@@ -2253,6 +2912,16 @@ function downloadCSV() {
   const selectedYear = document.getElementById('year-select')?.value || '2025';
   let colleges;
   let filename;
+
+  let sourceColleges = allData.colleges;
+  if (currentUser && currentUser.role === 'institution') {
+    const groupId = currentUser.institutionGroup;
+    if (groupId && INSTITUTION_GROUPS[groupId]) {
+      const groupColleges = INSTITUTION_GROUPS[groupId].colleges;
+      const groupCleanNames = new Set(groupColleges.map(col => getCleanCollegeName(col.college_name)));
+      sourceColleges = allData.colleges.filter(col => groupCleanNames.has(getCleanCollegeName(col.college_name)));
+    }
+  }
 
   if (annSel === 'Undefined') {
     const headers = [
@@ -2275,7 +2944,7 @@ function downloadCSV() {
       'Total Seats'
     ];
     const csvRows = [headers.join(',')];
-    colleges = allData.colleges.map(col => {
+    colleges = sourceColleges.map(col => {
       const specCourses = col.courses.filter(c => 
         (c.sports || 0) > 0 || (c.ncc || 0) > 0 || (c.sct_guides || 0) > 0 ||
         (c.defence || 0) > 0 || (c.k_defence || 0) > 0 || (c.ex_defence || 0) > 0 ||
@@ -2320,10 +2989,10 @@ function downloadCSV() {
   }
 
   if (annSel === 'ALL') {
-    colleges = allData.colleges;
+    colleges = sourceColleges;
     filename = `karnataka_seat_matrix_${selectedYear}_all.csv`;
   } else {
-    colleges = allData.colleges.filter(c => c.annexure === annSel);
+    colleges = sourceColleges.filter(c => c.annexure === annSel);
     filename = `karnataka_seat_matrix_${selectedYear}_annexure_${annSel}.csv`;
   }
 
