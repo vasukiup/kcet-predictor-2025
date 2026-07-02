@@ -847,193 +847,345 @@ function getCourseFee(college, courseName, keaSeats) {
 
 function getSeatFees(college) {
   const type = college.college_type || '';
+  const selectedYear = document.getElementById('year-select')?.value || '2025';
   const result = {
     type: 'standard',
     hasConcession: false,
     rows: []
   };
 
-  if (type.includes('Government / VTU Constituent Colleges')) {
-    const concessionCourses = ['civil', 'mechanical', 'textile', 'silk', 'automobile'];
-    const hasConcession = college.courses.some(c => 
-      concessionCourses.some(cc => c.course_name.toLowerCase().includes(cc))
-    );
-    
-    result.type = 'standard';
-    result.hasConcession = hasConcession;
-    
-    result.rows.push({
-      seatType: 'KEA General Quota',
-      year1: '₹44,200',
-      subsequent: '₹42,200',
-      note: 'Includes ₹10,610 VTU fee and ₹10,000 other fees.'
-    });
-    
-    if (hasConcession) {
+  if (selectedYear === '2024') {
+    if (type.includes('Government / VTU Constituent Colleges') || type.includes('Government Engineering Colleges') || type.includes('Government')) {
+      const concessionCourses = ['civil', 'mechanical', 'textile', 'silk', 'automobile'];
+      const hasConcession = college.courses.some(c => 
+        concessionCourses.some(cc => c.course_name.toLowerCase().includes(cc))
+      );
+      
+      result.type = 'standard';
+      result.hasConcession = hasConcession;
+      
       result.rows.push({
-        seatType: 'KEA Concession Quota',
-        year1: '₹28,450',
-        subsequent: '₹26,450',
-        note: 'Applies to Civil, Mechanical, Textile, Silk, Automobile.'
+        seatType: 'KEA General Quota',
+        year1: '₹42,866',
+        subsequent: '₹41,500',
+        note: 'Includes ₹10,610 VTU fee and ₹10,000 other fees.'
       });
-    }
-    
-    result.rows.push({
-      seatType: 'SNQ (Supernumerary Quota)',
-      year1: '₹20,610',
-      subsequent: '₹20,610',
-      note: 'Tuition fee waived. Pays VTU and other fees.'
-    });
-  } else if (type.includes('Government Aided Private Colleges')) {
-    result.type = 'standard';
-    result.rows.push({
-      seatType: 'KEA General (Aided Courses)',
-      year1: '₹44,200',
-      subsequent: '₹42,200',
-      note: 'Includes ₹10,610 VTU fee and ₹10,000 other fees.'
-    });
-    result.rows.push({
-      seatType: 'SNQ (Supernumerary Quota)',
-      year1: '₹20,610',
-      subsequent: '₹20,610',
-      note: 'Tuition fee waived. Pays VTU and other fees.'
-    });
-  } else if (type.includes('Public University')) {
-    result.type = 'uvce';
-    result.rows.push({
-      seatType: 'KEA General Quota',
-      year1: '₹49,600',
-      subsequent: '₹48,250',
-      note: 'Under autonomous IIT-like status.'
-    });
-    result.rows.push({
-      seatType: 'SNQ (Supernumerary Quota)',
-      year1: '₹20,610',
-      subsequent: '₹20,610',
-      note: 'Tuition fee waived. Pays university and other fees.'
-    });
-  } else if (type.includes('Government (Higher Fees)')) {
-    result.type = 'higher';
-    result.rows.push({
-      seatType: 'KEA General Quota',
-      year1: '₹1,02,410',
-      subsequent: '₹1,02,410',
-      note: 'Applied to specific VTU constituent seats.'
-    });
-    result.rows.push({
-      seatType: 'SNQ (Supernumerary Quota)',
-      year1: '₹20,610',
-      subsequent: '₹20,610',
-      note: 'Tuition fee waived. Pays university and other fees.'
-    });
-  } else {
-    // Private / Minority / Deemed / Private University
-    result.type = 'options';
-    result.rows = [
-      {
-        seatType: 'KEA General (Option A)',
-        year1: '₹1,12,410',
-        subsequent: '₹1,12,410',
-        note: 'Consensual Agreement Option A. Includes ₹20,000 other fees.'
-      },
-      {
-        seatType: 'KEA General (Option B)',
-        year1: '₹1,21,610',
-        subsequent: '₹1,21,610',
-        note: 'Consensual Agreement Option B. Includes ₹20,000 other fees.'
-      },
-      {
-        seatType: 'COMEDK (Option A)',
-        year1: '₹2,81,100',
-        subsequent: '₹2,81,100',
-        note: 'Charged if the college chooses ₹1,12,410 for KEA.'
-      },
-      {
-        seatType: 'COMEDK (Option B)',
-        year1: '₹2,00,000',
-        subsequent: '₹2,00,000',
-        note: 'Charged if the college chooses ₹1,21,610 for KEA.'
-      },
-      {
-        seatType: 'SNQ (Supernumerary Quota)',
-        year1: '₹30,610',
-        subsequent: '₹30,610',
-        note: 'Tuition fee waived. Pays university and other fees.'
+      
+      if (hasConcession) {
+        result.rows.push({
+          seatType: 'KEA Concession Quota',
+          year1: '₹31,738',
+          subsequent: '₹30,360',
+          note: 'Applies to Civil, Mechanical, Textile, Silk, Automobile.'
+        });
       }
-    ];
+      
+      result.rows.push({
+        seatType: 'SNQ (Supernumerary Quota)',
+        year1: '₹21,360',
+        subsequent: '₹21,360',
+        note: 'Tuition fee waived. Pays VTU and other fees.'
+      });
+    } else if (type.includes('Government Aided Private Colleges') || type.includes('Aided Courses')) {
+      result.type = 'standard';
+      result.rows.push({
+        seatType: 'KEA General (Aided Courses)',
+        year1: '₹42,866',
+        subsequent: '₹41,500',
+        note: 'Includes ₹10,610 VTU fee and ₹10,000 other fees.'
+      });
+      result.rows.push({
+        seatType: 'SNQ (Supernumerary Quota)',
+        year1: '₹21,360',
+        subsequent: '₹21,360',
+        note: 'Tuition fee waived. Pays VTU and other fees.'
+      });
+    } else if (type.includes('Public University') || type.includes('University of Visvesvaraya')) {
+      result.type = 'uvce';
+      result.rows.push({
+        seatType: 'KEA General Quota',
+        year1: '₹48,000',
+        subsequent: '₹46,500',
+        note: 'Under autonomous IIT-like status.'
+      });
+      result.rows.push({
+        seatType: 'SNQ (Supernumerary Quota)',
+        year1: '₹21,360',
+        subsequent: '₹21,360',
+        note: 'Tuition fee waived. Pays university and other fees.'
+      });
+    } else {
+      // Private / Minority / Deemed / Private University
+      result.type = 'options';
+      result.rows = [
+        {
+          seatType: 'KEA General (Type-1 / Option A)',
+          year1: '₹1,07,495',
+          subsequent: '₹1,07,495',
+          note: 'Type-1 fee structure. Includes ₹20,000 other fees.'
+        },
+        {
+          seatType: 'KEA General (Type-2 / Option B)',
+          year1: '₹1,15,956',
+          subsequent: '₹1,15,956',
+          note: 'Type-2 fee structure. Includes ₹20,000 other fees.'
+        },
+        {
+          seatType: 'COMEDK (Type-1 / Option A)',
+          year1: '₹2,64,000',
+          subsequent: '₹2,64,000',
+          note: 'Charged if the college chooses Type-1 fees.'
+        },
+        {
+          seatType: 'COMEDK (Type-2 / Option B)',
+          year1: '₹2,01,000',
+          subsequent: '₹2,01,000',
+          note: 'Charged if the college chooses Type-2 fees.'
+        },
+        {
+          seatType: 'SNQ (Supernumerary Quota)',
+          year1: '₹31,360',
+          subsequent: '₹31,360',
+          note: 'Tuition fee waived. Pays university and other fees.'
+        }
+      ];
+    }
+  } else {
+    // 2025 Fee structure
+    if (type.includes('Government / VTU Constituent Colleges')) {
+      const concessionCourses = ['civil', 'mechanical', 'textile', 'silk', 'automobile'];
+      const hasConcession = college.courses.some(c => 
+        concessionCourses.some(cc => c.course_name.toLowerCase().includes(cc))
+      );
+      
+      result.type = 'standard';
+      result.hasConcession = hasConcession;
+      
+      result.rows.push({
+        seatType: 'KEA General Quota',
+        year1: '₹44,200',
+        subsequent: '₹42,200',
+        note: 'Includes ₹10,610 VTU fee and ₹10,000 other fees.'
+      });
+      
+      if (hasConcession) {
+        result.rows.push({
+          seatType: 'KEA Concession Quota',
+          year1: '₹28,450',
+          subsequent: '₹26,450',
+          note: 'Applies to Civil, Mechanical, Textile, Silk, Automobile.'
+        });
+      }
+      
+      result.rows.push({
+        seatType: 'SNQ (Supernumerary Quota)',
+        year1: '₹20,610',
+        subsequent: '₹20,610',
+        note: 'Tuition fee waived. Pays VTU and other fees.'
+      });
+    } else if (type.includes('Government Aided Private Colleges')) {
+      result.type = 'standard';
+      result.rows.push({
+        seatType: 'KEA General (Aided Courses)',
+        year1: '₹44,200',
+        subsequent: '₹42,200',
+        note: 'Includes ₹10,610 VTU fee and ₹10,000 other fees.'
+      });
+      result.rows.push({
+        seatType: 'SNQ (Supernumerary Quota)',
+        year1: '₹20,610',
+        subsequent: '₹20,610',
+        note: 'Tuition fee waived. Pays VTU and other fees.'
+      });
+    } else if (type.includes('Public University')) {
+      result.type = 'uvce';
+      result.rows.push({
+        seatType: 'KEA General Quota',
+        year1: '₹49,600',
+        subsequent: '₹48,250',
+        note: 'Under autonomous IIT-like status.'
+      });
+      result.rows.push({
+        seatType: 'SNQ (Supernumerary Quota)',
+        year1: '₹20,610',
+        subsequent: '₹20,610',
+        note: 'Tuition fee waived. Pays university and other fees.'
+      });
+    } else if (type.includes('Government (Higher Fees)')) {
+      result.type = 'higher';
+      result.rows.push({
+        seatType: 'KEA General Quota',
+        year1: '₹1,02,410',
+        subsequent: '₹1,02,410',
+        note: 'Applied to specific VTU constituent seats.'
+      });
+      result.rows.push({
+        seatType: 'SNQ (Supernumerary Quota)',
+        year1: '₹20,610',
+        subsequent: '₹20,610',
+        note: 'Tuition fee waived. Pays university and other fees.'
+      });
+    } else {
+      // Private / Minority / Deemed / Private University
+      result.type = 'options';
+      result.rows = [
+        {
+          seatType: 'KEA General (Option A)',
+          year1: '₹1,12,410',
+          subsequent: '₹1,12,410',
+          note: 'Consensual Agreement Option A. Includes ₹20,000 other fees.'
+        },
+        {
+          seatType: 'KEA General (Option B)',
+          year1: '₹1,21,610',
+          subsequent: '₹1,21,610',
+          note: 'Consensual Agreement Option B. Includes ₹20,000 other fees.'
+        },
+        {
+          seatType: 'COMEDK (Option A)',
+          year1: '₹2,81,100',
+          subsequent: '₹2,81,100',
+          note: 'Charged if the college chooses ₹1,12,410 for KEA.'
+        },
+        {
+          seatType: 'COMEDK (Option B)',
+          year1: '₹2,00,000',
+          subsequent: '₹2,00,000',
+          note: 'Charged if the college chooses ₹1,21,610 for KEA.'
+        },
+        {
+          seatType: 'SNQ (Supernumerary Quota)',
+          year1: '₹30,610',
+          subsequent: '₹30,610',
+          note: 'Tuition fee waived. Pays university and other fees.'
+        }
+      ];
+    }
   }
 
   return result;
 }
 
-// Category details resolver based on KEA_FEES_2025.pdf
+// Category details resolver based on KEA_FEES_2025.pdf & provisional fees 2024
 function getCategoryFeeDetails(college, category, courseType) {
   const type = college.college_type || '';
   const isConcession = courseType === 'concession';
   const isGovt = type.includes('Government / VTU Constituent');
+  const selectedYear = document.getElementById('year-select')?.value || '2025';
 
-  if (type.includes('Government / VTU Constituent Colleges') || type.includes('Government Aided Private Colleges')) {
-    if (category === 'SCST_LOW') {
-      return { year1: '₹0', subsequent: '₹0', note: 'Full waiver at KEA counter' };
-    }
-    if (category === 'CAT1' || category === 'OBC_LOW') {
+  if (selectedYear === '2024') {
+    if (type.includes('Government / VTU Constituent Colleges') || type.includes('Government Engineering Colleges') || type.includes('Government Aided Private Colleges') || type.includes('Government')) {
+      if (category === 'SCST_LOW') {
+        return { year1: '₹750', subsequent: '₹750', note: 'KEA Registration fee only (tuition waived)' };
+      }
+      if (category === 'CAT1' || category === 'OBC_LOW') {
+        return { year1: '₹21,360', subsequent: '₹21,360', note: 'KEA Concession rate (tuition waived)' };
+      }
+      if (category === 'SNQ') {
+        return { year1: '₹21,360', subsequent: '₹21,360', note: 'SNQ Quota (tuition waived)' };
+      }
       return {
-        year1: isGovt && isConcession ? '₹16,950' : '₹23,590',
-        subsequent: isGovt && isConcession ? '₹14,950' : '₹21,590',
-        note: 'KEA Concession rate (tuition fee waiver)'
+        year1: isGovt && isConcession ? '₹31,738' : '₹42,866',
+        subsequent: isGovt && isConcession ? '₹30,360' : '₹41,500',
+        note: 'Standard KEA fee'
+      };
+    } else if (type.includes('Public University') || type.includes('University of Visvesvaraya')) {
+      if (category === 'SCST_LOW') {
+        return { year1: '₹750', subsequent: '₹750', note: 'KEA Registration fee only (tuition waived)' };
+      }
+      if (category === 'CAT1' || category === 'OBC_LOW') {
+        return { year1: '₹21,360', subsequent: '₹21,360', note: 'KEA Concession rate' };
+      }
+      if (category === 'SNQ') {
+        return { year1: '₹21,360', subsequent: '₹21,360', note: 'SNQ Quota (tuition waived)' };
+      }
+      return { year1: '₹48,000', subsequent: '₹46,500', note: 'Standard UVCE fee' };
+    } else {
+      // Private / Minority / Deemed / Private Univ
+      if (category === 'SCST_LOW') {
+        return { year1: '₹750', subsequent: '₹750', note: 'KEA Registration fee only (tuition waived)' };
+      }
+      if (category === 'CAT1' || category === 'OBC_LOW') {
+        return {
+          year1: 'Type-1: ₹31,360<br>Type-2: ₹31,360',
+          subsequent: 'Type-1: ₹31,360<br>Type-2: ₹31,360',
+          note: 'KEA Concession rate'
+        };
+      }
+      if (category === 'SNQ') {
+        return { year1: '₹31,360', subsequent: '₹31,360', note: 'SNQ Quota (tuition waived)' };
+      }
+      return {
+        year1: 'Type-1: ₹1,07,495<br>Type-2: ₹1,15,956',
+        subsequent: 'Type-1: ₹1,07,495<br>Type-2: ₹1,15,956',
+        note: 'Standard KEA fee'
       };
     }
-    if (category === 'SNQ') {
-      return { year1: '₹20,610', subsequent: '₹20,610', note: 'SNQ Quota (tuition waived)' };
-    }
-    // GM / SCST_HIGH
-    return {
-      year1: isGovt && isConcession ? '₹28,450' : '₹44,200',
-      subsequent: isGovt && isConcession ? '₹26,450' : '₹42,200',
-      note: 'Standard KEA fee'
-    };
-  } else if (type.includes('Public University')) {
-    if (category === 'SCST_LOW') {
-      return { year1: '₹0', subsequent: '₹0', note: 'Full waiver at KEA counter' };
-    }
-    if (category === 'CAT1' || category === 'OBC_LOW') {
-      return { year1: '₹28,990', subsequent: '₹27,640', note: 'KEA Concession rate' };
-    }
-    if (category === 'SNQ') {
-      return { year1: '₹20,610', subsequent: '₹20,610', note: 'SNQ Quota (tuition waived)' };
-    }
-    return { year1: '₹49,600', subsequent: '₹48,250', note: 'Standard UVCE fee' };
-  } else if (type.includes('Government (Higher Fees)')) {
-    if (category === 'SCST_LOW') {
-      return { year1: '₹0', subsequent: '₹0', note: 'Full waiver at KEA counter' };
-    }
-    if (category === 'CAT1' || category === 'OBC_LOW') {
-      return { year1: '₹78,820', subsequent: '₹78,820', note: 'KEA Concession rate' };
-    }
-    if (category === 'SNQ') {
-      return { year1: '₹20,610', subsequent: '₹20,610', note: 'SNQ Quota (tuition waived)' };
-    }
-    return { year1: '₹1,02,410', subsequent: '₹1,02,410', note: 'VTU Constituent Higher fee' };
   } else {
-    // Private / Minority / Deemed / Private Univ
-    if (category === 'SCST_LOW') {
-      return { year1: '₹0', subsequent: '₹0', note: 'Full waiver at KEA counter' };
-    }
-    if (category === 'CAT1' || category === 'OBC_LOW') {
+    // 2025 Category Fees
+    if (type.includes('Government / VTU Constituent Colleges') || type.includes('Government Aided Private Colleges')) {
+      if (category === 'SCST_LOW') {
+        return { year1: '₹0', subsequent: '₹0', note: 'Full waiver at KEA counter' };
+      }
+      if (category === 'CAT1' || category === 'OBC_LOW') {
+        return {
+          year1: isGovt && isConcession ? '₹16,950' : '₹23,590',
+          subsequent: isGovt && isConcession ? '₹14,950' : '₹21,590',
+          note: 'KEA Concession rate (tuition fee waiver)'
+        };
+      }
+      if (category === 'SNQ') {
+        return { year1: '₹20,610', subsequent: '₹20,610', note: 'SNQ Quota (tuition waived)' };
+      }
+      // GM / SCST_HIGH
       return {
-        year1: 'Opt A: ₹88,820<br>Opt B: ₹98,020',
-        subsequent: 'Opt A: ₹88,820<br>Opt B: ₹98,020',
-        note: 'KEA Concession rate'
+        year1: isGovt && isConcession ? '₹28,450' : '₹44,200',
+        subsequent: isGovt && isConcession ? '₹26,450' : '₹42,200',
+        note: 'Standard KEA fee'
+      };
+    } else if (type.includes('Public University')) {
+      if (category === 'SCST_LOW') {
+        return { year1: '₹0', subsequent: '₹0', note: 'Full waiver at KEA counter' };
+      }
+      if (category === 'CAT1' || category === 'OBC_LOW') {
+        return { year1: '₹28,990', subsequent: '₹27,640', note: 'KEA Concession rate' };
+      }
+      if (category === 'SNQ') {
+        return { year1: '₹20,610', subsequent: '₹20,610', note: 'SNQ Quota (tuition waived)' };
+      }
+      return { year1: '₹49,600', subsequent: '₹48,250', note: 'Standard UVCE fee' };
+    } else if (type.includes('Government (Higher Fees)')) {
+      if (category === 'SCST_LOW') {
+        return { year1: '₹0', subsequent: '₹0', note: 'Full waiver at KEA counter' };
+      }
+      if (category === 'CAT1' || category === 'OBC_LOW') {
+        return { year1: '₹78,820', subsequent: '₹78,820', note: 'KEA Concession rate' };
+      }
+      if (category === 'SNQ') {
+        return { year1: '₹20,610', subsequent: '₹20,610', note: 'SNQ Quota (tuition waived)' };
+      }
+      return { year1: '₹1,02,410', subsequent: '₹1,02,410', note: 'VTU Constituent Higher fee' };
+    } else {
+      // Private / Minority / Deemed / Private Univ
+      if (category === 'SCST_LOW') {
+        return { year1: '₹0', subsequent: '₹0', note: 'Full waiver at KEA counter' };
+      }
+      if (category === 'CAT1' || category === 'OBC_LOW') {
+        return {
+          year1: 'Opt A: ₹88,820<br>Opt B: ₹98,020',
+          subsequent: 'Opt A: ₹88,820<br>Opt B: ₹98,020',
+          note: 'KEA Concession rate'
+        };
+      }
+      if (category === 'SNQ') {
+        return { year1: '₹30,610', subsequent: '₹30,610', note: 'SNQ Quota (tuition waived)' };
+      }
+      return {
+        year1: 'Opt A: ₹1,12,410<br>Opt B: ₹1,21,610',
+        subsequent: 'Opt A: ₹1,12,410<br>Opt B: ₹1,21,610',
+        note: 'Standard KEA fee'
       };
     }
-    if (category === 'SNQ') {
-      return { year1: '₹30,610', subsequent: '₹30,610', note: 'SNQ Quota (tuition waived)' };
-    }
-    return {
-      year1: 'Opt A: ₹1,12,410<br>Opt B: ₹1,21,610',
-      subsequent: 'Opt A: ₹1,12,410<br>Opt B: ₹1,21,610',
-      note: 'Standard KEA fee'
-    };
   }
 }
 

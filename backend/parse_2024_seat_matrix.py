@@ -433,6 +433,39 @@ SCANNED_COLLEGES = [
                 "cat2_seats": 0, "cat3_seats": 36, "over_above_5pct": 3
             }
         ]
+    },
+    # ── Annexure C, Additional Seat Matrix (basavengcollegeenglish.pdf) ───────
+    {
+        "college_number": 24,
+        "college_name": "BASAV ENGINEERING SCHOOL OF TECHNOLOGY, VIJAYAPURA",
+        "address": "ZALKI, TQ. INDI, DIST VIJAYAPURA",
+        "annexure": "C",
+        "college_type": "Private Unaided Engineering Colleges",
+        "district": "Vijayapura",
+        "total_intake": 180, "total_kea_seats": 81,
+        "courses": [
+            {
+                "course_name": "CIVIL ENGINEERING",
+                "total_intake": 60, "total_kea_seats": 27,
+                "snq_5pct": 3, "kea_ph": 1, "kea_spl": 1,
+                "kea_hk": 2, "kea_rk": 23, "kea_tot": 25,
+                "cat2_seats": 18, "cat3_seats": 15, "over_above_5pct": 3
+            },
+            {
+                "course_name": "COMPUTER SCIENCE AND ENGINEERING",
+                "total_intake": 60, "total_kea_seats": 27,
+                "snq_5pct": 3, "kea_ph": 1, "kea_spl": 1,
+                "kea_hk": 2, "kea_rk": 23, "kea_tot": 25,
+                "cat2_seats": 18, "cat3_seats": 15, "over_above_5pct": 3
+            },
+            {
+                "course_name": "MECHANICAL ENGINEERING",
+                "total_intake": 60, "total_kea_seats": 27,
+                "snq_5pct": 3, "kea_ph": 1, "kea_spl": 1,
+                "kea_hk": 2, "kea_rk": 23, "kea_tot": 25,
+                "cat2_seats": 18, "cat3_seats": 15, "over_above_5pct": 3
+            }
+        ]
     }
 ]
 

@@ -23834,6 +23834,60 @@
           "over_above_5pct": 3
         }
       ]
+    },
+    {
+      "college_number": 24,
+      "college_name": "BASAV ENGINEERING SCHOOL OF TECHNOLOGY, VIJAYAPURA",
+      "address": "ZALKI, TQ. INDI, DIST VIJAYAPURA",
+      "annexure": "C",
+      "college_type": "Private Unaided Engineering Colleges",
+      "district": "Vijayapura",
+      "total_intake": 180,
+      "total_kea_seats": 81,
+      "courses": [
+        {
+          "course_name": "CIVIL ENGINEERING",
+          "total_intake": 60,
+          "total_kea_seats": 27,
+          "snq_5pct": 3,
+          "kea_ph": 1,
+          "kea_spl": 1,
+          "kea_hk": 2,
+          "kea_rk": 23,
+          "kea_tot": 25,
+          "cat2_seats": 18,
+          "cat3_seats": 15,
+          "over_above_5pct": 3
+        },
+        {
+          "course_name": "COMPUTER SCIENCE AND ENGINEERING",
+          "total_intake": 60,
+          "total_kea_seats": 27,
+          "snq_5pct": 3,
+          "kea_ph": 1,
+          "kea_spl": 1,
+          "kea_hk": 2,
+          "kea_rk": 23,
+          "kea_tot": 25,
+          "cat2_seats": 18,
+          "cat3_seats": 15,
+          "over_above_5pct": 3
+        },
+        {
+          "course_name": "MECHANICAL ENGINEERING",
+          "total_intake": 60,
+          "total_kea_seats": 27,
+          "snq_5pct": 3,
+          "kea_ph": 1,
+          "kea_spl": 1,
+          "kea_hk": 2,
+          "kea_rk": 23,
+          "kea_tot": 25,
+          "cat2_seats": 18,
+          "cat3_seats": 15,
+          "over_above_5pct": 3
+        }
+      ]
     }
   ],
   "all_courses": [
@@ -23974,12 +24028,13 @@
     "Bangalore",
     "Chikkaballapura",
     "Dakshina Kannada",
-    "Tumkur"
+    "Tumkur",
+    "Vijayapura"
   ],
   "stats": {
-    "total_colleges": 221,
-    "total_seats": 140649,
-    "total_kea_seats": 66468,
+    "total_colleges": 222,
+    "total_seats": 140829,
+    "total_kea_seats": 66549,
     "by_annexure": {
       "A": {
         "colleges": 22,
@@ -23992,9 +24047,9 @@
         "kea_seats": 2803
       },
       "C": {
-        "colleges": 145,
-        "seats": 89999,
-        "kea_seats": 40499
+        "colleges": 146,
+        "seats": 90179,
+        "kea_seats": 40580
       },
       "D": {
         "colleges": 16,
@@ -24042,13 +24097,18 @@
         "colleges": 1,
         "seats": 1050,
         "kea_seats": 420
+      },
+      "Vijayapura": {
+        "colleges": 1,
+        "seats": 180,
+        "kea_seats": 81
       }
     },
     "by_course": {
       "COMPUTER SCIENCE AND ENGINEERING": {
-        "colleges": 183,
-        "seats": 30633,
-        "kea_seats": 14586
+        "colleges": 184,
+        "seats": 30693,
+        "kea_seats": 14613
       },
       "COMPUTER SCIENCE AND ENGINEERING (AIML)": {
         "colleges": 1,
@@ -24076,14 +24136,14 @@
         "kea_seats": 115
       },
       "CIVIL ENGINEERING": {
-        "colleges": 156,
-        "seats": 8220,
-        "kea_seats": 4508
+        "colleges": 157,
+        "seats": 8280,
+        "kea_seats": 4535
       },
       "MECHANICAL ENGINEERING": {
-        "colleges": 162,
-        "seats": 8870,
-        "kea_seats": 4815
+        "colleges": 163,
+        "seats": 8930,
+        "kea_seats": 4842
       },
       "MECHANICAL AND SMART MANUFACTURING": {
         "colleges": 1,
