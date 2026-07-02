@@ -1443,6 +1443,9 @@ function bindEvents() {
         const activeBtn = document.querySelector('.totals-ann-btn.active');
         const activeAnnFilter = activeBtn ? activeBtn.dataset.ann : 'ALL';
         renderTotals(activeAnnFilter);
+      } else if (currentTab === 'stats') {
+        renderStats();
+        renderYoYStats();
       }
     });
   });
