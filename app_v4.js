@@ -170,6 +170,23 @@ function triggerYoYStatsLoad(activeYear) {
   }
 }
 
+function getCourseBranch(name) {
+  const n = name.toUpperCase();
+  if (n.includes('COMPUTER') || n.includes('INFORMATION SCIENCE') || n.includes('INFO.SCIENCE') || n.includes('AI') || n.includes('DATA SCIENCE') || n.includes('CYBER') || n.includes('IOT')) {
+    return 'Computer Science & IT';
+  }
+  if (n.includes('ELECTRONICS') || n.includes('ELECTRICAL') || n.includes('TELECOMMUNICATION') || n.includes('INSTRUMENTATION') || n.includes('VLSI')) {
+    return 'Electronics & Electrical';
+  }
+  if (n.includes('MECHANICAL') || n.includes('AERONAUTICAL') || n.includes('MECHATRONICS') || n.includes('AEROSPACE') || n.includes('AUTOMOBILE') || n.includes('ROBOTIC')) {
+    return 'Mechanical & Aerospace';
+  }
+  if (n.includes('CIVIL') || n.includes('CHEMICAL') || n.includes('ENVIRONMENTAL')) {
+    return 'Civil & Chemical';
+  }
+  return 'Other Branches';
+}
+
 function renderYoYStats() {
   if (!cache2024 || !cache2025) return;
 
@@ -211,6 +228,136 @@ function renderYoYStats() {
   if (barKea25) barKea25.style.width = `${(kea2025 / maxKea) * 100}%`;
   if (barCol24) barCol24.style.width = `${(colleges2024 / maxColleges) * 100}%`;
   if (barCol25) barCol25.style.width = `${(colleges2025 / maxColleges) * 100}%`;
+
+  // YoY Course Branch Seat Distribution
+  const branches = ['Computer Science & IT', 'Electronics & Electrical', 'Mechanical & Aerospace', 'Civil & Chemical', 'Other Branches'];
+  const branchSeats24 = { 'Computer Science & IT': 0, 'Electronics & Electrical': 0, 'Mechanical & Aerospace': 0, 'Civil & Chemical': 0, 'Other Branches': 0 };
+  const branchSeats25 = { 'Computer Science & IT': 0, 'Electronics & Electrical': 0, 'Mechanical & Aerospace': 0, 'Civil & Chemical': 0, 'Other Branches': 0 };
+
+  cache2024.colleges.forEach(col => {
+    col.courses.forEach(c => {
+      const b = getCourseBranch(c.course_name);
+      branchSeats24[b] += c.total_intake || 0;
+    });
+  });
+
+  cache2025.colleges.forEach(col => {
+    col.courses.forEach(c => {
+      const b = getCourseBranch(c.course_name);
+      branchSeats25[b] += c.total_intake || 0;
+    });
+  });
+
+  const getBranchIcon = (b) => {
+    if (b.includes('Computer')) return '💻';
+    if (b.includes('Electronics')) return '⚡';
+    if (b.includes('Mechanical')) return '⚙️';
+    if (b.includes('Civil')) return '🏢';
+    return '🌱';
+  };
+
+  const branchHtml = branches.map(b => {
+    const val24 = branchSeats24[b];
+    const val25 = branchSeats25[b];
+    const maxVal = Math.max(val24, val25) || 1;
+    const pct24 = Math.round((val24 / maxVal) * 100);
+    const pct25 = Math.round((val25 / maxVal) * 100);
+    const change = val25 - val24;
+    const changePct = val24 ? Math.round((change / val24) * 100) : 0;
+    const changeBadge = change >= 0 
+      ? `<span style="color:var(--green); font-weight:700;">▲ +${changePct}% (+${change.toLocaleString()} seats)</span>`
+      : `<span style="color:var(--pink); font-weight:700;">▼ ${changePct}% (${change.toLocaleString()} seats)</span>`;
+
+    return `
+      <div style="margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.02); padding-bottom: 12px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-weight:600; color:var(--text); font-size:13px;">${getBranchIcon(b)} ${b}</span>
+          <span style="font-size:11px;">${changeBadge}</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <!-- 2024 -->
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:10px; width:30px; color:var(--text-muted);">2024</span>
+            <div style="flex:1; height:6px; background:rgba(255,255,255,0.05); border-radius:3px; overflow:hidden;">
+              <div style="background:#6b7799; height:100%; width:${pct24}%;"></div>
+            </div>
+            <span style="font-size:11px; width:50px; text-align:right; color:var(--text-muted); font-weight:600;">${val24.toLocaleString()}</span>
+          </div>
+          <!-- 2025 -->
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:10px; width:30px; color:var(--text-muted);">2025</span>
+            <div style="flex:1; height:6px; background:rgba(255,255,255,0.05); border-radius:3px; overflow:hidden;">
+              <div style="background:var(--blue); height:100%; width:${pct25}%;"></div>
+            </div>
+            <span style="font-size:11px; width:50px; text-align:right; color:var(--blue); font-weight:600;">${val25.toLocaleString()}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  const elBranch = document.getElementById('yoy-branch-distribution');
+  if (elBranch) elBranch.innerHTML = branchHtml;
+
+  // YoY Cutoff Popularity Shifts
+  const shifts = [];
+  cache2025.colleges.forEach(col => {
+    if (!col.kea_code) return;
+    const col24 = cache2024.colleges.find(c24 => c24.kea_code === col.kea_code);
+    if (!col24) return;
+    
+    col.courses.forEach(c25 => {
+      const cut25 = parseInt(c25.round1_cutoff?.GM);
+      if (!cut25 || cut25 > 50000) return;
+      
+      const stdTarget = c25.course_name.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      const c24 = col24.courses.find(cx => cx.course_name.toUpperCase().replace(/[^A-Z0-9]/g, '') === stdTarget);
+      if (!c24) return;
+      
+      const cut24 = parseInt(c24.round1_cutoff?.GM);
+      if (!cut24) return;
+      
+      const change = cut25 - cut24;
+      const changePct = Math.round((change / cut24) * 100);
+      
+      shifts.push({
+        collegeName: col.college_name,
+        courseName: c25.course_name,
+        cut24,
+        cut25,
+        changePct
+      });
+    });
+  });
+
+  const rising = [...shifts].sort((a, b) => a.changePct - b.changePct).slice(0, 5);
+  const cooling = [...shifts].sort((a, b) => b.changePct - a.changePct).slice(0, 5);
+
+  const renderShiftItem = (item, isRising) => {
+    const badgeColor = isRising ? 'var(--pink)' : 'var(--green)';
+    const arrow = isRising ? '▲' : '▼';
+    const absPct = Math.abs(item.changePct);
+    const label = isRising ? 'tougher' : 'easier';
+    
+    return `
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.02); padding-bottom:8px;">
+        <div style="max-width:70%;">
+          <div style="font-size:12px; font-weight:700; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${item.collegeName}">${item.collegeName}</div>
+          <div style="font-size:10px; color:var(--text-muted);">${item.courseName}</div>
+          <div style="font-size:10px; color:var(--text-muted); margin-top:2px;">Cutoff: ${item.cut24.toLocaleString()} (24) ➔ ${item.cut25.toLocaleString()} (25)</div>
+        </div>
+        <span style="font-size:11px; font-weight:700; color:${badgeColor}; white-space:nowrap; background:rgba(255,255,255,0.02); border: 1px solid var(--border); padding:2px 8px; border-radius:12px;">
+          ${arrow} ${absPct}% ${label}
+        </span>
+      </div>
+    `;
+  };
+
+  const elRising = document.getElementById('popularity-shifts-rising');
+  if (elRising) elRising.innerHTML = rising.map(item => renderShiftItem(item, true)).join('');
+
+  const elCooling = document.getElementById('popularity-shifts-cooling');
+  if (elCooling) elCooling.innerHTML = cooling.map(item => renderShiftItem(item, false)).join('');
 }
 
 async function init() {
@@ -633,6 +780,29 @@ function renderDistrictBarChart() {
   document.getElementById('bar-district').innerHTML = html;
 }
 
+// ─────────────────────────────
+function getYoYCutoffData(currentYear, keaCode, courseName) {
+  if (!keaCode) return null;
+  const otherYearCache = currentYear === '2025' ? cache2024 : cache2025;
+  if (!otherYearCache) return null;
+  
+  const otherCol = otherYearCache.colleges.find(col => col.kea_code === keaCode);
+  if (!otherCol) return null;
+  
+  const stdTarget = courseName.toUpperCase().replace(/[^A-Z0-9]/g, '');
+  const otherCourse = otherCol.courses.find(c => {
+    const stdC = c.course_name.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    return stdC === stdTarget;
+  });
+  if (!otherCourse) return null;
+  
+  return {
+    r1: otherCourse.round1_cutoff || {},
+    r2: otherCourse.round2_cutoff || {},
+    r3: otherCourse.round3_cutoff || {}
+  };
+}
+
 function renderCourseBarChart() {
   const s = allData.stats.by_course;
   const rows = Object.entries(s)
@@ -684,6 +854,32 @@ function openModal(college) {
   const predCatEl = document.getElementById('pred-category');
   const defaultCat = predCatEl ? predCatEl.value : 'GM';
 
+  // Quota Advantage Calculator
+  let quotaAdvantageHtml = '';
+  if (defaultCat !== 'GM') {
+    let totalGM = 0, totalRes = 0, count = 0;
+    college.courses.forEach(c => {
+      const gmCut = parseInt(c.round1_cutoff?.GM);
+      const resCut = parseInt(c.round1_cutoff?.[defaultCat]);
+      if (gmCut && resCut) {
+        totalGM += gmCut;
+        totalRes += resCut;
+        count++;
+      }
+    });
+    if (count > 0) {
+      const avgDiff = Math.round((totalRes - totalGM) / count);
+      if (avgDiff > 0) {
+        quotaAdvantageHtml = `
+          <div class="quota-adv-card" style="background:var(--bg-card); border: 1px dashed var(--blue); padding:12px 16px; border-radius:12px; font-size:12px; margin-top:20px; display:flex; align-items:center; gap:8px; line-height:1.4;">
+            <span style="font-size:16px;">💡</span>
+            <span>Your <strong>${defaultCat}</strong> category gives you an average cutoff advantage of <strong style="color:var(--blue);">+${avgDiff.toLocaleString()} ranks</strong> compared to General Merit (GM) at this college!</span>
+          </div>
+        `;
+      }
+    }
+  }
+
   const hasComDk = college.courses.some(c => c.cat2_seats > 0);
   const hasMgmt = college.courses.some(c => c.cat3_seats > 0);
   const hasPh = college.courses.some(c => (c.kea_ph || 0) > 0);
@@ -701,15 +897,47 @@ function openModal(college) {
     
     const r1_cutoffs = c.round1_cutoff || {};
     const r1_cutoff_val = r1_cutoffs[defaultCat];
-    const initialCutoffR1 = r1_cutoff_val ? parseInt(r1_cutoff_val).toLocaleString() : '—';
+    let initialCutoffR1 = r1_cutoff_val ? parseInt(r1_cutoff_val).toLocaleString() : '—';
 
     const r2_cutoffs = c.round2_cutoff || {};
     const r2_cutoff_val = r2_cutoffs[defaultCat];
-    const initialCutoffR2 = r2_cutoff_val ? parseInt(r2_cutoff_val).toLocaleString() : '—';
+    let initialCutoffR2 = r2_cutoff_val ? parseInt(r2_cutoff_val).toLocaleString() : '—';
 
     const r3_cutoffs = c.round3_cutoff || {};
     const r3_cutoff_val = r3_cutoffs[defaultCat];
-    const initialCutoffR3 = r3_cutoff_val ? parseInt(r3_cutoff_val).toLocaleString() : '—';
+    let initialCutoffR3 = r3_cutoff_val ? parseInt(r3_cutoff_val).toLocaleString() : '—';
+
+    // YoY Cutoff comparison logic
+    const activeYear = allData.year || '2025';
+    const yoyData = getYoYCutoffData(activeYear, college.kea_code, c.course_name);
+
+    const enrichCutoff = (currentValStr, otherCutoffsRound) => {
+      if (!currentValStr || !otherCutoffsRound || !otherCutoffsRound[defaultCat]) return currentValStr ? parseInt(currentValStr).toLocaleString() : '—';
+      const currentVal = parseInt(currentValStr);
+      const otherVal = parseInt(otherCutoffsRound[defaultCat]);
+      if (!otherVal || !currentVal) return currentValStr ? parseInt(currentValStr).toLocaleString() : '—';
+      
+      let changePercent = 0;
+      if (activeYear === '2025') {
+        const change = currentVal - otherVal;
+        changePercent = Math.round((change / otherVal) * 100);
+      } else {
+        const change = otherVal - currentVal;
+        changePercent = Math.round((change / currentVal) * 100);
+      }
+      
+      let displayStr = currentVal.toLocaleString();
+      if (changePercent < 0) {
+        displayStr += `<br><span style="color:var(--pink); font-size:9px; font-weight:600; white-space:nowrap;" title="YoY Shift: ${otherVal.toLocaleString()} in other year">🔥 ${Math.abs(changePercent)}% tougher</span>`;
+      } else if (changePercent > 0) {
+        displayStr += `<br><span style="color:var(--green); font-size:9px; font-weight:600; white-space:nowrap;" title="YoY Shift: ${otherVal.toLocaleString()} in other year">📉 -${changePercent}% easier</span>`;
+      }
+      return displayStr;
+    };
+
+    initialCutoffR1 = enrichCutoff(r1_cutoff_val, yoyData?.r1);
+    initialCutoffR2 = enrichCutoff(r2_cutoff_val, yoyData?.r2);
+    initialCutoffR3 = enrichCutoff(r3_cutoff_val, yoyData?.r3);
 
     const feeVal = getCourseFee(college, c.course_name, c.total_kea_seats);
 
@@ -724,9 +952,9 @@ function openModal(college) {
       ${hkCol}
       ${rkCol}
       <td>${feeVal}</td>
-      <td class="td-cutoff-r1" data-course-idx="${idx}" style="color:var(--blue); text-align:right; font-family:var(--font-display); font-weight:700;">${initialCutoffR1}</td>
-      <td class="td-cutoff-r2" data-course-idx="${idx}" style="color:var(--purple); text-align:right; font-family:var(--font-display); font-weight:700;">${initialCutoffR2}</td>
-      <td class="td-cutoff-r3" data-course-idx="${idx}" style="color:var(--pink); text-align:right; font-family:var(--font-display); font-weight:700;">${initialCutoffR3}</td>
+      <td class="td-cutoff-r1" data-course-idx="${idx}" style="color:var(--blue); text-align:right; font-family:var(--font-display); font-weight:700; line-height:1.2; padding:6px 8px;">${initialCutoffR1}</td>
+      <td class="td-cutoff-r2" data-course-idx="${idx}" style="color:var(--purple); text-align:right; font-family:var(--font-display); font-weight:700; line-height:1.2; padding:6px 8px;">${initialCutoffR2}</td>
+      <td class="td-cutoff-r3" data-course-idx="${idx}" style="color:var(--pink); text-align:right; font-family:var(--font-display); font-weight:700; line-height:1.2; padding:6px 8px;">${initialCutoffR3}</td>
     </tr>`;
   }).join('');
 
@@ -820,6 +1048,8 @@ function openModal(college) {
       ${comEdkBox}
       ${mgmtBox}
     </div>
+
+    ${quotaAdvantageHtml}
 
     <div class="modal-cutoff-filter-row" style="display:flex; justify-content:space-between; align-items:center; margin-top:24px; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
       <div class="modal-courses-title" style="margin:0;">Course-wise Seat Breakdown & Cut-offs</div>

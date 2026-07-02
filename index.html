@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="style_v4.css?v=3"/>
+  <link rel="stylesheet" href="style_v4.css?v=4"/>
 </head>
 <body>
   <!-- Header -->
@@ -354,6 +354,26 @@
               </div>
             </div>
           </div>
+          <!-- YoY Course Branch Intake -->
+          <div class="stat-card full">
+            <div class="stat-card-title">YoY Course Branch Seat Distribution (2024 vs 2025)</div>
+            <div id="yoy-branch-distribution" style="margin-top: 16px;"></div>
+          </div>
+          
+          <!-- Cutoff Popularity Shifts -->
+          <div class="stat-card full">
+            <div class="stat-card-title">YoY Cutoff Popularity Shifts (Round 1 GM Cutoffs)</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 16px;">
+              <div style="background: rgba(255,255,255,0.02); padding: 16px; border-radius: 12px; border: 1px solid var(--border);">
+                <div style="font-size: 11px; font-weight:600; color: var(--pink); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px; display:flex; align-items:center; gap:6px;">🔥 Rising Demand (Tougher Cutoffs)</div>
+                <div id="popularity-shifts-rising" style="display:flex; flex-direction:column; gap:8px;"></div>
+              </div>
+              <div style="background: rgba(255,255,255,0.02); padding: 16px; border-radius: 12px; border: 1px solid var(--border);">
+                <div style="font-size: 11px; font-weight:600; color: var(--green); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px; display:flex; align-items:center; gap:6px;">❄️ Cooling Demand (Easier Cutoffs)</div>
+                <div id="popularity-shifts-cooling" style="display:flex; flex-direction:column; gap:8px;"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -550,6 +570,6 @@
     </div>
   </div>
 
-  <script src="app_v4.js?v=3"></script>
+  <script src="app_v4.js?v=4"></script>
 </body>
 </html>
