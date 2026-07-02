@@ -55,10 +55,11 @@ def import_database():
                 
                 for col in data.get("colleges", []):
                     cursor.execute("""
-                        INSERT INTO colleges (college_number, college_name, address, annexure, college_type, district, total_intake, total_kea_seats, year)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        INSERT INTO colleges (college_number, kea_code, college_name, address, annexure, college_type, district, total_intake, total_kea_seats, year)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """, (
                         col.get("college_number"),
+                        col.get("kea_code"),
                         col.get("college_name"),
                         col.get("address"),
                         col.get("annexure"),

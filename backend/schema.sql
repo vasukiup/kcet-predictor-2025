@@ -3,6 +3,7 @@
 CREATE TABLE IF NOT EXISTS colleges (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     college_number INTEGER NOT NULL,
+    kea_code TEXT,
     college_name TEXT NOT NULL,
     address TEXT,
     annexure TEXT NOT NULL,
