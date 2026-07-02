@@ -788,7 +788,10 @@ function openModal(college) {
     </thead>
   `;
 
-  const categories = ['GM', 'GMK', 'GMR', '1G', '1K', '1R', '2AG', '2AK', '2AR', '2BG', '2BK', '2BR', '3AG', '3AK', '3AR', '3BG', '3BK', '3BR', 'SCG', 'SCK', 'SCR', 'STG', 'STK', 'STR'];
+  const categories = [
+    'GM', 'GMK', 'GMR', '1G', '1K', '1R', '2AG', '2AK', '2AR', '2BG', '2BK', '2BR', '3AG', '3AK', '3AR', '3BG', '3BK', '3BR', 'SCG', 'SCK', 'SCR', 'STG', 'STK', 'STR',
+    'GMH', 'GMKH', 'GMRH', '1H', '1KH', '1RH', '2AH', '2AKH', '2ARH', '2BH', '2BKH', '2BRH', '3AH', '3AKH', '3ARH', '3BH', '3BKH', '3BRH', 'SCH', 'SCKH', 'SCRH', 'STH', 'STKH', 'STRH'
+  ];
   const optionsHtml = categories
     .map(cat => `<option value="${cat}" ${cat === defaultCat ? 'selected' : ''}>${cat}</option>`)
     .join('');
