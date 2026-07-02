@@ -11,6 +11,7 @@
       "address": "DIST CHIKBALLAPURA",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Mandya",
       "total_intake": 240,
       "total_kea_seats": 240,
       "courses": [
@@ -78,6 +79,7 @@
       "address": "BALLARI ROAD CHALLAKERE,CHITRADURGA",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Bangalore",
       "total_intake": 180,
       "total_kea_seats": 180,
       "courses": [
@@ -131,6 +133,7 @@
       "address": "GOVERNMENT POLYTECHNIC CAMPUS,NANJANGUD ROAD,CHAMARAJANAGARA",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Bangalore",
       "total_intake": 240,
       "total_kea_seats": 240,
       "courses": [
@@ -198,6 +201,7 @@
       "address": "DAIRY CIRCLE, B M ROAD, HASSAN",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Bangalore",
       "total_intake": 360,
       "total_kea_seats": 360,
       "courses": [
@@ -279,6 +283,7 @@
       "address": "DEVAGIRI,HAVERI",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Bangalore",
       "total_intake": 240,
       "total_kea_seats": 240,
       "courses": [
@@ -346,6 +351,7 @@
       "address": "HUVINAHADAGALI 583219,DIST: BELLARY",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Bangalore",
       "total_intake": 240,
       "total_kea_seats": 240,
       "courses": [
@@ -413,6 +419,7 @@
       "address": "MAJALI VILLAGE, KARWAR TALUK, UTTARA KANNADA DIST, KARNATAKA -PIN 581345",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Davanagere",
       "total_intake": 240,
       "total_kea_seats": 240,
       "courses": [
@@ -480,6 +487,7 @@
       "address": "MEDIKERI ROAD,MADAPATNA,KUSHALANAGAR",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Mysuru",
       "total_intake": 240,
       "total_kea_seats": 240,
       "courses": [
@@ -547,6 +555,7 @@
       "address": "MOSALEHOSAHALLI, HASSAN",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Dharwad",
       "total_intake": 300,
       "total_kea_seats": 300,
       "courses": [
@@ -628,6 +637,7 @@
       "address": "RAICHUR-HYDERABAD ROAD YERAMARUS,RAICHUR",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Kalaburagi",
       "total_intake": 240,
       "total_kea_seats": 240,
       "courses": [
@@ -695,6 +705,7 @@
       "address": "DODDAMANNUGUDDE, RAMANAGAR, RAMANAGAR DISTRICT - 571 511",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Koppal",
       "total_intake": 240,
       "total_kea_seats": 240,
       "courses": [
@@ -762,6 +773,7 @@
       "address": "TALAKAL,TALUKA: YALABURGA, DIST: KOPPAL, KARNATAKA, PIN 583238",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Dharwad",
       "total_intake": 300,
       "total_kea_seats": 300,
       "courses": [
@@ -843,6 +855,7 @@
       "address": "VIPRASAI NAGAR,GANGAVATHI,KOPPAL",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Bangalore",
       "total_intake": 300,
       "total_kea_seats": 300,
       "courses": [
@@ -924,6 +937,7 @@
       "address": "GANDHI NAGAR ITI CAMPUS MAILUR,BIDAR",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Bangalore",
       "total_intake": 210,
       "total_kea_seats": 210,
       "courses": [
@@ -991,6 +1005,7 @@
       "address": "RON ROAD,SOMAPURA,NARAGUND 582207",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Bangalore",
       "total_intake": 210,
       "total_kea_seats": 210,
       "courses": [
@@ -1058,6 +1073,7 @@
       "address": "AMBEDKAR VEEDHI, K.R. CIRCLE, BANGALORE-01",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Bangalore",
       "total_intake": 250,
       "total_kea_seats": 250,
       "courses": [
@@ -1139,6 +1155,7 @@
       "address": "KRISHNARAJPET, MANDYA DIST. - 571 426,",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Bangalore",
       "total_intake": 240,
       "total_kea_seats": 240,
       "courses": [
@@ -1206,6 +1223,7 @@
       "address": "P J EXTENSION,HADADI ROAD,DAVENGERE",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Bangalore",
       "total_intake": 550,
       "total_kea_seats": 550,
       "courses": [
@@ -1315,6 +1333,7 @@
       "address": "VTU CPGS & REGIONAL OFFICE, KUSNOOR ROAD, KALABURAGI",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Bangalore",
       "total_intake": 240,
       "total_kea_seats": 240,
       "courses": [
@@ -1368,6 +1387,7 @@
       "address": "Mysuru.",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Bangalore",
       "total_intake": 300,
       "total_kea_seats": 300,
       "courses": [
@@ -1435,6 +1455,7 @@
       "address": "JNANA SANGAMA, MACHHE, BELAGAVI",
       "annexure": "A",
       "college_type": "Government Engineering Colleges/VTU Constitutent Colleges",
+      "district": "Mysuru",
       "total_intake": 540,
       "total_kea_seats": 540,
       "courses": [
@@ -1530,6 +1551,7 @@
       "address": "POST BOX NO 1908, BULL TEMPLE ROAD,BANGALORE",
       "annexure": "B",
       "college_type": "Seats in Aided Courses of Aided Engineering Colleges",
+      "district": "Mandya",
       "total_intake": 300,
       "total_kea_seats": 285,
       "courses": [
@@ -1611,6 +1633,7 @@
       "address": "NIJALINGAPPA ROAD,BAGALKOT 587102",
       "annexure": "B",
       "college_type": "Seats in Aided Courses of Aided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 420,
       "total_kea_seats": 399,
       "courses": [
@@ -1706,6 +1729,7 @@
       "address": "OUTER RING ROAD,NEAR JNANA BHARATHI CAMPUS,MALLATHAHALLI,BANGALORE-560056",
       "annexure": "B",
       "college_type": "Seats in Aided Courses of Aided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 600,
       "total_kea_seats": 570,
       "courses": [
@@ -1829,6 +1853,7 @@
       "address": "P.B. NO. 21, SALAGAME ROAD,HASSSAN",
       "annexure": "B",
       "college_type": "Seats in Aided Courses of Aided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 300,
       "total_kea_seats": 285,
       "courses": [
@@ -1896,6 +1921,7 @@
       "address": "AIWAN-E-SHAHI AREA,STATION ROAD,GULBARGA-585102",
       "annexure": "B",
       "college_type": "Seats in Aided Courses of Aided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 320,
       "total_kea_seats": 304,
       "courses": [
@@ -1977,6 +2003,7 @@
       "address": "MANDYA: 571 401",
       "annexure": "B",
       "college_type": "Seats in Aided Courses of Aided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 310,
       "total_kea_seats": 295,
       "courses": [
@@ -2044,6 +2071,7 @@
       "address": "JSS TECHNICAL INSTITUTIONS CAMPUS,MANASAGANGOTHRI PO,MYSORE",
       "annexure": "B",
       "college_type": "Seats in Aided Courses of Aided Engineering Colleges",
+      "district": "Davanagere",
       "total_intake": 520,
       "total_kea_seats": 494,
       "courses": [
@@ -2181,6 +2209,7 @@
       "address": "MANANDAVADI ROAD,MYSORE",
       "annexure": "B",
       "college_type": "Seats in Aided Courses of Aided Engineering Colleges",
+      "district": "Mysuru",
       "total_intake": 180,
       "total_kea_seats": 171,
       "courses": [
@@ -2234,6 +2263,7 @@
       "address": "SOLDEVANAHALLI, HESARAGHATTA MAIN ROAD, CHIKKABANAVARA POST,BANGALORE URBAN",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Mandya",
       "total_intake": 1140,
       "total_kea_seats": 513,
       "courses": [
@@ -2399,6 +2429,7 @@
       "address": "207,KAMBIPURA, MYSORE ROAD, KENGERI HOBLI,BANGALORE - 560074.",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 750,
       "total_kea_seats": 338,
       "courses": [
@@ -2536,6 +2567,7 @@
       "address": "ADICHUNCHANAGIRI EXTENTION,JYOTHINAGAR,CHIKMAGALUR - 577102",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 630,
       "total_kea_seats": 284,
       "courses": [
@@ -2673,6 +2705,7 @@
       "address": "SURVEY NO 2/8 2/9 AND 2/2, KAMAKSHIPURA, SONNENAHALLI PANCHAYATH, HESARAGHATTA HOBLI, YELAHANKA",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 540,
       "total_kea_seats": 243,
       "courses": [
@@ -2796,6 +2829,7 @@
       "address": "NH-4, P.B. ROAD OPP VRL HEAD OFFICE VARUR.,DHARWAD",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -2905,6 +2939,7 @@
       "address": "PRASANNAHALLI MAIN RAOD, AKKUPETE VILLAGE, KASABA HOBLI",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -3028,6 +3063,7 @@
       "address": "LINGAPURA",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Davanagere",
       "total_intake": 480,
       "total_kea_seats": 216,
       "courses": [
@@ -3137,6 +3173,7 @@
       "address": "SHOBHAVANA CAMPUS,MIJAR,MOODBIDRI - 574225,MANGALORE TALUK,DHAKSHINA KANNADA",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Mysuru",
       "total_intake": 900,
       "total_kea_seats": 405,
       "courses": [
@@ -3288,6 +3325,7 @@
       "address": "18KM,BANNERAGHATTA ROAD,KALKERE,BANGALORE-560083,BANGALORE URBAN",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Dharwad",
       "total_intake": 1350,
       "total_kea_seats": 608,
       "courses": [
@@ -3439,6 +3477,7 @@
       "address": "BIDADI INDUSTRIAL AREA, OFF MYSORE ROAD, NEAR TOYOTA KIRLOSKAR MOTORS, BMRDA REGION, BANGALORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Kalaburagi",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -3534,6 +3573,7 @@
       "address": "SAVAGAON ROAD BELGAUM",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Koppal",
       "total_intake": 420,
       "total_kea_seats": 189,
       "courses": [
@@ -3643,6 +3683,7 @@
       "address": "26 KM KANAKAPURA ROAD BANGALORE 82,BANGALORE URBAN",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Dharwad",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -3752,6 +3793,7 @@
       "address": "SY.NO.1002, HAROHALLI (MELLAHALLI),MYSORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 690,
       "total_kea_seats": 310,
       "courses": [
@@ -3889,6 +3931,7 @@
       "address": "ASKB CAMPUS, AG'S COLONY, 1ST MAIN, ANANDNAGAR,BANGALORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 1200,
       "total_kea_seats": 540,
       "courses": [
@@ -4026,6 +4069,7 @@
       "address": "POST BOX NO 1908, BULL TEMPLE ROAD,BANGALORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 2460,
       "total_kea_seats": 1107,
       "courses": [
@@ -4205,6 +4249,7 @@
       "address": "POST BOX NO.6443, AVALAHALLI,DODDABALLAPURA MAIN ROAD,YELAHANKA, BANGALORE - 560064.",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 1680,
       "total_kea_seats": 756,
       "courses": [
@@ -4314,6 +4359,7 @@
       "address": "12TH MAIN, 27TH CROSS, BSK SECOND STAGE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 600,
       "total_kea_seats": 270,
       "courses": [
@@ -4409,6 +4455,7 @@
       "address": "NIJALINGAPPA ROAD,BAGALKOT 587102",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 570,
       "total_kea_seats": 256,
       "courses": [
@@ -4532,6 +4579,7 @@
       "address": "\"JNANA GANGOTRI\" CAMPUS, #873/2 OF KOLAGAL VILLAGE,BELLARY-HOSPET ROAD, ALLIPUR",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 1080,
       "total_kea_seats": 486,
       "courses": [
@@ -4655,6 +4703,7 @@
       "address": "NEAR HEELALIGE RAILWAY STATION,CHANDAPURA,ANEKAL TALUK,BANGALORE, 560081.",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 255,
       "total_kea_seats": 115,
       "courses": [
@@ -4736,6 +4785,7 @@
       "address": "K.R.ROAD, V.V.PURA, BANGALORE-560004",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Mysuru",
       "total_intake": 1320,
       "total_kea_seats": 594,
       "courses": [
@@ -4929,6 +4979,7 @@
       "address": "SY NO.66/6,66/5,67/6,&67/5, KODATHI VILLAGE, VARTHOOR HOBLI,BANGALORE EAST TQ BANGALORE URBAN",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Kalaburagi",
       "total_intake": 540,
       "total_kea_seats": 243,
       "courses": [
@@ -5038,6 +5089,7 @@
       "address": "BAPUJI INSTITUTE OF ENGINEERING & TECHNOLOGY,P.B. NO.325,SHAMANUR ROAD,DAVANGERE-577 004",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Kalaburagi",
       "total_intake": 1480,
       "total_kea_seats": 666,
       "courses": [
@@ -5231,6 +5283,7 @@
       "address": "N.H.9 ,BASAVAKALYAN-585327,DIST. BIDAR",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Dakshina Kannada",
       "total_intake": 300,
       "total_kea_seats": 135,
       "courses": [
@@ -5340,6 +5393,7 @@
       "address": "CA SITE NO. 6 & 7, 3RD MAIN, PIPE LINE ROAD, MAHALAKSHMIPURAM, WEST OF CHORD ROAD",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 300,
       "total_kea_seats": 135,
       "courses": [
@@ -5421,6 +5475,7 @@
       "address": "BELAGAVI",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Mysuru",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -5488,6 +5543,7 @@
       "address": "BHALKI-HUMNABAD ROAD,BHALKI- 585328,DIST. BIDAR",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 540,
       "total_kea_seats": 243,
       "courses": [
@@ -5611,6 +5667,7 @@
       "address": "MANTUR ROAD, MUDHOL,BAGALKOTE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bagalkot",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -5692,6 +5749,7 @@
       "address": "ASHRAM ROAD,BIJAPUR - 586103",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Vijayapura",
       "total_intake": 750,
       "total_kea_seats": 338,
       "courses": [
@@ -5815,6 +5873,7 @@
       "address": "DWARAKANAGARA, BAGALUR MAIN ROAD,YELAHANKA, BANGALORE - 560 063",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 540,
       "total_kea_seats": 243,
       "courses": [
@@ -5924,6 +5983,7 @@
       "address": "SRINIVASPURA ROAD, THORADEVANDAHALLI, KOLAR-563101",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Kolar",
       "total_intake": 480,
       "total_kea_seats": 216,
       "courses": [
@@ -6019,6 +6079,7 @@
       "address": "# 132, KUNDALAHALLI VILLAGE,IT PARK ROAD,BANGALORE - 560 037",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 960,
       "total_kea_seats": 432,
       "courses": [
@@ -6128,6 +6189,7 @@
       "address": "SURVEY NO. 73, LINGADHEERA GOLLAHALLI, KUNDANA POST, DEVANAHALLI TALUK",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -6195,6 +6257,7 @@
       "address": "K R PURAM,BANGALORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 1020,
       "total_kea_seats": 459,
       "courses": [
@@ -6332,6 +6395,7 @@
       "address": "SUNDAHALLI, SIDDAIAHNA KOPPALU GATE, YELIHUR POST, KOTHATHI HOBLI, MANDYA",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Mysuru",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -6413,6 +6477,7 @@
       "address": "NH 206 (BH ROAD), GUBBI, TUMKUR. KARNATAKA",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Mandya",
       "total_intake": 600,
       "total_kea_seats": 270,
       "courses": [
@@ -6522,6 +6587,7 @@
       "address": "DODDAKALLASANDRA, KANAKAPURA ROAD, BANGALORE.",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Tumkur",
       "total_intake": 720,
       "total_kea_seats": 324,
       "courses": [
@@ -6631,6 +6697,7 @@
       "address": "POST BOX NO.11,COORG",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -6740,6 +6807,7 @@
       "address": "UDAYAPURA,KANAKAPURA ROAD,BANGALORE URBAN",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Kodagu",
       "total_intake": 1140,
       "total_kea_seats": 513,
       "courses": [
@@ -6919,6 +6987,7 @@
       "address": "SHAVIGE MALLESHWARA HILLS, KUMARASWAMY LAYOUT, BANGALORE-560078",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 1980,
       "total_kea_seats": 891,
       "courses": [
@@ -7210,6 +7279,7 @@
       "address": "KUMBALAGODU, MYSORE ROAD, KENGERI HOBLI,BANGALORE-560074",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 900,
       "total_kea_seats": 405,
       "courses": [
@@ -7305,6 +7375,7 @@
       "address": "BENGALURU",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -7372,6 +7443,7 @@
       "address": "OUTER RING ROAD,NEAR JNANA BHARATHI CAMPUS,MALLATHAHALLI,BANGALORE-560056",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 570,
       "total_kea_seats": 257,
       "courses": [
@@ -7481,6 +7553,7 @@
       "address": "BYARANAYAKANAHALLI,DODDABALE POST,NELAMANGALA TALUK,BANGALORE RURAL DISTRICT",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 330,
       "total_kea_seats": 148,
       "courses": [
@@ -7576,6 +7649,7 @@
       "address": "00RGAUM POST,KOLAR GOLD FIELDS - 563 120",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 450,
       "total_kea_seats": 202,
       "courses": [
@@ -7671,6 +7745,7 @@
       "address": "JNANA PRABHA, BIDARAHALLI,VIRGONAGAR POST,BANGALORE.",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Kolar",
       "total_intake": 720,
       "total_kea_seats": 324,
       "courses": [
@@ -7794,6 +7869,7 @@
       "address": "NO.13 SECTOR \"A\", YELAHANKA NEW TOWN,YELAHANKA, BANGALORE-560064",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 330,
       "total_kea_seats": 148,
       "courses": [
@@ -7875,6 +7951,7 @@
       "address": "SY. NO.63, OFF MAGADI MAIN ROAD, VISHWANEEDAM POST,BANGALORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 1020,
       "total_kea_seats": 459,
       "courses": [
@@ -8040,6 +8117,7 @@
       "address": "POST BOX. NO. 4, P.B.ROAD.DAVANGERE.",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 540,
       "total_kea_seats": 243,
       "courses": [
@@ -8149,6 +8227,7 @@
       "address": "BHARATHINAGARA (K M DODDY) MADDUR TQ,MANDYA",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Davanagere",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -8258,6 +8337,7 @@
       "address": "K.R.S. ROAD, METAGALLI INDUSTRIAL AREA, MYSORE-16",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Mandya",
       "total_intake": 540,
       "total_kea_seats": 243,
       "courses": [
@@ -8353,6 +8433,7 @@
       "address": "Hosur Road, DRC Post, Banglaore-29",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Mysuru",
       "total_intake": 120,
       "total_kea_seats": 54,
       "courses": [
@@ -8406,6 +8487,7 @@
       "address": "IDEAL HOMES TOWNSHIP,RAJARAJESHWARINAGAR,BANGALORE-560098",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 1260,
       "total_kea_seats": 567,
       "courses": [
@@ -8557,6 +8639,7 @@
       "address": "SONNENAHALLI, HOODI VILLAGE, ITPL ROAD,BANGALORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 480,
       "total_kea_seats": 216,
       "courses": [
@@ -8638,6 +8721,7 @@
       "address": "YERAMARUS CAMP,RAICHUR-584 135,",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 270,
       "total_kea_seats": 121,
       "courses": [
@@ -8705,6 +8789,7 @@
       "address": "NH-4, KESARAMADU POST, KYATHASANDRA,TUMKUR",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Raichur",
       "total_intake": 450,
       "total_kea_seats": 203,
       "courses": [
@@ -8800,6 +8885,7 @@
       "address": "NIDAOSHI,TALUKA: HUKERI,DISTRICT: BELGAUM",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -8867,6 +8953,7 @@
       "address": "KODIGEHALLI,SAHAKARANAGAR SOUTH BANGALORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Belagavi",
       "total_intake": 420,
       "total_kea_seats": 189,
       "courses": [
@@ -8990,6 +9077,7 @@
       "address": "JSSATE CAMPUS,UTTARAHALLI-KENGERI ROAD ,BANGALORE 560060",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 840,
       "total_kea_seats": 378,
       "courses": [
@@ -9113,6 +9201,7 @@
       "address": "SHREYAS CTS 1598 ADAJCENT TO TO FOUNDRY CLUSTER NEAR DUTCH INDUSTRIAL ESTATE CHANNAMMA NAGAR ANAGOL BELGAVI",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -9194,6 +9283,7 @@
       "address": "404/4, 404/5, SAI NAGAR, UNKAL, HUBLI",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Belagavi",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -9275,6 +9365,7 @@
       "address": "T.S. NAGAR,HUNCHANHATTI ROAD,MACCHE, BELGAUM- 590014.",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Dharwad",
       "total_intake": 630,
       "total_kea_seats": 284,
       "courses": [
@@ -9370,6 +9461,7 @@
       "address": "323, BADA CROSS NEAR BLIND SCHOOL AVARAGERE DAVANGERE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Belagavi",
       "total_intake": 780,
       "total_kea_seats": 351,
       "courses": [
@@ -9479,6 +9571,7 @@
       "address": "P.B. NO. 128,NAVULE, SHIMOGA",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Davanagere",
       "total_intake": 960,
       "total_kea_seats": 432,
       "courses": [
@@ -9630,6 +9723,7 @@
       "address": "VIDYA SOUDHA, 32ND K.M.BANGALORE - MYSORE HIGH WAY,",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Shivamogga",
       "total_intake": 270,
       "total_kea_seats": 122,
       "courses": [
@@ -9711,6 +9805,7 @@
       "address": ",BANGALORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 480,
       "total_kea_seats": 216,
       "courses": [
@@ -9806,6 +9901,7 @@
       "address": "OPP. TO AIRPORT,GOKUL,DHARWAD",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 540,
       "total_kea_seats": 243,
       "courses": [
@@ -9887,6 +9983,7 @@
       "address": "BANANTIKODI ROAD CHIKODI,BELGAUM -591 201,",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Belagavi",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -9968,6 +10065,7 @@
       "address": "UDYOG VIDYA NAGAR,DANDELI ROAD, HALIYAL-581329",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Uttara Kannada",
       "total_intake": 450,
       "total_kea_seats": 202,
       "courses": [
@@ -10063,6 +10161,7 @@
       "address": "THIRUMENAHALLI, HEGGADENAGAR-KOGILU ROAD, YELAHANKA, BANGALORE-560064",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 480,
       "total_kea_seats": 216,
       "courses": [
@@ -10186,6 +10285,7 @@
       "address": "#14,RAGUVANAHALLI, KANAKAPURA MAIN ROAD,BANGALORE - 560 062.",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 660,
       "total_kea_seats": 297,
       "courses": [
@@ -10295,6 +10395,7 @@
       "address": "#15/1, MALLASANDRA, OFF KANAKAPURA ROAD, BANGALORE - 560062",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 540,
       "total_kea_seats": 243,
       "courses": [
@@ -10390,6 +10491,7 @@
       "address": "KURUNJIBHAG,",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Dakshina Kannada",
       "total_intake": 330,
       "total_kea_seats": 148,
       "courses": [
@@ -10457,6 +10559,7 @@
       "address": "\"JNANA GANGA\", UDYAMBAG,BELGAUM",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Belagavi",
       "total_intake": 900,
       "total_kea_seats": 405,
       "courses": [
@@ -10580,6 +10683,7 @@
       "address": "B.H.ROAD,HASSAN CIRCLE,TIPTUR-572202",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Hassan",
       "total_intake": 540,
       "total_kea_seats": 243,
       "courses": [
@@ -10675,6 +10779,7 @@
       "address": "PADU POST, VIA PEDUMALE,NEERUMARGA,MANGALORE -575029",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Dakshina Kannada",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -10770,6 +10875,7 @@
       "address": "SURVEY NO. 25/1, GORNALLI ,BIDAR",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bidar",
       "total_intake": 288,
       "total_kea_seats": 130,
       "courses": [
@@ -10851,6 +10957,7 @@
       "address": "NAVARATHNA AGRAHARA, SADAHALLIPOST, NEAR BIAL, BANGALORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 390,
       "total_kea_seats": 176,
       "courses": [
@@ -10946,6 +11053,7 @@
       "address": "VIDYA SOUDHA,MSR NAGAR,MSRIT POST,BANGALORE - 560054.",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 1461,
       "total_kea_seats": 657,
       "courses": [
@@ -11195,6 +11303,7 @@
       "address": "BEHIND K R MILLS,BELAWADI VILLAGE,NAGUVANAHALLI PANCHAYAT,SRIRANGAPATNA TALUK,MANDYA DISTRICT",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Mandya",
       "total_intake": 990,
       "total_kea_seats": 445,
       "courses": [
@@ -11374,6 +11483,7 @@
       "address": "THANDAVAPURA VILLAGA,ON NATIONAL HIGHWWAYNANJANAGUD TALUK,MYSORE DISTRICT",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Mysuru",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -11469,6 +11579,7 @@
       "address": "P.B. NO. 21, SALAGAME ROAD,HASSSAN",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Hassan",
       "total_intake": 720,
       "total_kea_seats": 324,
       "courses": [
@@ -11578,6 +11689,7 @@
       "address": "BADAGA MIJAR,",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Dakshina Kannada",
       "total_intake": 960,
       "total_kea_seats": 432,
       "courses": [
@@ -11729,6 +11841,7 @@
       "address": "RS. NO.104, HALBHAVI VILLAGE, POST: NEW VANTMURI, VIA KAKATI, TALUKA & DIST. BELGAUM-591113",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Belagavi",
       "total_intake": 240,
       "total_kea_seats": 108,
       "courses": [
@@ -11796,6 +11909,7 @@
       "address": "MOODLAKATTE,KUNDAPURA TALUK,UDUPI DISTRICT",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Udupi",
       "total_intake": 420,
       "total_kea_seats": 189,
       "courses": [
@@ -11905,6 +12019,7 @@
       "address": "CHIKAHALLI, VARUNA HOBALI, NEAR BIG BANYAN TREE, TN ROAD,MYSORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Mysuru",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -12014,6 +12129,7 @@
       "address": "LAKSHMIPURA ROAD, OFF MYSURU -BENGALURU HIGHWAY,MANDYA",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 480,
       "total_kea_seats": 216,
       "courses": [
@@ -12109,6 +12225,7 @@
       "address": "MUDUGURKIVENKATAGIRI KOTE DEVANAHALLI,BANGALORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 660,
       "total_kea_seats": 297,
       "courses": [
@@ -12204,6 +12321,7 @@
       "address": "P.B.NO. 55, NH-48, KIADB INDUSTRIAL AREA, THIMMANAHALLY, HASSAN-573201",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Hassan",
       "total_intake": 480,
       "total_kea_seats": 216,
       "courses": [
@@ -12285,6 +12403,7 @@
       "address": "NAVODAYA NAGAR, MANATRALAYAM ROAD, RAICHUR",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Raichur",
       "total_intake": 420,
       "total_kea_seats": 189,
       "courses": [
@@ -12366,6 +12485,7 @@
       "address": "GOLLAHALLI, GOVINDAPURA,P.B NO 6429 ,YELAHANKA, BANGALORE-560064",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 1320,
       "total_kea_seats": 594,
       "courses": [
@@ -12531,6 +12651,7 @@
       "address": "Post box No.6429, Govindapura, Gollahali Village, Yelahanka, NMIT-Off.International Airport Road, NH-7 , Bengaluru KARNATAKA, pin code -560064",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Kalaburagi",
       "total_intake": 80,
       "total_kea_seats": 36,
       "courses": [
@@ -12570,6 +12691,7 @@
       "address": "AIWAN-E-SHAHI AREA,STATION ROAD,GULBARGA-585102",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Mandya",
       "total_intake": 820,
       "total_kea_seats": 369,
       "courses": [
@@ -12735,6 +12857,7 @@
       "address": "MANDYA: 571 401",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Shivamogga",
       "total_intake": 650,
       "total_kea_seats": 292,
       "courses": [
@@ -12858,6 +12981,7 @@
       "address": "GUDDADAARAKERE, KOTEGANGOORSAGAR ROAD,SHIMOGA",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Ballari",
       "total_intake": 780,
       "total_kea_seats": 351,
       "courses": [
@@ -13009,6 +13133,7 @@
       "address": "SHAH BHAVARLAL BABULAL NAHAR CAMPUS,T.B.DAM ROAD, BESIDE TSP LIMITED,HOSPET - 583225,BELLARY DISTRICT",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 390,
       "total_kea_seats": 176,
       "courses": [
@@ -13104,6 +13229,7 @@
       "address": "KOTHANUR, 8TH PHASE J.P.NAGAR, BENGALURU-560 078.",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -13157,6 +13283,7 @@
       "address": "R.V. VIDYANIKETAN POST, MYSORE ROAD,BANGALORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 1420,
       "total_kea_seats": 639,
       "courses": [
@@ -13364,6 +13491,7 @@
       "address": "KODIGEHALLI, DODDABALLAPUR-561203, BANGALORE RURAL",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 480,
       "total_kea_seats": 216,
       "courses": [
@@ -13459,6 +13587,7 @@
       "address": "NO. 67, RAJA REDDY LAYOUT,NEAR CHIKKABANAVARA RAILWAY STATION,CHIKKABANAVARA,BANGALORE - 560090",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Gadag",
       "total_intake": 660,
       "total_kea_seats": 297,
       "courses": [
@@ -13596,6 +13725,7 @@
       "address": "HULKOTI -582 205,GADAG",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 300,
       "total_kea_seats": 135,
       "courses": [
@@ -13691,6 +13821,7 @@
       "address": "#14, RAMOHOLLI CROSS,KUMBALGODU, MYSORE ROAD,BANGALORE - 560074",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 810,
       "total_kea_seats": 364,
       "courses": [
@@ -13828,6 +13959,7 @@
       "address": "PLOT 1-D(P-1), GROWTH CENTRE, INDUSTRIAL AREA, BANGALORE MANGALORE BYPASS ROAD",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 660,
       "total_kea_seats": 297,
       "courses": [
@@ -13965,6 +14097,7 @@
       "address": "CHOLANGAR,R.T.NAGAR POST, HEBBAL,BANGALORE-560032",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Ballari",
       "total_intake": 330,
       "total_kea_seats": 149,
       "courses": [
@@ -14046,6 +14179,7 @@
       "address": "CONTONMENT, BELLARY-583104",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 900,
       "total_kea_seats": 405,
       "courses": [
@@ -14169,6 +14303,7 @@
       "address": "CHANNASANDRA,UTTARAHALLI -KENGERI MAIN ROAD,SUBRAMANYAPURA POST,BANGALORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 1380,
       "total_kea_seats": 621,
       "courses": [
@@ -14292,6 +14427,7 @@
       "address": "EKTA NAGAR, BASAVANAPURA, VIRGO NAGAR POST, BANGALORE - 560 049.",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 510,
       "total_kea_seats": 230,
       "courses": [
@@ -14429,6 +14565,7 @@
       "address": "P B NO. 20, B B ROAD, CHICKBALLAPUR, CHICKBALLAPUR (DISTRICT)",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Chikballapura",
       "total_intake": 840,
       "total_kea_seats": 378,
       "courses": [
@@ -14594,6 +14731,7 @@
       "address": "P B NO 73, NH -4 BYE PASS, CHITRADURGA",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Chitradurga",
       "total_intake": 340,
       "total_kea_seats": 153,
       "courses": [
@@ -14675,6 +14813,7 @@
       "address": "BGS HEALTH & EDUCATION CITY,NO 67, UTTARAHALLI ROAD.KENGERI, BANGALORE -60",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 900,
       "total_kea_seats": 405,
       "courses": [
@@ -14798,6 +14937,7 @@
       "address": "SHIVABASAVA NAGAR, BELGAUM - 590010",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Belagavi",
       "total_intake": 720,
       "total_kea_seats": 324,
       "courses": [
@@ -14907,6 +15047,7 @@
       "address": "'SAHYADRI CAMPUS'N.H-48, ADYAR,MANGALORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Dakshina Kannada",
       "total_intake": 780,
       "total_kea_seats": 351,
       "courses": [
@@ -15002,6 +15143,7 @@
       "address": "RAJANUKUNTE,DODDBALLAPURA ROAD ,VIA: YELAHANKA,BANGALORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 720,
       "total_kea_seats": 324,
       "courses": [
@@ -15111,6 +15253,7 @@
       "address": "AMBABHAVANI TEMPLE ROAD,M.S.PALYA, JALAHALLI EAST,VIDYARANYAPURA POST,BANGALORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 690,
       "total_kea_seats": 310,
       "courses": [
@@ -15234,6 +15377,7 @@
       "address": "BELEKERE, MALLUR HOBLI, CHANNAPATNA TALUK, RAMANAGAR,DISTRICT",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Ramanagara",
       "total_intake": 285,
       "total_kea_seats": 128,
       "courses": [
@@ -15343,6 +15487,7 @@
       "address": "424, NAURASPUR, BAGALKOT ROAD, HUDCO CROSS,BIJAPUR-586101",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Vijayapura",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -15438,6 +15583,7 @@
       "address": "MYSURU",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Mysuru",
       "total_intake": 300,
       "total_kea_seats": 135,
       "courses": [
@@ -15519,6 +15665,7 @@
       "address": "5TH KM RAJAPUR SHAHABAD ROAD GULBARGA",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Kalaburagi",
       "total_intake": 240,
       "total_kea_seats": 108,
       "courses": [
@@ -15586,6 +15733,7 @@
       "address": "AIRPORT ROAD, KENJAR VILLAGE,MALAVOOR PANCHAYAT,DAKSHINA KANNADA",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Dakshina Kannada",
       "total_intake": 600,
       "total_kea_seats": 270,
       "courses": [
@@ -15709,6 +15857,7 @@
       "address": "VISHWOTHAMA NAGAR,",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Udupi",
       "total_intake": 450,
       "total_kea_seats": 202,
       "courses": [
@@ -15790,6 +15939,7 @@
       "address": "MARELENAHALLY,SIRA ROAD ,TUMKUR",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Tumkur",
       "total_intake": 630,
       "total_kea_seats": 283,
       "courses": [
@@ -15927,6 +16077,7 @@
       "address": "B.H.ROAD,TUMKUR",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Tumkur",
       "total_intake": 1050,
       "total_kea_seats": 472,
       "courses": [
@@ -16120,6 +16271,7 @@
       "address": "KRISHNADEVARAYANAGAR, HUNASAMARANAHALLI, VIA YELAHANKA,BANGALORE - 562 157",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 1140,
       "total_kea_seats": 513,
       "courses": [
@@ -16313,6 +16465,7 @@
       "address": "67 BGS Health and Education City, Uttarahalli Road, Kengeri, Bangalore",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 30,
       "total_kea_seats": 13,
       "courses": [
@@ -16338,6 +16491,7 @@
       "address": "SAVANUR ROAD, GULAGANJIKOPPA,LAXMESHWAR DIST: GADAG",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -16433,6 +16587,7 @@
       "address": "",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Gadag",
       "total_intake": 300,
       "total_kea_seats": 135,
       "courses": [
@@ -16514,6 +16669,7 @@
       "address": "JSS TECHNICAL INSTITUTIONS CAMPUS,MANASAGANGOTHRI PO,MYSORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Tumkur",
       "total_intake": 60,
       "total_kea_seats": 27,
       "courses": [
@@ -16539,6 +16695,7 @@
       "address": "NO. 29, HESARAGHATTA MAIN ROAD,CHIMNEY HILLS, CHIKKABANAVARA POST,BANGALORE - 560090",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Mysuru",
       "total_intake": 420,
       "total_kea_seats": 189,
       "courses": [
@@ -16648,6 +16805,7 @@
       "address": "CHOKKANAHALLI, CHIKKAJALA,BANGALORE NORTH - 562157",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 150,
       "total_kea_seats": 68,
       "courses": [
@@ -16715,6 +16873,7 @@
       "address": "SAI LEO NAGAR",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 480,
       "total_kea_seats": 216,
       "courses": [
@@ -16824,6 +16983,7 @@
       "address": "P B ROAD (NH4),RANEBENNUR-581 115,HAVERI DISTRICT",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 300,
       "total_kea_seats": 135,
       "courses": [
@@ -16919,6 +17079,7 @@
       "address": "VIDYANAGAR, BENGALURU INTERNATIONAL AIRPORT ROAD,BETTAHALASUR POST,BENGALURU NORTH,BENGALURU - 562 157",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Tumkur",
       "total_intake": 600,
       "total_kea_seats": 270,
       "courses": [
@@ -17042,6 +17203,7 @@
       "address": "SRINIVAS CAMPUS",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Haveri",
       "total_intake": 630,
       "total_kea_seats": 284,
       "courses": [
@@ -17221,6 +17383,7 @@
       "address": "#86/1, KAMMANAHALLI,GOTTIGERE,BANNERUGATTA ROAD,BANGALORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 480,
       "total_kea_seats": 216,
       "courses": [
@@ -17316,6 +17479,7 @@
       "address": "MANANDAVADI ROAD,MYSORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Dakshina Kannada",
       "total_intake": 960,
       "total_kea_seats": 432,
       "courses": [
@@ -17425,6 +17589,7 @@
       "address": "MUNDARAGI ROAD ,GADAG - 582101",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -17534,6 +17699,7 @@
       "address": "BASAV-VIDYA NAGAR,BELGAUM",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Mysuru",
       "total_intake": 300,
       "total_kea_seats": 135,
       "courses": [
@@ -17615,6 +17781,7 @@
       "address": "POST:HASNAPUR, TQ:SHORAPUR, DIST: YADGIR",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Gadag",
       "total_intake": 300,
       "total_kea_seats": 135,
       "courses": [
@@ -17696,6 +17863,7 @@
       "address": "#1, MAHAYOGI VEMANA ROAD, 3RD BLOCK, KORMANGALA, BANGALORE -560034.",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Belagavi",
       "total_intake": 660,
       "total_kea_seats": 297,
       "courses": [
@@ -17805,6 +17973,7 @@
       "address": "P.B.NO.206,GOKULAM 3RD STAGE,MYSORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Yadgir",
       "total_intake": 1320,
       "total_kea_seats": 594,
       "courses": [
@@ -17914,6 +18083,7 @@
       "address": "#127,ALANAHALLY,ALANAHALLY POST,MYSORE-BANNUR ROAD,MYSORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 300,
       "total_kea_seats": 135,
       "courses": [
@@ -17995,6 +18165,7 @@
       "address": "#35/1, DODDA GUBBI POST, HENNUR-BAGALURU ROAD,BANGALORE",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Mysuru",
       "total_intake": 480,
       "total_kea_seats": 216,
       "courses": [
@@ -18104,6 +18275,7 @@
       "address": "NEHARU NAGARA,PUTTUR TALUK,DAKSHINA KANNADA",
       "annexure": "C",
       "college_type": "Private Unaided Engineering Colleges",
+      "district": "Mysuru",
       "total_intake": 360,
       "total_kea_seats": 162,
       "courses": [
@@ -18199,6 +18371,7 @@
       "address": "KOTTARA CHOWKI BOLOOR VILLAGE,DAKSHINA KANNADA",
       "annexure": "D",
       "college_type": "Private Unaided Minority Engineering Colleges",
+      "district": "Mandya",
       "total_intake": 660,
       "total_kea_seats": 264,
       "courses": [
@@ -18322,6 +18495,7 @@
       "address": "ANJUMANABAD,BHATKAL,(U K DIST), PIN 581320",
       "annexure": "D",
       "college_type": "Private Unaided Minority Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 360,
       "total_kea_seats": 144,
       "courses": [
@@ -18445,6 +18619,7 @@
       "address": "GOMMATANAGARA,SHRAVANABELAGOLA - 573135 HASSAN",
       "annexure": "D",
       "college_type": "Private Unaided Minority Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 300,
       "total_kea_seats": 120,
       "courses": [
@@ -18540,6 +18715,7 @@
       "address": "LANDS END, INNOLI,BOLIYAR VILLAGE,NEAR MANGALORE UNIVERSITY,MANGALORE-574 153",
       "annexure": "D",
       "college_type": "Private Unaided Minority Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 300,
       "total_kea_seats": 120,
       "courses": [
@@ -18621,6 +18797,7 @@
       "address": "BENJANAPADAVU,BANTWAL,PIN 574219,DAKSHINA KANNADA DIST,",
       "annexure": "D",
       "college_type": "Private Unaided Minority Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 630,
       "total_kea_seats": 252,
       "courses": [
@@ -18730,6 +18907,7 @@
       "address": "BANGALORE - MYSORE ROAD,RAMANAGARA",
       "annexure": "D",
       "college_type": "Private Unaided Minority Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 480,
       "total_kea_seats": 192,
       "courses": [
@@ -18853,6 +19031,7 @@
       "address": "MAILOOR ROAD,BIDAR 585403",
       "annexure": "D",
       "college_type": "Private Unaided Minority Engineering Colleges",
+      "district": "Davanagere",
       "total_intake": 780,
       "total_kea_seats": 312,
       "courses": [
@@ -19004,6 +19183,7 @@
       "address": "# 22/1, NAGAWARA, BANGALORE-560045",
       "annexure": "D",
       "college_type": "Private Unaided Minority Engineering Colleges",
+      "district": "Mysuru",
       "total_intake": 780,
       "total_kea_seats": 312,
       "courses": [
@@ -19085,6 +19265,7 @@
       "address": "KCT CAMPUS",
       "annexure": "D",
       "college_type": "Private Unaided Minority Engineering Colleges",
+      "district": "Dharwad",
       "total_intake": 210,
       "total_kea_seats": 84,
       "courses": [
@@ -19152,6 +19333,7 @@
       "address": "NEAR ITPB,CHANNASANDRA,KADUGODI POST,BANGALORE",
       "annexure": "D",
       "college_type": "Private Unaided Minority Engineering Colleges",
+      "district": "Kalaburagi",
       "total_intake": 1170,
       "total_kea_seats": 468,
       "courses": [
@@ -19373,6 +19555,7 @@
       "address": "RING ROAD, NEAR MARATHALLI, BELLANDUR POST,KADUBHISANAHALLI,BANGALORE",
       "annexure": "D",
       "college_type": "Private Unaided Minority Engineering Colleges",
+      "district": "Koppal",
       "total_intake": 1200,
       "total_kea_seats": 480,
       "courses": [
@@ -19468,6 +19651,7 @@
       "address": "NADUPADAV, NEAR MANGALORE UNIVERSITY,MONTEPADAV POST, KAIRANGALA VILLAGE,BANTWAL-MANGALORE",
       "annexure": "D",
       "college_type": "Private Unaided Minority Engineering Colleges",
+      "district": "Dharwad",
       "total_intake": 390,
       "total_kea_seats": 156,
       "courses": [
@@ -19577,6 +19761,7 @@
       "address": "UJIRE-574240 DAKSHINA KANNADA KARNATAKA",
       "annexure": "D",
       "college_type": "Private Unaided Minority Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 420,
       "total_kea_seats": 168,
       "courses": [
@@ -19672,6 +19857,7 @@
       "address": "DHAVALAGIRI,KALGHATGI ROAD,DHARWAD",
       "annexure": "D",
       "college_type": "Private Unaided Minority Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 660,
       "total_kea_seats": 264,
       "courses": [
@@ -19795,6 +19981,7 @@
       "address": "MANGALORE",
       "annexure": "D",
       "college_type": "Private Unaided Minority Engineering Colleges",
+      "district": "Bangalore",
       "total_intake": 780,
       "total_kea_seats": 312,
       "courses": [
@@ -19918,6 +20105,7 @@
       "address": "B.G.NAGARA ,NAGAMANGALA TALUK,MANDYA DISTRICT -571448",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Mandya",
       "total_intake": 630,
       "total_kea_seats": 252,
       "courses": [
@@ -20013,6 +20201,7 @@
       "address": "Central Campus, Chikkahadage Cross Chandapura-Anekal, Main Road, Bengaluru, Karnataka 562106",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Bangalore",
       "total_intake": 1220,
       "total_kea_seats": 488,
       "courses": [
@@ -20192,6 +20381,7 @@
       "address": "National Highway 648 (old 207), Devanahalli - Doddaballapur Road",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Bangalore",
       "total_intake": 1140,
       "total_kea_seats": 456,
       "courses": [
@@ -20315,6 +20505,7 @@
       "address": "Main Campus, Off Hennur Bagalur Main Road, Chagalatti, Bangalore",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Bangalore",
       "total_intake": 960,
       "total_kea_seats": 384,
       "courses": [
@@ -20424,6 +20615,7 @@
       "address": "DEVARAKAGGALAHALLI VILLAGE, HAROHALLI, KANAKAPURA MAIN ROAD, RAMANAGAR DIST",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Bangalore",
       "total_intake": 1800,
       "total_kea_seats": 720,
       "courses": [
@@ -20575,6 +20767,7 @@
       "address": "NH 207, Nagadenehalli Doddaballapur taluk. Bengaluru-561203",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Bangalore",
       "total_intake": 1230,
       "total_kea_seats": 308,
       "courses": [
@@ -20740,6 +20933,7 @@
       "address": "16th KM, Old Madras Road (Near K R Puram), Bangalore, Karnataka, 560049.",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Davanagere",
       "total_intake": 900,
       "total_kea_seats": 360,
       "courses": [
@@ -20821,6 +21015,7 @@
       "address": "KARUR VILLAGE, KASABA HOBLI, DAVANGERE TALUK AND DISTRICT",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Mysuru",
       "total_intake": 1620,
       "total_kea_seats": 648,
       "courses": [
@@ -21042,6 +21237,7 @@
       "address": "JSS TECHNICAL INSTITUTIONS CAMPUS, MANASAGANGOTHRI, MYSURU 570006",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Dharwad",
       "total_intake": 600,
       "total_kea_seats": 240,
       "courses": [
@@ -21165,6 +21361,7 @@
       "address": "UDYAMBAGH,BELGAUM",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Kalaburagi",
       "total_intake": 630,
       "total_kea_seats": 252,
       "courses": [
@@ -21288,6 +21485,7 @@
       "address": "KBN University Street, Khaja Colony, Kalaburagi, Karnataka 585104",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Koppal",
       "total_intake": 420,
       "total_kea_seats": 168,
       "courses": [
@@ -21369,6 +21567,7 @@
       "address": "BALLARI INSTITUTE OF TECHNOLOGY & MANAGEMENT (BITM) CAMPUS, BALLARI-HOSPET ROAD, NEAR ALLIPUR, BALLARI-583104",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Dharwad",
       "total_intake": 600,
       "total_kea_seats": 240,
       "courses": [
@@ -21436,6 +21635,7 @@
       "address": "BVBHOOMARADDI COLLEGE CAMPUS, VIDYANAGAR, HUBBALLI",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Bangalore",
       "total_intake": 1380,
       "total_kea_seats": 552,
       "courses": [
@@ -21573,6 +21773,7 @@
       "address": "UNIVERSITY HOUSE, GNANAGANGOTHRI CAMPUS, NEW BEL ROAD, MSR ROAD, BANGALORE - 560054",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Bangalore",
       "total_intake": 780,
       "total_kea_seats": 312,
       "courses": [
@@ -21738,6 +21939,7 @@
       "address": "100 Feet Ring Road, Banashankari, 3rd Stage, Hosakerehalli, Near DSERT, , Bangalore KARNATAKA, pin code -560085",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Bangalore",
       "total_intake": 1740,
       "total_kea_seats": 696,
       "courses": [
@@ -21833,6 +22035,7 @@
       "address": "Hosur Rd, Konappana Agrahara, Electronic City, Bengaluru, Karnataka 560100",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Bangalore",
       "total_intake": 1140,
       "total_kea_seats": 456,
       "courses": [
@@ -21886,6 +22089,7 @@
       "address": "ITGALPURA, RAJANUKUNTE, YELAHANKA, BENGALURU - 560 064",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Bangalore",
       "total_intake": 3600,
       "total_kea_seats": 1440,
       "courses": [
@@ -22177,6 +22381,7 @@
       "address": "11TH MILE GALLU, DODDABALLAPUR - NELAMANGALA ROAD, MALLOHALLI VILLAGE KADANUR, DODDABALLAPUR TALUK, BENGALURU",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Bangalore",
       "total_intake": 120,
       "total_kea_seats": 48,
       "courses": [
@@ -22216,6 +22421,7 @@
       "address": "RUKMINI KNOWLEDGE PARK, KATTIGENAHALLI, YELAHANKA,BANGALORE - 560064,",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Bangalore",
       "total_intake": 2040,
       "total_kea_seats": 816,
       "courses": [
@@ -22451,6 +22657,7 @@
       "address": "R.V. VIDYANIKETAN POST, MYSORE ROAD,BANGALORE",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Bangalore",
       "total_intake": 540,
       "total_kea_seats": 216,
       "courses": [
@@ -22476,6 +22683,7 @@
       "address": "#14/5, CHIKKASANDRA,HESARAGHATTA MAIN ROAD,BANGALURU",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Mysuru",
       "total_intake": 4020,
       "total_kea_seats": 1608,
       "courses": [
@@ -22571,6 +22779,7 @@
       "address": "2nd Floor, Senate Bhavan, Manasagangotri P.O., Mysore",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Kalaburagi",
       "total_intake": 40,
       "total_kea_seats": 20,
       "courses": [
@@ -22596,6 +22805,7 @@
       "address": "SHARNBASVESHWARA INSTITUTIONS CAMPUS , KALABURAGI ( GULBARGA) -585103 , KARNATAKA",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Kalaburagi",
       "total_intake": 420,
       "total_kea_seats": 168,
       "courses": [
@@ -22677,6 +22887,7 @@
       "address": "SHARNBASVESHWARA INSTITUTIONS CAMPUS , KALABURAGI ( GULBARGA) -585103 , KARNATAKA",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Dakshina Kannada",
       "total_intake": 780,
       "total_kea_seats": 312,
       "courses": [
@@ -22800,6 +23011,7 @@
       "address": "SRINIVAS CAMPUS MUKKA MANGALURU",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Bangalore",
       "total_intake": 510,
       "total_kea_seats": 204,
       "courses": [
@@ -22895,6 +23107,7 @@
       "address": "NO 29 HARALURU, DEVANAHALLI TALUK (NEAR BENGALURU INTERNATIONLA AIRPORT)",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Mysuru",
       "total_intake": 360,
       "total_kea_seats": 144,
       "courses": [
@@ -22990,6 +23203,7 @@
       "address": "B.N.BAHADUR INSTITUTE OF MANAGEMENT SCIENCES, (DOS IN BUSSINESS ADMINISTRATION)UNIVERSITY OF MYSORE,",
       "annexure": "O",
       "college_type": "Private Universities",
+      "district": "Bangalore",
       "total_intake": 360,
       "total_kea_seats": 180,
       "courses": [
@@ -24025,11 +24239,34 @@
     "TEXTILES TECHNOLOGY"
   ],
   "districts": [
+    "Bagalkot",
+    "Ballari",
     "Bangalore",
+    "Belagavi",
+    "Bidar",
+    "Chikballapura",
     "Chikkaballapura",
+    "Chitradurga",
     "Dakshina Kannada",
+    "Davanagere",
+    "Dharwad",
+    "Gadag",
+    "Hassan",
+    "Haveri",
+    "Kalaburagi",
+    "Kodagu",
+    "Kolar",
+    "Koppal",
+    "Mandya",
+    "Mysuru",
+    "Raichur",
+    "Ramanagara",
+    "Shivamogga",
     "Tumkur",
-    "Vijayapura"
+    "Udupi",
+    "Uttara Kannada",
+    "Vijayapura",
+    "Yadgir"
   ],
   "stats": {
     "total_colleges": 222,
@@ -24037,733 +24274,864 @@
     "total_kea_seats": 66549,
     "by_annexure": {
       "A": {
-        "colleges": 22,
-        "seats": 6290,
-        "kea_seats": 6290
+        "label": "Government / VTU",
+        "college_count": 22,
+        "total_seats": 6290,
+        "kea_seats": 6290,
+        "cat2_seats": 0,
+        "cat3_seats": 0
       },
       "B": {
-        "colleges": 8,
-        "seats": 2950,
-        "kea_seats": 2803
+        "label": "Govt Aided",
+        "college_count": 8,
+        "total_seats": 2950,
+        "kea_seats": 2803,
+        "cat2_seats": 0,
+        "cat3_seats": 147
       },
       "C": {
-        "colleges": 146,
-        "seats": 90179,
-        "kea_seats": 40580
+        "label": "Private Unaided",
+        "college_count": 146,
+        "total_seats": 90179,
+        "kea_seats": 40580,
+        "cat2_seats": 27045,
+        "cat3_seats": 22552
       },
       "D": {
-        "colleges": 16,
-        "seats": 9900,
-        "kea_seats": 3960
+        "label": "Private Minority",
+        "college_count": 16,
+        "total_seats": 9900,
+        "kea_seats": 3960,
+        "cat2_seats": 2970,
+        "cat3_seats": 2970
       },
       "O": {
-        "colleges": 28,
-        "seats": 29700,
-        "kea_seats": 11736
+        "label": "Private University",
+        "college_count": 28,
+        "total_seats": 29700,
+        "kea_seats": 11736,
+        "cat2_seats": 0,
+        "cat3_seats": 72
       },
       "M": {
-        "colleges": 1,
-        "seats": 760,
-        "kea_seats": 760
+        "label": "Public University",
+        "college_count": 1,
+        "total_seats": 760,
+        "kea_seats": 760,
+        "cat2_seats": 0,
+        "cat3_seats": 0
       },
       "P": {
-        "colleges": 1,
-        "seats": 1050,
-        "kea_seats": 420
+        "label": "Deemed University",
+        "college_count": 1,
+        "total_seats": 1050,
+        "kea_seats": 420,
+        "cat2_seats": 0,
+        "cat3_seats": 630
       }
     },
     "by_district": {
-      "Unknown": {
-        "colleges": 214,
-        "seats": 136499,
-        "kea_seats": 64065
-      },
-      "Chikkaballapura": {
-        "colleges": 1,
-        "seats": 390,
-        "kea_seats": 390
+      "Mandya": {
+        "total": 5920,
+        "kea": 2881,
+        "college_count": 9
       },
       "Bangalore": {
-        "colleges": 4,
-        "seats": 2230,
-        "kea_seats": 1377
+        "total": 75666,
+        "kea": 36083,
+        "college_count": 112
+      },
+      "Davanagere": {
+        "total": 4240,
+        "kea": 2216,
+        "college_count": 7
+      },
+      "Mysuru": {
+        "total": 13380,
+        "kea": 6201,
+        "college_count": 19
+      },
+      "Dharwad": {
+        "total": 4740,
+        "kea": 2374,
+        "college_count": 9
+      },
+      "Kalaburagi": {
+        "total": 5200,
+        "kea": 2363,
+        "college_count": 10
+      },
+      "Koppal": {
+        "total": 2280,
+        "kea": 1077,
+        "college_count": 4
       },
       "Dakshina Kannada": {
-        "colleges": 1,
-        "seats": 480,
-        "kea_seats": 216
+        "total": 5550,
+        "kea": 2458,
+        "college_count": 9
       },
-      "Tumkur": {
-        "colleges": 1,
-        "seats": 1050,
-        "kea_seats": 420
+      "Bagalkot": {
+        "total": 360,
+        "kea": 162,
+        "college_count": 1
       },
       "Vijayapura": {
-        "colleges": 1,
-        "seats": 180,
-        "kea_seats": 81
+        "total": 1290,
+        "kea": 581,
+        "college_count": 3
+      },
+      "Kolar": {
+        "total": 1200,
+        "kea": 540,
+        "college_count": 2
+      },
+      "Tumkur": {
+        "total": 4110,
+        "kea": 1796,
+        "college_count": 6
+      },
+      "Kodagu": {
+        "total": 1140,
+        "kea": 513,
+        "college_count": 1
+      },
+      "Raichur": {
+        "total": 870,
+        "kea": 392,
+        "college_count": 2
+      },
+      "Belagavi": {
+        "total": 4440,
+        "kea": 1998,
+        "college_count": 8
+      },
+      "Shivamogga": {
+        "total": 920,
+        "kea": 414,
+        "college_count": 2
+      },
+      "Uttara Kannada": {
+        "total": 450,
+        "kea": 202,
+        "college_count": 1
+      },
+      "Hassan": {
+        "total": 1740,
+        "kea": 783,
+        "college_count": 3
+      },
+      "Bidar": {
+        "total": 288,
+        "kea": 130,
+        "college_count": 1
+      },
+      "Udupi": {
+        "total": 870,
+        "kea": 391,
+        "college_count": 2
+      },
+      "Ballari": {
+        "total": 1110,
+        "kea": 500,
+        "college_count": 2
+      },
+      "Gadag": {
+        "total": 1260,
+        "kea": 567,
+        "college_count": 3
+      },
+      "Chikballapura": {
+        "total": 840,
+        "kea": 378,
+        "college_count": 1
+      },
+      "Chitradurga": {
+        "total": 340,
+        "kea": 153,
+        "college_count": 1
+      },
+      "Ramanagara": {
+        "total": 285,
+        "kea": 128,
+        "college_count": 1
+      },
+      "Haveri": {
+        "total": 630,
+        "kea": 284,
+        "college_count": 1
+      },
+      "Yadgir": {
+        "total": 1320,
+        "kea": 594,
+        "college_count": 1
+      },
+      "Chikkaballapura": {
+        "total": 390,
+        "kea": 390,
+        "college_count": 1
       }
     },
     "by_course": {
       "COMPUTER SCIENCE AND ENGINEERING": {
-        "colleges": 184,
-        "seats": 30693,
-        "kea_seats": 14613
+        "total": 30693,
+        "kea": 14613,
+        "count": 184
       },
       "COMPUTER SCIENCE AND ENGINEERING (AIML)": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 60
+        "total": 60,
+        "kea": 60,
+        "count": 1
       },
       "ELECTRICAL & ELECTRONICS ENGINEERING": {
-        "colleges": 97,
-        "seats": 5719,
-        "kea_seats": 2942
+        "total": 5719,
+        "kea": 2942,
+        "count": 97
       },
       "ELECTRONICS AND COMMUNICATION ENGG": {
-        "colleges": 190,
-        "seats": 19407,
-        "kea_seats": 9482
+        "total": 19407,
+        "kea": 9482,
+        "count": 190
       },
       "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING": {
-        "colleges": 87,
-        "seats": 7209,
-        "kea_seats": 3298
+        "total": 7209,
+        "kea": 3298,
+        "count": 87
       },
       "AUTOMOBILE ENGINEERING": {
-        "colleges": 4,
-        "seats": 180,
-        "kea_seats": 115
+        "total": 180,
+        "kea": 115,
+        "count": 4
       },
       "CIVIL ENGINEERING": {
-        "colleges": 157,
-        "seats": 8280,
-        "kea_seats": 4535
+        "total": 8280,
+        "kea": 4535,
+        "count": 157
       },
       "MECHANICAL ENGINEERING": {
-        "colleges": 163,
-        "seats": 8930,
-        "kea_seats": 4842
+        "total": 8930,
+        "kea": 4842,
+        "count": 163
       },
       "MECHANICAL AND SMART MANUFACTURING": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 60
+        "total": 60,
+        "kea": 60,
+        "count": 1
       },
       "ARTIFICIAL INTELLIGENCE AND DATA SCIENCE": {
-        "colleges": 39,
-        "seats": 2490,
-        "kea_seats": 1181
+        "total": 2490,
+        "kea": 1181,
+        "count": 39
       },
       "SILK TECHNOLOGY": {
-        "colleges": 1,
-        "seats": 20,
-        "kea_seats": 20
+        "total": 20,
+        "kea": 20,
+        "count": 1
       },
       "TEXTILES TECHNOLOGY": {
-        "colleges": 3,
-        "seats": 120,
-        "kea_seats": 81
+        "total": 120,
+        "kea": 81,
+        "count": 3
       },
       "ELECTRONICS AND INSTRUMENTATION ENGINEERING": {
-        "colleges": 8,
-        "seats": 450,
-        "kea_seats": 266
+        "total": 450,
+        "kea": 266,
+        "count": 8
       },
       "ROBOTICS AND ARTIFICIAL INTELLIGENCE": {
-        "colleges": 13,
-        "seats": 630,
-        "kea_seats": 305
+        "total": 630,
+        "kea": 305,
+        "count": 13
       },
       "B TECH IN ARTIFICIAL INTELLIGENCE AND DATA SCIENCE": {
-        "colleges": 5,
-        "seats": 480,
-        "kea_seats": 336
+        "total": 480,
+        "kea": 336,
+        "count": 5
       },
       "ELECTRONICS & COMPUTER ENGINEERING": {
-        "colleges": 7,
-        "seats": 450,
-        "kea_seats": 235
+        "total": 450,
+        "kea": 235,
+        "count": 7
       },
       "B TECH IN ELECTRONICS & COMMUNICATION ENGINEERING": {
-        "colleges": 15,
-        "seats": 1890,
-        "kea_seats": 828
+        "total": 1890,
+        "kea": 828,
+        "count": 15
       },
       "B TECH IN COMPUTER SCIENCE AND ENGINEERING": {
-        "colleges": 17,
-        "seats": 6950,
-        "kea_seats": 2924
+        "total": 6950,
+        "kea": 2924,
+        "count": 17
       },
       "B TECH IN ELECTRONICS & COMPUTER ENGINEERING": {
-        "colleges": 3,
-        "seats": 180,
-        "kea_seats": 144
+        "total": 180,
+        "kea": 144,
+        "count": 3
       },
       "B TECH IN ROBOTICS AND AUTOMATION": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 60
+        "total": 60,
+        "kea": 60,
+        "count": 1
       },
       "BTECH IN COMPUTER SCIENCE AND BUSINESS SYSTEMS": {
-        "colleges": 1,
-        "seats": 120,
-        "kea_seats": 120
+        "total": 120,
+        "kea": 120,
+        "count": 1
       },
       "BTECH IN ELECTRONICS ENGINEERING(VLSI DESIGN & TECHNOLOGY)": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 60
+        "total": 60,
+        "kea": 60,
+        "count": 1
       },
       "INDUSTRIAL ENGINEERING & MANAGEMENT": {
-        "colleges": 5,
-        "seats": 270,
-        "kea_seats": 167
+        "total": 270,
+        "kea": 167,
+        "count": 5
       },
       "INDUSTRIAL & PRODUCTION ENGINEERING": {
-        "colleges": 4,
-        "seats": 150,
-        "kea_seats": 133
+        "total": 150,
+        "kea": 133,
+        "count": 4
       },
       "ELECTRONICS AND TELECOMMUNICATION ENGINEERING": {
-        "colleges": 8,
-        "seats": 540,
-        "kea_seats": 270
+        "total": 540,
+        "kea": 270,
+        "count": 8
       },
       "ELECTRONICS & INSTRUMENTATION TECH.": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 57
+        "total": 60,
+        "kea": 57,
+        "count": 1
       },
       "ENVIRONMENTAL ENGINEERING": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 57
+        "total": 60,
+        "kea": 57,
+        "count": 1
       },
       "POLYMER SCIENCE & TECHNOLOGY": {
-        "colleges": 1,
-        "seats": 40,
-        "kea_seats": 38
+        "total": 40,
+        "kea": 38,
+        "count": 1
       },
       "AERONAUTICAL ENGINEERING": {
-        "colleges": 17,
-        "seats": 1080,
-        "kea_seats": 478
+        "total": 1080,
+        "kea": 478,
+        "count": 17
       },
       "BIO-TECHNOLOGY": {
-        "colleges": 14,
-        "seats": 720,
-        "kea_seats": 310
+        "total": 720,
+        "kea": 310,
+        "count": 14
       },
       "COMPUTER SCIENCE AND ENGINEERING(DATA SCIENCE)": {
-        "colleges": 48,
-        "seats": 3600,
-        "kea_seats": 1556
+        "total": 3600,
+        "kea": 1556,
+        "count": 48
       },
       "INFORMATION SCIENCE AND ENGINEERING": {
-        "colleges": 103,
-        "seats": 10473,
-        "kea_seats": 4692
+        "total": 10473,
+        "kea": 4692,
+        "count": 103
       },
       "MECHATRONICS": {
-        "colleges": 3,
-        "seats": 180,
-        "kea_seats": 78
+        "total": 180,
+        "kea": 78,
+        "count": 3
       },
       "AERO SPACE ENGINEERING": {
-        "colleges": 6,
-        "seats": 330,
-        "kea_seats": 146
+        "total": 330,
+        "kea": 146,
+        "count": 6
       },
       "BIO-MEDICAL ENGINEERING": {
-        "colleges": 4,
-        "seats": 180,
-        "kea_seats": 78
+        "total": 180,
+        "kea": 78,
+        "count": 4
       },
       "COMPUTER SCIENCE AND ENGG(INTERNET OF THINGS)": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 27
+        "total": 60,
+        "kea": 27,
+        "count": 1
       },
       "COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)": {
-        "colleges": 20,
-        "seats": 1119,
-        "kea_seats": 484
+        "total": 1119,
+        "kea": 484,
+        "count": 20
       },
       "COMPUTER SCIENCE AND ENGG (ARTIFICIAL INTELLIGENCE)": {
-        "colleges": 7,
-        "seats": 540,
-        "kea_seats": 234
+        "total": 540,
+        "kea": 234,
+        "count": 7
       },
       "DATA SCIENCES": {
-        "colleges": 2,
-        "seats": 120,
-        "kea_seats": 54
+        "total": 120,
+        "kea": 54,
+        "count": 2
       },
       "COMPUTER SCIENCE AND DESIGN": {
-        "colleges": 19,
-        "seats": 1200,
-        "kea_seats": 539
+        "total": 1200,
+        "kea": 539,
+        "count": 19
       },
       "COMPUTER SCIENCE AND ENGG(ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING)": {
-        "colleges": 51,
-        "seats": 4899,
-        "kea_seats": 2100
+        "total": 4899,
+        "kea": 2100,
+        "count": 51
       },
       "AGRICULTURE ENGINEERING": {
-        "colleges": 5,
-        "seats": 240,
-        "kea_seats": 108
+        "total": 240,
+        "kea": 108,
+        "count": 5
       },
       "COMPUTER SCIENCE AND ENGG(INTERNET OF THINGS & CYBER SECURITY INCLUDING BLOCK CHAIN TECH)": {
-        "colleges": 24,
-        "seats": 1410,
-        "kea_seats": 626
+        "total": 1410,
+        "kea": 626,
+        "count": 24
       },
       "ROBOTICS AND AUTOMATION": {
-        "colleges": 4,
-        "seats": 180,
-        "kea_seats": 81
+        "total": 180,
+        "kea": 81,
+        "count": 4
       },
       "CHEMICAL ENGINEERING": {
-        "colleges": 10,
-        "seats": 460,
-        "kea_seats": 200
+        "total": 460,
+        "kea": 200,
+        "count": 10
       },
       "COMPUTER SCIENCE AND BUSINESS SYSTEMS": {
-        "colleges": 16,
-        "seats": 990,
-        "kea_seats": 431
+        "total": 990,
+        "kea": 431,
+        "count": 16
       },
       "ELECTRONICS ENGINEERING(VLSI DESIGN & TECHNOLOGY)": {
-        "colleges": 7,
-        "seats": 390,
-        "kea_seats": 164
+        "total": 390,
+        "kea": 164,
+        "count": 7
       },
       "COMPUTER ENGINEERING": {
-        "colleges": 4,
-        "seats": 240,
-        "kea_seats": 108
+        "total": 240,
+        "kea": 108,
+        "count": 4
       },
       "COMPUTER SCIENCE": {
-        "colleges": 3,
-        "seats": 480,
-        "kea_seats": 207
+        "total": 480,
+        "kea": 207,
+        "count": 3
       },
       "MEDICAL ELECTRONICS ENGINEERING": {
-        "colleges": 2,
-        "seats": 120,
-        "kea_seats": 54
+        "total": 120,
+        "kea": 54,
+        "count": 2
       },
       "MINING ENGINEERING": {
-        "colleges": 1,
-        "seats": 30,
-        "kea_seats": 13
+        "total": 30,
+        "kea": 13,
+        "count": 1
       },
       "AUTOMATION AND ROBOTICS": {
-        "colleges": 2,
-        "seats": 120,
-        "kea_seats": 51
+        "total": 120,
+        "kea": 51,
+        "count": 2
       },
       "COMPUTER AND COMMUNICATION ENGINEERING": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 27
+        "total": 60,
+        "kea": 27,
+        "count": 1
       },
       "MECHANICAL ENGINEERING (KANNADA MEDIUM)": {
-        "colleges": 1,
-        "seats": 30,
-        "kea_seats": 13
+        "total": 30,
+        "kea": 13,
+        "count": 1
       },
       "DESIGN": {
-        "colleges": 2,
-        "seats": 90,
-        "kea_seats": 40
+        "total": 90,
+        "kea": 40,
+        "count": 2
       },
       "PLANNING": {
-        "colleges": 1,
-        "seats": 20,
-        "kea_seats": 9
+        "total": 20,
+        "kea": 9,
+        "count": 1
       },
       "CERAMICS & CEMENT ENGINEERING": {
-        "colleges": 1,
-        "seats": 30,
-        "kea_seats": 14
+        "total": 30,
+        "kea": 14,
+        "count": 1
       },
       "COMPUTER SCIENCE & TECHNOLOGY": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 27
+        "total": 60,
+        "kea": 27,
+        "count": 1
       },
       "ELECTRONICS & COMPUTER SCIENCE": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 27
+        "total": 60,
+        "kea": 27,
+        "count": 1
       },
       "CIVIL ENGINEERING (KANNADA MEDIUM)": {
-        "colleges": 1,
-        "seats": 30,
-        "kea_seats": 13
+        "total": 30,
+        "kea": 13,
+        "count": 1
       },
       "CYBER SECURITY": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 27
+        "total": 60,
+        "kea": 27,
+        "count": 1
       },
       "TELECOMMUNICATION ENGINEERING": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 27
+        "total": 60,
+        "kea": 27,
+        "count": 1
       },
       "MARINE ENGINEERING": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 27
+        "total": 60,
+        "kea": 27,
+        "count": 1
       },
       "ELECTRONICS AND COMMUNICATION (ADVANCED COMMUNICATION TECHNOLOGY)": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "INDUSTRIAL IOT": {
-        "colleges": 1,
-        "seats": 30,
-        "kea_seats": 12
+        "total": 30,
+        "kea": 12,
+        "count": 1
       },
       "B.TECH IN COMPUTER SCIENCE AND ENGINEERING": {
-        "colleges": 9,
-        "seats": 4260,
-        "kea_seats": 1641
+        "total": 4260,
+        "kea": 1641,
+        "count": 9
       },
       "B TECH IN AERO SPACE ENGINEERING": {
-        "colleges": 4,
-        "seats": 240,
-        "kea_seats": 96
+        "total": 240,
+        "kea": 96,
+        "count": 4
       },
       "B TECH IN ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING": {
-        "colleges": 4,
-        "seats": 330,
-        "kea_seats": 132
+        "total": 330,
+        "kea": 132,
+        "count": 4
       },
       "B TECH IN CIVIL ENGINEERING": {
-        "colleges": 7,
-        "seats": 480,
-        "kea_seats": 192
+        "total": 480,
+        "kea": 192,
+        "count": 7
       },
       "B TECH IN COMPUTER SCIENCE AND ENGINEERING(CYBER SECURITY)": {
-        "colleges": 3,
-        "seats": 420,
-        "kea_seats": 168
+        "total": 420,
+        "kea": 168,
+        "count": 3
       },
       "B TECH IN COMPUTER SCIENCE AND ENGINEERING(IOT)": {
-        "colleges": 2,
-        "seats": 240,
-        "kea_seats": 96
+        "total": 240,
+        "kea": 96,
+        "count": 2
       },
       "B TECH IN ELECTRICAL & ELECTRONICS ENGINEERING": {
-        "colleges": 8,
-        "seats": 660,
-        "kea_seats": 264
+        "total": 660,
+        "kea": 264,
+        "count": 8
       },
       "B TECH IN INFORMATION TECHNOLOGY": {
-        "colleges": 4,
-        "seats": 360,
-        "kea_seats": 144
+        "total": 360,
+        "kea": 144,
+        "count": 4
       },
       "B TECH IN MECHANICAL ENGINEERING": {
-        "colleges": 8,
-        "seats": 600,
-        "kea_seats": 240
+        "total": 600,
+        "kea": 240,
+        "count": 8
       },
       "BTECH IN INFORMATION TECHNOLOGY AUGMENTED REALITY AND VIRUTAL REALITY (AR/VR)": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "BTECH IN INFORMATION TECHNOLOGY DATA ANALYTICS": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "B TECH IN BIO-TECHNOLOGY": {
-        "colleges": 2,
-        "seats": 120,
-        "kea_seats": 48
+        "total": 120,
+        "kea": 48,
+        "count": 2
       },
       "B Tech in Computer Science(AI &ML)": {
-        "colleges": 2,
-        "seats": 360,
-        "kea_seats": 144
+        "total": 360,
+        "kea": 144,
+        "count": 2
       },
       "B.Tech in Computer Science (Internet of Things)": {
-        "colleges": 2,
-        "seats": 180,
-        "kea_seats": 72
+        "total": 180,
+        "kea": 72,
+        "count": 2
       },
       "B.TECH IN COMPUTER SCIENCE AND ENGG (ROBOTICS)": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "B.TECH IN COMPUTER SICENCE AND ENGG (DATA ANALYTICS)": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "B.TECH IN EMBEDDED SYSTEM AND VLSI": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "B TECH IN COMPUTER ENGINEERING": {
-        "colleges": 2,
-        "seats": 240,
-        "kea_seats": 96
+        "total": 240,
+        "kea": 96,
+        "count": 2
       },
       "B TECH IN COMPUTER SCIENCE & ENGINEERING (ARTIFICAL INTELLIGENCE & MACHINE LEARNING)": {
-        "colleges": 6,
-        "seats": 1620,
-        "kea_seats": 648
+        "total": 1620,
+        "kea": 648,
+        "count": 6
       },
       "B TECH IN COMPUTER SCIENCE AND ENGINEERING(DATA SCIENCE)": {
-        "colleges": 3,
-        "seats": 540,
-        "kea_seats": 216
+        "total": 540,
+        "kea": 216,
+        "count": 3
       },
       "B TECH IN COMPUTER SCIENCE AND TECHNOLOGY": {
-        "colleges": 3,
-        "seats": 240,
-        "kea_seats": 96
+        "total": 240,
+        "kea": 96,
+        "count": 3
       },
       "B TECH IN COMPUTER SCIENCE AND ENGINEERING(ARTIFICIAL INTELLIGENCE AND DATA SCIENCE)": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "B Tech in ROBOTICS AND ARTIFICIAL INTELLIGENCE": {
-        "colleges": 3,
-        "seats": 180,
-        "kea_seats": 108
+        "total": 180,
+        "kea": 108,
+        "count": 3
       },
       "CIVIL ENGINEERING WITH COMPUTER APPLICATION": {
-        "colleges": 1,
-        "seats": 30,
-        "kea_seats": 7
+        "total": 30,
+        "kea": 7,
+        "count": 1
       },
       "ELECTRICAL & COMPUTER ENGINEERING": {
-        "colleges": 1,
-        "seats": 30,
-        "kea_seats": 7
+        "total": 30,
+        "kea": 7,
+        "count": 1
       },
       "B TECH IN COMPUTER SCIENCE": {
-        "colleges": 1,
-        "seats": 180,
-        "kea_seats": 72
+        "total": 180,
+        "kea": 72,
+        "count": 1
       },
       "B TECH IN ROBOTIC ENGINEERING": {
-        "colleges": 1,
-        "seats": 180,
-        "kea_seats": 72
+        "total": 180,
+        "kea": 72,
+        "count": 1
       },
       "INFORMATION SCIENCE": {
-        "colleges": 1,
-        "seats": 180,
-        "kea_seats": 72
+        "total": 180,
+        "kea": 72,
+        "count": 1
       },
       "B TECH IN COMPUTER SCIENCE (DATA SCIENCE)": {
-        "colleges": 1,
-        "seats": 120,
-        "kea_seats": 48
+        "total": 120,
+        "kea": 48,
+        "count": 1
       },
       "B TECH IN COMPUTER SCIENCE (CLOUD COMPUTING)": {
-        "colleges": 1,
-        "seats": 120,
-        "kea_seats": 48
+        "total": 120,
+        "kea": 48,
+        "count": 1
       },
       "B TECH IN COMPUTER SCIENCE (CYBER SECURITY)": {
-        "colleges": 1,
-        "seats": 120,
-        "kea_seats": 48
+        "total": 120,
+        "kea": 48,
+        "count": 1
       },
       "B Tech in Computer Science (Information Security)": {
-        "colleges": 1,
-        "seats": 120,
-        "kea_seats": 48
+        "total": 120,
+        "kea": 48,
+        "count": 1
       },
       "B TECH IN INFORMATION SCIENCE ENGINEERING": {
-        "colleges": 4,
-        "seats": 600,
-        "kea_seats": 240
+        "total": 600,
+        "kea": 240,
+        "count": 4
       },
       "B.Tech in COMPUTER SCIENCE & ENGG (Business Systems)": {
-        "colleges": 1,
-        "seats": 120,
-        "kea_seats": 48
+        "total": 120,
+        "kea": 48,
+        "count": 1
       },
       "ENGINEERING DESIGN": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "ROBOTICS AUTOMATION": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "CONSTRUCTION TECHNOLOGY AND MGMT": {
-        "colleges": 1,
-        "seats": 30,
-        "kea_seats": 12
+        "total": 30,
+        "kea": 12,
+        "count": 1
       },
       "BTECH IN PHARMACEUTICAL ENGINEERING": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "AUTOMOTIVE ENGINEERING": {
-        "colleges": 1,
-        "seats": 30,
-        "kea_seats": 12
+        "total": 30,
+        "kea": 12,
+        "count": 1
       },
       "B TECH IN MATHAMATICS AND COMPUTING": {
-        "colleges": 1,
-        "seats": 30,
-        "kea_seats": 12
+        "total": 30,
+        "kea": 12,
+        "count": 1
       },
       "B TECH IN ROBOTICS": {
-        "colleges": 1,
-        "seats": 30,
-        "kea_seats": 12
+        "total": 30,
+        "kea": 12,
+        "count": 1
       },
       "B TECH IN COMPUTER SCIENCE AND INFORMATION TECHNOLOGY": {
-        "colleges": 2,
-        "seats": 240,
-        "kea_seats": 96
+        "total": 240,
+        "kea": 96,
+        "count": 2
       },
       "B TECH IN COMPUTER SCIENCE AND ENGINEERING(BLOCK CHAIN)": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "B TECH IN COMPUTER SCIENCE AND TECHNOLOGY(BIG DATA)": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "B TECH IN COMPUTER SCIENCE AND TECHNOLOGY(DEV OPS)": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "B TECH IN INFORMATION SCIENCE & TECHNOLOGY": {
-        "colleges": 1,
-        "seats": 180,
-        "kea_seats": 72
+        "total": 180,
+        "kea": 72,
+        "count": 1
       },
       "B TECH IN PETROLEUM ENGINEERING": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "B.Tech in VLSI": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "BTECH IN COMPUTER SCIENCE AND ENGINEERING (NETWORKS)": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "B TECH IN AGRICULTURAL ENGINEERING": {
-        "colleges": 1,
-        "seats": 30,
-        "kea_seats": 12
+        "total": 30,
+        "kea": 12,
+        "count": 1
       },
       "B TECH IN COMPUTER SCIENCE AND ENGINEERING(IOT INCLUDING BLOCK CHAIN)": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "B TECH IN COMPUTER SCIENCE AND SYSTEM ENGINEERING": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "B TECH IN MECHATRONICS ENGINEERING": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "COMPUTER SCIENCE AND ENGINEERING (ARTIFICAL INTELLIGENCE & DATA SCIENCE)": {
-        "colleges": 1,
-        "seats": 180,
-        "kea_seats": 72
+        "total": 180,
+        "kea": 72,
+        "count": 1
       },
       "B.Plan": {
-        "colleges": 1,
-        "seats": 40,
-        "kea_seats": 20
+        "total": 40,
+        "kea": 20,
+        "count": 1
       },
       "B TECH IN ENERGY ENGINEERING": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "BTECH IN COMPUTER SCIENCE AND DESIGN": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "B.TECH IN CIVIL CONSTRUCTION AND SUSTAINABILITY ENGINEERING": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "B.TECH IN COMPUTER SCIENCE AND ARTIFICIAL INTELLIGENCE": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "B.TECH IN ELECTRICAL ENGINEERING AND COMPUTER SCIENCE": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "B.TECH IN ELECTRONICS ENGINEERING (VLSI AND EMBEDDED SYSTEM)": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "B.TECH IN MECHANICAL AND AEROSPACE ENGINEERING": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 24
+        "total": 60,
+        "kea": 24,
+        "count": 1
       },
       "BIOMEDICAL AND ROBOTIC ENGINEERING": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 30
+        "total": 60,
+        "kea": 30,
+        "count": 1
       },
       "CIVIL ENVIRONMENTAL ENGINEERING": {
-        "colleges": 1,
-        "seats": 30,
-        "kea_seats": 15
+        "total": 30,
+        "kea": 15,
+        "count": 1
       },
       "B TECH IN AERONAUTICAL ENGINEERING": {
-        "colleges": 1,
-        "seats": 60,
-        "kea_seats": 60
+        "total": 60,
+        "kea": 60,
+        "count": 1
       },
       "BTECH IN MECHANICAL AND SMART MANUFACTURING": {
-        "colleges": 1,
-        "seats": 30,
-        "kea_seats": 30
+        "total": 30,
+        "kea": 30,
+        "count": 1
       },
       "BTECH (HONS) COMPUTER SCIENCE AND ENGINEERING (DATA SCIENCE)": {
-        "colleges": 1,
-        "seats": 120,
-        "kea_seats": 48
+        "total": 120,
+        "kea": 48,
+        "count": 1
       }
     }
   }

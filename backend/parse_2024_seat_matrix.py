@@ -580,6 +580,32 @@ def parse_pdf():
                                 mgmt = nums[8] if len(nums) > 8 else 0
                                 over = nums[9] if len(nums) > 9 else 0
                                 
+                            # Resolve district from 2025 mapping or heuristics
+                            dist = district_map.get(college_code, "")
+                            if not dist:
+                                addr_lower = address.lower()
+                                name_lower = college_name.lower()
+                                if "bangalore" in addr_lower or "bengaluru" in addr_lower or "bangalore" in name_lower or "bengaluru" in name_lower:
+                                    dist = "Bangalore"
+                                elif "mysore" in addr_lower or "mysuru" in addr_lower or "mysore" in name_lower or "mysuru" in name_lower:
+                                    dist = "Mysore"
+                                elif "mangalore" in addr_lower or "mangaluru" in addr_lower or "mangalore" in name_lower or "mangaluru" in name_lower:
+                                    dist = "Dakshina Kannada"
+                                elif "belgaum" in addr_lower or "belagavi" in addr_lower or "belgaum" in name_lower or "belagavi" in name_lower:
+                                    dist = "Belagavi"
+                                elif "bagalkot" in addr_lower or "bagalkote" in addr_lower or "bagalkot" in name_lower or "bagalkote" in name_lower:
+                                    dist = "Bagalkote"
+                                elif "tumkur" in addr_lower or "tumakuru" in addr_lower or "tumkur" in name_lower or "tumakuru" in name_lower:
+                                    dist = "Tumakuru"
+                                elif "gulbarga" in addr_lower or "kalaburagi" in addr_lower or "gulbarga" in name_lower or "kalaburagi" in name_lower:
+                                    dist = "Kalaburagi"
+                                elif "dharwad" in addr_lower or "hubli" in addr_lower or "dharwad" in name_lower or "hubli" in name_lower:
+                                    dist = "Dharwad"
+                                elif "davangere" in addr_lower or "davanagere" in addr_lower or "davangere" in name_lower or "davanagere" in name_lower:
+                                    dist = "Davanagere"
+                                else:
+                                    dist = "Unknown"
+
                             courses.append({
                                 "course_name": course_name,
                                 "total_intake": intake,
@@ -597,6 +623,7 @@ def parse_pdf():
                                 "address": address,
                                 "annexure": ann,
                                 "college_type": col_type,
+                                "district": dist,
                                 "total_intake": sum(c["total_intake"] for c in courses),
                                 "total_kea_seats": sum(c["total_kea_seats"] for c in courses),
                                 "courses": courses
@@ -614,6 +641,16 @@ def parse_pdf():
     total_seats = sum(c["total_intake"] for c in colleges)
     total_kea_seats = sum(c["total_kea_seats"] for c in colleges)
     
+    ANNEXURE_LABELS = {
+        "A": "Government / VTU",
+        "B": "Govt Aided",
+        "C": "Private Unaided",
+        "D": "Private Minority",
+        "M": "Public University",
+        "O": "Private University",
+        "P": "Deemed University"
+    }
+
     by_annexure = {}
     by_district = {}
     by_course = {}
@@ -622,22 +659,40 @@ def parse_pdf():
         ann = c["annexure"]
         dist = c.get("district", "Unknown") or "Unknown"
         
-        by_annexure.setdefault(ann, {"colleges": 0, "seats": 0, "kea_seats": 0})
-        by_annexure[ann]["colleges"] += 1
-        by_annexure[ann]["seats"] += c["total_intake"]
+        by_annexure.setdefault(ann, {
+            "label": ANNEXURE_LABELS.get(ann, ann),
+            "college_count": 0,
+            "total_seats": 0,
+            "kea_seats": 0,
+            "cat2_seats": 0,
+            "cat3_seats": 0
+        })
+        by_annexure[ann]["college_count"] += 1
+        by_annexure[ann]["total_seats"] += c["total_intake"]
         by_annexure[ann]["kea_seats"] += c["total_kea_seats"]
+        for cr in c["courses"]:
+            by_annexure[ann]["cat2_seats"] += cr.get("cat2_seats", 0)
+            by_annexure[ann]["cat3_seats"] += cr.get("cat3_seats", 0)
         
-        by_district.setdefault(dist, {"colleges": 0, "seats": 0, "kea_seats": 0})
-        by_district[dist]["colleges"] += 1
-        by_district[dist]["seats"] += c["total_intake"]
-        by_district[dist]["kea_seats"] += c["total_kea_seats"]
+        by_district.setdefault(dist, {
+            "total": 0,
+            "kea": 0,
+            "college_count": 0
+        })
+        by_district[dist]["college_count"] += 1
+        by_district[dist]["total"] += c["total_intake"]
+        by_district[dist]["kea"] += c["total_kea_seats"]
         
         for cr in c["courses"]:
             cname = cr["course_name"]
-            by_course.setdefault(cname, {"colleges": 0, "seats": 0, "kea_seats": 0})
-            by_course[cname]["colleges"] += 1
-            by_course[cname]["seats"] += cr["total_intake"]
-            by_course[cname]["kea_seats"] += cr["total_kea_seats"]
+            by_course.setdefault(cname, {
+                "total": 0,
+                "kea": 0,
+                "count": 0
+            })
+            by_course[cname]["count"] += 1
+            by_course[cname]["total"] += cr["total_intake"]
+            by_course[cname]["kea"] += cr["total_kea_seats"]
             
     stats = {
         "total_colleges": total_colleges,
@@ -668,5 +723,21 @@ def parse_pdf():
         
     print(f"\nParsing Complete: saved {len(colleges)} colleges to '{out_path}'.")
 
+def load_districts_map():
+    district_map = {}
+    if os.path.exists("seat_matrix_data.json"):
+        try:
+            with open("seat_matrix_data.json", "r", encoding="utf-8") as f:
+                d2025 = json.load(f)
+                for col in d2025.get("colleges", []):
+                    num = col.get("college_number")
+                    dist = col.get("district")
+                    if num and dist:
+                        district_map[num] = dist
+        except Exception as e:
+            print("Failed to load 2025 districts:", e)
+    return district_map
+
 if __name__ == "__main__":
+    district_map = load_districts_map()
     parse_pdf()

@@ -402,6 +402,43 @@ function renderStats() {
   renderDonutChart();
   renderDistrictBarChart();
   renderCourseBarChart();
+  renderQuotaDistributionChart();
+}
+
+function renderQuotaDistributionChart() {
+  let totalKea = 0;
+  let totalComedk = 0;
+  let totalMgmt = 0;
+
+  allData.colleges.forEach(col => {
+    col.courses.forEach(c => {
+      totalKea += (c.total_kea_seats || 0);
+      totalComedk += (c.cat2_seats || 0);
+      totalMgmt += (c.cat3_seats || 0);
+    });
+  });
+
+  const grandTotal = totalKea + totalComedk + totalMgmt || 1;
+
+  const keaPct = ((totalKea / grandTotal) * 100).toFixed(1);
+  const comedkPct = ((totalComedk / grandTotal) * 100).toFixed(1);
+  const mgmtPct = ((totalMgmt / grandTotal) * 100).toFixed(1);
+
+  const barKea = document.getElementById('quota-bar-kea');
+  const barComedk = document.getElementById('quota-bar-comedk');
+  const barMgmt = document.getElementById('quota-bar-mgmt');
+
+  if (barKea) barKea.style.width = `${keaPct}%`;
+  if (barComedk) barComedk.style.width = `${comedkPct}%`;
+  if (barMgmt) barMgmt.style.width = `${mgmtPct}%`;
+
+  const valKea = document.getElementById('quota-val-kea');
+  const valComedk = document.getElementById('quota-val-comedk');
+  const valMgmt = document.getElementById('quota-val-mgmt');
+
+  if (valKea) valKea.innerHTML = `${totalKea.toLocaleString()}<span style="font-size: 11px; font-weight: normal; color: var(--text-muted);"> (${keaPct}%)</span>`;
+  if (valComedk) valComedk.innerHTML = `${totalComedk.toLocaleString()}<span style="font-size: 11px; font-weight: normal; color: var(--text-muted);"> (${comedkPct}%)</span>`;
+  if (valMgmt) valMgmt.innerHTML = `${totalMgmt.toLocaleString()}<span style="font-size: 11px; font-weight: normal; color: var(--text-muted);"> (${mgmtPct}%)</span>`;
 }
 
 function renderDonutChart() {

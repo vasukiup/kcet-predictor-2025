@@ -261,6 +261,30 @@
             <div class="stat-card-title">Top 15 Courses by Total Intake</div>
             <div class="bar-chart-wrap horizontal" id="bar-courses"></div>
           </div>
+          <div class="stat-card full">
+            <div class="stat-card-title">Seat Quota Distribution (KEA vs COMEDK vs Management)</div>
+            <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 16px;">
+              <div class="quota-progress-bar-wrap" style="height: 24px; background: rgba(255,255,255,0.05); border-radius: 12px; display: flex; overflow: hidden; border: 1px solid var(--border);">
+                <div id="quota-bar-kea" style="height: 100%; background: var(--blue); width: 0%; transition: width 0.5s ease-out;" title="KEA"></div>
+                <div id="quota-bar-comedk" style="height: 100%; background: var(--purple); width: 0%; transition: width 0.5s ease-out;" title="COMEDK"></div>
+                <div id="quota-bar-mgmt" style="height: 100%; background: var(--green); width: 0%; transition: width 0.5s ease-out;" title="Management"></div>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px; text-align: center;">
+                <div style="background: rgba(255,255,255,0.02); padding: 12px; border-radius: 12px; border: 1px solid var(--border);">
+                  <div style="font-size: 10px; font-weight:600; color: var(--blue); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;">KEA Quota</div>
+                  <div id="quota-val-kea" style="font-size: 16px; font-weight: 700; color: var(--text);">—</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.02); padding: 12px; border-radius: 12px; border: 1px solid var(--border);">
+                  <div style="font-size: 10px; font-weight:600; color: var(--purple); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;">COMEDK Quota</div>
+                  <div id="quota-val-comedk" style="font-size: 16px; font-weight: 700; color: var(--text);">—</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.02); padding: 12px; border-radius: 12px; border: 1px solid var(--border);">
+                  <div style="font-size: 10px; font-weight:600; color: var(--green); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;">Management</div>
+                  <div id="quota-val-mgmt" style="font-size: 16px; font-weight: 700; color: var(--text);">—</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
