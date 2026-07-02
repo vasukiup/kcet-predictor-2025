@@ -170,6 +170,7 @@
         <button class="tab" data-tab="stats" id="tab-stats">📈 Statistics</button>
         <button class="tab" data-tab="predictor" id="tab-predictor">🔮 Rank Predictor</button>
         <button class="tab" data-tab="assistant" id="tab-assistant">💬 Assistant</button>
+        <button class="tab" data-tab="option-entry" id="tab-option-entry" style="display: none;">📋 Option Entry</button>
         <button class="tab" data-tab="institution" id="tab-institution" style="display: none;">🏫 Inst Admin</button>
         <button class="tab" data-tab="authority" id="tab-authority" style="display: none;">🛡️ Authority Panel</button>
       </div>
@@ -604,6 +605,93 @@
               
               <!-- Result cards or tables will render here dynamically -->
               <div id="assistant-results-wrapper"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option Entry tab -->
+      <div class="tab-content" id="tab-content-option-entry">
+        <div class="predictor-card" style="background:var(--bg-card2); border:1px solid var(--border); border-radius:20px; padding:24px; margin-bottom:24px;">
+          <div style="font-family:var(--font-display); font-size:18px; font-weight:700; color:var(--text); margin-bottom:4px;">📋 KCET Counselling Option Entry Priority Builder</div>
+          <div style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">Come up with your prioritized list of college options based on your branches, locations, and rank. You can drag or reorder options and export your sheet.</div>
+
+          <!-- Configuration row -->
+          <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:20px; margin-bottom:24px;">
+            <div style="font-family:var(--font-display); font-size:14px; font-weight:700; color:var(--text); margin-bottom:12px; border-bottom:1px solid var(--border); padding-bottom:6px;">⚙️ Setup Option Entry Preferences</div>
+            
+            <div class="form-group" style="margin-bottom:16px;">
+              <label class="form-label">Branch Interests</label>
+              <div class="filter-chips" id="option-branch-chips" style="flex-wrap:wrap; gap:6px; display:flex;">
+                <button class="chip active" data-branch="CS">CS / IS</button>
+                <button class="chip active" data-branch="EC">Electronics (ECE)</button>
+                <button class="chip" data-branch="EE">Electrical (EEE)</button>
+                <button class="chip" data-branch="ME">Mechanical</button>
+                <button class="chip" data-branch="CE">Civil</button>
+                <button class="chip" data-branch="AD">AI & Data Science</button>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom:16px;">
+              <label class="form-label">Target Locations</label>
+              <div class="filter-chips" id="option-location-chips" style="flex-wrap:wrap; gap:6px; display:flex;">
+                <button class="chip active" data-dist="BANGALORE">Bangalore</button>
+                <button class="chip" data-dist="MYSORE">Mysore</button>
+                <button class="chip" data-dist="DHARWAD">Dharwad</button>
+                <button class="chip" data-dist="BELGAUM">Belgaum</button>
+                <button class="chip" data-dist="DAKSHINA KANNADA">Mangalore</button>
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
+              <div style="font-size:11px; color:var(--text-muted); max-width:60%;">
+                💡 System generates a seed prioritizing harder/better cutoff ranks first (the ideal strategy), classified into Dream, Target, and Safety.
+              </div>
+              <button class="auth-submit-btn" id="btn-generate-options" style="margin:0; width:auto; padding:10px 24px;">🚀 Generate Seed Priority List</button>
+            </div>
+          </div>
+
+          <!-- Active Priority List -->
+          <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:20px; display:flex; flex-direction:column; gap:16px; margin-bottom:24px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:10px;">
+              <div style="font-family:var(--font-display); font-size:14px; font-weight:700; color:var(--text);">📋 Your Priority Option Sheet</div>
+              <div style="display:flex; gap:10px;">
+                <button id="btn-clear-options" style="background:none; border:1px solid var(--border); color:var(--pink); font-size:11px; font-weight:700; cursor:pointer; padding:6px 12px; border-radius:6px; transition:all 0.2s;">Clear All</button>
+                <button id="btn-export-options" style="background:var(--blue); border:none; color:#fff; font-size:11px; font-weight:700; cursor:pointer; padding:6px 16px; border-radius:6px; box-shadow:0 4px 12px rgba(59,130,246,0.2); transition:all 0.2s;">Export Priorities (CSV)</button>
+              </div>
+            </div>
+
+            <!-- Autocomplete Search and Add -->
+            <div style="display:flex; gap:12px; align-items:center; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; padding:10px 14px;">
+              <span style="font-size:12px; font-weight:600; color:var(--text-muted); flex-shrink:0;">🔍 Add Custom College:</span>
+              <div style="position:relative; flex:1;">
+                <input type="text" id="option-search-input" class="form-input" style="padding:6px 12px; font-size:12px; margin:0;" placeholder="Search college name or KEA code to insert..." autocomplete="off">
+                <div id="option-search-results" style="position:absolute; top:100%; left:0; right:0; background:var(--bg-card); border:1px solid var(--border); border-radius:6px; box-shadow:0 10px 25px rgba(0,0,0,0.5); z-index:1000; max-height:200px; overflow-y:auto; display:none; margin-top:4px;"></div>
+              </div>
+              <select id="option-search-course" class="form-select" style="width:200px; padding:6px 12px; font-size:12px; margin:0;" disabled>
+                <option value="">Choose Course...</option>
+              </select>
+              <button id="btn-add-searched-option" style="padding:6px 16px; font-size:12px; font-weight:700; background:var(--green); color:#fff; border:none; border-radius:6px; cursor:pointer;" disabled>Add Option</button>
+            </div>
+
+            <!-- Table of options -->
+            <div class="table-container" style="overflow-x:auto;">
+              <table class="modal-courses-table" style="font-size:12px;" id="table-option-entry">
+                <thead>
+                  <tr>
+                    <th style="width:60px; text-align:center;">Priority</th>
+                    <th>College Name</th>
+                    <th>Branch / Course</th>
+                    <th style="width:120px; text-align:center;">Type / Chance</th>
+                    <th style="width:120px; text-align:center;">Reorder / Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="option-entry-tbody">
+                  <tr>
+                    <td colspan="5" style="text-align:center; color:var(--text-muted); padding:40px;">Your priority list is empty. Set your branch/location preferences above and click Generate, or add custom options manually.</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

@@ -1671,4 +1671,87 @@ body {
   to { transform: scale(1); opacity: 1; }
 }
 
+/* Option Entry Builder Styles */
+.chance-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 0.03em;
+}
+.chance-dream {
+  background: var(--purple-dim);
+  color: var(--purple);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+.chance-target {
+  background: var(--blue-dim);
+  color: var(--blue);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+.chance-safety {
+  background: var(--green-dim);
+  color: var(--green);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.reorder-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  transition: all 0.2s;
+  outline: none;
+}
+.reorder-btn:hover {
+  background: rgba(255,255,255,0.05);
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+.reorder-btn:active {
+  transform: scale(0.92);
+}
+
+.priority-row-num {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-align: center;
+}
+.priority-row-highlight {
+  animation: highlightFlash 1.5s ease-out;
+}
+
+@keyframes highlightFlash {
+  0% { background: rgba(59, 130, 246, 0.2); }
+  100% { background: transparent; }
+}
+
+.option-search-item {
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--text);
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+.option-search-item:hover {
+  background: rgba(255,255,255,0.05);
+}
+.option-search-item:last-child {
+  border-bottom: none;
+}
+
 

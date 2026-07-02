@@ -87,6 +87,7 @@ let currentUser = null;
 let pendingIntakeRequests = []; // Stores intake requests from institutions
 let systemAnnouncements = ["⚠️ KEA Seat Matrix & Prediction Portal is online for candidate counselling validation."];
 let authorityLogs = [`[System] Console initialized. Ready for operations.`];
+let studentOptionsList = []; // Student option entry priority sheet
 
 // ─────────────────────────────
 // Boot
@@ -788,6 +789,13 @@ function initAuth() {
         const prRank = document.getElementById('pred-rank');
         if (prRank) prRank.value = val;
         
+        if (studentOptionsList.length > 0) {
+          studentOptionsList.forEach(opt => {
+            opt.chanceClass = getChanceClass(opt.cutoff, currentUser.rank);
+          });
+          renderOptionEntryList();
+        }
+
         // Sync header displays or modal calculations
         applyFilters();
       }
@@ -805,6 +813,21 @@ function initAuth() {
         const prCat = document.getElementById('pred-category');
         if (prCat) prCat.value = val;
         
+        if (studentOptionsList.length > 0) {
+          studentOptionsList.forEach(opt => {
+            const col = allData.colleges.find(c => c.college_number == opt.collegeNum);
+            if (col) {
+              const course = col.courses.find(cr => cr.course_name === opt.courseName);
+              if (course) {
+                const newCutoff = getCourseCutoff(course, currentUser.category);
+                if (!isNaN(newCutoff)) opt.cutoff = newCutoff;
+              }
+            }
+            opt.chanceClass = getChanceClass(opt.cutoff, currentUser.rank);
+          });
+          renderOptionEntryList();
+        }
+
         applyFilters();
       }
     });
@@ -905,6 +928,9 @@ function initAuth() {
   if (downloadAuthAudit) {
     downloadAuthAudit.addEventListener('click', () => downloadAuthorityData('txt'));
   }
+
+  // Bind Option Entry priority builder events
+  bindOptionEntryEvents();
 }
 
 function setupInstitutionGroupColleges() {
@@ -1194,6 +1220,8 @@ function applyUserRole() {
     if (studentProfileSection) studentProfileSection.style.display = 'none';
     if (tabInst) tabInst.style.display = 'none';
     if (tabAuth) tabAuth.style.display = 'none';
+    const tabOption = document.getElementById('tab-option-entry');
+    if (tabOption) tabOption.style.display = 'none';
     return;
   }
 
@@ -1211,7 +1239,19 @@ function applyUserRole() {
     }
   }
 
+  // Hide/Show download selector based on role
+  const downloadAnnSelect = document.getElementById('download-ann-select');
+  if (downloadAnnSelect) {
+    if (currentUser && currentUser.role === 'student') {
+      downloadAnnSelect.style.display = 'none';
+      downloadAnnSelect.value = 'ALL';
+    } else {
+      downloadAnnSelect.style.display = 'block';
+    }
+  }
+
   // Role-specific sidebar profiles & tab buttons
+  const tabOption = document.getElementById('tab-option-entry');
   if (currentUser.role === 'student') {
     if (studentProfileSection) {
       studentProfileSection.style.display = 'block';
@@ -1220,6 +1260,7 @@ function applyUserRole() {
     }
     if (tabInst) tabInst.style.display = 'none';
     if (tabAuth) tabAuth.style.display = 'none';
+    if (tabOption) tabOption.style.display = 'block';
     
     // Sync to Predictor Tab
     const prRank = document.getElementById('pred-rank');
@@ -1230,6 +1271,7 @@ function applyUserRole() {
     if (studentProfileSection) studentProfileSection.style.display = 'none';
     if (tabInst) tabInst.style.display = 'block';
     if (tabAuth) tabAuth.style.display = 'none';
+    if (tabOption) tabOption.style.display = 'none';
     
     // Setup group colleges in database
     setupInstitutionGroupColleges();
@@ -1238,6 +1280,7 @@ function applyUserRole() {
     if (studentProfileSection) studentProfileSection.style.display = 'none';
     if (tabInst) tabInst.style.display = 'none';
     if (tabAuth) tabAuth.style.display = 'block';
+    if (tabOption) tabOption.style.display = 'none';
     
     renderAuthorityDashboard();
   }
@@ -1248,6 +1291,342 @@ function applyUserRole() {
 
   // Apply filtering
   applyFilters();
+}
+
+// ─────────────────────────────────────────────────────
+// Option Entry List Priority Builder
+// ─────────────────────────────────────────────────────
+const OPTION_BRANCH_MAP = {
+  CS: ["computer science", "cse", "information science", "ise", "artificial intelligence", "data science", "aiml", "cyber security", "software", "computer technology"],
+  EC: ["electronics", "ece", "telecommunication", "communication", "tele-communication"],
+  EE: ["electrical", "eee"],
+  ME: ["mechanical", "me", "automobile"],
+  CE: ["civil"],
+  AD: ["artificial intelligence", "data science", "aiml", "machine learning"]
+};
+
+function getChanceClass(cutoff, studentRank) {
+  if (!cutoff) return 'safety';
+  if (cutoff < studentRank) return 'dream';
+  if (cutoff >= studentRank && cutoff <= studentRank * 1.25) return 'target';
+  return 'safety';
+}
+
+function matchesBranch(courseName, branchCode) {
+  const lower = courseName.toLowerCase();
+  const patterns = OPTION_BRANCH_MAP[branchCode] || [];
+  return patterns.some(p => lower.includes(p));
+}
+
+function getCourseCutoff(course, category) {
+  const r1 = course.round1_cutoff ? parseInt(course.round1_cutoff[category]) : NaN;
+  const r2 = course.round2_cutoff ? parseInt(course.round2_cutoff[category]) : NaN;
+  const r3 = course.round3_cutoff ? parseInt(course.round3_cutoff[category]) : NaN;
+  return r3 || r2 || r1 || NaN;
+}
+
+function generateSeedPriorities() {
+  if (!currentUser || currentUser.role !== 'student') return;
+
+  // 1. Get Selected Branch Prefixes
+  const activeBranchChips = document.querySelectorAll('#option-branch-chips .chip.active');
+  const selectedBranches = Array.from(activeBranchChips).map(c => c.dataset.branch);
+
+  // 2. Get Selected Locations
+  const activeLocChips = document.querySelectorAll('#option-location-chips .chip.active');
+  const selectedLocs = Array.from(activeLocChips).map(c => c.dataset.dist);
+
+  if (selectedBranches.length === 0) {
+    alert("Please select at least one branch interest.");
+    return;
+  }
+
+  const studentRank = currentUser.rank || 5000;
+  const studentCategory = currentUser.category || 'GM';
+
+  // 3. Find Matches
+  const matches = [];
+  allData.colleges.forEach(col => {
+    // Filter location
+    const colDist = (col.district || '').toUpperCase();
+    const matchesLoc = selectedLocs.length === 0 || selectedLocs.some(l => colDist.includes(l));
+    if (!matchesLoc) return;
+
+    col.courses.forEach(c => {
+      // Filter branch
+      const matchesBranchCheck = selectedBranches.some(b => matchesBranch(c.course_name, b));
+      if (!matchesBranchCheck) return;
+
+      const cutoff = getCourseCutoff(c, studentCategory);
+      if (isNaN(cutoff)) return; // Ignore if no cutoff data
+
+      // Determine chance classification
+      let chanceClass = 'safety';
+      if (cutoff < studentRank) chanceClass = 'dream';
+      else if (cutoff >= studentRank && cutoff <= studentRank * 1.25) chanceClass = 'target';
+
+      matches.push({
+        id: col.college_number + '_' + c.course_name,
+        collegeNum: col.college_number,
+        collegeName: col.college_name,
+        keaCode: col.kea_code,
+        courseName: c.course_name,
+        cutoff: cutoff,
+        chanceClass: chanceClass
+      });
+    });
+  });
+
+  // Sort strictly by cutoff rank ascending (highest quality/hardest to get first)
+  matches.sort((a, b) => a.cutoff - b.cutoff);
+
+  // Take top 40 matching priority options to keep it clean and performant
+  studentOptionsList = matches.slice(0, 40);
+
+  alert(`Successfully generated ${studentOptionsList.length} options matching your profile rank & preferences!`);
+  renderOptionEntryList();
+}
+
+function renderOptionEntryList() {
+  const tbody = document.getElementById('option-entry-tbody');
+  if (!tbody) return;
+
+  if (studentOptionsList.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5" style="text-align:center; color:var(--text-muted); padding:40px;">Your priority list is empty. Set your branch/location preferences above and click Generate, or add custom options manually.</td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = studentOptionsList.map((opt, index) => {
+    const priority = index + 1;
+    let badgeHtml = '';
+    if (opt.chanceClass === 'dream') {
+      badgeHtml = '<span class="chance-badge chance-dream">Dream</span>';
+    } else if (opt.chanceClass === 'target') {
+      badgeHtml = '<span class="chance-badge chance-target">Target</span>';
+    } else {
+      badgeHtml = '<span class="chance-badge chance-safety">Safety</span>';
+    }
+
+    // Disable UP button if first item, disable DOWN button if last item
+    const upDisabled = priority === 1 ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : '';
+    const downDisabled = priority === studentOptionsList.length ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : '';
+
+    return `
+      <tr id="priority-row-${priority}">
+        <td class="priority-row-num">${priority}</td>
+        <td>
+          <div style="font-weight:600; color:var(--text);">${opt.collegeName}</div>
+          <small style="color:var(--text-muted)">KEA Code: <span class="kea-code-badge" style="padding:1px 6px; font-size:9px;">${opt.keaCode || 'N/A'}</span></small>
+        </td>
+        <td><strong>${opt.courseName}</strong><br><small style="color:var(--text-muted)">Cutoff Rank: ${opt.cutoff.toLocaleString()}</small></td>
+        <td style="text-align:center;">${badgeHtml}</td>
+        <td>
+          <div style="display:flex; gap:6px; justify-content:center;">
+            <button class="reorder-btn" onclick="movePriorityOption(${index}, -1)" ${upDisabled} title="Move Up">▲</button>
+            <button class="reorder-btn" onclick="movePriorityOption(${index}, 1)" ${downDisabled} title="Move Down">▼</button>
+            <button class="reorder-btn" onclick="deletePriorityOption(${index})" title="Delete" style="color:var(--pink); border-color:rgba(244,63,94,0.2);">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function movePriorityOption(index, direction) {
+  const newIndex = index + direction;
+  if (newIndex < 0 || newIndex >= studentOptionsList.length) return;
+
+  // Swap elements
+  const temp = studentOptionsList[index];
+  studentOptionsList[index] = studentOptionsList[newIndex];
+  studentOptionsList[newIndex] = temp;
+
+  renderOptionEntryList();
+
+  // Highlight swapped rows for visual confirmation
+  const row1 = document.getElementById(`priority-row-${index + 1}`);
+  const row2 = document.getElementById(`priority-row-${newIndex + 1}`);
+  if (row1) row1.classList.add('priority-row-highlight');
+  if (row2) row2.classList.add('priority-row-highlight');
+}
+
+function deletePriorityOption(index) {
+  studentOptionsList.splice(index, 1);
+  renderOptionEntryList();
+}
+
+window.movePriorityOption = movePriorityOption;
+window.deletePriorityOption = deletePriorityOption;
+
+function bindOptionEntryEvents() {
+  // 1. Branch chips toggles
+  document.querySelectorAll('#option-branch-chips .chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('active');
+    });
+  });
+
+  // 2. Location chips toggles
+  document.querySelectorAll('#option-location-chips .chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('active');
+    });
+  });
+
+  // 3. Generate button
+  const genBtn = document.getElementById('btn-generate-options');
+  if (genBtn) {
+    genBtn.addEventListener('click', generateSeedPriorities);
+  }
+
+  // 4. Clear priorities
+  const clearBtn = document.getElementById('btn-clear-options');
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      if (confirm("Are you sure you want to clear your prioritized option entry sheet?")) {
+        studentOptionsList = [];
+        renderOptionEntryList();
+      }
+    });
+  }
+
+  // 5. Export priorities
+  const exportBtn = document.getElementById('btn-export-options');
+  if (exportBtn) {
+    exportBtn.addEventListener('click', () => {
+      if (studentOptionsList.length === 0) {
+        alert("Your priority option list is empty!");
+        return;
+      }
+      let csv = "Priority Index,KEA Code,College Name,Course Name,Cutoff Rank,Category Chance\n";
+      studentOptionsList.forEach((opt, index) => {
+        csv += `${index+1},"${opt.keaCode || ''}","${opt.collegeName}","${opt.courseName}",${opt.cutoff},"${opt.chanceClass.toUpperCase()}"\n`;
+      });
+      triggerFileDownload(csv, "my_kcet_prioritized_options.csv", "text/csv");
+    });
+  }
+
+  // 6. Autocomplete custom search-and-add options
+  const searchInput = document.getElementById('option-search-input');
+  const searchResults = document.getElementById('option-search-results');
+  const searchCourseSelect = document.getElementById('option-search-course');
+  const addOptionBtn = document.getElementById('btn-add-searched-option');
+
+  let selectedCollegeForAdd = null;
+
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.toLowerCase().trim();
+      if (!q) {
+        searchResults.style.display = 'none';
+        return;
+      }
+
+      // Filter matches
+      const matches = allData.colleges.filter(c => 
+        c.college_name.toLowerCase().includes(q) || 
+        (c.kea_code || '').toLowerCase().includes(q)
+      ).slice(0, 8);
+
+      if (matches.length === 0) {
+        searchResults.innerHTML = `<div style="padding:10px; font-size:12px; color:var(--text-muted); text-align:center;">No colleges found.</div>`;
+      } else {
+        searchResults.innerHTML = matches.map(c => `
+          <div class="option-search-item" data-id="${c.college_number}">
+            <strong>${c.college_name}</strong> <span style="font-size:10px; color:var(--blue); font-weight:700; margin-left:6px;">${c.kea_code || ''}</span>
+          </div>
+        `).join('');
+      }
+
+      searchResults.style.display = 'block';
+
+      // Bind search items
+      const bindSearchResults = () => {
+        document.querySelectorAll('.option-search-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const colId = item.dataset.id;
+            selectedCollegeForAdd = allData.colleges.find(c => c.college_number == colId);
+            
+            if (selectedCollegeForAdd) {
+              searchInput.value = selectedCollegeForAdd.college_name;
+              searchResults.style.display = 'none';
+              
+              // Populate courses select dropdown
+              searchCourseSelect.disabled = false;
+              searchCourseSelect.innerHTML = `<option value="">Choose Course...</option>` + 
+                selectedCollegeForAdd.courses.map(c => `<option value="${escHtml(c.course_name)}">${c.course_name}</option>`).join('');
+            }
+          });
+        });
+      };
+      bindSearchResults();
+    });
+
+    // Close dropdown on click outside
+    document.addEventListener('click', (e) => {
+      if (searchInput && !searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+        searchResults.style.display = 'none';
+      }
+    });
+  }
+
+  if (searchCourseSelect) {
+    searchCourseSelect.addEventListener('change', () => {
+      const activeVal = searchCourseSelect.value;
+      if (activeVal && selectedCollegeForAdd) {
+        addOptionBtn.disabled = false;
+      } else {
+        addOptionBtn.disabled = true;
+      }
+    });
+  }
+
+  if (addOptionBtn) {
+    addOptionBtn.addEventListener('click', () => {
+      if (!selectedCollegeForAdd) return;
+      const courseName = searchCourseSelect.value;
+      const courseObj = selectedCollegeForAdd.courses.find(c => c.course_name === courseName);
+      if (!courseObj) return;
+
+      const studentRank = currentUser ? (currentUser.rank || 5000) : 5000;
+      const studentCategory = currentUser ? (currentUser.category || 'GM') : 'GM';
+      const cutoff = getCourseCutoff(courseObj, studentCategory) || 999999;
+
+      let chanceClass = 'safety';
+      if (cutoff < studentRank) chanceClass = 'dream';
+      else if (cutoff >= studentRank && cutoff <= studentRank * 1.25) chanceClass = 'target';
+
+      const newOpt = {
+        id: selectedCollegeForAdd.college_number + '_' + courseName,
+        collegeNum: selectedCollegeForAdd.college_number,
+        collegeName: selectedCollegeForAdd.college_name,
+        keaCode: selectedCollegeForAdd.kea_code,
+        courseName: courseName,
+        cutoff: cutoff,
+        chanceClass: chanceClass
+      };
+
+      // Check for duplicate
+      if (studentOptionsList.some(o => o.id === newOpt.id)) {
+        alert("This option is already in your priority list!");
+        return;
+      }
+
+      studentOptionsList.push(newOpt);
+      renderOptionEntryList();
+
+      // Reset
+      searchInput.value = '';
+      searchCourseSelect.disabled = true;
+      searchCourseSelect.innerHTML = `<option value="">Choose Course...</option>`;
+      addOptionBtn.disabled = true;
+      selectedCollegeForAdd = null;
+    });
+  }
 }
 
 // ─────────────────────────────
@@ -2507,6 +2886,8 @@ function bindEvents() {
         renderInstitutionDashboard();
       } else if (currentTab === 'authority') {
         renderAuthorityDashboard();
+      } else if (currentTab === 'option-entry') {
+        renderOptionEntryList();
       }
     });
   });
