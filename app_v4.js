@@ -90,6 +90,7 @@ async function loadYearData(year) {
     applyFilters();
     renderStats();
     renderTotals('ALL');
+    updateDownloadDropdown(year);
 
     // Update document subtitle
     const subtitleEl = document.getElementById('brand-subtitle');
@@ -1455,14 +1456,60 @@ function renderTotals(annFilter) {
 // ─────────────────────────────
 // Annexure Data Download logic
 // ─────────────────────────────
+function updateDownloadDropdown(year) {
+  const select = document.getElementById('download-ann-select');
+  if (!select) return;
+  
+  const valBefore = select.value;
+  
+  if (year === '2024') {
+    select.innerHTML = `
+      <option value="ALL">All Annexures (Combined)</option>
+      <option value="A">Annexure A - Government</option>
+      <option value="B">Annexure B - Govt Aided</option>
+      <option value="C">Annexure C - Private Unaided</option>
+      <option value="D">Annexure D - Private Minority</option>
+      <option value="M">Annexure M - Public Univ.</option>
+      <option value="O">Annexure O - Pvt Univ.</option>
+      <option value="P">Annexure P - Deemed Univ.</option>
+      <option value="Undefined">Annexure Undefined - Special Category</option>
+    `;
+  } else {
+    select.innerHTML = `
+      <option value="ALL">All Annexures (Combined)</option>
+      <option value="A">Annexure A - Government</option>
+      <option value="B">Annexure B - Govt Aided</option>
+      <option value="C">Annexure C - Private Unaided</option>
+      <option value="D">Annexure D - Private Minority</option>
+      <option value="M">Annexure M - Public Univ.</option>
+      <option value="O">Annexure O - Pvt Univ.</option>
+      <option value="P">Annexure P - Deemed Univ.</option>
+      <option value="Z">Annexure Z - Govt (Higher Fees)</option>
+      <option value="E">Annexure E - New Intake (Govt/Pvt)</option>
+      <option value="V">Annexure V - New Intake (Univ)</option>
+      <option value="Undefined">Annexure Undefined - Special Category</option>
+    `;
+  }
+  
+  if ([...select.options].some(o => o.value === valBefore)) {
+    select.value = valBefore;
+  } else {
+    select.value = 'ALL';
+  }
+}
+
+// ─────────────────────────────
+// Annexure Data Download logic
+// ─────────────────────────────
 function downloadJSON() {
   const annSel = document.getElementById('download-ann-select').value;
+  const selectedYear = document.getElementById('year-select')?.value || '2025';
   let dataToDownload;
   let filename;
 
   if (annSel === 'ALL') {
     dataToDownload = allData.colleges;
-    filename = 'karnataka_seat_matrix_2025_all.json';
+    filename = `karnataka_seat_matrix_${selectedYear}_all.json`;
   } else if (annSel === 'Undefined') {
     dataToDownload = allData.colleges.map(col => {
       const specCourses = col.courses.filter(c => 
@@ -1475,10 +1522,10 @@ function downloadJSON() {
       }
       return null;
     }).filter(col => col !== null);
-    filename = 'karnataka_seat_matrix_2025_annexure_Undefined.json';
+    filename = `karnataka_seat_matrix_${selectedYear}_annexure_Undefined.json`;
   } else {
     dataToDownload = allData.colleges.filter(c => c.annexure === annSel);
-    filename = `karnataka_seat_matrix_2025_annexure_${annSel}.json`;
+    filename = `karnataka_seat_matrix_${selectedYear}_annexure_${annSel}.json`;
   }
 
   const jsonStr = JSON.stringify(dataToDownload, null, 2);
@@ -1488,6 +1535,7 @@ function downloadJSON() {
 
 function downloadCSV() {
   const annSel = document.getElementById('download-ann-select').value;
+  const selectedYear = document.getElementById('year-select')?.value || '2025';
   let colleges;
   let filename;
 
@@ -1549,7 +1597,7 @@ function downloadCSV() {
       });
     });
     
-    filename = 'karnataka_seat_matrix_2025_annexure_Undefined.csv';
+    filename = `karnataka_seat_matrix_${selectedYear}_annexure_Undefined.csv`;
     const csvStr = csvRows.join('\n');
     const blob = new Blob([csvStr], { type: 'text/csv;charset=utf-8;' });
     triggerDownload(blob, filename);
@@ -1558,10 +1606,10 @@ function downloadCSV() {
 
   if (annSel === 'ALL') {
     colleges = allData.colleges;
-    filename = 'karnataka_seat_matrix_2025_all.csv';
+    filename = `karnataka_seat_matrix_${selectedYear}_all.csv`;
   } else {
     colleges = allData.colleges.filter(c => c.annexure === annSel);
-    filename = `karnataka_seat_matrix_2025_annexure_${annSel}.csv`;
+    filename = `karnataka_seat_matrix_${selectedYear}_annexure_${annSel}.csv`;
   }
 
   const headers = [
