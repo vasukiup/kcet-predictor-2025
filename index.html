@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="style_v4.css?v=4"/>
+  <link rel="stylesheet" href="style_v4.css?v=5"/>
 </head>
 <body>
   <!-- Header -->
@@ -374,6 +374,39 @@
               </div>
             </div>
           </div>
+          <!-- YoY Structural Shifts -->
+          <div class="stat-card full">
+            <div class="stat-card-title">YoY Structural Shifts (Colleges, Courses & Fees)</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 16px;">
+              <!-- Colleges Added / Removed -->
+              <div style="background: rgba(255,255,255,0.02); padding: 16px; border-radius: 12px; border: 1px solid var(--border);">
+                <div style="font-size: 11px; font-weight:600; color: var(--blue); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px;">🏫 Colleges Added / Removed (YoY)</div>
+                <div style="display:flex; flex-direction:column; gap:8px;">
+                  <div style="font-size:11px; font-weight:600; color:var(--green); margin-bottom:4px;">➕ Added in 2025:</div>
+                  <div id="colleges-added-list" style="display:flex; flex-direction:column; gap:4px; margin-bottom:12px;"></div>
+                  <div style="font-size:11px; font-weight:600; color:var(--pink); margin-bottom:4px;">➖ Removed in 2025:</div>
+                  <div id="colleges-removed-list" style="display:flex; flex-direction:column; gap:4px;"></div>
+                </div>
+              </div>
+              
+              <!-- Courses Added / Removed -->
+              <div style="background: rgba(255,255,255,0.02); padding: 16px; border-radius: 12px; border: 1px solid var(--border);">
+                <div style="font-size: 11px; font-weight:600; color: var(--purple); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px;">📚 New Course Offerings (YoY)</div>
+                <div style="display:flex; flex-direction:column; gap:8px;">
+                  <div style="font-size:11px; font-weight:600; color:var(--green); margin-bottom:4px;">🆕 Added in 2025:</div>
+                  <div id="courses-added-list" style="display:flex; flex-direction:column; gap:4px; margin-bottom:12px; max-height:120px; overflow-y:auto;"></div>
+                  <div style="font-size:11px; font-weight:600; color:var(--pink); margin-bottom:4px;">🚫 Removed in 2025:</div>
+                  <div id="courses-removed-list" style="display:flex; flex-direction:column; gap:4px; max-height:120px; overflow-y:auto;"></div>
+                </div>
+              </div>
+
+              <!-- YoY Fee Changes -->
+              <div style="background: rgba(255,255,255,0.02); padding: 16px; border-radius: 12px; border: 1px solid var(--border);">
+                <div style="font-size: 11px; font-weight:600; color: var(--green); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px;">💰 YoY Tuition Fee Hikes / Changes</div>
+                <div id="fee-changes-list" style="display:flex; flex-direction:column; gap:8px;"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -570,6 +603,6 @@
     </div>
   </div>
 
-  <script src="app_v4.js?v=4"></script>
+  <script src="app_v4.js?v=5"></script>
 </body>
 </html>

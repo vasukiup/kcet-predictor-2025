@@ -358,6 +358,125 @@ function renderYoYStats() {
 
   const elCooling = document.getElementById('popularity-shifts-cooling');
   if (elCooling) elCooling.innerHTML = cooling.map(item => renderShiftItem(item, false)).join('');
+
+  // YoY Structural Shifts - Colleges Added/Removed
+  const codes24 = new Set(cache2024.colleges.map(col => col.kea_code).filter(Boolean));
+  const codes25 = new Set(cache2025.colleges.map(col => col.kea_code).filter(Boolean));
+
+  const addedColCodes = [...codes25].filter(x => !codes24.has(x));
+  const removedColCodes = [...codes24].filter(x => !codes25.has(x));
+
+  const getColName = (cache, code) => {
+    const col = cache.colleges.find(c => c.kea_code === code);
+    return col ? col.college_name : code;
+  };
+
+  const addedColHtml = addedColCodes.length > 0 
+    ? addedColCodes.map(code => `
+        <div style="font-size:11px; color:var(--text); padding:4px 6px; background:rgba(74,222,128,0.05); border-radius:6px; border:1px solid rgba(74,222,128,0.1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${getColName(cache2025, code)}">
+          🟢 <strong>${code}</strong> - ${getColName(cache2025, code)}
+        </div>
+      `).join('')
+    : '<div style="font-size:11px; color:var(--text-muted);">None detected</div>';
+
+  const removedColHtml = removedColCodes.length > 0
+    ? removedColCodes.map(code => `
+        <div style="font-size:11px; color:var(--text); padding:4px 6px; background:rgba(244,63,94,0.05); border-radius:6px; border:1px solid rgba(244,63,94,0.1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${getColName(cache2024, code)}">
+          🔴 <strong>${code}</strong> - ${getColName(cache2024, code)}
+        </div>
+      `).join('')
+    : '<div style="font-size:11px; color:var(--text-muted);">None detected</div>';
+
+  const elColAdded = document.getElementById('colleges-added-list');
+  const elColRemoved = document.getElementById('colleges-removed-list');
+  if (elColAdded) elColAdded.innerHTML = addedColHtml;
+  if (elColRemoved) elColRemoved.innerHTML = removedColHtml;
+
+  // YoY Structural Shifts - Courses Added/Removed
+  const courses24 = new Set(cache2024.colleges.flatMap(col => col.courses.map(c => c.course_name)));
+  const courses25 = new Set(cache2025.colleges.flatMap(col => col.courses.map(c => c.course_name)));
+
+  const addedCourses = [...courses25].filter(x => !courses24.has(x));
+  const removedCourses = [...courses24].filter(x => !courses25.has(x));
+
+  const addedCoursesHtml = addedCourses.length > 0
+    ? addedCourses.map(c => `
+        <div style="font-size:11px; color:var(--text); padding:3px 6px; background:rgba(74,222,128,0.02); border-radius:4px; border:1px solid rgba(255,255,255,0.02); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${c}">
+          ✨ ${c}
+        </div>
+      `).join('')
+    : '<div style="font-size:11px; color:var(--text-muted);">None detected</div>';
+
+  const removedCoursesHtml = removedCourses.length > 0
+    ? removedCourses.map(c => `
+        <div style="font-size:11px; color:var(--text-muted); padding:3px 6px; background:rgba(255,255,255,0.01); border-radius:4px; border:1px solid rgba(255,255,255,0.02); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${c}">
+          🚫 ${c}
+        </div>
+      `).join('')
+    : '<div style="font-size:11px; color:var(--text-muted);">None detected</div>';
+
+  const elCoursesAdded = document.getElementById('courses-added-list');
+  const elCoursesRemoved = document.getElementById('courses-removed-list');
+  if (elCoursesAdded) elCoursesAdded.innerHTML = addedCoursesHtml;
+  if (elCoursesRemoved) elCoursesRemoved.innerHTML = removedCoursesHtml;
+
+  // YoY Structural Shifts - Tuition Fee changes
+  const parseFeeString = (str) => {
+    if (!str) return 0;
+    const clean = str.replace(/[^0-9]/g, '');
+    return parseInt(clean) || 0;
+  };
+
+  const feeChanges = [];
+  cache2025.colleges.forEach(col => {
+    if (!col.kea_code) return;
+    const col24 = cache2024.colleges.find(c24 => c24.kea_code === col.kea_code);
+    if (!col24) return;
+    
+    col.courses.forEach(c25 => {
+      if ((c25.total_kea_seats || 0) === 0) return;
+      const stdTarget = c25.course_name.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      const c24 = col24.courses.find(cx => cx.course_name.toUpperCase().replace(/[^A-Z0-9]/g, '') === stdTarget);
+      if (!c24) return;
+      
+      const fee24Str = getCourseFee(col24, c24.course_name, c24.total_kea_seats);
+      const fee25Str = getCourseFee(col, c25.course_name, c25.total_kea_seats);
+      
+      const fee24 = parseFeeString(fee24Str);
+      const fee25 = parseFeeString(fee25Str);
+      
+      if (!fee24 || !fee25 || fee24 === fee25) return;
+      
+      const change = fee25 - fee24;
+      feeChanges.push({
+        collegeName: col.college_name,
+        courseName: c25.course_name,
+        fee24,
+        fee25,
+        change
+      });
+    });
+  });
+
+  const topHikes = [...feeChanges].sort((a, b) => b.change - a.change).slice(0, 5);
+
+  const hikesHtml = topHikes.length > 0
+    ? topHikes.map(item => `
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.02); padding-bottom:6px;">
+          <div style="max-width:70%;">
+            <div style="font-size:11px; font-weight:700; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${item.collegeName}">${item.collegeName}</div>
+            <div style="font-size:10px; color:var(--text-muted);">${item.courseName}</div>
+            <div style="font-size:9px; color:var(--text-muted);">₹${item.fee24.toLocaleString()} ➔ ₹${item.fee25.toLocaleString()}</div>
+          </div>
+          <span style="font-size:10px; font-weight:700; color:var(--pink); white-space:nowrap;">
+            +₹${item.change.toLocaleString()}
+          </span>
+        </div>
+      `).join('')
+    : '<div style="font-size:11px; color:var(--text-muted); text-align:center; padding:12px;">No tuition fee changes detected</div>';
+
+  const elFees = document.getElementById('fee-changes-list');
+  if (elFees) elFees.innerHTML = hikesHtml;
 }
 
 async function init() {
