@@ -37,8 +37,11 @@ const CHART_COLORS = [
 
 // ─────────────────────────────
 // State
+// State
 // ─────────────────────────────
 let allData = null;
+let cache2024 = null;
+let cache2025 = null;
 let filtered = [];
 let displayCount = 30;
 let currentTab = 'colleges';
@@ -85,6 +88,10 @@ async function loadYearData(year) {
       }
     }
 
+    // Cache the loaded year data
+    if (year === '2024') cache2024 = allData;
+    else cache2025 = allData;
+
     populateFilters();
     updateHeaderStats();
     applyFilters();
@@ -97,12 +104,113 @@ async function loadYearData(year) {
     if (subtitleEl) {
       subtitleEl.textContent = `Engineering Admissions ${year}`;
     }
+
+    // Load and render YoY comparison asynchronously
+    triggerYoYStatsLoad(year);
+
   } catch (e) {
     console.error('Failed to load data:', e);
     document.getElementById('colleges-grid').innerHTML =
       `<div class="empty-state"><div class="empty-state-icon">⚠️</div>
        <div class="empty-state-text">Could not load ${filename}.<br>Make sure the file is in the same directory.</div></div>`;
   }
+}
+
+function triggerYoYStatsLoad(activeYear) {
+  if (activeYear === '2024') {
+    if (cache2025) {
+      renderYoYStats();
+    } else {
+      fetch('seat_matrix_data.json')
+        .then(r => r.json())
+        .then(data => {
+          cache2025 = data;
+          
+          cache2025.colleges.forEach(col => {
+            let colKea = 0;
+            col.courses.forEach(c => {
+              const computedKea = (c.kea_rk || 0) + (c.kea_hk || 0) + (c.kea_spl || 0) + (c.kea_ph || 0);
+              c.total_kea_seats = computedKea;
+              colKea += computedKea;
+            });
+            col.total_kea_seats = colKea;
+          });
+          let totalKea = 0;
+          cache2025.colleges.forEach(col => { totalKea += col.total_kea_seats; });
+          cache2025.stats.total_kea_seats = totalKea;
+
+          renderYoYStats();
+        });
+    }
+  } else {
+    if (cache2024) {
+      renderYoYStats();
+    } else {
+      fetch('seat_matrix_data_2024.json')
+        .then(r => r.json())
+        .then(data => {
+          cache2024 = data;
+
+          cache2024.colleges.forEach(col => {
+            let colKea = 0;
+            col.courses.forEach(c => {
+              const computedKea = (c.kea_rk || 0) + (c.kea_hk || 0) + (c.kea_spl || 0) + (c.kea_ph || 0);
+              c.total_kea_seats = computedKea;
+              colKea += computedKea;
+            });
+            col.total_kea_seats = colKea;
+          });
+          let totalKea = 0;
+          cache2024.colleges.forEach(col => { totalKea += col.total_kea_seats; });
+          cache2024.stats.total_kea_seats = totalKea;
+
+          renderYoYStats();
+        });
+    }
+  }
+}
+
+function renderYoYStats() {
+  if (!cache2024 || !cache2025) return;
+
+  const seats2024 = cache2024.stats.total_seats;
+  const seats2025 = cache2025.stats.total_seats;
+  const kea2024 = cache2024.stats.total_kea_seats;
+  const kea2025 = cache2025.stats.total_kea_seats;
+  const colleges2024 = cache2024.stats.total_colleges;
+  const colleges2025 = cache2025.stats.total_colleges;
+
+  const elSeats24 = document.getElementById('yoy-seats-2024');
+  const elSeats25 = document.getElementById('yoy-seats-2025');
+  const elKea24 = document.getElementById('yoy-kea-2024');
+  const elKea25 = document.getElementById('yoy-kea-2025');
+  const elCol24 = document.getElementById('yoy-colleges-2024');
+  const elCol25 = document.getElementById('yoy-colleges-2025');
+
+  if (elSeats24) elSeats24.textContent = seats2024.toLocaleString();
+  if (elSeats25) elSeats25.textContent = seats2025.toLocaleString();
+  if (elKea24) elKea24.textContent = kea2024.toLocaleString();
+  if (elKea25) elKea25.textContent = kea2025.toLocaleString();
+  if (elCol24) elCol24.textContent = colleges2024.toLocaleString();
+  if (elCol25) elCol25.textContent = colleges2025.toLocaleString();
+
+  const maxSeats = Math.max(seats2024, seats2025) || 1;
+  const maxKea = Math.max(kea2024, kea2025) || 1;
+  const maxColleges = Math.max(colleges2024, colleges2025) || 1;
+
+  const barSeats24 = document.getElementById('yoy-bar-seats-2024');
+  const barSeats25 = document.getElementById('yoy-bar-seats-2025');
+  const barKea24 = document.getElementById('yoy-bar-kea-2024');
+  const barKea25 = document.getElementById('yoy-bar-kea-2025');
+  const barCol24 = document.getElementById('yoy-bar-colleges-2024');
+  const barCol25 = document.getElementById('yoy-bar-colleges-2025');
+
+  if (barSeats24) barSeats24.style.width = `${(seats2024 / maxSeats) * 100}%`;
+  if (barSeats25) barSeats25.style.width = `${(seats2025 / maxSeats) * 100}%`;
+  if (barKea24) barKea24.style.width = `${(kea2024 / maxKea) * 100}%`;
+  if (barKea25) barKea25.style.width = `${(kea2025 / maxKea) * 100}%`;
+  if (barCol24) barCol24.style.width = `${(colleges2024 / maxColleges) * 100}%`;
+  if (barCol25) barCol25.style.width = `${(colleges2025 / maxColleges) * 100}%`;
 }
 
 async function init() {

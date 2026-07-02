@@ -283,6 +283,74 @@
                   <div id="quota-val-mgmt" style="font-size: 16px; font-weight: 700; color: var(--text);">—</div>
                 </div>
               </div>
+          </div>
+          <div class="stat-card full">
+            <div class="stat-card-title">Year-on-Year Comparison (2024 vs 2025)</div>
+            <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 16px;">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <!-- Total Seats Compare -->
+                <div style="background: rgba(255,255,255,0.02); padding: 16px; border-radius: 12px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px;">
+                  <div style="font-size: 11px; font-weight:600; color: var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Total Intake Seats</div>
+                  <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                      <span style="font-size: 12px; color: var(--text-muted);">2024</span>
+                      <span id="yoy-seats-2024" style="font-size: 14px; font-weight: 700; color: var(--text-muted);">—</span>
+                    </div>
+                    <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
+                      <div id="yoy-bar-seats-2024" style="background: #6b7799; height: 100%; width: 0%; transition: width 0.5s;"></div>
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
+                      <span style="font-size: 12px; color: var(--text-muted);">2025</span>
+                      <span id="yoy-seats-2025" style="font-size: 14px; font-weight: 700; color: var(--blue);">—</span>
+                    </div>
+                    <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
+                      <div id="yoy-bar-seats-2025" style="background: var(--blue); height: 100%; width: 0%; transition: width 0.5s;"></div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- KEA Seats Compare -->
+                <div style="background: rgba(255,255,255,0.02); padding: 16px; border-radius: 12px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px;">
+                  <div style="font-size: 11px; font-weight:600; color: var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">KEA Quota Seats</div>
+                  <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                      <span style="font-size: 12px; color: var(--text-muted);">2024</span>
+                      <span id="yoy-kea-2024" style="font-size: 14px; font-weight: 700; color: var(--text-muted);">—</span>
+                    </div>
+                    <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
+                      <div id="yoy-bar-kea-2024" style="background: #6b7799; height: 100%; width: 0%; transition: width 0.5s;"></div>
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
+                      <span style="font-size: 12px; color: var(--text-muted);">2025</span>
+                      <span id="yoy-kea-2025" style="font-size: 14px; font-weight: 700; color: var(--purple);">—</span>
+                    </div>
+                    <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
+                      <div id="yoy-bar-kea-2025" style="background: var(--purple); height: 100%; width: 0%; transition: width 0.5s;"></div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Colleges Count Compare -->
+                <div style="background: rgba(255,255,255,0.02); padding: 16px; border-radius: 12px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px;">
+                  <div style="font-size: 11px; font-weight:600; color: var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Colleges Count</div>
+                  <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                      <span style="font-size: 12px; color: var(--text-muted);">2024</span>
+                      <span id="yoy-colleges-2024" style="font-size: 14px; font-weight: 700; color: var(--text-muted);">—</span>
+                    </div>
+                    <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
+                      <div id="yoy-bar-colleges-2024" style="background: #6b7799; height: 100%; width: 0%; transition: width 0.5s;"></div>
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
+                      <span style="font-size: 12px; color: var(--text-muted);">2025</span>
+                      <span id="yoy-colleges-2025" style="font-size: 14px; font-weight: 700; color: var(--green);">—</span>
+                    </div>
+                    <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
+                      <div id="yoy-bar-colleges-2025" style="background: var(--green); height: 100%; width: 0%; transition: width 0.5s;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
