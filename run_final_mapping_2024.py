@@ -38,7 +38,25 @@ MANUAL_OVERRIDES = {
     "m s ramaiah institute of technology, bangalore": "E006",
     "m s ramaiah institute of technology, bangalore (autonomous)": "E006",
     "dayananda sagar college of engineering, bangalore": "E007",
-    "dayananda sagar college of engineering, bangalore (autonomous)": "E007"
+    "dayananda sagar college of engineering, bangalore (autonomous)": "E007",
+    
+    # 2024 Low-ratio or university overrides
+    "anjuman institute of technology & management, bhatkal": "E035",
+    "adhichunchanagiri university (formerly b g s institute of technology)": "E142",
+    "adhichunchanagiri university (formerly b g s institute of technology, bg nagara)": "E142",
+    "cmr university": "E257",
+    "gm university": "E303",
+    "rai technological uniersity": "E256",
+    "rai technology university": "E256",
+    "amity university": "E302",
+    "garden city university": "E288",
+    "rv university": "E285",
+    "m s engineering college, bangalore": "E127",
+    "beary's institute of technology, boliar village, bantwal tq, mangalore": "E180",
+    "beary's institute of technology, boliar village, bantwal tq, mangalore.": "E180",
+    "beary's institute of technology, boliar village,bantwal tq, mangalore": "E180",
+    "basav engineering school of technology, vijayapura": None,
+    "basav engineering school of technology, vijayapura.": None
 }
 
 AIDED_UNITS = {
@@ -274,7 +292,8 @@ GENERIC_WORDS = {
     'national', 'indian', 'regional', 'post', 'box', 'no', 'road', 'street',
     'campus', 'city', 'district', 'town', 'village',
     'bangalore', 'bengaluru', 'mysore', 'mysuru', 'mangalore', 'mangaluru', 
-    'belgaum', 'belagavi'
+    'belgaum', 'belagavi',
+    'south', 'north', 'east', 'west'
 }
 
 def get_core_keywords(name):
@@ -373,13 +392,12 @@ def run_mapping():
             scored = []
             for code, info in cutoff_cleaned.items():
                 intersect = len(sm_core & info['core'])
-                
-                if intersect == 0 and len(sm_core) > 0 and len(info['core']) > 0:
-                    continue
-                    
                 ratio = difflib.SequenceMatcher(None, sm_clean, info['clean']).ratio()
+                if intersect == 0:
+                    if ratio < 0.70:
+                        continue
+                    
                 overlap_courses = len(sm_courses & info['courses'])
-                
                 overlap_score = intersect * 10 + overlap_courses * 2
                 if ratio >= 0.95:
                     overlap_score += 100
