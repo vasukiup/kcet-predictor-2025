@@ -4115,82 +4115,102 @@ function triggerDownload(blob, filename) {
 // ─────────────────────────────────────────────────────
 // Rank Predictor Logic
 // ─────────────────────────────────────────────────────
+function cleanCourseStr(name) {
+  if (!name) return '';
+  return name.toUpperCase().replace(/[^A-Z0-9]/g, '');
+}
+
 function resolveCourseCutoff(college, course, category, selectedRound) {
   const activeYear = allData.year || '2026';
   
-  const roundMap = {
-    'mock_round1': ['mock_round1_cutoff'],
-    'round1': ['round1_cutoff', 'mock_round1_cutoff'],
-    'round2': ['round2_cutoff', 'round1_cutoff', 'mock_round1_cutoff'],
-    'round3': ['round3_cutoff', 'round2_cutoff', 'round1_cutoff', 'mock_round1_cutoff']
-  };
-  
-  const roundLabels = {
-    'mock_round1_cutoff': 'Mock',
-    'round1_cutoff': 'R1',
-    'round2_cutoff': 'R2',
-    'round3_cutoff': 'R3'
+  const roundKeyMap = {
+    'mock_round1': 'mock_round1_cutoff',
+    'round1': 'round1_cutoff',
+    'round2': 'round2_cutoff',
+    'round3': 'round3_cutoff'
   };
 
-  const roundsToCheck = roundMap[selectedRound] || ['round3_cutoff', 'round2_cutoff', 'round1_cutoff', 'mock_round1_cutoff'];
+  const targetKey = roundKeyMap[selectedRound] || 'round1_cutoff';
 
-  // 1. Try activeYear dataset
-  for (const rKey of roundsToCheck) {
-    const cutoffs = course[rKey] || {};
-    const val = cutoffs[category];
-    if (val && !isNaN(parseFloat(val))) {
-      return {
-        cutoff: parseFloat(val),
-        sourceYear: activeYear,
-        sourceRound: roundLabels[rKey],
-        isFallback: rKey !== roundsToCheck[0],
-        sourceLabel: `${activeYear} ${roundLabels[rKey]}`
-      };
-    }
+  // 1. Direct match in activeYear (if the exact requested round cutoff is published)
+  const directCutoffs = course[targetKey] || {};
+  const directVal = directCutoffs[category];
+  if (directVal && !isNaN(parseFloat(directVal))) {
+    const roundShort = selectedRound === 'mock_round1' ? 'Mock' : (selectedRound === 'round1' ? 'R1' : (selectedRound === 'round2' ? 'R2' : 'R3'));
+    return {
+      cutoff: parseFloat(directVal),
+      sourceYear: activeYear,
+      sourceLabel: `${activeYear} ${roundShort}`,
+      isFallback: false,
+      isEstimated: false
+    };
   }
 
-  // 2. Try previous year cache (e.g. 2025)
-  const prevCache = cache2025 || (activeYear === '2025' ? cache2024 : null);
-  if (prevCache && prevCache.colleges) {
-    const prevCol = prevCache.colleges.find(c => (c.kea_code && c.kea_code === college.kea_code) || c.college_name === college.college_name);
-    if (prevCol && prevCol.courses) {
-      const stdCourseTarget = super_clean(course.course_name);
-      const prevCourse = prevCol.courses.find(c => super_clean(c.course_name) === stdCourseTarget);
-      if (prevCourse) {
-        for (const rKey of roundsToCheck) {
-          const cutoffs = prevCourse[rKey] || {};
-          const val = cutoffs[category];
-          if (val && !isNaN(parseFloat(val))) {
-            return {
-              cutoff: parseFloat(val),
-              sourceYear: prevCache.year || '2025',
-              sourceRound: roundLabels[rKey],
-              isFallback: true,
-              sourceLabel: `${prevCache.year || '2025'} ${roundLabels[rKey]}`
-            };
+  // 2. If requested round is NOT published in activeYear (e.g. 2026 Round 2 or Round 3),
+  // predict using 2026 Round 1 (or Mock) combined with historical progression ratio from 2025/2024!
+  const base2026R1Str = (course.round1_cutoff || {})[category] || (course.mock_round1_cutoff || {})[category];
+  if (base2026R1Str && !isNaN(parseFloat(base2026R1Str))) {
+    const base2026R1 = parseFloat(base2026R1Str);
+    
+    // Find matching course in 2025 cache
+    const prevCache = cache2025 || (activeYear === '2025' ? cache2024 : null);
+    let ratio = null;
+
+    if (prevCache && prevCache.colleges) {
+      const prevCol = prevCache.colleges.find(c => (c.kea_code && c.kea_code === college.kea_code) || c.college_name === college.college_name);
+      if (prevCol && prevCol.courses) {
+        const stdTarget = cleanCourseStr(course.course_name);
+        const prevCourse = prevCol.courses.find(c => cleanCourseStr(c.course_name) === stdTarget);
+        if (prevCourse) {
+          const pR1 = parseFloat((prevCourse.round1_cutoff || {})[category]);
+          const pTarget = parseFloat((prevCourse[targetKey] || {})[category]);
+          if (pR1 && pTarget && pR1 > 0) {
+            ratio = pTarget / pR1;
           }
         }
       }
     }
+
+    // Default historical expansion ratios if exact course ratio is unavailable
+    if (!ratio) {
+      if (selectedRound === 'round2') ratio = 1.12;       // ~12% rank expansion in Round 2
+      else if (selectedRound === 'round3') ratio = 1.25;  // ~25% rank expansion in Round 3
+      else ratio = 1.0;
+    }
+
+    const estCutoff = Math.round(base2026R1 * ratio);
+    const pctDiff = Math.round((ratio - 1) * 100);
+    const pctSign = pctDiff >= 0 ? `+${pctDiff}%` : `${pctDiff}%`;
+    const targetShort = selectedRound === 'round2' ? 'R2' : (selectedRound === 'round3' ? 'R3' : 'R1');
+
+    return {
+      cutoff: estCutoff,
+      sourceYear: activeYear,
+      sourceLabel: `Est. ${activeYear} ${targetShort} (${pctSign})`,
+      isFallback: true,
+      isEstimated: true
+    };
   }
 
-  // 3. Try 2024 cache as last resort
-  if (cache2024 && cache2024.colleges && activeYear !== '2024') {
-    const prevCol = cache2024.colleges.find(c => (c.kea_code && c.kea_code === college.kea_code) || c.college_name === college.college_name);
+  // 3. Fallback to 2025 dataset directly if activeYear has no published ranks for this course
+  const prevCache = cache2025 || cache2024;
+  if (prevCache && prevCache.colleges) {
+    const prevCol = prevCache.colleges.find(c => (c.kea_code && c.kea_code === college.kea_code) || c.college_name === college.college_name);
     if (prevCol && prevCol.courses) {
-      const stdCourseTarget = super_clean(course.course_name);
-      const prevCourse = prevCol.courses.find(c => super_clean(c.course_name) === stdCourseTarget);
+      const stdTarget = cleanCourseStr(course.course_name);
+      const prevCourse = prevCol.courses.find(c => cleanCourseStr(c.course_name) === stdTarget);
       if (prevCourse) {
-        for (const rKey of roundsToCheck) {
-          const cutoffs = prevCourse[rKey] || {};
-          const val = cutoffs[category];
+        const roundsOrder = [targetKey, 'round3_cutoff', 'round2_cutoff', 'round1_cutoff', 'mock_round1_cutoff'];
+        for (const rKey of roundsOrder) {
+          const val = (prevCourse[rKey] || {})[category];
           if (val && !isNaN(parseFloat(val))) {
+            const rShort = rKey === 'mock_round1_cutoff' ? 'Mock' : (rKey === 'round1_cutoff' ? 'R1' : (rKey === 'round2_cutoff' ? 'R2' : 'R3'));
             return {
               cutoff: parseFloat(val),
-              sourceYear: '2024',
-              sourceRound: roundLabels[rKey],
+              sourceYear: prevCache.year || '2025',
+              sourceLabel: `${prevCache.year || '2025'} ${rShort}`,
               isFallback: true,
-              sourceLabel: `2024 ${roundLabels[rKey]}`
+              isEstimated: false
             };
           }
         }
@@ -4214,7 +4234,7 @@ function runPrediction() {
   }
   
   const category = catSel.value;
-  const selectedRound = roundSel ? roundSel.value : 'round3';
+  const selectedRound = roundSel ? roundSel.value : 'round1';
   const preferredCourse = courseSel.value;
   
   const results = [];
@@ -4261,7 +4281,8 @@ function runPrediction() {
         chance: chance,
         chanceClass: chanceClass,
         sourceLabel: cutoffInfo.sourceLabel,
-        isFallback: cutoffInfo.isFallback
+        isFallback: cutoffInfo.isFallback,
+        isEstimated: cutoffInfo.isEstimated
       });
     });
   });
@@ -4280,7 +4301,7 @@ function renderPredictionResults(results, selectedRound) {
   const header = document.getElementById('pred-cutoff-header');
   
   if (header) {
-    header.textContent = 'Cutoff Rank & Source';
+    header.textContent = 'Cutoff Rank & Basis';
   }
   
   if (results.length === 0) {
@@ -4303,8 +4324,16 @@ function renderPredictionResults(results, selectedRound) {
     const col = res.college;
     const diffText = res.diff >= 0 ? `+${res.diff.toLocaleString()}` : res.diff.toLocaleString();
     const diffClass = res.diff >= 0 ? 'text-green' : 'text-orange';
-    const badgeColor = res.isFallback ? 'var(--purple)' : 'var(--blue)';
-    const badgeBg = res.isFallback ? 'rgba(168,85,247,0.15)' : 'rgba(59,130,246,0.15)';
+    
+    let badgeColor = 'var(--blue)';
+    let badgeBg = 'rgba(59,130,246,0.15)';
+    if (res.isEstimated) {
+      badgeColor = '#f59e0b';
+      badgeBg = 'rgba(245,158,11,0.15)';
+    } else if (res.isFallback) {
+      badgeColor = 'var(--purple)';
+      badgeBg = 'rgba(168,85,247,0.15)';
+    }
     
     return `<tr class="pred-row" data-college-number="${col.college_number}" style="cursor:pointer; transition:background 0.2s;">
       <td><span class="card-type-pill pill-${col.annexure}" style="font-size:11px; padding: 2px 6px;">${col.kea_code || col.college_number}</span></td>
