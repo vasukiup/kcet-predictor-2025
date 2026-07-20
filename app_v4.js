@@ -42,6 +42,7 @@ const CHART_COLORS = [
 let allData = null;
 let cache2024 = null;
 let cache2025 = null;
+let cache2026 = null;
 let filtered = [];
 let displayCount = 30;
 let currentTab = 'colleges';
@@ -88,12 +89,14 @@ let pendingIntakeRequests = []; // Stores intake requests from institutions
 let systemAnnouncements = ["⚠️ KEA Seat Matrix & Prediction Portal is online for candidate counselling validation."];
 let authorityLogs = [`[System] Console initialized. Ready for operations.`];
 let studentOptionsList = []; // Student option entry priority sheet
+let superuserPerspective = 'student'; // 'student', 'institution', 'authority', 'counsellor'
+let superuserGroup = 'rvgroup';
 
 // ─────────────────────────────
 // Boot
 // ─────────────────────────────
 async function loadYearData(year) {
-  const filename = year === '2024' ? 'seat_matrix_data_2024.json' : 'seat_matrix_data.json';
+  const filename = year === '2026' ? 'seat_matrix_data_2026.json' : (year === '2024' ? 'seat_matrix_data_2024.json' : 'seat_matrix_data.json');
   try {
     const res = await fetch(filename + '?t=' + new Date().getTime());
     allData = await res.json();
@@ -130,6 +133,7 @@ async function loadYearData(year) {
 
     // Cache the loaded year data
     if (year === '2024') cache2024 = allData;
+    else if (year === '2026') cache2026 = allData;
     else cache2025 = allData;
 
     populateFilters();
@@ -157,57 +161,53 @@ async function loadYearData(year) {
 }
 
 function triggerYoYStatsLoad(activeYear) {
-  if (activeYear === '2024') {
-    if (cache2025) {
-      renderYoYStats();
-    } else {
-      fetch('seat_matrix_data.json')
-        .then(r => r.json())
-        .then(data => {
-          cache2025 = data;
-          
-          cache2025.colleges.forEach(col => {
-            let colKea = 0;
-            col.courses.forEach(c => {
-              const computedKea = (c.kea_rk || 0) + (c.kea_hk || 0) + (c.kea_spl || 0) + (c.kea_ph || 0);
-              c.total_kea_seats = computedKea;
-              colKea += computedKea;
-            });
-            col.total_kea_seats = colKea;
+  if (activeYear === '2026') cache2026 = allData;
+  else if (activeYear === '2024') cache2024 = allData;
+  else cache2025 = allData;
+
+  const loadCache = (year, callback) => {
+    if (year === '2026' && cache2026) return callback();
+    if (year === '2025' && cache2025) return callback();
+    if (year === '2024' && cache2024) return callback();
+
+    const filename = year === '2026' ? 'seat_matrix_data_2026.json' : (year === '2024' ? 'seat_matrix_data_2024.json' : 'seat_matrix_data.json');
+    fetch(filename)
+      .then(r => r.json())
+      .then(data => {
+        data.colleges.forEach(col => {
+          let colKea = 0;
+          col.courses.forEach(c => {
+            const computedKea = (c.kea_rk || 0) + (c.kea_hk || 0) + (c.kea_spl || 0) + (c.kea_ph || 0);
+            c.total_kea_seats = computedKea;
+            colKea += computedKea;
           });
-          let totalKea = 0;
-          cache2025.colleges.forEach(col => { totalKea += col.total_kea_seats; });
-          cache2025.stats.total_kea_seats = totalKea;
-
-          renderYoYStats();
+          col.total_kea_seats = colKea;
         });
-    }
-  } else {
-    if (cache2024) {
+        let totalKea = 0;
+        data.colleges.forEach(col => { totalKea += col.total_kea_seats; });
+        data.stats.total_kea_seats = totalKea;
+
+        if (year === '2026') cache2026 = data;
+        else if (year === '2024') cache2024 = data;
+        else cache2025 = data;
+        
+        callback();
+      })
+      .catch(err => {
+        console.error(`Error loading comparison year ${year}:`, err);
+        callback();
+      });
+  };
+
+  let targetYear = '2025';
+  if (activeYear === '2025') targetYear = '2024';
+  else if (activeYear === '2024') targetYear = '2025';
+
+  loadCache(targetYear, () => {
+    loadCache(activeYear, () => {
       renderYoYStats();
-    } else {
-      fetch('seat_matrix_data_2024.json')
-        .then(r => r.json())
-        .then(data => {
-          cache2024 = data;
-
-          cache2024.colleges.forEach(col => {
-            let colKea = 0;
-            col.courses.forEach(c => {
-              const computedKea = (c.kea_rk || 0) + (c.kea_hk || 0) + (c.kea_spl || 0) + (c.kea_ph || 0);
-              c.total_kea_seats = computedKea;
-              colKea += computedKea;
-            });
-            col.total_kea_seats = colKea;
-          });
-          let totalKea = 0;
-          cache2024.colleges.forEach(col => { totalKea += col.total_kea_seats; });
-          cache2024.stats.total_kea_seats = totalKea;
-
-          renderYoYStats();
-        });
-    }
-  }
+    });
+  });
 }
 
 function getCourseBranch(name) {
@@ -290,14 +290,36 @@ function getCleanCollegeName(name) {
 }
 
 function renderYoYStats() {
-  if (!cache2024 || !cache2025) return;
+  const selectedYear = document.getElementById('year-select')?.value || '2025';
+  let activeCache, prevCache;
+  let activeYearText, prevYearText;
 
-  const seats2024 = cache2024.stats.total_seats;
-  const seats2025 = cache2025.stats.total_seats;
-  const kea2024 = cache2024.stats.total_kea_seats;
-  const kea2025 = cache2025.stats.total_kea_seats;
-  const colleges2024 = cache2024.stats.total_colleges;
-  const colleges2025 = cache2025.stats.total_colleges;
+  if (selectedYear === '2026') {
+    if (!cache2026 || !cache2025) return;
+    activeCache = cache2026;
+    prevCache = cache2025;
+    activeYearText = '2026';
+    prevYearText = '2025';
+  } else if (selectedYear === '2024') {
+    if (!cache2024 || !cache2025) return;
+    activeCache = cache2024;
+    prevCache = cache2025;
+    activeYearText = '2024';
+    prevYearText = '2025';
+  } else {
+    if (!cache2025 || !cache2024) return;
+    activeCache = cache2025;
+    prevCache = cache2024;
+    activeYearText = '2025';
+    prevYearText = '2024';
+  }
+
+  const seats2024 = prevCache.stats.total_seats;
+  const seats2025 = activeCache.stats.total_seats;
+  const kea2024 = prevCache.stats.total_kea_seats;
+  const kea2025 = activeCache.stats.total_kea_seats;
+  const colleges2024 = prevCache.stats.total_colleges;
+  const colleges2025 = activeCache.stats.total_colleges;
 
   const elSeats24 = document.getElementById('yoy-seats-2024');
   const elSeats25 = document.getElementById('yoy-seats-2025');
@@ -331,19 +353,40 @@ function renderYoYStats() {
   if (barCol24) barCol24.style.width = `${(colleges2024 / maxColleges) * 100}%`;
   if (barCol25) barCol25.style.width = `${(colleges2025 / maxColleges) * 100}%`;
 
+  // Update dynamic year labels in the DOM
+  const mainTitleEl = document.getElementById('yoy-main-title');
+  if (mainTitleEl) {
+    mainTitleEl.textContent = `Year-on-Year Comparison (${prevYearText} vs ${activeYearText})`;
+  }
+  const branchTitleEl = document.getElementById('yoy-branch-title');
+  if (branchTitleEl) {
+    branchTitleEl.textContent = `YoY Course Branch Seat Distribution (${prevYearText} vs ${activeYearText})`;
+  }
+  document.querySelectorAll('.yoy-prev-year-label').forEach(el => el.textContent = prevYearText);
+  document.querySelectorAll('.yoy-active-year-label').forEach(el => el.textContent = activeYearText);
+  
+  const addedHeaderEl = document.querySelector('.yoy-added-header');
+  if (addedHeaderEl) addedHeaderEl.innerHTML = `➕ Added in ${activeYearText}:`;
+  const removedHeaderEl = document.querySelector('.yoy-removed-header');
+  if (removedHeaderEl) removedHeaderEl.innerHTML = `➖ Removed in ${activeYearText}:`;
+  const addedCourseHeaderEl = document.querySelector('.yoy-added-course-header');
+  if (addedCourseHeaderEl) addedCourseHeaderEl.innerHTML = `🆕 Added in ${activeYearText}:`;
+  const removedCourseHeaderEl = document.querySelector('.yoy-removed-course-header');
+  if (removedCourseHeaderEl) removedCourseHeaderEl.innerHTML = `🚫 Removed in ${activeYearText}:`;
+
   // YoY Course Branch Seat Distribution
   const branches = ['Computer Science & IT', 'Electronics & Electrical', 'Mechanical & Aerospace', 'Civil & Chemical', 'Other Branches'];
   const branchSeats24 = { 'Computer Science & IT': 0, 'Electronics & Electrical': 0, 'Mechanical & Aerospace': 0, 'Civil & Chemical': 0, 'Other Branches': 0 };
   const branchSeats25 = { 'Computer Science & IT': 0, 'Electronics & Electrical': 0, 'Mechanical & Aerospace': 0, 'Civil & Chemical': 0, 'Other Branches': 0 };
 
-  cache2024.colleges.forEach(col => {
+  prevCache.colleges.forEach(col => {
     col.courses.forEach(c => {
       const b = getCourseBranch(c.course_name);
       branchSeats24[b] += c.total_intake || 0;
     });
   });
 
-  cache2025.colleges.forEach(col => {
+  activeCache.colleges.forEach(col => {
     col.courses.forEach(c => {
       const b = getCourseBranch(c.course_name);
       branchSeats25[b] += c.total_intake || 0;
@@ -377,17 +420,15 @@ function renderYoYStats() {
           <span style="font-size:11px;">${changeBadge}</span>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <!-- 2024 -->
           <div style="display:flex; align-items:center; gap:8px;">
-            <span style="font-size:10px; width:30px; color:var(--text-muted);">2024</span>
+            <span style="font-size:10px; width:30px; color:var(--text-muted);">${prevYearText}</span>
             <div style="flex:1; height:6px; background:rgba(255,255,255,0.05); border-radius:3px; overflow:hidden;">
               <div style="background:#6b7799; height:100%; width:${pct24}%;"></div>
             </div>
             <span style="font-size:11px; width:50px; text-align:right; color:var(--text-muted); font-weight:600;">${val24.toLocaleString()}</span>
           </div>
-          <!-- 2025 -->
           <div style="display:flex; align-items:center; gap:8px;">
-            <span style="font-size:10px; width:30px; color:var(--text-muted);">2025</span>
+            <span style="font-size:10px; width:30px; color:var(--blue);">${activeYearText}</span>
             <div style="flex:1; height:6px; background:rgba(255,255,255,0.05); border-radius:3px; overflow:hidden;">
               <div style="background:var(--blue); height:100%; width:${pct25}%;"></div>
             </div>
@@ -403,9 +444,9 @@ function renderYoYStats() {
 
   // YoY Cutoff Popularity Shifts
   const shifts = [];
-  cache2025.colleges.forEach(col => {
+  activeCache.colleges.forEach(col => {
     if (!col.kea_code) return;
-    const col24 = cache2024.colleges.find(c24 => c24.kea_code === col.kea_code);
+    const col24 = prevCache.colleges.find(c24 => c24.kea_code === col.kea_code);
     if (!col24) return;
     
     col.courses.forEach(c25 => {
@@ -446,7 +487,7 @@ function renderYoYStats() {
         <div style="max-width:70%;">
           <div style="font-size:12px; font-weight:700; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${item.collegeName}">${item.collegeName}</div>
           <div style="font-size:10px; color:var(--text-muted);">${item.courseName}</div>
-          <div style="font-size:10px; color:var(--text-muted); margin-top:2px;">Cutoff: ${item.cut24.toLocaleString()} (24) ➔ ${item.cut25.toLocaleString()} (25)</div>
+          <div style="font-size:10px; color:var(--text-muted); margin-top:2px;">Cutoff: ${item.cut24.toLocaleString()} (${prevYearText.slice(-2)}) ➔ ${item.cut25.toLocaleString()} (${activeYearText.slice(-2)})</div>
         </div>
         <span style="font-size:11px; font-weight:700; color:${badgeColor}; white-space:nowrap; background:rgba(255,255,255,0.02); border: 1px solid var(--border); padding:2px 8px; border-radius:12px;">
           ${arrow} ${absPct}% ${label}
@@ -462,11 +503,11 @@ function renderYoYStats() {
   if (elCooling) elCooling.innerHTML = cooling.map(item => renderShiftItem(item, false)).join('');
 
   // YoY Structural Shifts - Colleges Added/Removed
-  const clean24Names = new Set(cache2024.colleges.map(c => getCleanCollegeName(c.college_name)));
-  const clean25Names = new Set(cache2025.colleges.map(c => getCleanCollegeName(c.college_name)));
+  const clean24Names = new Set(prevCache.colleges.map(c => getCleanCollegeName(c.college_name)));
+  const clean25Names = new Set(activeCache.colleges.map(c => getCleanCollegeName(c.college_name)));
 
-  const addedColleges = cache2025.colleges.filter(c => !clean24Names.has(getCleanCollegeName(c.college_name)));
-  const removedColleges = cache2024.colleges.filter(c => !clean25Names.has(getCleanCollegeName(c.college_name)));
+  const addedColleges = activeCache.colleges.filter(c => !clean24Names.has(getCleanCollegeName(c.college_name)));
+  const removedColleges = prevCache.colleges.filter(c => !clean25Names.has(getCleanCollegeName(c.college_name)));
 
   const addedColHtml = addedColleges.length > 0 
     ? addedColleges.map(col => {
@@ -496,8 +537,8 @@ function renderYoYStats() {
   if (elColRemoved) elColRemoved.innerHTML = removedColHtml;
 
   // YoY Structural Shifts - Courses Added/Removed
-  const courses24Clean = new Set(cache2024.colleges.flatMap(col => col.courses.map(c => c.course_name.toUpperCase().trim())));
-  const courses25Clean = new Set(cache2025.colleges.flatMap(col => col.courses.map(c => c.course_name.toUpperCase().trim())));
+  const courses24Clean = new Set(prevCache.colleges.flatMap(col => col.courses.map(c => c.course_name.toUpperCase().trim())));
+  const courses25Clean = new Set(activeCache.colleges.flatMap(col => col.courses.map(c => c.course_name.toUpperCase().trim())));
 
   const addedCourses = [...courses25Clean].filter(x => !courses24Clean.has(x));
   const removedCourses = [...courses24Clean].filter(x => !courses25Clean.has(x));
@@ -531,9 +572,9 @@ function renderYoYStats() {
   };
 
   const feeChanges = [];
-  cache2025.colleges.forEach(col => {
+  activeCache.colleges.forEach(col => {
     if (!col.kea_code) return;
-    const col24 = cache2024.colleges.find(c24 => c24.kea_code === col.kea_code);
+    const col24 = prevCache.colleges.find(c24 => c24.kea_code === col.kea_code);
     if (!col24) return;
     
     col.courses.forEach(c25 => {
@@ -583,7 +624,7 @@ function renderYoYStats() {
 }
 
 async function init() {
-  await loadYearData('2025');
+  await loadYearData('2026');
   bindEvents();
   initAssistant();
   initAuth();
@@ -646,6 +687,46 @@ function populateFilters() {
       predCourseSel.appendChild(opt);
     });
   }
+
+  // Populate download tab filters
+  const downDistSel = document.getElementById('download-district-select');
+  if (downDistSel) {
+    downDistSel.innerHTML = '<option value="">All Districts</option>';
+    (allData.districts || []).forEach(d => {
+      const opt = document.createElement('option');
+      opt.value = d; opt.textContent = d;
+      downDistSel.appendChild(opt);
+    });
+  }
+
+  const downCourseSel = document.getElementById('download-course-select');
+  if (downCourseSel) {
+    downCourseSel.innerHTML = '<option value="">All Courses</option>';
+    sortedCourses.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c; opt.textContent = c;
+      downCourseSel.appendChild(opt);
+    });
+  }
+
+  // Populate Comparison & Fee Calculator Dropdowns
+  const sortedColleges = [...(allData.colleges || [])].sort((a, b) => a.college_name.localeCompare(b.college_name));
+  const compareCols = ['compare-col-1', 'compare-col-2', 'compare-col-3', 'calc-fee-college'];
+  compareCols.forEach((id, index) => {
+    const sel = document.getElementById(id);
+    if (sel) {
+      const defaultText = index === 0 ? '-- Choose College 1 --' : 
+                          (index === 1 ? '-- Choose College 2 (Optional) --' : 
+                          (index === 2 ? '-- Choose College 3 (Optional) --' : '-- Choose College --'));
+      sel.innerHTML = `<option value="">${defaultText}</option>`;
+      sortedColleges.forEach(col => {
+        const opt = document.createElement('option');
+        opt.value = col.kea_code;
+        opt.textContent = `${col.kea_code || '---'} - ${col.college_name}`;
+        sel.appendChild(opt);
+      });
+    }
+  });
 }
 
 // ─────────────────────────────
@@ -701,12 +782,19 @@ function initAuth() {
 
   // Role switching
   document.querySelectorAll('.auth-role-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
+    tab.addEventListener('click', (e) => {
+      if (e) e.preventDefault();
       document.querySelectorAll('.auth-role-tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
       tab.classList.add('active');
-      const role = tab.dataset.role;
-      document.getElementById(`auth-form-${role}`).classList.add('active');
+      const role = tab.getAttribute('data-role');
+      console.log('Switching auth view to role:', role);
+      const formEl = document.getElementById(`auth-form-${role}`);
+      if (formEl) {
+        formEl.classList.add('active');
+      } else {
+        console.error(`Auth form Element auth-form-${role} not found!`);
+      }
     });
   });
 
@@ -732,14 +820,20 @@ function initAuth() {
 
   // Submit Institution
   document.getElementById('btn-submit-institution').addEventListener('click', () => {
-    const groupVal = document.getElementById('inst-group').value;
-    const groupText = document.getElementById('inst-group').options[document.getElementById('inst-group').selectedIndex].text;
+    const groupVal = document.getElementById('inst-group').value.trim().toLowerCase();
     const password = document.getElementById('inst-password').value;
     const errorEl = document.getElementById('inst-error');
 
-    if (password === 'kcet2025') {
+    const validGroups = {
+      'rvgroup': 'RV Group of Institutions',
+      'bmsgroup': 'BMS Group of Institutions',
+      'pesgroup': 'PES Group of Institutions',
+      'dsgroup': 'Dayananda Sagar Group'
+    };
+
+    if (validGroups[groupVal] && password === 'kcet2025') {
       errorEl.style.display = 'none';
-      currentUser = { role: 'institution', name: groupText, institutionGroup: groupVal };
+      currentUser = { role: 'institution', name: validGroups[groupVal], institutionGroup: groupVal };
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
       overlay.style.display = 'none';
       applyUserRole();
@@ -757,6 +851,60 @@ function initAuth() {
     if (authId === 'authority' && password === 'kcet2025') {
       errorEl.style.display = 'none';
       currentUser = { role: 'authority', name: "KEA Admin Console" };
+      localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+      overlay.style.display = 'none';
+      applyUserRole();
+    } else {
+      errorEl.style.display = 'block';
+    }
+  });
+
+  // Submit Counsellor
+  document.getElementById('btn-submit-counsellor').addEventListener('click', () => {
+    const cid = document.getElementById('counsellor-id').value.trim();
+    const cpwd = document.getElementById('counsellor-password').value;
+    const errorEl = document.getElementById('counsellor-error');
+
+    if ((cid === 'counsellor' || cid === 'mentor') && cpwd === 'kcet2025') {
+      errorEl.style.display = 'none';
+      const saved = localStorage.getItem('kcet_user');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (parsed.role === 'counsellor') {
+            currentUser = parsed;
+          }
+        } catch(e) {}
+      }
+      if (!currentUser || currentUser.role !== 'counsellor') {
+        currentUser = {
+          role: 'counsellor',
+          name: "Professional Advisor",
+          students: [
+            { id: 'cs1', name: "Aditi Rao", rank: 4200, category: "3BG", optionList: [] },
+            { id: 'cs2', name: "Roshan Kumar", rank: 12500, category: "GM", optionList: [] },
+            { id: 'cs3', name: "Basavaraj S", rank: 28000, category: "2AR", optionList: [] }
+          ],
+          activeStudentId: 'cs1'
+        };
+      }
+      localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+      overlay.style.display = 'none';
+      applyUserRole();
+    } else {
+      errorEl.style.display = 'block';
+    }
+  });
+
+  // Submit Super User
+  document.getElementById('btn-submit-superuser').addEventListener('click', () => {
+    const suid = document.getElementById('su-id').value.trim();
+    const supwd = document.getElementById('su-password').value;
+    const errorEl = document.getElementById('su-error');
+
+    if (suid === 'superuser' && supwd === 'kcet2025') {
+      errorEl.style.display = 'none';
+      currentUser = { role: 'superuser', name: "Global Admin" };
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
       overlay.style.display = 'none';
       applyUserRole();
@@ -931,11 +1079,20 @@ function initAuth() {
 
   // Bind Option Entry priority builder events
   bindOptionEntryEvents();
+  
+  // Bind Counsellor Portfolio and Super User controller events
+  bindCounsellorAndSuperUserEvents();
+
+  // Bind Advanced Data Download Tab events
+  bindDownloadTabEvents();
 }
 
 function setupInstitutionGroupColleges() {
-  if (!allData || !currentUser || currentUser.role !== 'institution') return;
-  const groupId = currentUser.institutionGroup;
+  if (!allData || !currentUser) return;
+  const isSuper = (currentUser.role === 'superuser' && superuserPerspective === 'institution');
+  if (currentUser.role !== 'institution' && !isSuper) return;
+
+  const groupId = isSuper ? superuserGroup : currentUser.institutionGroup;
   if (!groupId || !INSTITUTION_GROUPS[groupId]) return;
 
   const group = INSTITUTION_GROUPS[groupId];
@@ -946,8 +1103,11 @@ function setupInstitutionGroupColleges() {
 }
 
 function renderInstitutionDashboard() {
-  if (currentUser.role !== 'institution') return;
-  const groupId = currentUser.institutionGroup;
+  if (!currentUser) return;
+  const isSuper = (currentUser.role === 'superuser' && superuserPerspective === 'institution');
+  if (currentUser.role !== 'institution' && !isSuper) return;
+
+  const groupId = isSuper ? superuserGroup : currentUser.institutionGroup;
   const group = INSTITUTION_GROUPS[groupId];
   if (!group) return;
 
@@ -1204,8 +1364,11 @@ function applyUserRole() {
   const roleBadge = document.getElementById('user-role-badge');
   const nameDisplay = document.getElementById('user-display-name');
   const studentProfileSection = document.getElementById('student-profile-section');
+  const counsellorPortfolioSection = document.getElementById('counsellor-portfolio-section');
   const tabInst = document.getElementById('tab-institution');
   const tabAuth = document.getElementById('tab-authority');
+  const tabOption = document.getElementById('tab-option-entry');
+  const superuserBar = document.getElementById('superuser-view-bar');
   const scrollingWrap = document.getElementById('scrolling-announcements-wrap');
 
   // Toggle scrolling alerts bar
@@ -1218,10 +1381,11 @@ function applyUserRole() {
   if (!currentUser) {
     if (profileChip) profileChip.style.display = 'none';
     if (studentProfileSection) studentProfileSection.style.display = 'none';
+    if (counsellorPortfolioSection) counsellorPortfolioSection.style.display = 'none';
     if (tabInst) tabInst.style.display = 'none';
     if (tabAuth) tabAuth.style.display = 'none';
-    const tabOption = document.getElementById('tab-option-entry');
     if (tabOption) tabOption.style.display = 'none';
+    if (superuserBar) superuserBar.style.display = 'none';
     return;
   }
 
@@ -1234,55 +1398,88 @@ function applyUserRole() {
       roleBadge.style.background = 'var(--blue)';
     } else if (currentUser.role === 'institution') {
       roleBadge.style.background = 'var(--teal)';
+    } else if (currentUser.role === 'counsellor') {
+      roleBadge.style.background = 'rgba(168, 85, 247, 0.85)'; // Purple for advisor
+    } else if (currentUser.role === 'superuser') {
+      roleBadge.style.background = 'var(--pink)'; // Pink for superuser
     } else {
       roleBadge.style.background = 'var(--pink)';
     }
   }
 
-  // Hide/Show download selector based on role
-  const downloadAnnSelect = document.getElementById('download-ann-select');
-  if (downloadAnnSelect) {
-    if (currentUser && currentUser.role === 'student') {
-      downloadAnnSelect.style.display = 'none';
-      downloadAnnSelect.value = 'ALL';
+  // Superuser Bar visibility
+  if (superuserBar) {
+    superuserBar.style.display = currentUser.role === 'superuser' ? 'flex' : 'none';
+  }
+
+  // Determine effective perspective/role
+  const effectiveRole = currentUser.role === 'superuser' ? superuserPerspective : currentUser.role;
+
+  // Show/Hide downloads tab based on eligibility
+  const tabDownloads = document.getElementById('tab-downloads');
+  if (tabDownloads) {
+    if (effectiveRole !== 'student') {
+      tabDownloads.style.display = 'block';
     } else {
-      downloadAnnSelect.style.display = 'block';
+      tabDownloads.style.display = 'none';
+      // If we are currently on the downloads tab, force redirect to colleges tab
+      if (currentTab === 'downloads') {
+        const collegesTab = document.getElementById('tab-colleges');
+        if (collegesTab) collegesTab.click();
+      }
     }
   }
 
-  // Role-specific sidebar profiles & tab buttons
-  const tabOption = document.getElementById('tab-option-entry');
-  if (currentUser.role === 'student') {
+  // Render dashboard elements based on effective role
+  if (effectiveRole === 'student') {
     if (studentProfileSection) {
       studentProfileSection.style.display = 'block';
-      document.getElementById('profile-rank').value = currentUser.rank;
-      document.getElementById('profile-category').value = currentUser.category;
+      document.getElementById('profile-rank').value = currentUser.rank || 5000;
+      document.getElementById('profile-category').value = currentUser.category || 'GM';
     }
+    if (counsellorPortfolioSection) counsellorPortfolioSection.style.display = 'none';
     if (tabInst) tabInst.style.display = 'none';
     if (tabAuth) tabAuth.style.display = 'none';
     if (tabOption) tabOption.style.display = 'block';
-    
+
     // Sync to Predictor Tab
     const prRank = document.getElementById('pred-rank');
     const prCat = document.getElementById('pred-category');
-    if (prRank) prRank.value = currentUser.rank;
-    if (prCat) prCat.value = currentUser.category;
-  } else if (currentUser.role === 'institution') {
+    if (prRank) prRank.value = currentUser.rank || 5000;
+    if (prCat) prCat.value = currentUser.category || 'GM';
+
+  } else if (effectiveRole === 'counsellor') {
     if (studentProfileSection) studentProfileSection.style.display = 'none';
+    if (counsellorPortfolioSection) counsellorPortfolioSection.style.display = 'block';
+    if (tabInst) tabInst.style.display = 'none';
+    if (tabAuth) tabAuth.style.display = 'none';
+    if (tabOption) tabOption.style.display = 'block';
+
+    renderCounsellorPortfolio();
+
+  } else if (effectiveRole === 'institution') {
+    if (studentProfileSection) studentProfileSection.style.display = 'none';
+    if (counsellorPortfolioSection) counsellorPortfolioSection.style.display = 'none';
     if (tabInst) tabInst.style.display = 'block';
     if (tabAuth) tabAuth.style.display = 'none';
     if (tabOption) tabOption.style.display = 'none';
-    
-    // Setup group colleges in database
+
     setupInstitutionGroupColleges();
     renderInstitutionDashboard();
-  } else if (currentUser.role === 'authority') {
+
+  } else if (effectiveRole === 'authority') {
     if (studentProfileSection) studentProfileSection.style.display = 'none';
+    if (counsellorPortfolioSection) counsellorPortfolioSection.style.display = 'none';
     if (tabInst) tabInst.style.display = 'none';
     if (tabAuth) tabAuth.style.display = 'block';
     if (tabOption) tabOption.style.display = 'none';
-    
+
     renderAuthorityDashboard();
+  }
+
+  // Update download live preview if eligible
+  if (effectiveRole !== 'student') {
+    updateDownloadPreview();
   }
 
   // Go to Colleges tab by default on role change
@@ -1305,11 +1502,152 @@ const OPTION_BRANCH_MAP = {
   AD: ["artificial intelligence", "data science", "aiml", "machine learning"]
 };
 
+function getActiveStudentProfile() {
+  if (!currentUser) return { rank: 5000, category: 'GM' };
+  if (currentUser.role === 'counsellor') {
+    const activeStudent = currentUser.students.find(s => s.id === currentUser.activeStudentId);
+    if (activeStudent) {
+      return { rank: activeStudent.rank, category: activeStudent.category };
+    }
+  }
+  return { rank: currentUser.rank || 5000, category: currentUser.category || 'GM' };
+}
+
 function getChanceClass(cutoff, studentRank) {
   if (!cutoff) return 'safety';
   if (cutoff < studentRank) return 'dream';
   if (cutoff >= studentRank && cutoff <= studentRank * 1.25) return 'target';
   return 'safety';
+}
+
+function saveCounsellorOptions() {
+  if (currentUser && currentUser.role === 'counsellor') {
+    const activeStudent = currentUser.students.find(s => s.id === currentUser.activeStudentId);
+    if (activeStudent) {
+      activeStudent.optionList = studentOptionsList;
+      localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+    }
+  }
+}
+
+function renderCounsellorPortfolio() {
+  const select = document.getElementById('counsellor-student-select');
+  if (!select || !currentUser || currentUser.role !== 'counsellor') return;
+
+  const activeId = currentUser.activeStudentId || '';
+  select.innerHTML = currentUser.students.map(s => 
+    `<option value="${s.id}" ${s.id === activeId ? 'selected' : ''}>${s.name} (Rank: ${s.rank.toLocaleString()} - ${s.category})</option>`
+  ).join('');
+
+  // Update active student details in sidebar/predictor
+  const activeStudent = currentUser.students.find(s => s.id === activeId);
+  if (activeStudent) {
+    // Populate optionList
+    studentOptionsList = activeStudent.optionList || [];
+    renderOptionEntryList();
+
+    // Sync Rank & Category to Rank Predictor Tab
+    const prRank = document.getElementById('pred-rank');
+    const prCat = document.getElementById('pred-category');
+    if (prRank) prRank.value = activeStudent.rank;
+    if (prCat) prCat.value = activeStudent.category;
+  }
+}
+
+function bindCounsellorAndSuperUserEvents() {
+  // 1. Counsellor portfolio active student selection change
+  const select = document.getElementById('counsellor-student-select');
+  if (select) {
+    select.addEventListener('change', () => {
+      if (!currentUser || currentUser.role !== 'counsellor') return;
+      currentUser.activeStudentId = select.value;
+      localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+      
+      const activeStudent = currentUser.students.find(s => s.id === select.value);
+      if (activeStudent) {
+        studentOptionsList = activeStudent.optionList || [];
+        renderOptionEntryList();
+      }
+      applyFilters();
+    });
+  }
+
+  // 2. Toggle collapse add student form
+  const toggleBtn = document.getElementById('btn-toggle-add-portfolio-student');
+  const formDiv = document.getElementById('counsellor-add-student-form');
+  if (toggleBtn && formDiv) {
+    toggleBtn.addEventListener('click', () => {
+      formDiv.style.display = formDiv.style.display === 'none' ? 'block' : 'none';
+      toggleBtn.textContent = formDiv.style.display === 'none' ? '➖ Close Add Form' : '➕ Add Student to Portfolio';
+    });
+  }
+
+  // 3. Submit add student to portfolio
+  const submitAddBtn = document.getElementById('btn-submit-add-portfolio-student');
+  if (submitAddBtn) {
+    submitAddBtn.addEventListener('click', () => {
+      if (!currentUser || currentUser.role !== 'counsellor') return;
+      const name = document.getElementById('cs-add-name').value.trim();
+      const rank = parseInt(document.getElementById('cs-add-rank').value);
+      const category = document.getElementById('cs-add-category').value;
+
+      if (!name || isNaN(rank) || rank <= 0) {
+        alert("Please enter a valid student name and rank.");
+        return;
+      }
+
+      const newStudent = {
+        id: 'cs_' + Date.now(),
+        name: name,
+        rank: rank,
+        category: category,
+        optionList: []
+      };
+
+      currentUser.students.push(newStudent);
+      currentUser.activeStudentId = newStudent.id;
+      localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+
+      // Reset form
+      document.getElementById('cs-add-name').value = '';
+      document.getElementById('cs-add-rank').value = '';
+      formDiv.style.display = 'none';
+      if (toggleBtn) toggleBtn.textContent = '➕ Add Student to Portfolio';
+
+      alert(`Successfully added ${name} to your mentoring portfolio!`);
+      applyUserRole();
+    });
+  }
+
+  // 4. Super User Perspective switches
+  document.querySelectorAll('#su-perspective-buttons button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#su-perspective-buttons button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      superuserPerspective = btn.dataset.view;
+
+      // Show/Hide group select for institution view
+      const groupWrap = document.getElementById('su-group-selector-wrap');
+      if (groupWrap) {
+        groupWrap.style.display = superuserPerspective === 'institution' ? 'flex' : 'none';
+      }
+
+      applyUserRole();
+    });
+  });
+
+  // 5. Super User Group Selector
+  const suGroupSelect = document.getElementById('su-group-select');
+  if (suGroupSelect) {
+    suGroupSelect.addEventListener('change', () => {
+      superuserGroup = suGroupSelect.value;
+      if (currentUser && currentUser.role === 'superuser' && superuserPerspective === 'institution') {
+        setupInstitutionGroupColleges();
+        renderInstitutionDashboard();
+        applyFilters();
+      }
+    });
+  }
 }
 
 function matchesBranch(courseName, branchCode) {
@@ -1326,7 +1664,9 @@ function getCourseCutoff(course, category) {
 }
 
 function generateSeedPriorities() {
-  if (!currentUser || currentUser.role !== 'student') return;
+  if (!currentUser) return;
+  const effectiveRole = currentUser.role === 'superuser' ? superuserPerspective : currentUser.role;
+  if (effectiveRole !== 'student' && effectiveRole !== 'counsellor') return;
 
   // 1. Get Selected Branch Prefixes
   const activeBranchChips = document.querySelectorAll('#option-branch-chips .chip.active');
@@ -1341,8 +1681,7 @@ function generateSeedPriorities() {
     return;
   }
 
-  const studentRank = currentUser.rank || 5000;
-  const studentCategory = currentUser.category || 'GM';
+  const { rank: studentRank, category: studentCategory } = getActiveStudentProfile();
 
   // 3. Find Matches
   const matches = [];
@@ -1382,6 +1721,8 @@ function generateSeedPriorities() {
 
   // Take top 40 matching priority options to keep it clean and performant
   studentOptionsList = matches.slice(0, 40);
+  
+  saveCounsellorOptions();
 
   alert(`Successfully generated ${studentOptionsList.length} options matching your profile rank & preferences!`);
   renderOptionEntryList();
@@ -1445,6 +1786,7 @@ function movePriorityOption(index, direction) {
   studentOptionsList[index] = studentOptionsList[newIndex];
   studentOptionsList[newIndex] = temp;
 
+  saveCounsellorOptions();
   renderOptionEntryList();
 
   // Highlight swapped rows for visual confirmation
@@ -1456,6 +1798,7 @@ function movePriorityOption(index, direction) {
 
 function deletePriorityOption(index) {
   studentOptionsList.splice(index, 1);
+  saveCounsellorOptions();
   renderOptionEntryList();
 }
 
@@ -1489,6 +1832,7 @@ function bindOptionEntryEvents() {
     clearBtn.addEventListener('click', () => {
       if (confirm("Are you sure you want to clear your prioritized option entry sheet?")) {
         studentOptionsList = [];
+        saveCounsellorOptions();
         renderOptionEntryList();
       }
     });
@@ -1592,8 +1936,7 @@ function bindOptionEntryEvents() {
       const courseObj = selectedCollegeForAdd.courses.find(c => c.course_name === courseName);
       if (!courseObj) return;
 
-      const studentRank = currentUser ? (currentUser.rank || 5000) : 5000;
-      const studentCategory = currentUser ? (currentUser.category || 'GM') : 'GM';
+      const { rank: studentRank, category: studentCategory } = getActiveStudentProfile();
       const cutoff = getCourseCutoff(courseObj, studentCategory) || 999999;
 
       let chanceClass = 'safety';
@@ -1617,6 +1960,7 @@ function bindOptionEntryEvents() {
       }
 
       studentOptionsList.push(newOpt);
+      saveCounsellorOptions();
       renderOptionEntryList();
 
       // Reset
@@ -1637,8 +1981,10 @@ function applyFilters() {
   const q = search.toLowerCase().trim();
 
   let baseColleges = allData.colleges;
-  if (currentUser && currentUser.role === 'institution') {
-    const groupId = currentUser.institutionGroup;
+  const isInst = (currentUser && currentUser.role === 'institution');
+  const isSuperInst = (currentUser && currentUser.role === 'superuser' && superuserPerspective === 'institution');
+  if (isInst || isSuperInst) {
+    const groupId = isSuperInst ? superuserGroup : currentUser.institutionGroup;
     if (groupId && INSTITUTION_GROUPS[groupId]) {
       const groupColleges = INSTITUTION_GROUPS[groupId].colleges;
       const groupCleanNames = new Set(groupColleges.map(col => getCleanCollegeName(col.college_name)));
@@ -1983,7 +2329,11 @@ function renderDistrictBarChart() {
 // ─────────────────────────────
 function getYoYCutoffData(currentYear, keaCode, courseName) {
   if (!keaCode) return null;
-  const otherYearCache = currentYear === '2025' ? cache2024 : cache2025;
+  let otherYearCache = null;
+  if (currentYear === '2026') otherYearCache = cache2025;
+  else if (currentYear === '2025') otherYearCache = cache2024;
+  else otherYearCache = cache2025;
+  
   if (!otherYearCache) return null;
   
   const otherCol = otherYearCache.colleges.find(col => col.kea_code === keaCode);
@@ -2164,6 +2514,16 @@ function openModal(college) {
     </tr>`;
   }).join('');
 
+  // Course-level category totals calculation
+  const totalIntakeSum = college.total_intake || college.courses.reduce((acc, c) => acc + (c.total_intake || 0), 0);
+  const totalKeaSum = college.total_kea_seats || college.courses.reduce((acc, c) => acc + (c.total_kea_seats || 0), 0);
+  const totalComEdkSum = college.courses.reduce((acc, c) => acc + (parseInt(c.cat2_seats) || 0), 0);
+  const totalMgmtSum = college.courses.reduce((acc, c) => acc + (parseInt(c.cat3_seats) || 0), 0);
+  const totalPhSum = college.courses.reduce((acc, c) => acc + (parseInt(c.kea_ph) || 0), 0);
+  const totalSplSum = college.courses.reduce((acc, c) => acc + (parseInt(c.kea_spl) || 0), 0);
+  const totalHkSum = college.courses.reduce((acc, c) => acc + (parseInt(c.kea_hk) || 0), 0);
+  const totalRkSum = college.courses.reduce((acc, c) => acc + (parseInt(c.kea_rk) || 0), 0);
+
   // Fee calculation
   const feeInfo = getSeatFees(college);
   const feeRows = feeInfo.rows.map(r => `
@@ -2237,6 +2597,7 @@ function openModal(college) {
         <span class="card-location" style="color:var(--text-muted); font-size:13px">
           📍 ${escHtml(college.district || 'Karnataka')}
         </span>
+        <button id="modal-compare-btn" style="margin-left:auto; padding: 6px 12px; font-size:11px; font-weight:700; background:var(--blue); color:#fff; border:none; border-radius:6px; cursor:pointer; font-family:var(--font); display:flex; align-items:center; gap:4px; transition:background 0.2s;">⚖️ Add to Compare</button>
       </div>
       <div class="modal-title">${college.kea_code ? `<span class="kea-code-badge large">${college.kea_code}</span> ` : ''}${escHtml(college.college_name)}</div>
       <div class="modal-address">📌 ${escHtml(college.address || 'Karnataka')}</div>
@@ -2287,6 +2648,23 @@ function openModal(college) {
           </tr>
         </thead>
         <tbody>${courseRows}</tbody>
+        <tfoot>
+          <tr style="border-top:2px solid var(--border); font-weight:bold; background:rgba(255,255,255,0.02);">
+            <td><strong>Total</strong></td>
+            <td class="td-total"><strong>${totalIntakeSum.toLocaleString()}</strong></td>
+            <td class="td-kea"><strong>${totalKeaSum.toLocaleString()}</strong></td>
+            ${hasComDk ? `<td class="td-comedk"><strong>${totalComEdkSum.toLocaleString()}</strong></td>` : ''}
+            ${hasMgmt ? `<td class="td-mgmt"><strong>${totalMgmtSum.toLocaleString()}</strong></td>` : ''}
+            ${hasPh ? `<td class="td-ph"><strong>${totalPhSum.toLocaleString()}</strong></td>` : ''}
+            ${hasSpl ? `<td class="td-spl"><strong>${totalSplSum.toLocaleString()}</strong></td>` : ''}
+            ${hasHk ? `<td class="td-hk"><strong>${totalHkSum.toLocaleString()}</strong></td>` : ''}
+            ${hasRk ? `<td class="td-rk"><strong>${totalRkSum.toLocaleString()}</strong></td>` : ''}
+            <td>—</td>
+            <td style="text-align:right;">—</td>
+            <td style="text-align:right;">—</td>
+            <td style="text-align:right;">—</td>
+          </tr>
+        </tfoot>
       </table>
     </div>
 
@@ -2403,6 +2781,49 @@ function openModal(college) {
       });
     });
   }
+
+  // Compare button event listener
+  const compBtn = document.getElementById('modal-compare-btn');
+  if (compBtn) {
+    compBtn.addEventListener('click', () => {
+      if (!college.kea_code) {
+        alert("This college does not have a valid KEA code for comparison.");
+        return;
+      }
+      
+      const s1 = document.getElementById('compare-col-1');
+      const s2 = document.getElementById('compare-col-2');
+      const s3 = document.getElementById('compare-col-3');
+      
+      if (s1.value === college.kea_code || s2.value === college.kea_code || s3.value === college.kea_code) {
+        alert("This college is already in the comparison list!");
+        return;
+      }
+      
+      if (!s1.value) {
+        s1.value = college.kea_code;
+      } else if (!s2.value) {
+        s2.value = college.kea_code;
+      } else if (!s3.value) {
+        s3.value = college.kea_code;
+      } else {
+        alert("All 3 comparison slots are full! Please clear one in the Compare tab first.");
+        return;
+      }
+      
+      updateComparisonMatrix();
+      closeModal();
+      
+      // Switch tab to Compare
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+      const tabComp = document.getElementById('tab-compare');
+      if (tabComp) tabComp.classList.add('active');
+      currentTab = 'compare';
+      const contentComp = document.getElementById('tab-content-compare');
+      if (contentComp) contentComp.classList.add('active');
+    });
+  }
 }
 
 function closeModal() {
@@ -2412,6 +2833,26 @@ function closeModal() {
 
 function getCourseFee(college, courseName, keaSeats) {
   const type = college.college_type || '';
+  const selectedYear = document.getElementById('year-select')?.value || '2025';
+  
+  if (selectedYear === '2026') {
+    if (type.includes('Government / VTU Constituent')) {
+      const concessionCourses = ['civil', 'mechanical', 'textile', 'silk', 'automobile'];
+      const isConcession = concessionCourses.some(cc => courseName.toLowerCase().includes(cc));
+      return isConcession ? '₹33,600' : '₹47,100';
+    }
+    if (type.includes('Government Aided')) {
+      return '₹47,100';
+    }
+    if (type.includes('Public University')) {
+      return '₹56,500';
+    }
+    if (type.includes('Government (Higher Fees)')) {
+      return '₹1,10,320';
+    }
+    return '₹1,10,320';
+  }
+  
   if (type.includes('Government / VTU Constituent')) {
     const concessionCourses = ['civil', 'mechanical', 'textile', 'silk', 'automobile'];
     const isConcession = concessionCourses.some(cc => courseName.toLowerCase().includes(cc));
@@ -2438,23 +2879,125 @@ function getSeatFees(college) {
     rows: []
   };
 
-  if (selectedYear === '2024') {
+  if (selectedYear === '2026') {
     if (type.includes('Government / VTU Constituent Colleges') || type.includes('Government Engineering Colleges') || type.includes('Government')) {
       const concessionCourses = ['civil', 'mechanical', 'textile', 'silk', 'automobile'];
       const hasConcession = college.courses.some(c => 
         concessionCourses.some(cc => c.course_name.toLowerCase().includes(cc))
       );
-      
       result.type = 'standard';
       result.hasConcession = hasConcession;
-      
+      result.rows.push({
+        seatType: 'KEA General Quota',
+        year1: '₹47,100',
+        subsequent: '₹45,100',
+        note: 'Includes ₹12,320 VTU fee and ₹10,000 other fees.'
+      });
+      if (hasConcession) {
+        result.rows.push({
+          seatType: 'KEA Concession Quota',
+          year1: '₹33,600',
+          subsequent: '₹32,320',
+          note: 'Applies to Civil, Mechanical, Textile, Silk, Automobile.'
+        });
+      }
+      result.rows.push({
+        seatType: 'SNQ (Supernumerary Quota)',
+        year1: '₹22,320',
+        subsequent: '₹22,320',
+        note: 'Tuition fee waived. Pays VTU and other fees.'
+      });
+    } else if (type.includes('Government Aided Private Colleges') || type.includes('Aided Courses')) {
+      result.type = 'standard';
+      result.rows.push({
+        seatType: 'KEA General (Aided Courses)',
+        year1: '₹47,100',
+        subsequent: '₹45,100',
+        note: 'Includes ₹12,320 VTU fee and ₹10,000 other fees.'
+      });
+      result.rows.push({
+        seatType: 'SNQ (Supernumerary Quota)',
+        year1: '₹22,320',
+        subsequent: '₹22,320',
+        note: 'Tuition fee waived. Pays VTU and other fees.'
+      });
+    } else if (type.includes('Public University') || type.includes('University of Visvesvaraya')) {
+      result.type = 'uvce';
+      result.rows.push({
+        seatType: 'KEA General Quota',
+        year1: '₹56,500',
+        subsequent: '₹54,500',
+        note: 'Under autonomous IIT-like status.'
+      });
+      result.rows.push({
+        seatType: 'SNQ (Supernumerary Quota)',
+        year1: '₹22,320',
+        subsequent: '₹22,320',
+        note: 'Tuition fee waived. Pays university and other fees.'
+      });
+    } else if (type.includes('Government (Higher Fees)')) {
+      result.type = 'higher';
+      result.rows.push({
+        seatType: 'KEA General Quota',
+        year1: '₹1,10,320',
+        subsequent: '₹1,10,320',
+        note: 'Applied to specific VTU constituent seats.'
+      });
+      result.rows.push({
+        seatType: 'SNQ (Supernumerary Quota)',
+        year1: '₹22,320',
+        subsequent: '₹22,320',
+        note: 'Tuition fee waived. Pays university and other fees.'
+      });
+    } else {
+      result.type = 'options';
+      result.rows = [
+        {
+          seatType: 'KEA General (Option A)',
+          year1: '₹1,10,320',
+          subsequent: '₹1,10,320',
+          note: 'Consensual Agreement Option A. Includes ₹22,320 other fees.'
+        },
+        {
+          seatType: 'KEA General (Option B)',
+          year1: '₹1,20,320',
+          subsequent: '₹1,20,320',
+          note: 'Consensual Agreement Option B. Includes ₹22,320 other fees.'
+        },
+        {
+          seatType: 'COMEDK (Option A)',
+          year1: '₹2,15,000',
+          subsequent: '₹2,15,000',
+          note: 'Charged if the college chooses ₹1,10,320 for KEA.'
+        },
+        {
+          seatType: 'COMEDK (Option B)',
+          year1: '₹3,02,000',
+          subsequent: '₹3,02,000',
+          note: 'Charged if the college chooses ₹1,20,320 for KEA.'
+        },
+        {
+          seatType: 'SNQ (Supernumerary Quota)',
+          year1: '₹32,320',
+          subsequent: '₹32,320',
+          note: 'Tuition fee waived. Pays university and other fees.'
+        }
+      ];
+    }
+  } else if (selectedYear === '2024') {
+    if (type.includes('Government / VTU Constituent Colleges') || type.includes('Government Engineering Colleges') || type.includes('Government')) {
+      const concessionCourses = ['civil', 'mechanical', 'textile', 'silk', 'automobile'];
+      const hasConcession = college.courses.some(c => 
+        concessionCourses.some(cc => c.course_name.toLowerCase().includes(cc))
+      );
+      result.type = 'standard';
+      result.hasConcession = hasConcession;
       result.rows.push({
         seatType: 'KEA General Quota',
         year1: '₹42,866',
         subsequent: '₹41,500',
         note: 'Includes ₹10,610 VTU fee and ₹10,000 other fees.'
       });
-      
       if (hasConcession) {
         result.rows.push({
           seatType: 'KEA Concession Quota',
@@ -2463,7 +3006,6 @@ function getSeatFees(college) {
           note: 'Applies to Civil, Mechanical, Textile, Silk, Automobile.'
         });
       }
-      
       result.rows.push({
         seatType: 'SNQ (Supernumerary Quota)',
         year1: '₹21,360',
@@ -2499,7 +3041,6 @@ function getSeatFees(college) {
         note: 'Tuition fee waived. Pays university and other fees.'
       });
     } else {
-      // Private / Minority / Deemed / Private University
       result.type = 'options';
       result.rows = [
         {
@@ -2541,17 +3082,14 @@ function getSeatFees(college) {
       const hasConcession = college.courses.some(c => 
         concessionCourses.some(cc => c.course_name.toLowerCase().includes(cc))
       );
-      
       result.type = 'standard';
       result.hasConcession = hasConcession;
-      
       result.rows.push({
         seatType: 'KEA General Quota',
         year1: '₹44,200',
         subsequent: '₹42,200',
         note: 'Includes ₹10,610 VTU fee and ₹10,000 other fees.'
       });
-      
       if (hasConcession) {
         result.rows.push({
           seatType: 'KEA Concession Quota',
@@ -2560,7 +3098,6 @@ function getSeatFees(college) {
           note: 'Applies to Civil, Mechanical, Textile, Silk, Automobile.'
         });
       }
-      
       result.rows.push({
         seatType: 'SNQ (Supernumerary Quota)',
         year1: '₹20,610',
@@ -2610,7 +3147,6 @@ function getSeatFees(college) {
         note: 'Tuition fee waived. Pays university and other fees.'
       });
     } else {
-      // Private / Minority / Deemed / Private University
       result.type = 'options';
       result.rows = [
         {
@@ -2888,6 +3424,8 @@ function bindEvents() {
         renderAuthorityDashboard();
       } else if (currentTab === 'option-entry') {
         renderOptionEntryList();
+      } else if (currentTab === 'downloads') {
+        updateDownloadPreview();
       }
     });
   });
@@ -2940,9 +3478,7 @@ function bindEvents() {
     renderTotals(btn.dataset.ann);
   });
 
-  // Download handlers
-  document.getElementById('btn-download-json').addEventListener('click', downloadJSON);
-  document.getElementById('btn-download-csv').addEventListener('click', downloadCSV);
+
 
   // Predictor handlers
   const predBtn = document.getElementById('pred-btn');
@@ -2955,6 +3491,22 @@ function bindEvents() {
       if (e.key === 'Enter') runPrediction();
     });
   }
+
+  // College Comparer Bindings
+  const comp1 = document.getElementById('compare-col-1');
+  const comp2 = document.getElementById('compare-col-2');
+  const comp3 = document.getElementById('compare-col-3');
+  if (comp1) comp1.addEventListener('change', updateComparisonMatrix);
+  if (comp2) comp2.addEventListener('change', updateComparisonMatrix);
+  if (comp3) comp3.addEventListener('change', updateComparisonMatrix);
+
+  // Fee Calculator Bindings
+  const feeCol = document.getElementById('calc-fee-college');
+  const feeQuot = document.getElementById('calc-fee-quota');
+  const feeYr = document.getElementById('calc-fee-year');
+  if (feeCol) feeCol.addEventListener('change', calculateTuitionFee);
+  if (feeQuot) feeQuot.addEventListener('change', calculateTuitionFee);
+  if (feeYr) feeYr.addEventListener('change', calculateTuitionFee);
 }
 
 // ─────────────────────────────
@@ -3246,65 +3798,183 @@ function updateDownloadDropdown(year) {
 // ─────────────────────────────
 // Annexure Data Download logic
 // ─────────────────────────────
-function downloadJSON() {
-  const annSel = document.getElementById('download-ann-select').value;
-  const selectedYear = document.getElementById('year-select')?.value || '2025';
-  let dataToDownload;
-  let filename;
+function getScopedBaseColleges() {
+  if (!currentUser) return [];
 
-  let sourceColleges = allData.colleges;
-  if (currentUser && currentUser.role === 'institution') {
-    const groupId = currentUser.institutionGroup;
+  const effectiveRole = currentUser.role === 'superuser' ? superuserPerspective : currentUser.role;
+
+  if (effectiveRole === 'authority') {
+    return allData.colleges;
+  }
+
+  if (effectiveRole === 'institution') {
+    const groupId = currentUser.role === 'superuser' ? superuserGroup : currentUser.institutionGroup;
     if (groupId && INSTITUTION_GROUPS[groupId]) {
-      const groupColleges = INSTITUTION_GROUPS[groupId].colleges;
+      const groupColleges = INSTITUTION_GROUPS[groupId].colleges || [];
       const groupCleanNames = new Set(groupColleges.map(col => getCleanCollegeName(col.college_name)));
-      sourceColleges = allData.colleges.filter(col => groupCleanNames.has(getCleanCollegeName(col.college_name)));
+      return allData.colleges.filter(col => groupCleanNames.has(getCleanCollegeName(col.college_name)));
     }
+    return [];
   }
 
-  if (annSel === 'ALL') {
-    dataToDownload = sourceColleges;
-    filename = `karnataka_seat_matrix_${selectedYear}_all.json`;
-  } else if (annSel === 'Undefined') {
-    dataToDownload = sourceColleges.map(col => {
-      const specCourses = col.courses.filter(c => 
-        (c.sports || 0) > 0 || (c.ncc || 0) > 0 || (c.sct_guides || 0) > 0 ||
-        (c.defence || 0) > 0 || (c.k_defence || 0) > 0 || (c.ex_defence || 0) > 0 ||
-        (c.capf || 0) > 0 || (c.ai || 0) > 0 || (c.xcapf || 0) > 0 || (c.tot_special_seats || 0) > 0
-      );
-      if (specCourses.length > 0) {
-        return { ...col, courses: specCourses };
-      }
-      return null;
-    }).filter(col => col !== null);
-    filename = `karnataka_seat_matrix_${selectedYear}_annexure_Undefined.json`;
-  } else {
-    dataToDownload = sourceColleges.filter(c => c.annexure === annSel);
-    filename = `karnataka_seat_matrix_${selectedYear}_annexure_${annSel}.json`;
+  if (effectiveRole === 'counsellor') {
+    const { rank: studentRank, category: studentCategory } = getActiveStudentProfile();
+    // Return colleges with courses that have cutoff data matching the student's category and rank suitability
+    return allData.colleges.filter(col => {
+      return col.courses.some(c => {
+        const cutoff = getCourseCutoff(c, studentCategory);
+        return !isNaN(cutoff);
+      });
+    });
   }
 
-  const jsonStr = JSON.stringify(dataToDownload, null, 2);
-  const blob = new Blob([jsonStr], { type: 'application/json' });
-  triggerDownload(blob, filename);
+  return [];
 }
 
-function downloadCSV() {
-  const annSel = document.getElementById('download-ann-select').value;
-  const selectedYear = document.getElementById('year-select')?.value || '2025';
-  let colleges;
-  let filename;
+function updateDownloadPreview() {
+  const alertEl = document.getElementById('download-scope-alert');
+  if (!alertEl || !currentUser) return;
 
-  let sourceColleges = allData.colleges;
-  if (currentUser && currentUser.role === 'institution') {
-    const groupId = currentUser.institutionGroup;
-    if (groupId && INSTITUTION_GROUPS[groupId]) {
-      const groupColleges = INSTITUTION_GROUPS[groupId].colleges;
-      const groupCleanNames = new Set(groupColleges.map(col => getCleanCollegeName(col.college_name)));
-      sourceColleges = allData.colleges.filter(col => groupCleanNames.has(getCleanCollegeName(col.college_name)));
-    }
+  const effectiveRole = currentUser.role === 'superuser' ? superuserPerspective : currentUser.role;
+
+  // 1. Render Scope Alert Banner Text
+  if (effectiveRole === 'authority') {
+    alertEl.innerHTML = `<span>🛡️ <strong>KEA Authority Scope:</strong> Global consolidated access. All colleges in the state matrix are exportable.</span>`;
+    alertEl.style.background = 'rgba(59, 130, 246, 0.1)';
+    alertEl.style.borderColor = 'rgba(59, 130, 246, 0.25)';
+    alertEl.style.color = 'var(--blue)';
+  } else if (effectiveRole === 'institution') {
+    const groupId = currentUser.role === 'superuser' ? superuserGroup : currentUser.institutionGroup;
+    const groupName = (groupId || '').toUpperCase();
+    alertEl.innerHTML = `<span>🏫 <strong>Institution Admin Scope (${groupName}):</strong> Export is strictly limited to colleges mapped under the ${groupName} Group.</span>`;
+    alertEl.style.background = 'rgba(20, 184, 166, 0.1)';
+    alertEl.style.borderColor = 'rgba(20, 184, 166, 0.25)';
+    alertEl.style.color = 'var(--teal)';
+  } else if (effectiveRole === 'counsellor') {
+    const activeId = currentUser.activeStudentId || '';
+    const activeStudent = currentUser.students ? currentUser.students.find(s => s.id === activeId) : null;
+    const studentName = activeStudent ? activeStudent.name : 'Unknown Candidate';
+    alertEl.innerHTML = `<span>💼 <strong>Admissions Advisor Scope:</strong> Exporting colleges showing cutoff suitability for candidate: <strong>${studentName}</strong>.</span>`;
+    alertEl.style.background = 'rgba(168, 85, 247, 0.1)';
+    alertEl.style.borderColor = 'rgba(168, 85, 247, 0.25)';
+    alertEl.style.color = 'var(--purple)';
   }
 
-  if (annSel === 'Undefined') {
+  // 2. Fetch Criteria Filters
+  const minSeats = parseInt(document.getElementById('download-min-seats')?.value) || 0;
+  const district = document.getElementById('download-district-select')?.value || '';
+  const course = document.getElementById('download-course-select')?.value || '';
+
+  // Get selected Annexure checkboxes
+  const selectedAnn = Array.from(document.querySelectorAll('#download-annexures-grid input[type="checkbox"]:checked')).map(cb => cb.value);
+
+  // 3. Filter the Database
+  const baseColleges = getScopedBaseColleges();
+  
+  let collegeMatchCount = 0;
+  let courseMatchCount = 0;
+  let totalSeatsSum = 0;
+
+  baseColleges.forEach(col => {
+    // Annexure check
+    if (col.annexure === 'E' || col.annexure === 'V') {
+      if (!selectedAnn.includes(col.annexure)) return;
+    } else {
+      if (!selectedAnn.includes(col.annexure || 'Undefined')) return;
+    }
+
+    // District check
+    if (district && col.district !== district) return;
+
+    // Course matches inside college
+    const matchingCourses = col.courses.filter(c => {
+      if (course && c.course_name !== course) return false;
+      if (minSeats > 0 && (c.total_intake || 0) < minSeats) return false;
+      return true;
+    });
+
+    if (matchingCourses.length > 0) {
+      collegeMatchCount++;
+      courseMatchCount += matchingCourses.length;
+      matchingCourses.forEach(c => {
+        totalSeatsSum += (c.total_intake || 0);
+      });
+    }
+  });
+
+  // 4. Update Preview Counters
+  document.getElementById('download-preview-colleges').textContent = collegeMatchCount.toLocaleString();
+  document.getElementById('download-preview-courses').textContent = courseMatchCount.toLocaleString();
+  document.getElementById('download-preview-seats').textContent = totalSeatsSum.toLocaleString();
+}
+
+function triggerTabDownload() {
+  if (!currentUser) return;
+  const effectiveRole = currentUser.role === 'superuser' ? superuserPerspective : currentUser.role;
+  if (effectiveRole === 'student') {
+    alert("Access restricted. Students cannot download system-consolidated datasets.");
+    return;
+  }
+
+  const selectedYear = document.getElementById('download-year-select')?.value || '2025';
+  const minSeats = parseInt(document.getElementById('download-min-seats')?.value) || 0;
+  const district = document.getElementById('download-district-select')?.value || '';
+  const course = document.getElementById('download-course-select')?.value || '';
+  const format = document.querySelector('input[name="download-format"]:checked')?.value || 'csv';
+
+  const selectedAnn = Array.from(document.querySelectorAll('#download-annexures-grid input[type="checkbox"]:checked')).map(cb => cb.value);
+
+  if (selectedAnn.length === 0) {
+    alert("Please select at least one Annexure category to download.");
+    return;
+  }
+
+  const baseColleges = getScopedBaseColleges();
+  const filteredData = [];
+
+  baseColleges.forEach(col => {
+    // Annexure check
+    if (col.annexure === 'E' || col.annexure === 'V') {
+      if (!selectedAnn.includes(col.annexure)) return;
+    } else {
+      if (!selectedAnn.includes(col.annexure || 'Undefined')) return;
+    }
+
+    // District check
+    if (district && col.district !== district) return;
+
+    // Filter courses
+    const matchingCourses = col.courses.filter(c => {
+      if (course && c.course_name !== course) return false;
+      if (minSeats > 0 && (c.total_intake || 0) < minSeats) return false;
+      return true;
+    });
+
+    if (matchingCourses.length > 0) {
+      filteredData.push({
+        ...col,
+        courses: matchingCourses
+      });
+    }
+  });
+
+  if (filteredData.length === 0) {
+    alert("No records match your selected criteria. Adjust your filters and try again.");
+    return;
+  }
+
+  // Construct filename
+  let filename = `kcet_${selectedYear}_export`;
+  if (district) filename += `_${district.toLowerCase().replace(/ /g, '_')}`;
+  if (course) filename += `_${course.toLowerCase().replace(/[^a-z0-9]/g, '_')}`;
+  filename += `.${format}`;
+
+  if (format === 'json') {
+    const jsonStr = JSON.stringify(filteredData, null, 2);
+    const blob = new Blob([jsonStr], { type: 'application/json' });
+    triggerDownload(blob, filename);
+  } else {
+    // Comprehensive consolidated CSV Export
     const headers = [
       'College Number',
       'College Name',
@@ -3313,6 +3983,10 @@ function downloadCSV() {
       'College Type',
       'District',
       'Course Name',
+      'Total Intake',
+      'KEA Seats',
+      'COMEDK Seats',
+      'Mgmt Seats',
       'Sports',
       'NCC',
       'Scouts & Guides',
@@ -3322,31 +3996,25 @@ function downloadCSV() {
       'CAPF',
       'AI',
       'XCAPF',
-      'Total Seats'
+      'SNQ Seats'
     ];
-    const csvRows = [headers.join(',')];
-    colleges = sourceColleges.map(col => {
-      const specCourses = col.courses.filter(c => 
-        (c.sports || 0) > 0 || (c.ncc || 0) > 0 || (c.sct_guides || 0) > 0 ||
-        (c.defence || 0) > 0 || (c.k_defence || 0) > 0 || (c.ex_defence || 0) > 0 ||
-        (c.capf || 0) > 0 || (c.ai || 0) > 0 || (c.xcapf || 0) > 0 || (c.tot_special_seats || 0) > 0
-      );
-      if (specCourses.length > 0) {
-        return { ...col, courses: specCourses };
-      }
-      return null;
-    }).filter(col => col !== null);
 
-    colleges.forEach(col => {
+    const csvRows = [headers.join(',')];
+
+    filteredData.forEach(col => {
       col.courses.forEach(c => {
         const row = [
           col.college_number,
           `"${col.college_name.replace(/"/g, '""')}"`,
           `"${(col.address || '').replace(/"/g, '""')}"`,
-          col.annexure,
+          col.annexure || 'N/A',
           `"${col.college_type}"`,
           col.district || '',
           `"${c.course_name}"`,
+          c.total_intake || 0,
+          c.total_kea_seats || 0,
+          c.cat2_seats || 0,
+          c.cat3_seats || 0,
           c.sports || 0,
           c.ncc || 0,
           c.sct_guides || 0,
@@ -3356,78 +4024,67 @@ function downloadCSV() {
           c.capf || 0,
           c.ai || 0,
           c.xcapf || 0,
-          c.tot_special_seats || 0
+          c.over_above_5pct || 0
         ];
         csvRows.push(row.join(','));
       });
     });
-    
-    filename = `karnataka_seat_matrix_${selectedYear}_annexure_Undefined.csv`;
-    const csvStr = csvRows.join('\n');
-    const blob = new Blob([csvStr], { type: 'text/csv;charset=utf-8;' });
+
+    const csvContent = '\uFEFF' + csvRows.join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     triggerDownload(blob, filename);
-    return;
+  }
+}
+
+function bindDownloadTabEvents() {
+  const yearSel = document.getElementById('download-year-select');
+  const minSeatsInput = document.getElementById('download-min-seats');
+  const distSel = document.getElementById('download-district-select');
+  const courseSel = document.getElementById('download-course-select');
+  const toggleBtn = document.getElementById('btn-download-toggle-annexures');
+  const executeBtn = document.getElementById('btn-execute-download');
+
+  // Change listeners
+  [yearSel, minSeatsInput, distSel, courseSel].forEach(el => {
+    if (el) el.addEventListener('change', updateDownloadPreview);
+  });
+  if (minSeatsInput) {
+    minSeatsInput.addEventListener('input', updateDownloadPreview);
   }
 
-  if (annSel === 'ALL') {
-    colleges = sourceColleges;
-    filename = `karnataka_seat_matrix_${selectedYear}_all.csv`;
-  } else {
-    colleges = sourceColleges.filter(c => c.annexure === annSel);
-    filename = `karnataka_seat_matrix_${selectedYear}_annexure_${annSel}.csv`;
-  }
-
-  const headers = [
-    'College Number',
-    'College Name',
-    'Address',
-    'Annexure',
-    'College Type',
-    'District',
-    'Course Name',
-    'Total Intake',
-    'Total KEA Seats',
-    'PH Seats',
-    'SPL Seats',
-    'HK Seats',
-    'RK Seats',
-    'TOT HK-RK',
-    'COMEDK Seats',
-    'Mgmt Seats',
-    'SNQ Seats'
-  ];
-
-  const csvRows = [headers.join(',')];
-
-  colleges.forEach(col => {
-    col.courses.forEach(c => {
-      const row = [
-        col.college_number,
-        `"${col.college_name.replace(/"/g, '""')}"`,
-        `"${(col.address || '').replace(/"/g, '""')}"`,
-        col.annexure,
-        `"${col.college_type}"`,
-        col.district || '',
-        `"${c.course_name}"`,
-        c.total_intake || 0,
-        c.total_kea_seats || 0,
-        c.kea_ph || 0,
-        c.kea_spl || 0,
-        c.kea_hk || 0,
-        c.kea_rk || 0,
-        c.kea_tot || 0,
-        c.cat2_seats || 0,
-        c.cat3_seats || 0,
-        c.over_above_5pct || 0
-      ];
-      csvRows.push(row.join(','));
-    });
+  // Bind checkboxes in grid
+  document.querySelectorAll('#download-annexures-grid input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', updateDownloadPreview);
   });
 
-  const csvContent = '\uFEFF' + csvRows.join('\n');
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  triggerDownload(blob, filename);
+  // Toggle all annexures
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const checkboxes = document.querySelectorAll('#download-annexures-grid input[type="checkbox"]');
+      const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+      checkboxes.forEach(cb => cb.checked = !allChecked);
+      updateDownloadPreview();
+    });
+  }
+
+  // Execute download click
+  if (executeBtn) {
+    executeBtn.addEventListener('click', triggerTabDownload);
+  }
+
+  // Sync Year selects
+  if (yearSel) {
+    yearSel.addEventListener('change', async (e) => {
+      const globalYearSelect = document.getElementById('year-select');
+      if (globalYearSelect) {
+        globalYearSelect.value = e.target.value;
+      }
+      await loadYearData(e.target.value);
+      updateDownloadPreview();
+    });
+  }
 }
+
 
 function triggerDownload(blob, filename) {
   const url = URL.createObjectURL(blob);
@@ -3463,7 +4120,7 @@ function runPrediction() {
   const results = [];
   const seen = new Set();
   
-  const cutoffKey = selectedRound === 'round1' ? 'round1_cutoff' : (selectedRound === 'round2' ? 'round2_cutoff' : 'round3_cutoff');
+  const cutoffKey = selectedRound === 'mock_round1' ? 'mock_round1_cutoff' : (selectedRound === 'round1' ? 'round1_cutoff' : (selectedRound === 'round2' ? 'round2_cutoff' : 'round3_cutoff'));
   
   allData.colleges.forEach(college => {
     college.courses.forEach(course => {
@@ -3525,7 +4182,7 @@ function renderPredictionResults(results, selectedRound) {
   const header = document.getElementById('pred-cutoff-header');
   
   if (header) {
-    header.textContent = selectedRound === 'round1' ? 'Cutoff Rank (R1)' : (selectedRound === 'round2' ? 'Cutoff Rank (R2)' : 'Cutoff Rank (R3)');
+    header.textContent = selectedRound === 'mock_round1' ? 'Cutoff Rank (Mock)' : (selectedRound === 'round1' ? 'Cutoff Rank (R1)' : (selectedRound === 'round2' ? 'Cutoff Rank (R2)' : 'Cutoff Rank (R3)'));
   }
   
   if (results.length === 0) {
@@ -4507,4 +5164,199 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Enter') sendMessage();
   });
 });
+
+// ─────────────────────────────────────────────────────
+// Side-by-Side College Comparison and Fee Calculator
+// ─────────────────────────────────────────────────────
+
+function updateComparisonMatrix() {
+  const col1Code = document.getElementById('compare-col-1').value;
+  const col2Code = document.getElementById('compare-col-2').value;
+  const col3Code = document.getElementById('compare-col-3').value;
+  
+  const wrap = document.getElementById('compare-matrix-wrap');
+  const emptyState = document.getElementById('compare-empty-state');
+  
+  if (!col1Code && !col2Code && !col3Code) {
+    if (wrap) wrap.style.display = 'none';
+    if (emptyState) emptyState.style.display = 'block';
+    return;
+  }
+  
+  if (wrap) wrap.style.display = 'block';
+  if (emptyState) emptyState.style.display = 'none';
+  
+  const c1 = allData.colleges.find(c => c.kea_code === col1Code);
+  const c2 = allData.colleges.find(c => c.kea_code === col2Code);
+  const c3 = allData.colleges.find(c => c.kea_code === col3Code);
+  
+  document.getElementById('compare-head-1').textContent = c1 ? `${c1.kea_code} - ${c1.college_name}` : '—';
+  document.getElementById('compare-head-2').textContent = c2 ? `${c2.kea_code} - ${c2.college_name}` : '—';
+  document.getElementById('compare-head-3').textContent = c3 ? `${c3.kea_code} - ${c3.college_name}` : '—';
+  
+  const getFeeString = (col) => {
+    if (!col) return '—';
+    const feeInfo = getSeatFees(col);
+    if (!feeInfo || feeInfo.rows.length === 0) return '—';
+    return feeInfo.rows.map(r => `<strong>${r.seatType || r.quota}</strong>: ${r.year1 || r.fee} (${r.subsequent || 'Subsequent'} subseq)`).join('<br>');
+  };
+  
+  const getCoursesString = (col) => {
+    if (!col) return '—';
+    return col.courses.map(c => `<div style="margin-bottom:6px; font-size:11px; border-bottom:1px solid rgba(255,255,255,0.03); padding-bottom:4px;">🛠️ <strong>${c.course_name}</strong><br><span style="color:var(--text-muted);">Intake: ${c.total_intake} | KEA Seats: ${c.total_kea_seats}</span></div>`).join('');
+  };
+  
+  const getBranchCutoff = (col, branchKeywords) => {
+    if (!col) return '—';
+    const matched = col.courses.find(c => {
+      const name = c.course_name.toLowerCase();
+      return branchKeywords.every(kw => name.includes(kw));
+    });
+    if (!matched) return '—';
+    
+    const r1 = matched.round1_cutoff ? matched.round1_cutoff['GM'] : null;
+    const r2 = matched.round2_cutoff ? matched.round2_cutoff['GM'] : null;
+    const r3 = matched.round3_cutoff ? matched.round3_cutoff['GM'] : null;
+    const mock = matched.mock_round1_cutoff ? matched.mock_round1_cutoff['GM'] : null;
+    
+    let parts = [];
+    if (mock) parts.push(`Mock: <strong>${parseInt(mock).toLocaleString()}</strong>`);
+    if (r1) parts.push(`Round 1: <strong>${parseInt(r1).toLocaleString()}</strong>`);
+    if (r2) parts.push(`Round 2: <strong>${parseInt(r2).toLocaleString()}</strong>`);
+    if (r3) parts.push(`Round 3: <strong>${parseInt(r3).toLocaleString()}</strong>`);
+    return parts.length > 0 ? parts.join('<br>') : '—';
+  };
+  
+  const features = [
+    { name: 'KEA Code', val: c => c ? `<strong>${c.kea_code}</strong>` : '—' },
+    { name: 'District', val: c => c ? c.district : '—' },
+    { name: 'Annexure', val: c => c ? `Annexure ${c.annexure}` : '—' },
+    { name: 'College Type', val: c => c ? c.college_type : '—' },
+    { name: 'Total Intake', val: c => c ? c.total_intake : '—' },
+    { name: 'Total KEA Seats', val: c => c ? c.total_kea_seats : '—' },
+    { name: 'Annual Fees Structure', val: c => getFeeString(c) },
+    { name: 'CSE Cutoffs (GM Merit)', val: c => getBranchCutoff(c, ['computer', 'science']) },
+    { name: 'ECE Cutoffs (GM Merit)', val: c => getBranchCutoff(c, ['electronics', 'communication']) },
+    { name: 'ISE Cutoffs (GM Merit)', val: c => getBranchCutoff(c, ['information', 'science']) },
+    { name: 'Courses Offered & Intakes', val: c => getCoursesString(c) }
+  ];
+  
+  const tbody = document.getElementById('compare-table-body');
+  tbody.innerHTML = '';
+  
+  features.forEach(f => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="font-weight: 700; color: var(--text-muted); font-size: 11px; background: rgba(255,255,255,0.01); text-transform: uppercase; letter-spacing: 0.05em; vertical-align: top;">${f.name}</td>
+      <td style="font-size:12px; line-height:1.4; vertical-align: top;">${f.val(c1)}</td>
+      <td style="font-size:12px; line-height:1.4; vertical-align: top;">${f.val(c2)}</td>
+      <td style="font-size:12px; line-height:1.4; vertical-align: top;">${f.val(c3)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function calculateTuitionFee() {
+  const colCode = document.getElementById('calc-fee-college').value;
+  const quota = document.getElementById('calc-fee-quota').value;
+  const studyYear = document.getElementById('calc-fee-year').value;
+  
+  const wrap = document.getElementById('calc-fee-result-wrap');
+  const emptyState = document.getElementById('calc-fee-empty-state');
+  
+  if (!colCode) {
+    if (wrap) wrap.style.display = 'none';
+    if (emptyState) emptyState.style.display = 'block';
+    return;
+  }
+  
+  if (wrap) wrap.style.display = 'block';
+  if (emptyState) emptyState.style.display = 'none';
+  
+  const college = allData.colleges.find(c => c.kea_code === colCode);
+  if (!college) return;
+  
+  const type = college.college_type || '';
+  const activeYear = allData.year || '2026';
+  
+  let feeValue = 0;
+  let breakdown = [];
+  
+  const isGovt = type.includes('Government') || type.includes('VTU Constituent') || type.includes('Public University') || type.includes('University of Visvesvaraya');
+  
+  if (quota === 'govt_snq') {
+    feeValue = (activeYear === '2026') ? 22320 : ((activeYear === '2025') ? 20000 : 21360);
+    if (!isGovt && activeYear === '2026') feeValue = 32320;
+    breakdown = [
+      { item: 'Tuition Fee (Waived)', cost: '₹0' },
+      { item: 'University Registration Fees', cost: '₹12,320' },
+      { item: 'College Development & Other Fees', cost: `₹${(feeValue - 12320).toLocaleString()}` }
+    ];
+  } else if (quota === 'govt_gen') {
+    if (type.includes('University of Visvesvaraya') || type.includes('UVCE') || type.includes('Public University')) {
+      feeValue = (studyYear === 'first') ? 56500 : 54500;
+      breakdown = [
+        { item: 'KEA Registration Fee', cost: '₹500' },
+        { item: 'Tuition Fee', cost: `₹${(studyYear === 'first' ? 43680 : 42180).toLocaleString()}` },
+        { item: 'University & Exam Fees', cost: '₹12,320' }
+      ];
+    } else if (isGovt) {
+      feeValue = (studyYear === 'first') ? 47100 : 45100;
+      breakdown = [
+        { item: 'Tuition Fee', cost: '₹24,780' },
+        { item: 'University Fees (VTU)', cost: '₹12,320' },
+        { item: 'Other Fees', cost: `₹${(studyYear === 'first' ? 10000 : 8000).toLocaleString()}` }
+      ];
+    } else {
+      feeValue = (activeYear === '2026') ? 110320 : 96574;
+      breakdown = [
+        { item: 'Tuition Fee (KEA Approved)', cost: `₹${(feeValue - 22320).toLocaleString()}` },
+        { item: 'Other & University Fees', cost: '₹22,320' }
+      ];
+    }
+  } else if (quota === 'govt_aided') {
+    feeValue = (studyYear === 'first') ? 47100 : 45100;
+    breakdown = [
+      { item: 'Tuition Fee', cost: '₹24,780' },
+      { item: 'University Fees (VTU)', cost: '₹12,320' },
+      { item: 'College Administration Fee', cost: `₹${(studyYear === 'first' ? 10000 : 8000).toLocaleString()}` }
+    ];
+  } else if (quota === 'kea_unaided_a') {
+    feeValue = (activeYear === '2026') ? 110320 : 96574;
+    breakdown = [
+      { item: 'Option A Tuition Fee', cost: `₹${(feeValue - 22320).toLocaleString()}` },
+      { item: 'KEA Miscellaneous Fees', cost: '₹22,320' }
+    ];
+  } else if (quota === 'kea_unaided_b') {
+    feeValue = (activeYear === '2026') ? 120320 : 106574;
+    breakdown = [
+      { item: 'Option B Tuition Fee', cost: `₹${(feeValue - 22320).toLocaleString()}` },
+      { item: 'KEA Miscellaneous Fees', cost: '₹22,320' }
+    ];
+  } else if (quota === 'comedk') {
+    feeValue = (activeYear === '2026') ? 264000 : 244000;
+    breakdown = [
+      { item: 'COMEDK Consensual Tuition Fee', cost: `₹${(feeValue - 20000).toLocaleString()}` },
+      { item: 'Other Institutional Fees', cost: '₹20,000' }
+    ];
+  } else if (quota === 'mgmt') {
+    feeValue = isGovt ? 0 : 450000;
+    breakdown = [
+      { item: 'Institutional Tuition Fee (Varies)', cost: isGovt ? 'N/A (No Management Seats)' : '₹4,00,000' },
+      { item: 'Development fee', cost: isGovt ? 'N/A' : '₹50,000' }
+    ];
+  }
+  
+  document.getElementById('calc-fee-total-value').textContent = feeValue > 0 ? `₹${feeValue.toLocaleString()}` : 'N/A';
+  
+  const detailsEl = document.getElementById('calc-fee-breakdown-details');
+  if (detailsEl) {
+    detailsEl.innerHTML = breakdown.map(b => `
+      <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:6px; margin-bottom:6px;">
+        <span style="color:var(--text-muted);">${b.item}</span>
+        <span style="font-weight:600; color:var(--text);">${b.cost}</span>
+      </div>
+    `).join('');
+  }
+}
 

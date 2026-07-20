@@ -30,6 +30,7 @@ def import_database():
     cursor.execute("DELETE FROM colleges")
     
     datasets = [
+        (2026, "seat_matrix_data_2026.json"),
         (2025, "seat_matrix_data.json"),
         (2024, "seat_matrix_data_2024.json")
     ]
@@ -108,18 +109,27 @@ def import_database():
                         course_id = cursor.lastrowid
                         course_count += 1
                         
-                        # Import cutoffs
-                        for rd in [1, 2, 3]:
-                            cutoff_dict = c.get(f"round{rd}_cutoff") or {}
+                        import re
+                        rounds_to_import = [
+                            (1, "round1_cutoff"),
+                            (2, "round2_cutoff"),
+                            (3, "round3_cutoff"),
+                            (0, "mock_round1_cutoff")
+                        ]
+                        for rd, key in rounds_to_import:
+                            cutoff_dict = c.get(key) or {}
                             for cat, rank in cutoff_dict.items():
                                 if rank is not None:
                                     try:
-                                        rank_int = int(str(rank).replace(",", "").strip())
-                                        cursor.execute("""
-                                            INSERT INTO cutoffs (course_id, round, category, cutoff_rank, year)
-                                            VALUES (?, ?, ?, ?, ?)
-                                        """, (course_id, rd, cat, rank_int, year))
-                                        cutoff_count += 1
+                                        # Clean rank string to keep only digits
+                                        rank_clean = re.sub(r'[^\d]', '', str(rank))
+                                        if rank_clean:
+                                            rank_int = int(rank_clean)
+                                            cursor.execute("""
+                                                INSERT INTO cutoffs (course_id, round, category, cutoff_rank, year)
+                                                VALUES (?, ?, ?, ?, ?)
+                                            """, (course_id, rd, cat, rank_int, year))
+                                            cutoff_count += 1
                                     except ValueError:
                                         pass
                 print(f"Year {year} data imported:")

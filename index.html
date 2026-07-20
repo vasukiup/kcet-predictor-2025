@@ -19,8 +19,9 @@
         <div>
           <div class="brand-title">Karnataka Seat Matrix</div>
           <div style="display: flex; align-items: center; gap: 8px;">
-            <div class="brand-subtitle" id="brand-subtitle">Engineering Admissions 2025</div>
+            <div class="brand-subtitle" id="brand-subtitle">Engineering Admissions 2026</div>
             <select id="year-select" class="year-select" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #fff; border-radius: 6px; padding: 2px 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; outline: none; transition: all 0.2s; font-family: 'Space Grotesk', sans-serif;">
+              <option value="2026" style="background: #18181b; color: #fff;">2026</option>
               <option value="2025" style="background: #18181b; color: #fff;">2025</option>
               <option value="2024" style="background: #18181b; color: #fff;">2024</option>
             </select>
@@ -44,11 +45,78 @@
     </div>
   </header>
 
+  <!-- Super User Perspective Control Bar -->
+  <div id="superuser-view-bar" style="display: none; background: var(--bg-card2); border-bottom: 1px solid var(--border); padding: 10px 24px; align-items: center; justify-content: space-between; gap: 16px; animation: fadeIn 0.3s ease;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span style="font-family: var(--font-display); font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--pink); border: 1px solid rgba(244,63,94,0.2); background: rgba(244,63,94,0.05); padding: 2px 8px; border-radius: 4px; letter-spacing: 0.05em;">🔑 Super User Console</span>
+      <span style="color: var(--text-muted); font-size: 11px;">Active Perspective:</span>
+      <div style="display: flex; gap: 6px;" id="su-perspective-buttons">
+        <button class="su-btn active" data-view="student">🎓 Student View</button>
+        <button class="su-btn" data-view="institution">🏫 Inst View</button>
+        <button class="su-btn" data-view="authority">🛡️ KEA Authority</button>
+        <button class="su-btn" data-view="counsellor">💼 Counsellor View</button>
+      </div>
+    </div>
+    <!-- Active Group Selector for Inst View -->
+    <div id="su-group-selector-wrap" style="display: none; align-items: center; gap: 8px;">
+      <span style="color: var(--text-muted); font-size: 11px;">Target Institution Group:</span>
+      <select id="su-group-select" class="year-select" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 11px; font-weight: 700; cursor: pointer; outline: none;">
+        <option value="rvgroup" style="background:#18181b; color:#fff;">RV Group (RVCE, RV University...)</option>
+        <option value="bmsgroup" style="background:#18181b; color:#fff;">BMS Group (BMSCE, BMSIT...)</option>
+        <option value="pesgroup" style="background:#18181b; color:#fff;">PES Group (PESU, PESIT...)</option>
+        <option value="dsgroup" style="background:#18181b; color:#fff;">Dayananda Sagar Group (DSCE, DSATM...)</option>
+      </select>
+    </div>
+  </div>
+
   <!-- Main layout -->
   <div class="layout">
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
+      <!-- Counsellor Portfolio Card (Only visible to counsellors) -->
+      <div class="sidebar-section" id="counsellor-portfolio-section" style="display: none; background: rgba(20, 184, 166, 0.05); border: 1px dashed rgba(20, 184, 166, 0.3); border-radius: 12px; padding: 14px; margin-bottom: 16px;">
+        <div class="filter-label" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; color: var(--text);">
+          <span>💼 Advisor Portfolio</span>
+          <span style="font-size: 9px; background: var(--teal); color: #fff; padding: 1px 5px; border-radius: 4px; text-transform: uppercase; font-weight: 800;">Mentoring</span>
+        </div>
+        
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label class="form-label" style="font-size: 9px; color: var(--text-muted);">Active Student Candidate</label>
+          <select id="counsellor-student-select" class="form-select" style="padding: 6px 8px; font-size: 12px; font-weight: 700; border-color: rgba(20, 184, 166, 0.3);">
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+
+        <!-- Add student toggle button -->
+        <button id="btn-toggle-add-portfolio-student" style="width: 100%; padding: 6px; font-size: 11px; font-weight: 700; background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--text); border-radius: 6px; cursor: pointer; margin-bottom: 10px; transition: all 0.2s;">➕ Add Student to Portfolio</button>
+
+        <!-- Hidden collapse add student form -->
+        <div id="counsellor-add-student-form" style="display: none; background: rgba(0,0,0,0.2); border-radius: 8px; padding: 10px; border: 1px solid var(--border); margin-bottom: 10px;">
+          <div class="form-group" style="margin-bottom: 8px;">
+            <input type="text" id="cs-add-name" class="form-input" style="padding: 4px 8px; font-size: 11px;" placeholder="Student Name...">
+          </div>
+          <div class="form-group" style="margin-bottom: 8px;">
+            <input type="number" id="cs-add-rank" class="form-input" style="padding: 4px 8px; font-size: 11px;" placeholder="UGCET Rank...">
+          </div>
+          <div class="form-group" style="margin-bottom: 10px;">
+            <select id="cs-add-category" class="form-select" style="padding: 4px 8px; font-size: 11px;">
+              <option value="GM">GM</option>
+              <option value="GMK">GMK</option>
+              <option value="GMR">GMR</option>
+              <option value="1G">1G</option>
+              <option value="2AG">2AG</option>
+              <option value="2BG">2BG</option>
+              <option value="3AG">3AG</option>
+              <option value="3BG">3BG</option>
+              <option value="SCG">SCG</option>
+              <option value="STG">STG</option>
+            </select>
+          </div>
+          <button id="btn-submit-add-portfolio-student" style="width: 100%; padding: 6px; font-size: 11px; font-weight: 700; background: var(--teal); border: none; color: #fff; border-radius: 6px; cursor: pointer;">Add Student</button>
+        </div>
+      </div>
+
       <!-- Student Profile Card (Only visible to students) -->
       <div class="sidebar-section" id="student-profile-section" style="display: none; background: rgba(59, 130, 246, 0.05); border: 1px dashed rgba(59, 130, 246, 0.2); border-radius: 12px; padding: 14px; margin-bottom: 16px;">
         <div class="filter-label" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; color: var(--text);">
@@ -121,29 +189,6 @@
 
       <button class="reset-btn" id="reset-btn">↺ Reset Filters</button>
 
-      <!-- Download Data Section -->
-      <div class="sidebar-section" style="margin-top: 10px; border-top: 1px solid var(--border); padding-top: 16px;">
-        <div class="filter-label" style="margin-bottom: 4px;">📥 Download Data</div>
-        <select id="download-ann-select" class="select-filter" style="margin-bottom: 8px;">
-          <option value="ALL">All Annexures (Combined)</option>
-          <option value="A">Annexure A - Government</option>
-          <option value="B">Annexure B - Govt Aided</option>
-          <option value="C">Annexure C - Private Unaided</option>
-          <option value="D">Annexure D - Private Minority</option>
-          <option value="M">Annexure M - Public Univ.</option>
-          <option value="O">Annexure O - Pvt Univ.</option>
-          <option value="P">Annexure P - Deemed Univ.</option>
-          <option value="Z">Annexure Z - Govt (Higher Fees)</option>
-          <option value="E">Annexure E - New Intake (Govt/Pvt)</option>
-          <option value="V">Annexure V - New Intake (Univ)</option>
-          <option value="Undefined">Annexure Undefined - Special Category</option>
-        </select>
-        <div style="display: flex; gap: 8px;">
-          <button class="select-filter" id="btn-download-json" style="flex: 1; padding: 8px; text-align: center; font-weight: 600; background: var(--blue-dim); border-color: var(--blue); color: var(--blue); border-radius: var(--radius-sm);">JSON</button>
-          <button class="select-filter" id="btn-download-csv" style="flex: 1; padding: 8px; text-align: center; font-weight: 600; background: var(--green-dim); border-color: var(--green); color: var(--green); border-radius: var(--radius-sm);">CSV</button>
-        </div>
-      </div>
-
       <!-- Sidebar stats -->
       <div class="sidebar-stats">
         <div class="ss-title">Showing</div>
@@ -169,10 +214,12 @@
         <button class="tab" data-tab="totals" id="tab-totals">🪑 Seat Totals</button>
         <button class="tab" data-tab="stats" id="tab-stats">📈 Statistics</button>
         <button class="tab" data-tab="predictor" id="tab-predictor">🔮 Rank Predictor</button>
+        <button class="tab" data-tab="compare" id="tab-compare">⚖️ Compare</button>
         <button class="tab" data-tab="assistant" id="tab-assistant">💬 Assistant</button>
         <button class="tab" data-tab="option-entry" id="tab-option-entry" style="display: none;">📋 Option Entry</button>
         <button class="tab" data-tab="institution" id="tab-institution" style="display: none;">🏫 Inst Admin</button>
         <button class="tab" data-tab="authority" id="tab-authority" style="display: none;">🛡️ Authority Panel</button>
+        <button class="tab" data-tab="downloads" id="tab-downloads" style="display: none;">📥 Data Download</button>
       </div>
 
       <!-- Colleges tab -->
@@ -332,7 +379,7 @@
             </div>
           </div>
           <div class="stat-card full">
-            <div class="stat-card-title">Year-on-Year Comparison (2024 vs 2025)</div>
+            <div class="stat-card-title" id="yoy-main-title">Year-on-Year Comparison (2024 vs 2025)</div>
             <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 16px;">
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
                 <!-- Total Seats Compare -->
@@ -340,14 +387,14 @@
                   <div style="font-size: 11px; font-weight:600; color: var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Total Intake Seats</div>
                   <div style="display: flex; flex-direction: column; gap: 8px;">
                     <div style="display: flex; align-items: center; justify-content: space-between;">
-                      <span style="font-size: 12px; color: var(--text-muted);">2024</span>
+                      <span class="yoy-prev-year-label" style="font-size: 12px; color: var(--text-muted);">2024</span>
                       <span id="yoy-seats-2024" style="font-size: 14px; font-weight: 700; color: var(--text-muted);">—</span>
                     </div>
                     <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
                       <div id="yoy-bar-seats-2024" style="background: #6b7799; height: 100%; width: 0%; transition: width 0.5s;"></div>
                     </div>
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
-                      <span style="font-size: 12px; color: var(--text-muted);">2025</span>
+                      <span class="yoy-active-year-label" style="font-size: 12px; color: var(--text-muted);">2025</span>
                       <span id="yoy-seats-2025" style="font-size: 14px; font-weight: 700; color: var(--blue);">—</span>
                     </div>
                     <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
@@ -361,14 +408,14 @@
                   <div style="font-size: 11px; font-weight:600; color: var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">KEA Quota Seats</div>
                   <div style="display: flex; flex-direction: column; gap: 8px;">
                     <div style="display: flex; align-items: center; justify-content: space-between;">
-                      <span style="font-size: 12px; color: var(--text-muted);">2024</span>
+                      <span class="yoy-prev-year-label" style="font-size: 12px; color: var(--text-muted);">2024</span>
                       <span id="yoy-kea-2024" style="font-size: 14px; font-weight: 700; color: var(--text-muted);">—</span>
                     </div>
                     <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
                       <div id="yoy-bar-kea-2024" style="background: #6b7799; height: 100%; width: 0%; transition: width 0.5s;"></div>
                     </div>
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
-                      <span style="font-size: 12px; color: var(--text-muted);">2025</span>
+                      <span class="yoy-active-year-label" style="font-size: 12px; color: var(--text-muted);">2025</span>
                       <span id="yoy-kea-2025" style="font-size: 14px; font-weight: 700; color: var(--purple);">—</span>
                     </div>
                     <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
@@ -382,14 +429,14 @@
                   <div style="font-size: 11px; font-weight:600; color: var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Colleges Count</div>
                   <div style="display: flex; flex-direction: column; gap: 8px;">
                     <div style="display: flex; align-items: center; justify-content: space-between;">
-                      <span style="font-size: 12px; color: var(--text-muted);">2024</span>
+                      <span class="yoy-prev-year-label" style="font-size: 12px; color: var(--text-muted);">2024</span>
                       <span id="yoy-colleges-2024" style="font-size: 14px; font-weight: 700; color: var(--text-muted);">—</span>
                     </div>
                     <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
                       <div id="yoy-bar-colleges-2024" style="background: #6b7799; height: 100%; width: 0%; transition: width 0.5s;"></div>
                     </div>
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
-                      <span style="font-size: 12px; color: var(--text-muted);">2025</span>
+                      <span class="yoy-active-year-label" style="font-size: 12px; color: var(--text-muted);">2025</span>
                       <span id="yoy-colleges-2025" style="font-size: 14px; font-weight: 700; color: var(--green);">—</span>
                     </div>
                     <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
@@ -402,7 +449,7 @@
           </div>
           <!-- YoY Course Branch Intake -->
           <div class="stat-card full">
-            <div class="stat-card-title">YoY Course Branch Seat Distribution (2024 vs 2025)</div>
+            <div class="stat-card-title" id="yoy-branch-title">YoY Course Branch Seat Distribution (2024 vs 2025)</div>
             <div id="yoy-branch-distribution" style="margin-top: 16px;"></div>
           </div>
           
@@ -428,9 +475,9 @@
               <div style="background: rgba(255,255,255,0.02); padding: 16px; border-radius: 12px; border: 1px solid var(--border);">
                 <div style="font-size: 11px; font-weight:600; color: var(--blue); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px;">🏫 Colleges Added / Removed (YoY)</div>
                 <div style="display:flex; flex-direction:column; gap:8px;">
-                  <div style="font-size:11px; font-weight:600; color:var(--green); margin-bottom:4px;">➕ Added in 2025:</div>
+                  <div class="yoy-added-header" style="font-size:11px; font-weight:600; color:var(--green); margin-bottom:4px;">➕ Added in 2025:</div>
                   <div id="colleges-added-list" style="display:flex; flex-direction:column; gap:4px; margin-bottom:12px;"></div>
-                  <div style="font-size:11px; font-weight:600; color:var(--pink); margin-bottom:4px;">➖ Removed in 2025:</div>
+                  <div class="yoy-removed-header" style="font-size:11px; font-weight:600; color:var(--pink); margin-bottom:4px;">➖ Removed in 2025:</div>
                   <div id="colleges-removed-list" style="display:flex; flex-direction:column; gap:4px;"></div>
                 </div>
               </div>
@@ -439,9 +486,9 @@
               <div style="background: rgba(255,255,255,0.02); padding: 16px; border-radius: 12px; border: 1px solid var(--border);">
                 <div style="font-size: 11px; font-weight:600; color: var(--purple); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px;">📚 New Course Offerings (YoY)</div>
                 <div style="display:flex; flex-direction:column; gap:8px;">
-                  <div style="font-size:11px; font-weight:600; color:var(--green); margin-bottom:4px;">🆕 Added in 2025:</div>
+                  <div class="yoy-added-course-header" style="font-size:11px; font-weight:600; color:var(--green); margin-bottom:4px;">🆕 Added in 2025:</div>
                   <div id="courses-added-list" style="display:flex; flex-direction:column; gap:4px; margin-bottom:12px; max-height:120px; overflow-y:auto;"></div>
-                  <div style="font-size:11px; font-weight:600; color:var(--pink); margin-bottom:4px;">🚫 Removed in 2025:</div>
+                  <div class="yoy-removed-course-header" style="font-size:11px; font-weight:600; color:var(--pink); margin-bottom:4px;">🚫 Removed in 2025:</div>
                   <div id="courses-removed-list" style="display:flex; flex-direction:column; gap:4px; max-height:120px; overflow-y:auto;"></div>
                 </div>
               </div>
@@ -526,6 +573,7 @@
                 <option value="round3">Round 3 (Final)</option>
                 <option value="round2">Round 2</option>
                 <option value="round1">Round 1</option>
+                <option value="mock_round1">Mock Allotment Round 1</option>
               </select>
             </div>
             <div>
@@ -560,6 +608,120 @@
         <div id="pred-empty-state" class="empty-state">
           <div class="empty-state-icon">🔮</div>
           <div class="empty-state-text">Enter your rank and click Predict to view your potential seat allotments.</div>
+        </div>
+      </div>
+
+      <!-- Comparison and Fee Calculator tab -->
+      <div class="tab-content" id="tab-content-compare">
+        <!-- Flex container for Compare & Fee Calculator -->
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          
+          <!-- Section 1: Side-by-Side Comparison -->
+          <div class="predictor-card" style="background: var(--bg-card2); border: 1px solid var(--border); border-radius: 20px; padding: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+            <div style="font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px;">⚖️ Side-by-Side College Comparer</div>
+            <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Select up to 3 colleges to compare their seat matrices, course branches, cutoffs, and fees.</div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px;">
+              <div>
+                <label style="display:block; margin-bottom:6px; font-size:10px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">College 1</label>
+                <select id="compare-col-1" class="select-filter" style="width:100%; margin:0; box-sizing:border-box; padding: 10px;">
+                  <option value="">-- Choose College 1 --</option>
+                </select>
+              </div>
+              <div>
+                <label style="display:block; margin-bottom:6px; font-size:10px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">College 2</label>
+                <select id="compare-col-2" class="select-filter" style="width:100%; margin:0; box-sizing:border-box; padding: 10px;">
+                  <option value="">-- Choose College 2 (Optional) --</option>
+                </select>
+              </div>
+              <div>
+                <label style="display:block; margin-bottom:6px; font-size:10px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">College 3</label>
+                <select id="compare-col-3" class="select-filter" style="width:100%; margin:0; box-sizing:border-box; padding: 10px;">
+                  <option value="">-- Choose College 3 (Optional) --</option>
+                </select>
+              </div>
+            </div>
+            
+            <!-- Comparison Matrix Container -->
+            <div id="compare-matrix-wrap" style="display: none; overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); padding: 16px;">
+              <!-- Comparison Table -->
+              <table class="courses-table" id="compare-matrix-table" style="min-width: 600px;">
+                <thead>
+                  <tr id="compare-table-head">
+                    <th style="width: 25%;">Feature</th>
+                    <th style="width: 25%;" id="compare-head-1">College 1</th>
+                    <th style="width: 25%;" id="compare-head-2">College 2</th>
+                    <th style="width: 25%;" id="compare-head-3">College 3</th>
+                  </tr>
+                </thead>
+                <tbody id="compare-table-body">
+                  <!-- Rendered dynamically -->
+                </tbody>
+              </table>
+            </div>
+            
+            <div id="compare-empty-state" class="empty-state">
+              <div class="empty-state-icon">⚖️</div>
+              <div class="empty-state-text">Select at least one college above to generate the comparison matrix.</div>
+            </div>
+          </div>
+          
+          <!-- Section 2: Quota-based Tuition Fee Calculator -->
+          <div class="predictor-card" style="background: var(--bg-card2); border: 1px solid var(--border); border-radius: 20px; padding: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+            <div style="font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px;">💰 Quota-based Tuition Fee Calculator</div>
+            <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Calculate the estimated annual tuition and admission fee structure for a specific college and seat quota.</div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 20px;">
+              <div>
+                <label style="display:block; margin-bottom:6px; font-size:10px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Select College</label>
+                <select id="calc-fee-college" class="select-filter" style="width:100%; margin:0; box-sizing:border-box; padding: 10px;">
+                  <option value="">-- Choose College --</option>
+                </select>
+              </div>
+              <div>
+                <label style="display:block; margin-bottom:6px; font-size:10px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Seat Quota / Quota Type</label>
+                <select id="calc-fee-quota" class="select-filter" style="width:100%; margin:0; box-sizing:border-box; padding: 10px;">
+                  <option value="govt_gen">Government Quota (General Merit)</option>
+                  <option value="govt_aided">Government Quota (Aided Course)</option>
+                  <option value="govt_snq">Government Quota (SNQ Quota)</option>
+                  <option value="kea_unaided_a">KEA Quota (Private Unaided - Option A)</option>
+                  <option value="kea_unaided_b">KEA Quota (Private Unaided - Option B)</option>
+                  <option value="comedk">COMEDK Quota (Consensual Agreement)</option>
+                  <option value="mgmt">Management Quota</option>
+                </select>
+              </div>
+              <div>
+                <label style="display:block; margin-bottom:6px; font-size:10px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Year of Study</label>
+                <select id="calc-fee-year" class="select-filter" style="width:100%; margin:0; box-sizing:border-box; padding: 10px;">
+                  <option value="first">1st Year of Engineering</option>
+                  <option value="subsequent">Subsequent Years (2nd, 3rd, 4th Year)</option>
+                </select>
+              </div>
+            </div>
+            
+            <!-- Fee Result Area -->
+            <div id="calc-fee-result-wrap" style="display: none; border-top: 1px dashed var(--border); padding-top: 20px; margin-top: 20px; animation: fadeIn 0.3s ease;">
+              <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; align-items: start;">
+                <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 16px; border-radius: 12px;">
+                  <div style="font-family: var(--font-display); font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--text);">Fee Breakdown</div>
+                  <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px;" id="calc-fee-breakdown-details">
+                    <!-- Rendered dynamically -->
+                  </div>
+                </div>
+                <div style="background: var(--blue-dim); border: 1px solid rgba(59,130,246,0.2); padding: 20px; border-radius: 12px; text-align: center;">
+                  <div style="font-size: 10px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Total Annual Cost</div>
+                  <div id="calc-fee-total-value" style="font-size: 28px; font-weight: 800; font-family: var(--font-display); color: #fff;">₹0</div>
+                  <div style="font-size: 9px; color: var(--text-muted); margin-top: 6px;">*Exclusive of hostel, mess, and exam fees.</div>
+                </div>
+              </div>
+            </div>
+            
+            <div id="calc-fee-empty-state" class="empty-state">
+              <div class="empty-state-icon">💰</div>
+              <div class="empty-state-text">Select a college to calculate tuition fees.</div>
+            </div>
+          </div>
+          
         </div>
       </div>
 
@@ -840,6 +1002,117 @@
           </div>
         </div>
       </div>
+
+      <!-- Advanced Data Download Tab -->
+      <div class="tab-content" id="tab-content-downloads">
+        <div class="predictor-card" style="background:var(--bg-card2); border:1px solid var(--border); border-radius:20px; padding:24px; margin-bottom:24px;">
+          <div style="font-family:var(--font-display); font-size:18px; font-weight:700; color:var(--text); margin-bottom:4px;">📥 Scoped Data Exporter</div>
+          <div style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">Extract and download customized seat matrices and fee registers based on specific criteria.</div>
+
+          <!-- Scope Scoping Banner Alert -->
+          <div id="download-scope-alert" style="background:rgba(20,184,166,0.1); border:1px solid rgba(20,184,166,0.25); color:var(--teal); padding:12px 16px; border-radius:12px; font-size:12px; font-weight:600; display:flex; align-items:center; gap:8px; margin-bottom:20px;">
+            <span>🛡️ Loading scope settings...</span>
+          </div>
+
+          <div style="display:grid; grid-template-columns:2fr 1fr; gap:24px;">
+            <!-- Left Side: Selection Criteria Grid -->
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:20px;">
+                <div style="font-family:var(--font-display); font-size:14px; font-weight:700; color:var(--text); margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:8px;">🛠️ Query Criteria</div>
+                
+                <div class="form-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+                  <div class="form-group">
+                    <label class="form-label" style="font-size:11px; font-weight:700; margin-bottom:4px; color:var(--text-muted);">Year Selection</label>
+                    <select id="download-year-select" class="form-input" style="height:38px; padding:6px 12px; background:rgba(0,0,0,0.2); border-color:var(--border);">
+                      <option value="2026" selected>2026 (Active Session)</option>
+                      <option value="2025">2025 (Previous Session)</option>
+                      <option value="2024">2024 (Historical Session)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" style="font-size:11px; font-weight:700; margin-bottom:4px; color:var(--text-muted);">Minimum Intake Seats</label>
+                    <input type="number" id="download-min-seats" class="form-input" value="0" min="0" style="height:38px; padding:6px 12px; background:rgba(0,0,0,0.2); border-color:var(--border);">
+                  </div>
+                </div>
+
+                <div class="form-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+                  <div class="form-group">
+                    <label class="form-label" style="font-size:11px; font-weight:700; margin-bottom:4px; color:var(--text-muted);">District Filter</label>
+                    <select id="download-district-select" class="form-input" style="height:38px; padding:6px 12px; background:rgba(0,0,0,0.2); border-color:var(--border);">
+                      <option value="">All Districts</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" style="font-size:11px; font-weight:700; margin-bottom:4px; color:var(--text-muted);">Course / Branch Filter</label>
+                    <select id="download-course-select" class="form-input" style="height:38px; padding:6px 12px; background:rgba(0,0,0,0.2); border-color:var(--border);">
+                      <option value="">All Courses</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Annexure Checkbox Checklist -->
+                <div style="margin-bottom:16px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <label class="form-label" style="font-size:11px; font-weight:700; margin-bottom:0; color:var(--text-muted);">Annexures Filter</label>
+                    <button id="btn-download-toggle-annexures" style="background:none; border:none; color:var(--blue); font-size:11px; font-weight:700; cursor:pointer; padding:0;">Toggle All</button>
+                  </div>
+                  <div id="download-annexures-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(130px, 1fr)); gap:10px; background:rgba(0,0,0,0.15); border:1px solid var(--border); border-radius:10px; padding:12px; max-height:160px; overflow-y:auto;">
+                    <label style="display:flex; align-items:center; gap:8px; font-size:12px; cursor:pointer;"><input type="checkbox" value="A" checked> Annexure A</label>
+                    <label style="display:flex; align-items:center; gap:8px; font-size:12px; cursor:pointer;"><input type="checkbox" value="B" checked> Annexure B</label>
+                    <label style="display:flex; align-items:center; gap:8px; font-size:12px; cursor:pointer;"><input type="checkbox" value="C" checked> Annexure C</label>
+                    <label style="display:flex; align-items:center; gap:8px; font-size:12px; cursor:pointer;"><input type="checkbox" value="D" checked> Annexure D</label>
+                    <label style="display:flex; align-items:center; gap:8px; font-size:12px; cursor:pointer;"><input type="checkbox" value="M" checked> Annexure M</label>
+                    <label style="display:flex; align-items:center; gap:8px; font-size:12px; cursor:pointer;"><input type="checkbox" value="O" checked> Annexure O</label>
+                    <label style="display:flex; align-items:center; gap:8px; font-size:12px; cursor:pointer;"><input type="checkbox" value="P" checked> Annexure P</label>
+                    <label style="display:flex; align-items:center; gap:8px; font-size:12px; cursor:pointer;"><input type="checkbox" value="Z" checked> Annexure Z</label>
+                    <label style="display:flex; align-items:center; gap:8px; font-size:12px; cursor:pointer;"><input type="checkbox" value="E" checked> Annexure E</label>
+                    <label style="display:flex; align-items:center; gap:8px; font-size:12px; cursor:pointer;"><input type="checkbox" value="V" checked> Annexure V</label>
+                    <label style="display:flex; align-items:center; gap:8px; font-size:12px; cursor:pointer;"><input type="checkbox" value="Undefined" checked> Undefined (Spl)</label>
+                  </div>
+                </div>
+
+                <!-- Export Format Selector -->
+                <div>
+                  <label class="form-label" style="font-size:11px; font-weight:700; margin-bottom:6px; color:var(--text-muted);">Export File Format</label>
+                  <div style="display:flex; gap:16px;">
+                    <label style="display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; cursor:pointer;"><input type="radio" name="download-format" value="csv" checked> 📄 Comma-Separated Values (CSV)</label>
+                    <label style="display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; cursor:pointer;"><input type="radio" name="download-format" value="json"> 👾 JavaScript Object Notation (JSON)</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Side: Preview Summary & Download Button -->
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <!-- Live Preview Card -->
+              <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:20px; display:flex; flex-direction:column; gap:16px; flex:1;">
+                <div style="font-family:var(--font-display); font-size:14px; font-weight:700; color:var(--text); border-bottom:1px solid var(--border); padding-bottom:8px;">📊 Live Export Summary</div>
+                
+                <div style="display:flex; flex-direction:column; gap:12px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.02); border:1px solid var(--border); padding:8px 12px; border-radius:10px;">
+                    <span style="font-size:11px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">Matching Colleges</span>
+                    <span id="download-preview-colleges" style="font-size:16px; font-weight:800; color:var(--blue);">0</span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.02); border:1px solid var(--border); padding:8px 12px; border-radius:10px;">
+                    <span style="font-size:11px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">Course Branches</span>
+                    <span id="download-preview-courses" style="font-size:16px; font-weight:800; color:var(--green);">0</span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.02); border:1px solid var(--border); padding:8px 12px; border-radius:10px;">
+                    <span style="font-size:11px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">Total Seat Matrix</span>
+                    <span id="download-preview-seats" style="font-size:16px; font-weight:800; color:var(--teal);">0</span>
+                  </div>
+                </div>
+
+                <div style="flex:1;"></div>
+
+                <button class="auth-submit-btn" id="btn-execute-download" style="margin:0; width:100%; display:flex; justify-content:center; align-items:center; gap:8px; font-size:14px; padding:12px;">
+                  <span>📥 Export & Download</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   </div>
 
@@ -889,10 +1162,12 @@
         <p class="auth-logo-subtitle">Access seat matrices, cutoff predictions, and institution controls</p>
       </div>
 
-      <div class="auth-role-tabs">
-        <button class="auth-role-tab active" data-role="student">👨‍🎓 Student</button>
-        <button class="auth-role-tab" data-role="institution">🏫 Institution</button>
-        <button class="auth-role-tab" data-role="authority">🛡️ KCET Authority</button>
+      <div class="auth-role-tabs" style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 20px;">
+        <button type="button" class="auth-role-tab active" data-role="student" style="flex: 1; min-width: 110px;">👨‍🎓 Student</button>
+        <button type="button" class="auth-role-tab" data-role="institution" style="flex: 1; min-width: 110px;">🏫 Institution</button>
+        <button type="button" class="auth-role-tab" data-role="authority" style="flex: 1; min-width: 110px;">🛡️ Authority</button>
+        <button type="button" class="auth-role-tab" data-role="counsellor" style="flex: 1; min-width: 110px;">💼 Advisor</button>
+        <button type="button" class="auth-role-tab" data-role="superuser" style="flex: 1; min-width: 110px;">🔑 Super User</button>
       </div>
 
       <!-- Student Registration Form -->
@@ -945,19 +1220,14 @@
       <div class="auth-form" id="auth-form-institution">
         <div class="form-title">Institution Login</div>
         <div class="form-group">
-          <label class="form-label">Institution Group</label>
-          <select id="inst-group" class="form-select">
-            <option value="rvgroup">RV Group of Institutions (RVCE, RVITM, RVU)</option>
-            <option value="bmsgroup">BMS Group of Institutions (BMSCE, BMSIT, BMSCA)</option>
-            <option value="pesgroup">PES Group of Institutions (PESU, PESCE, PESITM)</option>
-            <option value="dsgroup">Dayananda Sagar Group (DSCE, DSATM, DSU)</option>
-          </select>
+          <label class="form-label">Institution Group ID</label>
+          <input type="text" id="inst-group" class="form-input" placeholder="e.g. rvgroup, bmsgroup, pesgroup, dsgroup">
         </div>
         <div class="form-group">
           <label class="form-label">Access Code / Password</label>
           <input type="password" id="inst-password" class="form-input" placeholder="Enter group password (kcet2025)">
         </div>
-        <div id="inst-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid group password. Try 'kcet2025'.</div>
+        <div id="inst-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid group ID or password. Use 'rvgroup', 'bmsgroup', 'pesgroup' or 'dsgroup' and 'kcet2025'.</div>
         <button class="auth-submit-btn" id="btn-submit-institution">Login as Institution Admin</button>
       </div>
 
@@ -975,9 +1245,39 @@
         <div id="auth-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid Admin ID or password. Use 'authority' / 'kcet2025'.</div>
         <button class="auth-submit-btn" id="btn-submit-authority">Authenticate & Unlock Console</button>
       </div>
+
+      <!-- Admission Counsellor Login Form -->
+      <div class="auth-form" id="auth-form-counsellor">
+        <div class="form-title">Admission Mentor Login</div>
+        <div class="form-group">
+          <label class="form-label">Counsellor Username / ID</label>
+          <input type="text" id="counsellor-id" class="form-input" placeholder="e.g. counsellor, mentor">
+        </div>
+        <div class="form-group">
+          <label class="form-label font-label">Mentor Password</label>
+          <input type="password" id="counsellor-password" class="form-input" placeholder="Enter password (kcet2025)">
+        </div>
+        <div id="counsellor-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid username or password. Try 'counsellor' / 'kcet2025'.</div>
+        <button class="auth-submit-btn" id="btn-submit-counsellor">Login to Mentoring Dashboard</button>
+      </div>
+
+      <!-- Super User Login Form -->
+      <div class="auth-form" id="auth-form-superuser">
+        <div class="form-title">Super User Console Authentication</div>
+        <div class="form-group">
+          <label class="form-label">Super User ID</label>
+          <input type="text" id="su-id" class="form-input" placeholder="e.g. superuser">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Security Key</label>
+          <input type="password" id="su-password" class="form-input" placeholder="Enter key (kcet2025)">
+        </div>
+        <div id="su-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid ID or security key. Use 'superuser' / 'kcet2025'.</div>
+        <button class="auth-submit-btn" id="btn-submit-superuser">Access Master Control Console</button>
+      </div>
     </div>
   </div>
 
-  <script src="app_v4.js?v=9"></script>
+  <script src="app_v4.js?v=10"></script>
 </body>
 </html>
