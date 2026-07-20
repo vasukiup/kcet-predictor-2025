@@ -4115,6 +4115,92 @@ function triggerDownload(blob, filename) {
 // ─────────────────────────────────────────────────────
 // Rank Predictor Logic
 // ─────────────────────────────────────────────────────
+function resolveCourseCutoff(college, course, category, selectedRound) {
+  const activeYear = allData.year || '2026';
+  
+  const roundMap = {
+    'mock_round1': ['mock_round1_cutoff'],
+    'round1': ['round1_cutoff', 'mock_round1_cutoff'],
+    'round2': ['round2_cutoff', 'round1_cutoff', 'mock_round1_cutoff'],
+    'round3': ['round3_cutoff', 'round2_cutoff', 'round1_cutoff', 'mock_round1_cutoff']
+  };
+  
+  const roundLabels = {
+    'mock_round1_cutoff': 'Mock',
+    'round1_cutoff': 'R1',
+    'round2_cutoff': 'R2',
+    'round3_cutoff': 'R3'
+  };
+
+  const roundsToCheck = roundMap[selectedRound] || ['round3_cutoff', 'round2_cutoff', 'round1_cutoff', 'mock_round1_cutoff'];
+
+  // 1. Try activeYear dataset
+  for (const rKey of roundsToCheck) {
+    const cutoffs = course[rKey] || {};
+    const val = cutoffs[category];
+    if (val && !isNaN(parseFloat(val))) {
+      return {
+        cutoff: parseFloat(val),
+        sourceYear: activeYear,
+        sourceRound: roundLabels[rKey],
+        isFallback: rKey !== roundsToCheck[0],
+        sourceLabel: `${activeYear} ${roundLabels[rKey]}`
+      };
+    }
+  }
+
+  // 2. Try previous year cache (e.g. 2025)
+  const prevCache = cache2025 || (activeYear === '2025' ? cache2024 : null);
+  if (prevCache && prevCache.colleges) {
+    const prevCol = prevCache.colleges.find(c => (c.kea_code && c.kea_code === college.kea_code) || c.college_name === college.college_name);
+    if (prevCol && prevCol.courses) {
+      const stdCourseTarget = super_clean(course.course_name);
+      const prevCourse = prevCol.courses.find(c => super_clean(c.course_name) === stdCourseTarget);
+      if (prevCourse) {
+        for (const rKey of roundsToCheck) {
+          const cutoffs = prevCourse[rKey] || {};
+          const val = cutoffs[category];
+          if (val && !isNaN(parseFloat(val))) {
+            return {
+              cutoff: parseFloat(val),
+              sourceYear: prevCache.year || '2025',
+              sourceRound: roundLabels[rKey],
+              isFallback: true,
+              sourceLabel: `${prevCache.year || '2025'} ${roundLabels[rKey]}`
+            };
+          }
+        }
+      }
+    }
+  }
+
+  // 3. Try 2024 cache as last resort
+  if (cache2024 && cache2024.colleges && activeYear !== '2024') {
+    const prevCol = cache2024.colleges.find(c => (c.kea_code && c.kea_code === college.kea_code) || c.college_name === college.college_name);
+    if (prevCol && prevCol.courses) {
+      const stdCourseTarget = super_clean(course.course_name);
+      const prevCourse = prevCol.courses.find(c => super_clean(c.course_name) === stdCourseTarget);
+      if (prevCourse) {
+        for (const rKey of roundsToCheck) {
+          const cutoffs = prevCourse[rKey] || {};
+          const val = cutoffs[category];
+          if (val && !isNaN(parseFloat(val))) {
+            return {
+              cutoff: parseFloat(val),
+              sourceYear: '2024',
+              sourceRound: roundLabels[rKey],
+              isFallback: true,
+              sourceLabel: `2024 ${roundLabels[rKey]}`
+            };
+          }
+        }
+      }
+    }
+  }
+
+  return null;
+}
+
 function runPrediction() {
   const rankInput = document.getElementById('pred-rank');
   const catSel = document.getElementById('pred-category');
@@ -4134,8 +4220,6 @@ function runPrediction() {
   const results = [];
   const seen = new Set();
   
-  const cutoffKey = selectedRound === 'mock_round1' ? 'mock_round1_cutoff' : (selectedRound === 'round1' ? 'round1_cutoff' : (selectedRound === 'round2' ? 'round2_cutoff' : 'round3_cutoff'));
-  
   allData.colleges.forEach(college => {
     college.courses.forEach(course => {
       // Filter by course name if selected
@@ -4143,12 +4227,10 @@ function runPrediction() {
         return;
       }
       
-      const cutoffs = course[cutoffKey] || {};
-      const cutoffStr = cutoffs[category];
-      if (!cutoffStr) return; // No cutoff for this category
+      const cutoffInfo = resolveCourseCutoff(college, course, category, selectedRound);
+      if (!cutoffInfo) return; // No cutoff found across current and previous year datasets
       
-      const cutoff = parseFloat(cutoffStr);
-      if (isNaN(cutoff)) return;
+      const cutoff = cutoffInfo.cutoff;
       
       // Deduplicate identical combinations of college, course, and cutoff
       const key = `${college.college_number}_${course.course_name}_${cutoff}`;
@@ -4177,7 +4259,9 @@ function runPrediction() {
         cutoff: cutoff,
         diff: diff,
         chance: chance,
-        chanceClass: chanceClass
+        chanceClass: chanceClass,
+        sourceLabel: cutoffInfo.sourceLabel,
+        isFallback: cutoffInfo.isFallback
       });
     });
   });
@@ -4196,7 +4280,7 @@ function renderPredictionResults(results, selectedRound) {
   const header = document.getElementById('pred-cutoff-header');
   
   if (header) {
-    header.textContent = selectedRound === 'mock_round1' ? 'Cutoff Rank (Mock)' : (selectedRound === 'round1' ? 'Cutoff Rank (R1)' : (selectedRound === 'round2' ? 'Cutoff Rank (R2)' : 'Cutoff Rank (R3)'));
+    header.textContent = 'Cutoff Rank & Source';
   }
   
   if (results.length === 0) {
@@ -4219,12 +4303,17 @@ function renderPredictionResults(results, selectedRound) {
     const col = res.college;
     const diffText = res.diff >= 0 ? `+${res.diff.toLocaleString()}` : res.diff.toLocaleString();
     const diffClass = res.diff >= 0 ? 'text-green' : 'text-orange';
+    const badgeColor = res.isFallback ? 'var(--purple)' : 'var(--blue)';
+    const badgeBg = res.isFallback ? 'rgba(168,85,247,0.15)' : 'rgba(59,130,246,0.15)';
     
     return `<tr class="pred-row" data-college-number="${col.college_number}" style="cursor:pointer; transition:background 0.2s;">
       <td><span class="card-type-pill pill-${col.annexure}" style="font-size:11px; padding: 2px 6px;">${col.kea_code || col.college_number}</span></td>
       <td><strong>${escHtml(col.college_name)}</strong><br><small style="color:var(--text-muted)">📍 ${escHtml(col.district)}</small></td>
       <td>${res.courseName}</td>
-      <td style="font-family:var(--font-display); font-weight:700; text-align:right;">${res.cutoff.toLocaleString()}</td>
+      <td style="font-family:var(--font-display); font-weight:700; text-align:right; line-height:1.3;">
+        ${res.cutoff.toLocaleString()}<br>
+        <span style="font-size:10px; font-weight:600; padding:2px 6px; border-radius:4px; background:${badgeBg}; color:${badgeColor}; display:inline-block; margin-top:2px;">${res.sourceLabel}</span>
+      </td>
       <td class="${diffClass}" style="font-family:var(--font-display); font-weight:700; text-align:right;">${diffText}</td>
       <td style="text-align:center;"><span class="badge-chance ${res.chanceClass}">${res.chance}</span></td>
     </tr>`;
