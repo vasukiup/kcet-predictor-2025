@@ -106,9 +106,9 @@ async function loadYearData(year) {
       let colKea = 0;
       col.courses.forEach(c => {
         const computedKea = (c.kea_rk || 0) + (c.kea_hk || 0) + (c.kea_spl || 0) + (c.kea_ph || 0);
-        c.total_kea_seats = computedKea;
-        c.kea_tot = computedKea;
-        colKea += computedKea;
+        c.total_kea_seats = c.total_kea_seats || computedKea;
+        c.kea_tot = c.kea_tot || computedKea;
+        colKea += c.total_kea_seats;
       });
       col.total_kea_seats = colKea;
     });
@@ -2393,6 +2393,7 @@ function openModal(college) {
   const totalKea = college.total_kea_seats || college.courses.reduce((s, c) => s + (c.total_kea_seats || 0), 0);
   const totalComedk = college.courses.reduce((s, c) => s + (c.cat2_seats || 0), 0);
   const totalMgmt = college.courses.reduce((s, c) => s + (c.cat3_seats || 0), 0);
+  const totalSnq = college.courses.reduce((s, c) => s + (parseInt(c.snq_5pct || c.over_above_5pct) || 0), 0);
 
   const comEdkBox = totalComedk > 0 ? `
     <div class="modal-seat-box comedk">
@@ -2404,6 +2405,12 @@ function openModal(college) {
     <div class="modal-seat-box mgmt">
       <div class="msb-val">${totalMgmt.toLocaleString()}</div>
       <div class="msb-lbl">Management</div>
+    </div>` : '';
+
+  const snqBox = totalSnq > 0 ? `
+    <div class="modal-seat-box snq" style="background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.2);">
+      <div class="msb-val" style="color: #22c55e;">${totalSnq.toLocaleString()}</div>
+      <div class="msb-lbl" style="color: #22c55e;">SNQ (5%)</div>
     </div>` : '';
 
   // Get default category from predictor if available, else default to GM
@@ -2438,6 +2445,7 @@ function openModal(college) {
 
   const hasComDk = college.courses.some(c => c.cat2_seats > 0);
   const hasMgmt = college.courses.some(c => c.cat3_seats > 0);
+  const hasSnq = college.courses.some(c => (c.snq_5pct || c.over_above_5pct || 0) > 0);
   const hasPh = college.courses.some(c => (c.kea_ph || 0) > 0);
   const hasSpl = college.courses.some(c => (c.kea_spl || 0) > 0);
   const hasHk = college.courses.some(c => (c.kea_hk || 0) > 0);
@@ -2446,6 +2454,7 @@ function openModal(college) {
   const courseRows = college.courses.map((c, idx) => {
     const comEdkCol = hasComDk ? `<td class="td-comedk">${parseInt(c.cat2_seats) || 0}</td>` : '';
     const mgmtCol = hasMgmt ? `<td class="td-mgmt">${parseInt(c.cat3_seats) || 0}</td>` : '';
+    const snqCol = hasSnq ? `<td class="td-snq" style="color:#22c55e; font-weight:600;">${parseInt(c.snq_5pct || c.over_above_5pct) || 0}</td>` : '';
     const phCol = hasPh ? `<td class="td-ph">${parseInt(c.kea_ph) || 0}</td>` : '';
     const splCol = hasSpl ? `<td class="td-spl">${parseInt(c.kea_spl) || 0}</td>` : '';
     const hkCol = hasHk ? `<td class="td-hk">${parseInt(c.kea_hk) || 0}</td>` : '';
@@ -2503,6 +2512,7 @@ function openModal(college) {
       <td class="td-kea">${c.total_kea_seats || 0}</td>
       ${comEdkCol}
       ${mgmtCol}
+      ${snqCol}
       ${phCol}
       ${splCol}
       ${hkCol}
@@ -2519,6 +2529,7 @@ function openModal(college) {
   const totalKeaSum = college.total_kea_seats || college.courses.reduce((acc, c) => acc + (c.total_kea_seats || 0), 0);
   const totalComEdkSum = college.courses.reduce((acc, c) => acc + (parseInt(c.cat2_seats) || 0), 0);
   const totalMgmtSum = college.courses.reduce((acc, c) => acc + (parseInt(c.cat3_seats) || 0), 0);
+  const totalSnqSum = college.courses.reduce((acc, c) => acc + (parseInt(c.snq_5pct || c.over_above_5pct) || 0), 0);
   const totalPhSum = college.courses.reduce((acc, c) => acc + (parseInt(c.kea_ph) || 0), 0);
   const totalSplSum = college.courses.reduce((acc, c) => acc + (parseInt(c.kea_spl) || 0), 0);
   const totalHkSum = college.courses.reduce((acc, c) => acc + (parseInt(c.kea_hk) || 0), 0);
@@ -2614,6 +2625,7 @@ function openModal(college) {
       </div>
       ${comEdkBox}
       ${mgmtBox}
+      ${snqBox}
     </div>
 
     ${quotaAdvantageHtml}
@@ -2637,6 +2649,7 @@ function openModal(college) {
             <th>KEA</th>
             ${hasComDk ? '<th>COMEDK</th>' : ''}
             ${hasMgmt ? '<th>Mgmt</th>' : ''}
+            ${hasSnq ? '<th>SNQ</th>' : ''}
             ${hasPh ? '<th>PH</th>' : ''}
             ${hasSpl ? '<th>SPL</th>' : ''}
             ${hasHk ? '<th>HK</th>' : ''}
@@ -2655,6 +2668,7 @@ function openModal(college) {
             <td class="td-kea"><strong>${totalKeaSum.toLocaleString()}</strong></td>
             ${hasComDk ? `<td class="td-comedk"><strong>${totalComEdkSum.toLocaleString()}</strong></td>` : ''}
             ${hasMgmt ? `<td class="td-mgmt"><strong>${totalMgmtSum.toLocaleString()}</strong></td>` : ''}
+            ${hasSnq ? `<td class="td-snq" style="color:#22c55e;"><strong>${totalSnqSum.toLocaleString()}</strong></td>` : ''}
             ${hasPh ? `<td class="td-ph"><strong>${totalPhSum.toLocaleString()}</strong></td>` : ''}
             ${hasSpl ? `<td class="td-spl"><strong>${totalSplSum.toLocaleString()}</strong></td>` : ''}
             ${hasHk ? `<td class="td-hk"><strong>${totalHkSum.toLocaleString()}</strong></td>` : ''}
@@ -5234,6 +5248,9 @@ function updateComparisonMatrix() {
     { name: 'College Type', val: c => c ? c.college_type : '—' },
     { name: 'Total Intake', val: c => c ? c.total_intake : '—' },
     { name: 'Total KEA Seats', val: c => c ? c.total_kea_seats : '—' },
+    { name: 'COMEDK Seats', val: c => c ? c.courses.reduce((acc, cr) => acc + (parseInt(cr.cat2_seats) || 0), 0) : '—' },
+    { name: 'Management Seats', val: c => c ? c.courses.reduce((acc, cr) => acc + (parseInt(cr.cat3_seats) || 0), 0) : '—' },
+    { name: 'SNQ Seats (5%)', val: c => c ? c.courses.reduce((acc, cr) => acc + (parseInt(cr.snq_5pct || cr.over_above_5pct) || 0), 0) : '—' },
     { name: 'Annual Fees Structure', val: c => getFeeString(c) },
     { name: 'CSE Cutoffs (GM Merit)', val: c => getBranchCutoff(c, ['computer', 'science']) },
     { name: 'ECE Cutoffs (GM Merit)', val: c => getBranchCutoff(c, ['electronics', 'communication']) },
