@@ -2467,9 +2467,21 @@ function openModal(college) {
     const mgmtCol = hasMgmt ? `<td class="td-mgmt">${parseInt(c.cat3_seats) || 0}</td>` : '';
     const snqCol = hasSnq ? `<td class="td-snq" style="color:#22c55e; font-weight:600;">${parseInt(c.snq_5pct || c.over_above_5pct) || 0}</td>` : '';
     const phCol = hasPh ? `<td class="td-ph">${parseInt(c.kea_ph) || 0}</td>` : '';
-    const splCol = hasSpl ? `<td class="td-spl">${parseInt(c.kea_spl) || 0}</td>` : '';
-    const hkCol = hasHk ? `<td class="td-hk">${parseInt(c.kea_hk) || 0}</td>` : '';
-    const rkCol = hasRk ? `<td class="td-rk">${parseInt(c.kea_rk) || 0}</td>` : '';
+    let splDetails = [];
+    if (c.sports) splDetails.push(`Sports: ${c.sports}`);
+    if (c.ncc) splDetails.push(`NCC: ${c.ncc}`);
+    if (c.sct_guides) splDetails.push(`Scouts/Guides: ${c.sct_guides}`);
+    if (c.defence) splDetails.push(`Defence: ${c.defence}`);
+    if (c.k_defence) splDetails.push(`Karnataka Defence: ${c.k_defence}`);
+    if (c.ex_defence) splDetails.push(`Ex-Defence: ${c.ex_defence}`);
+    if (c.capf) splDetails.push(`CAPF: ${c.capf}`);
+    if (c.ai) splDetails.push(`Anglo-Indian: ${c.ai}`);
+    if (c.xcapf) splDetails.push(`Ex-CAPF: ${c.xcapf}`);
+
+    const splTitle = splDetails.length > 0 ? `title="SPL Breakdown: ${splDetails.join(' | ')}"` : '';
+    const splCol = hasSpl ? `<td class="td-spl" ${splTitle} style="${splDetails.length > 0 ? 'cursor:help; text-decoration:underline dotted;' : ''}">${parseInt(c.kea_spl) || 0}</td>` : '';
+    const hkCol = hasHk ? `<td class="td-hk" title="Hyderabad Karnataka (371-J Reservation)">${parseInt(c.kea_hk) || 0}</td>` : '';
+    const rkCol = hasRk ? `<td class="td-rk" title="Rest of Karnataka General Quota">${parseInt(c.kea_rk) || 0}</td>` : '';
     
     const r1_cutoffs = c.round1_cutoff || {};
     const r1_cutoff_val = r1_cutoffs[defaultCat];
