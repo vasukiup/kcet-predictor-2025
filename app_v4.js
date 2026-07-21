@@ -2077,18 +2077,8 @@ function renderColleges() {
   }
 
   // Bind card clicks using unique college_number lookup
-  // Bind card clicks using unique college_number lookup
   grid.querySelectorAll('.college-card').forEach(el => {
-    el.addEventListener('click', (e) => {
-      const pill = e.target.closest('.card-subcat-clickable');
-      if (pill) {
-        e.stopPropagation();
-        const colNum = el.dataset.collegeNumber;
-        const collegeObj = allData.colleges.find(c => c.college_number == colNum);
-        const seatType = pill.dataset.seatType;
-        if (collegeObj) openSubcatModal(collegeObj, null, seatType);
-        return;
-      }
+    el.addEventListener('click', () => {
       const colNum = el.dataset.collegeNumber;
       const collegeObj = allData.colleges.find(c => c.college_number == colNum);
       if (collegeObj) openModal(collegeObj);
@@ -2118,15 +2108,15 @@ function renderCollegeCard(college, index) {
       <span class="seat-pill-val">${totalIntake.toLocaleString()}</span>
       <span class="seat-pill-lbl">Total</span>
     </div>
-    <div class="seat-pill kea card-subcat-clickable" data-seat-type="RK" title="Click to view KEA RK/HK Reservation Breakdown" style="cursor:pointer;">
+    <div class="seat-pill kea">
       <span class="seat-pill-val">${totalKea.toLocaleString()}</span>
       <span class="seat-pill-lbl">KEA</span>
     </div>
-    ${totalComedk > 0 ? `<div class="seat-pill comedk card-subcat-clickable" data-seat-type="COMEDK" title="Click for COMEDK Quota Details" style="cursor:pointer;">
+    ${totalComedk > 0 ? `<div class="seat-pill comedk">
       <span class="seat-pill-val">${totalComedk.toLocaleString()}</span>
       <span class="seat-pill-lbl">COMEDK</span>
     </div>` : ''}
-    ${totalMgmt > 0 ? `<div class="seat-pill mgmt card-subcat-clickable" data-seat-type="MGMT" title="Click for Management Quota Details" style="cursor:pointer;">
+    ${totalMgmt > 0 ? `<div class="seat-pill mgmt">
       <span class="seat-pill-val">${totalMgmt.toLocaleString()}</span>
       <span class="seat-pill-lbl">Mgmt</span>
     </div>` : ''}
@@ -2518,26 +2508,13 @@ function openModal(college) {
   const modalContent = document.getElementById('modal-content');
 
   const courseRows = college.courses.map((c, idx) => {
-    const comEdkCol = hasComDk ? `<td class="td-comedk subcat-clickable" data-seat-type="COMEDK" data-course-idx="${idx}" style="cursor:pointer; text-decoration:underline dotted;">${parseInt(c.cat2_seats) || 0}</td>` : '';
-    const mgmtCol = hasMgmt ? `<td class="td-mgmt subcat-clickable" data-seat-type="MGMT" data-course-idx="${idx}" style="cursor:pointer; text-decoration:underline dotted;">${parseInt(c.cat3_seats) || 0}</td>` : '';
-    const snqCol = hasSnq ? `<td class="td-snq subcat-clickable" data-seat-type="SNQ" data-course-idx="${idx}" style="color:#22c55e; font-weight:600; cursor:pointer; text-decoration:underline dotted;">${parseInt(c.snq_5pct || c.over_above_5pct) || 0}</td>` : '';
-    const phCol = hasPh ? `<td class="td-ph subcat-clickable" data-seat-type="SPL" data-course-idx="${idx}" style="cursor:pointer; text-decoration:underline dotted;">${parseInt(c.kea_ph) || 0}</td>` : '';
-    
-    let splDetails = [];
-    if (c.sports) splDetails.push(`Sports: ${c.sports}`);
-    if (c.ncc) splDetails.push(`NCC: ${c.ncc}`);
-    if (c.sct_guides) splDetails.push(`Scouts/Guides: ${c.sct_guides}`);
-    if (c.defence) splDetails.push(`Defence: ${c.defence}`);
-    if (c.k_defence) splDetails.push(`Karnataka Defence: ${c.k_defence}`);
-    if (c.ex_defence) splDetails.push(`Ex-Defence: ${c.ex_defence}`);
-    if (c.capf) splDetails.push(`CAPF: ${c.capf}`);
-    if (c.ai) splDetails.push(`Anglo-Indian: ${c.ai}`);
-    if (c.xcapf) splDetails.push(`Ex-CAPF: ${c.xcapf}`);
-
-    const splTitle = splDetails.length > 0 ? `title="Click for SPL Breakdown: ${splDetails.join(' | ')}"` : 'title="Click for Special Category Breakdown"';
-    const splCol = hasSpl ? `<td class="td-spl subcat-clickable" data-seat-type="SPL" data-course-idx="${idx}" ${splTitle} style="cursor:pointer; text-decoration:underline dotted;">${parseInt(c.kea_spl) || 0}</td>` : '';
-    const hkCol = hasHk ? `<td class="td-hk subcat-clickable" data-seat-type="HK" data-course-idx="${idx}" title="Click for 371-J Reservation Breakdown" style="cursor:pointer; text-decoration:underline dotted;">${parseInt(c.kea_hk) || 0}</td>` : '';
-    const rkCol = hasRk ? `<td class="td-rk subcat-clickable" data-seat-type="RK" data-course-idx="${idx}" title="Click for Rest of Karnataka Reservation Breakdown" style="cursor:pointer; text-decoration:underline dotted;">${parseInt(c.kea_rk) || 0}</td>` : '';
+    const comEdkCol = hasComDk ? `<td class="td-comedk">${parseInt(c.cat2_seats) || 0}</td>` : '';
+    const mgmtCol = hasMgmt ? `<td class="td-mgmt">${parseInt(c.cat3_seats) || 0}</td>` : '';
+    const snqCol = hasSnq ? `<td class="td-snq" style="color:#22c55e; font-weight:600;">${parseInt(c.snq_5pct || c.over_above_5pct) || 0}</td>` : '';
+    const phCol = hasPh ? `<td class="td-ph">${parseInt(c.kea_ph) || 0}</td>` : '';
+    const splCol = hasSpl ? `<td class="td-spl">${parseInt(c.kea_spl) || 0}</td>` : '';
+    const hkCol = hasHk ? `<td class="td-hk">${parseInt(c.kea_hk) || 0}</td>` : '';
+    const rkCol = hasRk ? `<td class="td-rk">${parseInt(c.kea_rk) || 0}</td>` : '';
     
     const r1_cutoffs = c.round1_cutoff || {};
     const r1_cutoff_val = r1_cutoffs[defaultCat];
