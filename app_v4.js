@@ -2541,7 +2541,49 @@ function openModal(college) {
     initialCutoffR2 = enrichCutoff(r2_cutoff_val, yoyData?.r2);
     initialCutoffR3 = enrichCutoff(r3_cutoff_val, yoyData?.r3);
 
-    const feeVal = getCourseFee(college, c.course_name, c.total_kea_seats);
+function computeSubcategorySeatSplit(c) {
+  const keaTot = parseInt(c.total_kea_seats) || 0;
+  const hkTot = parseInt(c.kea_hk) || 0;
+  const rkTot = parseInt(c.kea_rk) || Math.max(0, keaTot - hkTot);
+  const ph = parseInt(c.kea_ph) || 0;
+  const snq = parseInt(c.snq_5pct || c.over_above_5pct) || 0;
+
+  const pcts = {
+    'GM': 0.50, 'SC': 0.17, 'ST': 0.07, '1': 0.04,
+    '2A': 0.15, '2B': 0.04, '3A': 0.04, '3B': 0.05
+  };
+
+  const rkSplit = {};
+  let urbSum = 0, rurSum = 0, kmSum = 0;
+  for (const [cat, pct] of Object.entries(pcts)) {
+    const catSeats = rkTot * pct;
+    const gVal = maxZero(Math.round(catSeats * 0.66));
+    const rVal = maxZero(Math.round(catSeats * 0.24));
+    const kVal = maxZero(Math.round(catSeats * 0.10));
+    rkSplit[`${cat}G`] = gVal;
+    rkSplit[`${cat}R`] = rVal;
+    rkSplit[`${cat}K`] = kVal;
+    urbSum += gVal;
+    rurSum += rVal;
+    kmSum += kVal;
+  }
+
+  const hkSplit = {};
+  let hkSum = 0;
+  for (const [cat, pct] of Object.entries(pcts)) {
+    const val = hkTot > 0 ? maxZero(Math.round(hkTot * pct)) : 0;
+    hkSplit[`${cat}H`] = val;
+    hkSum += val;
+  }
+
+  return { rkSplit, hkSplit, rkTot, hkTot, snq, ph, urbSum, rurSum, kmSum, hkSum };
+}
+
+function maxZero(val) {
+  return isNaN(val) || val < 0 ? 0 : val;
+}
+
+    const sub = computeSubcategorySeatSplit(c);
 
     return `
       <tr class="course-main-row" data-course-idx="${idx}">
@@ -2578,6 +2620,77 @@ function openModal(college) {
             ${c.capf ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">👮 CAPF: ${c.capf}</span>` : ''}
             ${c.kea_ph ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">♿ PH: ${c.kea_ph}</span>` : ''}
           </div>
+
+          <div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-top:12px; margin-bottom:6px;">📋 Sub-Category Seat Allocation Matrix (PDF Layout):</div>
+          <table class="modal-courses-table" style="font-size:11px; background:var(--bg-card); border-radius:8px; overflow:hidden; margin-bottom:14px;">
+            <thead>
+              <tr style="background:rgba(255,255,255,0.04);">
+                <th>Quota / Reservation</th>
+                <th style="text-align:center;">GM</th>
+                <th style="text-align:center;">SC</th>
+                <th style="text-align:center;">ST</th>
+                <th style="text-align:center;">Cat-1</th>
+                <th style="text-align:center;">2A</th>
+                <th style="text-align:center;">2B</th>
+                <th style="text-align:center;">3A</th>
+                <th style="text-align:center;">3B</th>
+                <th style="text-align:right;">Sub-Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Urban / General (G)</strong></td>
+                <td style="text-align:center;">${sub.rkSplit['GMG']}</td>
+                <td style="text-align:center;">${sub.rkSplit['SCG']}</td>
+                <td style="text-align:center;">${sub.rkSplit['STG']}</td>
+                <td style="text-align:center;">${sub.rkSplit['1G']}</td>
+                <td style="text-align:center;">${sub.rkSplit['2AG']}</td>
+                <td style="text-align:center;">${sub.rkSplit['2BG']}</td>
+                <td style="text-align:center;">${sub.rkSplit['3AG']}</td>
+                <td style="text-align:center;">${sub.rkSplit['3BG']}</td>
+                <td style="text-align:right; font-weight:bold; color:var(--blue);">${sub.urbSum}</td>
+              </tr>
+              <tr>
+                <td><strong>Rural Quota (R)</strong></td>
+                <td style="text-align:center;">${sub.rkSplit['GMR']}</td>
+                <td style="text-align:center;">${sub.rkSplit['SCR']}</td>
+                <td style="text-align:center;">${sub.rkSplit['STR']}</td>
+                <td style="text-align:center;">${sub.rkSplit['1R']}</td>
+                <td style="text-align:center;">${sub.rkSplit['2AR']}</td>
+                <td style="text-align:center;">${sub.rkSplit['2BR']}</td>
+                <td style="text-align:center;">${sub.rkSplit['3AR']}</td>
+                <td style="text-align:center;">${sub.rkSplit['3BR']}</td>
+                <td style="text-align:right; font-weight:bold; color:var(--blue);">${sub.rurSum}</td>
+              </tr>
+              <tr>
+                <td><strong>Kannada Medium (K)</strong></td>
+                <td style="text-align:center;">${sub.rkSplit['GMK']}</td>
+                <td style="text-align:center;">${sub.rkSplit['SCK']}</td>
+                <td style="text-align:center;">${sub.rkSplit['STK']}</td>
+                <td style="text-align:center;">${sub.rkSplit['1K']}</td>
+                <td style="text-align:center;">${sub.rkSplit['2AK']}</td>
+                <td style="text-align:center;">${sub.rkSplit['2BK']}</td>
+                <td style="text-align:center;">${sub.rkSplit['3AK']}</td>
+                <td style="text-align:center;">${sub.rkSplit['3BK']}</td>
+                <td style="text-align:right; font-weight:bold; color:var(--blue);">${sub.kmSum}</td>
+              </tr>
+              ${sub.hkTot > 0 ? `
+                <tr style="background:rgba(168,85,247,0.05);">
+                  <td><strong style="color:var(--purple);">HK 371-J Local (H)</strong></td>
+                  <td style="text-align:center;">${sub.hkSplit['GMH']}</td>
+                  <td style="text-align:center;">${sub.hkSplit['SCH']}</td>
+                  <td style="text-align:center;">${sub.hkSplit['STH']}</td>
+                  <td style="text-align:center;">${sub.hkSplit['1H']}</td>
+                  <td style="text-align:center;">${sub.hkSplit['2AH']}</td>
+                  <td style="text-align:center;">${sub.hkSplit['2BH']}</td>
+                  <td style="text-align:center;">${sub.hkSplit['3AH']}</td>
+                  <td style="text-align:center;">${sub.hkSplit['3BH']}</td>
+                  <td style="text-align:right; font-weight:bold; color:var(--purple);">${sub.hkTot}</td>
+                </tr>
+              ` : ''}
+            </tbody>
+          </table>
+
           ${c.round1_cutoff ? `
             <div style="font-size:11px; font-weight:600; color:var(--text-muted); margin-bottom:6px;">Round 1 Cut-off Ranks by Category:</div>
             <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap:6px; font-size:11px;">
