@@ -4021,34 +4021,15 @@ function getScopedBaseColleges() {
 
 function updateDownloadPreview() {
   const alertEl = document.getElementById('download-scope-alert');
-  if (!alertEl || !currentUser) return;
-
-  const effectiveRole = currentUser.role === 'superuser' ? superuserPerspective : currentUser.role;
-
-  // 1. Render Scope Alert Banner Text
-  if (effectiveRole === 'authority') {
-    alertEl.innerHTML = `<span>🛡️ <strong>KEA Authority Scope:</strong> Global consolidated access. All colleges in the state matrix are exportable.</span>`;
+  if (alertEl) {
+    alertEl.innerHTML = `<span>📥 <strong>Data Export Scope:</strong> Select Year, Annexure, District, or Course filters to export custom CSV/JSON seat matrices matching the source PDFs.</span>`;
     alertEl.style.background = 'rgba(59, 130, 246, 0.1)';
     alertEl.style.borderColor = 'rgba(59, 130, 246, 0.25)';
     alertEl.style.color = 'var(--blue)';
-  } else if (effectiveRole === 'institution') {
-    const groupId = currentUser.role === 'superuser' ? superuserGroup : currentUser.institutionGroup;
-    const groupName = (groupId || '').toUpperCase();
-    alertEl.innerHTML = `<span>🏫 <strong>Institution Admin Scope (${groupName}):</strong> Export is strictly limited to colleges mapped under the ${groupName} Group.</span>`;
-    alertEl.style.background = 'rgba(20, 184, 166, 0.1)';
-    alertEl.style.borderColor = 'rgba(20, 184, 166, 0.25)';
-    alertEl.style.color = 'var(--teal)';
-  } else if (effectiveRole === 'counsellor') {
-    const activeId = currentUser.activeStudentId || '';
-    const activeStudent = currentUser.students ? currentUser.students.find(s => s.id === activeId) : null;
-    const studentName = activeStudent ? activeStudent.name : 'Unknown Candidate';
-    alertEl.innerHTML = `<span>💼 <strong>Admissions Advisor Scope:</strong> Exporting colleges showing cutoff suitability for candidate: <strong>${studentName}</strong>.</span>`;
-    alertEl.style.background = 'rgba(168, 85, 247, 0.1)';
-    alertEl.style.borderColor = 'rgba(168, 85, 247, 0.25)';
-    alertEl.style.color = 'var(--purple)';
   }
 
-  // 2. Fetch Criteria Filters
+  // Fetch Criteria Filters
+  const selectedYear = document.getElementById('download-year-select')?.value || allData.year || '2025';
   const minSeats = parseInt(document.getElementById('download-min-seats')?.value) || 0;
   const district = document.getElementById('download-district-select')?.value || '';
   const course = document.getElementById('download-course-select')?.value || '';
@@ -4056,9 +4037,12 @@ function updateDownloadPreview() {
   // Get selected Annexure checkboxes
   const selectedAnn = Array.from(document.querySelectorAll('#download-annexures-grid input[type="checkbox"]:checked')).map(cb => cb.value);
 
-  // 3. Filter the Database
-  const baseColleges = getScopedBaseColleges();
-  
+  // Filter the Database by selected year
+  let baseColleges = allData.colleges || [];
+  if (selectedYear === '2026' && cache2026 && cache2026.colleges) baseColleges = cache2026.colleges;
+  else if (selectedYear === '2024' && cache2024 && cache2024.colleges) baseColleges = cache2024.colleges;
+  else if (selectedYear === '2025' && cache2025 && cache2025.colleges) baseColleges = cache2025.colleges;
+
   let collegeMatchCount = 0;
   let courseMatchCount = 0;
   let totalSeatsSum = 0;
@@ -4090,21 +4074,17 @@ function updateDownloadPreview() {
     }
   });
 
-  // 4. Update Preview Counters
-  document.getElementById('download-preview-colleges').textContent = collegeMatchCount.toLocaleString();
-  document.getElementById('download-preview-courses').textContent = courseMatchCount.toLocaleString();
-  document.getElementById('download-preview-seats').textContent = totalSeatsSum.toLocaleString();
+  // Update Preview Counters
+  const elCol = document.getElementById('download-preview-colleges');
+  const elCr = document.getElementById('download-preview-courses');
+  const elSt = document.getElementById('download-preview-seats');
+  if (elCol) elCol.textContent = collegeMatchCount.toLocaleString();
+  if (elCr) elCr.textContent = courseMatchCount.toLocaleString();
+  if (elSt) elSt.textContent = totalSeatsSum.toLocaleString();
 }
 
 function triggerTabDownload() {
-  if (!currentUser) return;
-  const effectiveRole = currentUser.role === 'superuser' ? superuserPerspective : currentUser.role;
-  if (effectiveRole === 'student') {
-    alert("Access restricted. Students cannot download system-consolidated datasets.");
-    return;
-  }
-
-  const selectedYear = document.getElementById('download-year-select')?.value || '2025';
+  const selectedYear = document.getElementById('download-year-select')?.value || allData.year || '2025';
   const minSeats = parseInt(document.getElementById('download-min-seats')?.value) || 0;
   const district = document.getElementById('download-district-select')?.value || '';
   const course = document.getElementById('download-course-select')?.value || '';
@@ -4117,7 +4097,10 @@ function triggerTabDownload() {
     return;
   }
 
-  const baseColleges = getScopedBaseColleges();
+  let baseColleges = allData.colleges || [];
+  if (selectedYear === '2026' && cache2026 && cache2026.colleges) baseColleges = cache2026.colleges;
+  else if (selectedYear === '2024' && cache2024 && cache2024.colleges) baseColleges = cache2024.colleges;
+  else if (selectedYear === '2025' && cache2025 && cache2025.colleges) baseColleges = cache2025.colleges;
   const filteredData = [];
 
   baseColleges.forEach(col => {
