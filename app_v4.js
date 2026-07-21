@@ -2476,10 +2476,10 @@ function openModal(college) {
   const modalContent = document.getElementById('modal-content');
 
   const courseRows = college.courses.map((c, idx) => {
-    const comEdkCol = hasComDk ? `<td class="td-comedk subcat-clickable" data-seat-type="COMEDK" data-course-name="${escHtml(c.course_name)}" style="cursor:pointer; text-decoration:underline dotted;">${parseInt(c.cat2_seats) || 0}</td>` : '';
-    const mgmtCol = hasMgmt ? `<td class="td-mgmt subcat-clickable" data-seat-type="MGMT" data-course-name="${escHtml(c.course_name)}" style="cursor:pointer; text-decoration:underline dotted;">${parseInt(c.cat3_seats) || 0}</td>` : '';
-    const snqCol = hasSnq ? `<td class="td-snq subcat-clickable" data-seat-type="SNQ" data-course-name="${escHtml(c.course_name)}" style="color:#22c55e; font-weight:600; cursor:pointer; text-decoration:underline dotted;">${parseInt(c.snq_5pct || c.over_above_5pct) || 0}</td>` : '';
-    const phCol = hasPh ? `<td class="td-ph subcat-clickable" data-seat-type="SPL" data-course-name="${escHtml(c.course_name)}" style="cursor:pointer; text-decoration:underline dotted;">${parseInt(c.kea_ph) || 0}</td>` : '';
+    const comEdkCol = hasComDk ? `<td class="td-comedk subcat-clickable" data-seat-type="COMEDK" data-course-idx="${idx}" style="cursor:pointer; text-decoration:underline dotted;">${parseInt(c.cat2_seats) || 0}</td>` : '';
+    const mgmtCol = hasMgmt ? `<td class="td-mgmt subcat-clickable" data-seat-type="MGMT" data-course-idx="${idx}" style="cursor:pointer; text-decoration:underline dotted;">${parseInt(c.cat3_seats) || 0}</td>` : '';
+    const snqCol = hasSnq ? `<td class="td-snq subcat-clickable" data-seat-type="SNQ" data-course-idx="${idx}" style="color:#22c55e; font-weight:600; cursor:pointer; text-decoration:underline dotted;">${parseInt(c.snq_5pct || c.over_above_5pct) || 0}</td>` : '';
+    const phCol = hasPh ? `<td class="td-ph subcat-clickable" data-seat-type="SPL" data-course-idx="${idx}" style="cursor:pointer; text-decoration:underline dotted;">${parseInt(c.kea_ph) || 0}</td>` : '';
     
     let splDetails = [];
     if (c.sports) splDetails.push(`Sports: ${c.sports}`);
@@ -2493,9 +2493,9 @@ function openModal(college) {
     if (c.xcapf) splDetails.push(`Ex-CAPF: ${c.xcapf}`);
 
     const splTitle = splDetails.length > 0 ? `title="Click for SPL Breakdown: ${splDetails.join(' | ')}"` : 'title="Click for Special Category Breakdown"';
-    const splCol = hasSpl ? `<td class="td-spl subcat-clickable" data-seat-type="SPL" data-course-name="${escHtml(c.course_name)}" ${splTitle} style="cursor:pointer; text-decoration:underline dotted;">${parseInt(c.kea_spl) || 0}</td>` : '';
-    const hkCol = hasHk ? `<td class="td-hk subcat-clickable" data-seat-type="HK" data-course-name="${escHtml(c.course_name)}" title="Click for 371-J Reservation Breakdown" style="cursor:pointer; text-decoration:underline dotted;">${parseInt(c.kea_hk) || 0}</td>` : '';
-    const rkCol = hasRk ? `<td class="td-rk subcat-clickable" data-seat-type="RK" data-course-name="${escHtml(c.course_name)}" title="Click for Rest of Karnataka Reservation Breakdown" style="cursor:pointer; text-decoration:underline dotted;">${parseInt(c.kea_rk) || 0}</td>` : '';
+    const splCol = hasSpl ? `<td class="td-spl subcat-clickable" data-seat-type="SPL" data-course-idx="${idx}" ${splTitle} style="cursor:pointer; text-decoration:underline dotted;">${parseInt(c.kea_spl) || 0}</td>` : '';
+    const hkCol = hasHk ? `<td class="td-hk subcat-clickable" data-seat-type="HK" data-course-idx="${idx}" title="Click for 371-J Reservation Breakdown" style="cursor:pointer; text-decoration:underline dotted;">${parseInt(c.kea_hk) || 0}</td>` : '';
+    const rkCol = hasRk ? `<td class="td-rk subcat-clickable" data-seat-type="RK" data-course-idx="${idx}" title="Click for Rest of Karnataka Reservation Breakdown" style="cursor:pointer; text-decoration:underline dotted;">${parseInt(c.kea_rk) || 0}</td>` : '';
     
     const r1_cutoffs = c.round1_cutoff || {};
     const r1_cutoff_val = r1_cutoffs[defaultCat];
@@ -2543,22 +2543,55 @@ function openModal(college) {
 
     const feeVal = getCourseFee(college, c.course_name, c.total_kea_seats);
 
-    return `<tr>
-      <td>${c.course_name}</td>
-      <td class="td-total">${c.total_intake || 0}</td>
-      <td class="td-kea">${c.total_kea_seats || 0}</td>
-      ${comEdkCol}
-      ${mgmtCol}
-      ${snqCol}
-      ${phCol}
-      ${splCol}
-      ${hkCol}
-      ${rkCol}
-      <td>${feeVal}</td>
-      <td class="td-cutoff-r1" data-course-idx="${idx}" style="color:var(--blue); text-align:right; font-family:var(--font-display); font-weight:700; line-height:1.2; padding:6px 8px;">${initialCutoffR1}</td>
-      <td class="td-cutoff-r2" data-course-idx="${idx}" style="color:var(--purple); text-align:right; font-family:var(--font-display); font-weight:700; line-height:1.2; padding:6px 8px;">${initialCutoffR2}</td>
-      <td class="td-cutoff-r3" data-course-idx="${idx}" style="color:var(--pink); text-align:right; font-family:var(--font-display); font-weight:700; line-height:1.2; padding:6px 8px;">${initialCutoffR3}</td>
-    </tr>`;
+    return `
+      <tr class="course-main-row" data-course-idx="${idx}">
+        <td class="course-name-cell" style="cursor:pointer;" title="Click to expand full sub-category matrix">
+          <span class="drawer-toggle-icon" id="toggle-icon-${idx}" style="display:inline-block; transition:transform 0.2s; font-size:10px; margin-right:4px; color:var(--blue);">▶</span>
+          <strong>${escHtml(c.course_name)}</strong>
+        </td>
+        <td class="td-total">${c.total_intake || 0}</td>
+        <td class="td-kea">${c.total_kea_seats || 0}</td>
+        ${comEdkCol}
+        ${mgmtCol}
+        ${snqCol}
+        ${phCol}
+        ${splCol}
+        ${hkCol}
+        ${rkCol}
+        <td>${feeVal}</td>
+        <td class="td-cutoff-r1" data-course-idx="${idx}" style="color:var(--blue); text-align:right; font-family:var(--font-display); font-weight:700; line-height:1.2; padding:6px 8px;">${initialCutoffR1}</td>
+        <td class="td-cutoff-r2" data-course-idx="${idx}" style="color:var(--purple); text-align:right; font-family:var(--font-display); font-weight:700; line-height:1.2; padding:6px 8px;">${initialCutoffR2}</td>
+        <td class="td-cutoff-r3" data-course-idx="${idx}" style="color:var(--pink); text-align:right; font-family:var(--font-display); font-weight:700; line-height:1.2; padding:6px 8px;">${initialCutoffR3}</td>
+      </tr>
+      <tr class="course-drawer-row" id="drawer-row-${idx}" style="display:none; background:var(--bg-elevated, #1a233b);">
+        <td colspan="15" style="padding:14px 18px; border-bottom:2px solid var(--blue);">
+          <div style="font-size:12px; font-weight:700; color:var(--text); margin-bottom:8px;">📊 Detailed Sub-Category Breakdown for <em>${escHtml(c.course_name)}</em></div>
+          <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+            <span style="padding:4px 10px; border-radius:6px; background:rgba(59,130,246,0.15); color:var(--blue); font-size:11px; font-weight:600;">Rest of Karnataka (RK): ${c.kea_rk || 0} seats</span>
+            <span style="padding:4px 10px; border-radius:6px; background:rgba(168,85,247,0.15); color:var(--purple); font-size:11px; font-weight:600;">Hyderabad Karnataka (371-J): ${c.kea_hk || 0} seats</span>
+            <span style="padding:4px 10px; border-radius:6px; background:rgba(34,197,94,0.15); color:#22c55e; font-size:11px; font-weight:600;">Supernumerary (SNQ 5%): ${c.snq_5pct || c.over_above_5pct || 0} seats</span>
+            ${c.sports ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">🏅 Sports: ${c.sports}</span>` : ''}
+            ${c.ncc ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">🎖️ NCC: ${c.ncc}</span>` : ''}
+            ${c.sct_guides ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">⚜️ Scouts & Guides: ${c.sct_guides}</span>` : ''}
+            ${c.defence ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">🛡️ Defence: ${c.defence}</span>` : ''}
+            ${c.ex_defence ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">🎗️ Ex-Defence: ${c.ex_defence}</span>` : ''}
+            ${c.capf ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">👮 CAPF: ${c.capf}</span>` : ''}
+            ${c.kea_ph ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">♿ PH: ${c.kea_ph}</span>` : ''}
+          </div>
+          ${c.round1_cutoff ? `
+            <div style="font-size:11px; font-weight:600; color:var(--text-muted); margin-bottom:6px;">Round 1 Cut-off Ranks by Category:</div>
+            <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap:6px; font-size:11px;">
+              ${Object.entries(c.round1_cutoff).map(([catKey, val]) => `
+                <div style="background:var(--bg-card); padding:5px 8px; border-radius:6px; border:1px solid var(--border); display:flex; justify-content:space-between;">
+                  <span style="font-weight:600;">${catKey}:</span>
+                  <span style="color:var(--blue); font-weight:700;">${parseInt(val).toLocaleString()}</span>
+                </div>
+              `).join('')}
+            </div>
+          ` : ''}
+        </td>
+      </tr>
+    `;
   }).join('');
 
   // Course-level category totals calculation
@@ -2832,6 +2865,21 @@ function openModal(college) {
       });
     });
   }
+
+  // Inline course drawer accordion toggle listener
+  modalContent.querySelectorAll('.course-main-row').forEach(row => {
+    row.addEventListener('click', (e) => {
+      if (e.target.closest('.subcat-clickable')) return;
+      const idx = row.dataset.courseIdx;
+      const drawer = document.getElementById(`drawer-row-${idx}`);
+      const icon = document.getElementById(`toggle-icon-${idx}`);
+      if (drawer) {
+        const isOpen = drawer.style.display !== 'none';
+        drawer.style.display = isOpen ? 'none' : 'table-row';
+        if (icon) icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(90deg)';
+      }
+    });
+  });
 
   // Compare button event listener
   const compBtn = document.getElementById('modal-compare-btn');
