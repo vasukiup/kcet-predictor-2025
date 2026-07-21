@@ -4121,6 +4121,7 @@ function triggerTabDownload() {
   const course = document.getElementById('download-course-select')?.value || '';
   const selectedGroup = document.getElementById('download-group-select')?.value || '';
   const selectedCollege = document.getElementById('download-college-select')?.value || '';
+  const datasetType = document.querySelector('input[name="download-dataset-type"]:checked')?.value || 'seat_matrix';
   const format = document.querySelector('input[name="download-format"]:checked')?.value || 'csv';
 
   const selectedAnn = Array.from(document.querySelectorAll('#download-annexures-grid input[type="checkbox"]:checked')).map(cb => cb.value);
@@ -4186,7 +4187,7 @@ function triggerTabDownload() {
   }
 
   // Construct filename
-  let filename = `kcet_${selectedYear}_export`;
+  let filename = datasetType === 'closing_ranks' ? `kcet_${selectedYear}_closing_ranks` : `kcet_${selectedYear}_seat_matrix`;
   if (selectedGroup) filename += `_group_${selectedGroup.toLowerCase()}`;
   if (selectedCollege) filename += `_college_${selectedCollege}`;
   if (district) filename += `_${district.toLowerCase().replace(/ /g, '_')}`;
@@ -4198,64 +4199,70 @@ function triggerTabDownload() {
     const blob = new Blob([jsonStr], { type: 'application/json' });
     triggerDownload(blob, filename);
   } else {
-    // Comprehensive consolidated CSV Export with Cutoff Ranks
-    const headers = [
-      'College Code',
-      'College Number',
-      'College Name',
-      'Address',
-      'Annexure',
-      'College Type',
-      'District',
-      'Course Name',
-      'Total Intake',
-      'KEA Seats',
-      'COMEDK Seats',
-      'Mgmt Seats',
-      'Rest of Karnataka (RK)',
-      'Hyderabad Karnataka (HK 371-J)',
-      'SNQ Seats (5%)',
-      'Sports', 'NCC', 'Scouts & Guides', 'Defence', 'Ex-Defence', 'CAPF', 'PH',
-      'Round 1 GM Cutoff', 'Round 1 SC Cutoff', 'Round 1 ST Cutoff', 'Round 1 Cat-1 Cutoff', 'Round 1 2A Cutoff', 'Round 1 2B Cutoff', 'Round 1 3A Cutoff', 'Round 1 3B Cutoff', 'Round 1 GMK Cutoff', 'Round 1 GMR Cutoff', 'Round 1 GMH Cutoff',
-      'Round 2 GM Cutoff', 'Round 2 SC Cutoff', 'Round 2 ST Cutoff', 'Round 2 Cat-1 Cutoff', 'Round 2 2A Cutoff', 'Round 2 2B Cutoff', 'Round 2 3A Cutoff', 'Round 2 3B Cutoff',
-      'Round 3 GM Cutoff', 'Round 3 SC Cutoff', 'Round 3 ST Cutoff', 'Round 3 Cat-1 Cutoff', 'Round 3 2A Cutoff', 'Round 3 2B Cutoff', 'Round 3 3A Cutoff', 'Round 3 3B Cutoff'
-    ];
+    let headers = [];
+    if (datasetType === 'closing_ranks') {
+      headers = [
+        'College Code', 'College Number', 'College Name', 'Address', 'Annexure', 'College Type', 'District', 'Course Name',
+        'Round 1 GM Cutoff', 'Round 1 SC Cutoff', 'Round 1 ST Cutoff', 'Round 1 Cat-1 Cutoff', 'Round 1 2A Cutoff', 'Round 1 2B Cutoff', 'Round 1 3A Cutoff', 'Round 1 3B Cutoff', 'Round 1 GMK Cutoff', 'Round 1 GMR Cutoff', 'Round 1 GMH Cutoff',
+        'Round 2 GM Cutoff', 'Round 2 SC Cutoff', 'Round 2 ST Cutoff', 'Round 2 Cat-1 Cutoff', 'Round 2 2A Cutoff', 'Round 2 2B Cutoff', 'Round 2 3A Cutoff', 'Round 2 3B Cutoff',
+        'Round 3 GM Cutoff', 'Round 3 SC Cutoff', 'Round 3 ST Cutoff', 'Round 3 Cat-1 Cutoff', 'Round 3 2A Cutoff', 'Round 3 2B Cutoff', 'Round 3 3A Cutoff', 'Round 3 3B Cutoff'
+      ];
+    } else {
+      headers = [
+        'College Code', 'College Number', 'College Name', 'Address', 'Annexure', 'College Type', 'District', 'Course Name',
+        'Total Intake', 'KEA Seats', 'COMEDK Seats', 'Mgmt Seats', 'Rest of Karnataka (RK)', 'Hyderabad Karnataka (HK 371-J)', 'SNQ Seats (5%)',
+        'Sports', 'NCC', 'Scouts & Guides', 'Defence', 'Ex-Defence', 'CAPF', 'PH'
+      ];
+    }
 
     const csvRows = [headers.join(',')];
 
     filteredData.forEach(col => {
       col.courses.forEach(c => {
-        const r1 = c.round1_cutoff || {};
-        const r2 = c.round2_cutoff || {};
-        const r3 = c.round3_cutoff || {};
-
-        const row = [
-          `"${col.kea_code || ''}"`,
-          col.college_number || '',
-          `"${col.college_name.replace(/"/g, '""')}"`,
-          `"${(col.address || '').replace(/"/g, '""')}"`,
-          col.annexure || 'N/A',
-          `"${col.college_type}"`,
-          col.district || '',
-          `"${c.course_name}"`,
-          c.total_intake || 0,
-          c.total_kea_seats || 0,
-          c.cat2_seats || 0,
-          c.cat3_seats || 0,
-          c.kea_rk || 0,
-          c.kea_hk || 0,
-          c.snq_5pct || c.over_above_5pct || 0,
-          c.sports || 0,
-          c.ncc || 0,
-          c.sct_guides || 0,
-          c.defence || 0,
-          c.ex_defence || 0,
-          c.capf || 0,
-          c.kea_ph || 0,
-          r1.GM || '', r1.SC || '', r1.ST || '', r1['1'] || '', r1['2A'] || '', r1['2B'] || '', r1['3A'] || '', r1['3B'] || '', r1.GMK || '', r1.GMR || '', r1.GMH || '',
-          r2.GM || '', r2.SC || '', r2.ST || '', r2['1'] || '', r2['2A'] || '', r2['2B'] || '', r2['3A'] || '', r2['3B'] || '',
-          r3.GM || '', r3.SC || '', r3.ST || '', r3['1'] || '', r3['2A'] || '', r3['2B'] || '', r3['3A'] || '', r3['3B'] || ''
-        ];
+        let row = [];
+        if (datasetType === 'closing_ranks') {
+          const r1 = c.round1_cutoff || {};
+          const r2 = c.round2_cutoff || {};
+          const r3 = c.round3_cutoff || {};
+          row = [
+            `"${col.kea_code || ''}"`,
+            col.college_number || '',
+            `"${col.college_name.replace(/"/g, '""')}"`,
+            `"${(col.address || '').replace(/"/g, '""')}"`,
+            col.annexure || 'N/A',
+            `"${col.college_type}"`,
+            col.district || '',
+            `"${c.course_name}"`,
+            r1.GM || '', r1.SC || '', r1.ST || '', r1['1'] || '', r1['2A'] || '', r1['2B'] || '', r1['3A'] || '', r1['3B'] || '', r1.GMK || '', r1.GMR || '', r1.GMH || '',
+            r2.GM || '', r2.SC || '', r2.ST || '', r2['1'] || '', r2['2A'] || '', r2['2B'] || '', r2['3A'] || '', r2['3B'] || '',
+            r3.GM || '', r3.SC || '', r3.ST || '', r3['1'] || '', r3['2A'] || '', r3['2B'] || '', r3['3A'] || '', r3['3B'] || ''
+          ];
+        } else {
+          row = [
+            `"${col.kea_code || ''}"`,
+            col.college_number || '',
+            `"${col.college_name.replace(/"/g, '""')}"`,
+            `"${(col.address || '').replace(/"/g, '""')}"`,
+            col.annexure || 'N/A',
+            `"${col.college_type}"`,
+            col.district || '',
+            `"${c.course_name}"`,
+            c.total_intake || 0,
+            c.total_kea_seats || 0,
+            c.cat2_seats || 0,
+            c.cat3_seats || 0,
+            c.kea_rk || 0,
+            c.kea_hk || 0,
+            c.snq_5pct || c.over_above_5pct || 0,
+            c.sports || 0,
+            c.ncc || 0,
+            c.sct_guides || 0,
+            c.defence || 0,
+            c.ex_defence || 0,
+            c.capf || 0,
+            c.kea_ph || 0
+          ];
+        }
         csvRows.push(row.join(','));
       });
     });
