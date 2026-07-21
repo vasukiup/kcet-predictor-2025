@@ -101,16 +101,19 @@ async function loadYearData(year) {
     const res = await fetch(filename + '?t=' + new Date().getTime());
     allData = await res.json();
 
-    // Preprocess KEA seats to include RK + HK + SPL + PH across the board
+    // Preserve exact KEA seat numbers from source JSON file
     allData.colleges.forEach(col => {
       let colKea = 0;
       col.courses.forEach(c => {
-        const computedKea = (c.kea_rk || 0) + (c.kea_hk || 0) + (c.kea_spl || 0) + (c.kea_ph || 0);
-        c.total_kea_seats = c.total_kea_seats || computedKea;
-        c.kea_tot = c.kea_tot || computedKea;
-        colKea += c.total_kea_seats;
+        const keaSeats = (c.total_kea_seats !== undefined && c.total_kea_seats !== null) 
+          ? c.total_kea_seats 
+          : ((c.kea_rk || 0) + (c.kea_hk || 0) + (c.kea_spl || 0) + (c.kea_ph || 0));
+        c.total_kea_seats = keaSeats;
+        colKea += keaSeats;
       });
-      col.total_kea_seats = colKea;
+      if (!col.total_kea_seats) {
+        col.total_kea_seats = colKea;
+      }
     });
 
     // Re-calculate statistics dynamically to ensure accuracy across dashboards/summary cards
@@ -177,11 +180,15 @@ function triggerYoYStatsLoad(activeYear) {
         data.colleges.forEach(col => {
           let colKea = 0;
           col.courses.forEach(c => {
-            const computedKea = (c.kea_rk || 0) + (c.kea_hk || 0) + (c.kea_spl || 0) + (c.kea_ph || 0);
-            c.total_kea_seats = computedKea;
-            colKea += computedKea;
+            const keaSeats = (c.total_kea_seats !== undefined && c.total_kea_seats !== null) 
+              ? c.total_kea_seats 
+              : ((c.kea_rk || 0) + (c.kea_hk || 0) + (c.kea_spl || 0) + (c.kea_ph || 0));
+            c.total_kea_seats = keaSeats;
+            colKea += keaSeats;
           });
-          col.total_kea_seats = colKea;
+          if (!col.total_kea_seats) {
+            col.total_kea_seats = colKea;
+          }
         });
         let totalKea = 0;
         data.colleges.forEach(col => { totalKea += col.total_kea_seats; });
@@ -2069,9 +2076,13 @@ function renderColleges() {
     lmb.textContent = `Load More Colleges (${filtered.length - displayCount} remaining)`;
   }
 
-  // Bind card clicks
-  grid.querySelectorAll('.college-card').forEach((el, i) => {
-    el.addEventListener('click', () => openModal(toShow[i]));
+  // Bind card clicks using unique college_number lookup
+  grid.querySelectorAll('.college-card').forEach(el => {
+    el.addEventListener('click', () => {
+      const colNum = el.dataset.collegeNumber;
+      const collegeObj = allData.colleges.find(c => c.college_number == colNum);
+      if (collegeObj) openModal(collegeObj);
+    });
   });
 }
 
