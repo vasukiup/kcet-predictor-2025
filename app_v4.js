@@ -716,8 +716,19 @@ function populateFilters() {
     });
   }
 
-  // Populate Comparison & Fee Calculator Dropdowns
+  // Populate Comparison, Fee Calculator & Download College Dropdowns
   const sortedColleges = [...(allData.colleges || [])].sort((a, b) => a.college_name.localeCompare(b.college_name));
+  const downCollegeSel = document.getElementById('download-college-select');
+  if (downCollegeSel) {
+    downCollegeSel.innerHTML = '<option value="">All Colleges (Individual Matrix)</option>';
+    sortedColleges.forEach(col => {
+      const opt = document.createElement('option');
+      const codeStr = col.kea_code ? `(${col.kea_code}) ` : '';
+      opt.value = col.college_number || col.kea_code;
+      opt.textContent = `${codeStr}${col.college_name}`;
+      downCollegeSel.appendChild(opt);
+    });
+  }
   const compareCols = ['compare-col-1', 'compare-col-2', 'compare-col-3', 'calc-fee-college'];
   compareCols.forEach((id, index) => {
     const sel = document.getElementById(id);
@@ -4022,7 +4033,7 @@ function getScopedBaseColleges() {
 function updateDownloadPreview() {
   const alertEl = document.getElementById('download-scope-alert');
   if (alertEl) {
-    alertEl.innerHTML = `<span>📥 <strong>Data Export Scope:</strong> Select Year, Annexure, District, or Course filters to export custom CSV/JSON seat matrices matching the source PDFs.</span>`;
+    alertEl.innerHTML = `<span>📥 <strong>Data Export Scope:</strong> Select Year, College Group, Individual College, District, or Course filters to export custom CSV/JSON seat matrices and cutoff ranks.</span>`;
     alertEl.style.background = 'rgba(59, 130, 246, 0.1)';
     alertEl.style.borderColor = 'rgba(59, 130, 246, 0.25)';
     alertEl.style.color = 'var(--blue)';
@@ -4033,9 +4044,19 @@ function updateDownloadPreview() {
   const minSeats = parseInt(document.getElementById('download-min-seats')?.value) || 0;
   const district = document.getElementById('download-district-select')?.value || '';
   const course = document.getElementById('download-course-select')?.value || '';
+  const selectedGroup = document.getElementById('download-group-select')?.value || '';
+  const selectedCollege = document.getElementById('download-college-select')?.value || '';
 
   // Get selected Annexure checkboxes
   const selectedAnn = Array.from(document.querySelectorAll('#download-annexures-grid input[type="checkbox"]:checked')).map(cb => cb.value);
+
+  const groupAnnexureMap = {
+    'GOVT': ['A', 'E', 'Z'],
+    'AIDED': ['B'],
+    'UNAIDED': ['C'],
+    'MINORITY': ['D'],
+    'UNIV': ['O', 'P', 'V']
+  };
 
   // Filter the Database by selected year
   let baseColleges = allData.colleges || [];
@@ -4048,6 +4069,16 @@ function updateDownloadPreview() {
   let totalSeatsSum = 0;
 
   baseColleges.forEach(col => {
+    // Group filter check
+    if (selectedGroup && groupAnnexureMap[selectedGroup]) {
+      if (!groupAnnexureMap[selectedGroup].includes(col.annexure)) return;
+    }
+
+    // Specific College filter check
+    if (selectedCollege) {
+      if (col.college_number != selectedCollege && col.kea_code != selectedCollege) return;
+    }
+
     // Annexure check
     if (col.annexure === 'E' || col.annexure === 'V') {
       if (!selectedAnn.includes(col.annexure)) return;
@@ -4088,6 +4119,8 @@ function triggerTabDownload() {
   const minSeats = parseInt(document.getElementById('download-min-seats')?.value) || 0;
   const district = document.getElementById('download-district-select')?.value || '';
   const course = document.getElementById('download-course-select')?.value || '';
+  const selectedGroup = document.getElementById('download-group-select')?.value || '';
+  const selectedCollege = document.getElementById('download-college-select')?.value || '';
   const format = document.querySelector('input[name="download-format"]:checked')?.value || 'csv';
 
   const selectedAnn = Array.from(document.querySelectorAll('#download-annexures-grid input[type="checkbox"]:checked')).map(cb => cb.value);
@@ -4097,6 +4130,14 @@ function triggerTabDownload() {
     return;
   }
 
+  const groupAnnexureMap = {
+    'GOVT': ['A', 'E', 'Z'],
+    'AIDED': ['B'],
+    'UNAIDED': ['C'],
+    'MINORITY': ['D'],
+    'UNIV': ['O', 'P', 'V']
+  };
+
   let baseColleges = allData.colleges || [];
   if (selectedYear === '2026' && cache2026 && cache2026.colleges) baseColleges = cache2026.colleges;
   else if (selectedYear === '2024' && cache2024 && cache2024.colleges) baseColleges = cache2024.colleges;
@@ -4104,6 +4145,16 @@ function triggerTabDownload() {
   const filteredData = [];
 
   baseColleges.forEach(col => {
+    // Group filter check
+    if (selectedGroup && groupAnnexureMap[selectedGroup]) {
+      if (!groupAnnexureMap[selectedGroup].includes(col.annexure)) return;
+    }
+
+    // Specific College filter check
+    if (selectedCollege) {
+      if (col.college_number != selectedCollege && col.kea_code != selectedCollege) return;
+    }
+
     // Annexure check
     if (col.annexure === 'E' || col.annexure === 'V') {
       if (!selectedAnn.includes(col.annexure)) return;
@@ -4136,6 +4187,8 @@ function triggerTabDownload() {
 
   // Construct filename
   let filename = `kcet_${selectedYear}_export`;
+  if (selectedGroup) filename += `_group_${selectedGroup.toLowerCase()}`;
+  if (selectedCollege) filename += `_college_${selectedCollege}`;
   if (district) filename += `_${district.toLowerCase().replace(/ /g, '_')}`;
   if (course) filename += `_${course.toLowerCase().replace(/[^a-z0-9]/g, '_')}`;
   filename += `.${format}`;
@@ -4145,8 +4198,9 @@ function triggerTabDownload() {
     const blob = new Blob([jsonStr], { type: 'application/json' });
     triggerDownload(blob, filename);
   } else {
-    // Comprehensive consolidated CSV Export
+    // Comprehensive consolidated CSV Export with Cutoff Ranks
     const headers = [
+      'College Code',
       'College Number',
       'College Name',
       'Address',
@@ -4158,24 +4212,26 @@ function triggerTabDownload() {
       'KEA Seats',
       'COMEDK Seats',
       'Mgmt Seats',
-      'Sports',
-      'NCC',
-      'Scouts & Guides',
-      'Defence',
-      'K-Defence',
-      'Ex-Defence',
-      'CAPF',
-      'AI',
-      'XCAPF',
-      'SNQ Seats'
+      'Rest of Karnataka (RK)',
+      'Hyderabad Karnataka (HK 371-J)',
+      'SNQ Seats (5%)',
+      'Sports', 'NCC', 'Scouts & Guides', 'Defence', 'Ex-Defence', 'CAPF', 'PH',
+      'Round 1 GM Cutoff', 'Round 1 SC Cutoff', 'Round 1 ST Cutoff', 'Round 1 Cat-1 Cutoff', 'Round 1 2A Cutoff', 'Round 1 2B Cutoff', 'Round 1 3A Cutoff', 'Round 1 3B Cutoff', 'Round 1 GMK Cutoff', 'Round 1 GMR Cutoff', 'Round 1 GMH Cutoff',
+      'Round 2 GM Cutoff', 'Round 2 SC Cutoff', 'Round 2 ST Cutoff', 'Round 2 Cat-1 Cutoff', 'Round 2 2A Cutoff', 'Round 2 2B Cutoff', 'Round 2 3A Cutoff', 'Round 2 3B Cutoff',
+      'Round 3 GM Cutoff', 'Round 3 SC Cutoff', 'Round 3 ST Cutoff', 'Round 3 Cat-1 Cutoff', 'Round 3 2A Cutoff', 'Round 3 2B Cutoff', 'Round 3 3A Cutoff', 'Round 3 3B Cutoff'
     ];
 
     const csvRows = [headers.join(',')];
 
     filteredData.forEach(col => {
       col.courses.forEach(c => {
+        const r1 = c.round1_cutoff || {};
+        const r2 = c.round2_cutoff || {};
+        const r3 = c.round3_cutoff || {};
+
         const row = [
-          col.college_number,
+          `"${col.kea_code || ''}"`,
+          col.college_number || '',
           `"${col.college_name.replace(/"/g, '""')}"`,
           `"${(col.address || '').replace(/"/g, '""')}"`,
           col.annexure || 'N/A',
@@ -4186,16 +4242,19 @@ function triggerTabDownload() {
           c.total_kea_seats || 0,
           c.cat2_seats || 0,
           c.cat3_seats || 0,
+          c.kea_rk || 0,
+          c.kea_hk || 0,
+          c.snq_5pct || c.over_above_5pct || 0,
           c.sports || 0,
           c.ncc || 0,
           c.sct_guides || 0,
           c.defence || 0,
-          c.k_defence || 0,
           c.ex_defence || 0,
           c.capf || 0,
-          c.ai || 0,
-          c.xcapf || 0,
-          c.over_above_5pct || 0
+          c.kea_ph || 0,
+          r1.GM || '', r1.SC || '', r1.ST || '', r1['1'] || '', r1['2A'] || '', r1['2B'] || '', r1['3A'] || '', r1['3B'] || '', r1.GMK || '', r1.GMR || '', r1.GMH || '',
+          r2.GM || '', r2.SC || '', r2.ST || '', r2['1'] || '', r2['2A'] || '', r2['2B'] || '', r2['3A'] || '', r2['3B'] || '',
+          r3.GM || '', r3.SC || '', r3.ST || '', r3['1'] || '', r3['2A'] || '', r3['2B'] || '', r3['3A'] || '', r3['3B'] || ''
         ];
         csvRows.push(row.join(','));
       });
@@ -4212,11 +4271,13 @@ function bindDownloadTabEvents() {
   const minSeatsInput = document.getElementById('download-min-seats');
   const distSel = document.getElementById('download-district-select');
   const courseSel = document.getElementById('download-course-select');
+  const groupSel = document.getElementById('download-group-select');
+  const collegeSel = document.getElementById('download-college-select');
   const toggleBtn = document.getElementById('btn-download-toggle-annexures');
   const executeBtn = document.getElementById('btn-execute-download');
 
   // Change listeners
-  [yearSel, minSeatsInput, distSel, courseSel].forEach(el => {
+  [yearSel, minSeatsInput, distSel, courseSel, groupSel, collegeSel].forEach(el => {
     if (el) el.addEventListener('change', updateDownloadPreview);
   });
   if (minSeatsInput) {
