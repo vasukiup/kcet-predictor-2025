@@ -1579,11 +1579,11 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
-.form-input, .form-select {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  color: var(--text);
+select, .form-input, .form-select, .download-select {
+  background: var(--bg-elevated, #1a233b);
+  border: 1px solid var(--border, #2d3748);
+  border-radius: var(--radius-sm, 8px);
+  color: var(--text, #f8fafc);
   padding: 8px 12px;
   font-size: 13px;
   outline: none;
@@ -1592,7 +1592,12 @@ body {
   font-family: inherit;
   transition: border-color 0.2s;
 }
-.form-input:focus, .form-select:focus {
+select option, .form-select option, .download-select option {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  padding: 10px 12px;
+}
+.form-input:focus, .form-select:focus, select:focus {
   border-color: var(--blue);
 }
 
