@@ -2403,6 +2403,48 @@ function renderCourseBarChart() {
   document.getElementById('bar-courses').innerHTML = html;
 }
 
+function computeSubcategorySeatSplit(c) {
+  const keaTot = parseInt(c.total_kea_seats) || 0;
+  const hkTot = parseInt(c.kea_hk) || 0;
+  const rkTot = parseInt(c.kea_rk) || Math.max(0, keaTot - hkTot);
+  const ph = parseInt(c.kea_ph) || 0;
+  const snq = parseInt(c.snq_5pct || c.over_above_5pct) || 0;
+
+  const pcts = {
+    'GM': 0.50, 'SC': 0.17, 'ST': 0.07, '1': 0.04,
+    '2A': 0.15, '2B': 0.04, '3A': 0.04, '3B': 0.05
+  };
+
+  const rkSplit = {};
+  let urbSum = 0, rurSum = 0, kmSum = 0;
+  for (const [cat, pct] of Object.entries(pcts)) {
+    const catSeats = rkTot * pct;
+    const gVal = maxZero(Math.round(catSeats * 0.66));
+    const rVal = maxZero(Math.round(catSeats * 0.24));
+    const kVal = maxZero(Math.round(catSeats * 0.10));
+    rkSplit[`${cat}G`] = gVal;
+    rkSplit[`${cat}R`] = rVal;
+    rkSplit[`${cat}K`] = kVal;
+    urbSum += gVal;
+    rurSum += rVal;
+    kmSum += kVal;
+  }
+
+  const hkSplit = {};
+  let hkSum = 0;
+  for (const [cat, pct] of Object.entries(pcts)) {
+    const val = hkTot > 0 ? maxZero(Math.round(hkTot * pct)) : 0;
+    hkSplit[`${cat}H`] = val;
+    hkSum += val;
+  }
+
+  return { rkSplit, hkSplit, rkTot, hkTot, snq, ph, urbSum, rurSum, kmSum, hkSum };
+}
+
+function maxZero(val) {
+  return isNaN(val) || val < 0 ? 0 : val;
+}
+
 // ─────────────────────────────
 // Modal
 // ─────────────────────────────
@@ -2539,50 +2581,7 @@ function openModal(college) {
 
     initialCutoffR1 = enrichCutoff(r1_cutoff_val, yoyData?.r1);
     initialCutoffR2 = enrichCutoff(r2_cutoff_val, yoyData?.r2);
-    initialCutoffR3 = enrichCutoff(r3_cutoff_val, yoyData?.r3);
-
-function computeSubcategorySeatSplit(c) {
-  const keaTot = parseInt(c.total_kea_seats) || 0;
-  const hkTot = parseInt(c.kea_hk) || 0;
-  const rkTot = parseInt(c.kea_rk) || Math.max(0, keaTot - hkTot);
-  const ph = parseInt(c.kea_ph) || 0;
-  const snq = parseInt(c.snq_5pct || c.over_above_5pct) || 0;
-
-  const pcts = {
-    'GM': 0.50, 'SC': 0.17, 'ST': 0.07, '1': 0.04,
-    '2A': 0.15, '2B': 0.04, '3A': 0.04, '3B': 0.05
-  };
-
-  const rkSplit = {};
-  let urbSum = 0, rurSum = 0, kmSum = 0;
-  for (const [cat, pct] of Object.entries(pcts)) {
-    const catSeats = rkTot * pct;
-    const gVal = maxZero(Math.round(catSeats * 0.66));
-    const rVal = maxZero(Math.round(catSeats * 0.24));
-    const kVal = maxZero(Math.round(catSeats * 0.10));
-    rkSplit[`${cat}G`] = gVal;
-    rkSplit[`${cat}R`] = rVal;
-    rkSplit[`${cat}K`] = kVal;
-    urbSum += gVal;
-    rurSum += rVal;
-    kmSum += kVal;
-  }
-
-  const hkSplit = {};
-  let hkSum = 0;
-  for (const [cat, pct] of Object.entries(pcts)) {
-    const val = hkTot > 0 ? maxZero(Math.round(hkTot * pct)) : 0;
-    hkSplit[`${cat}H`] = val;
-    hkSum += val;
-  }
-
-  return { rkSplit, hkSplit, rkTot, hkTot, snq, ph, urbSum, rurSum, kmSum, hkSum };
-}
-
-function maxZero(val) {
-  return isNaN(val) || val < 0 ? 0 : val;
-}
-
+    const feeVal = getCourseFee(college, c.course_name, c.total_kea_seats);
     const sub = computeSubcategorySeatSplit(c);
 
     return `
