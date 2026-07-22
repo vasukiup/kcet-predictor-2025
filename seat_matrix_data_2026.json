@@ -180,7 +180,30 @@
       "affiliation": "State University Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Chikballapura Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 220,
@@ -404,7 +427,30 @@
       "affiliation": "VTU Affiliated (Government)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Hassan Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 197,
@@ -573,7 +619,30 @@
       "affiliation": "VTU Affiliated (Government)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Ballari Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 121,
@@ -783,7 +852,30 @@
       "affiliation": "VTU Affiliated (Government)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Chamarajanagara Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 122,
@@ -1065,7 +1157,30 @@
       "affiliation": "VTU Affiliated (Government)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Hassan Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 130,
@@ -1279,7 +1394,30 @@
       "affiliation": "VTU Affiliated (Government)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Haveri Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 131,
@@ -1518,7 +1656,30 @@
       "affiliation": "VTU Affiliated (Government)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Ballari Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 152,
@@ -1718,7 +1879,30 @@
       "affiliation": "VTU Affiliated (Government)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Uttara Kannada Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 128,
@@ -1916,7 +2100,30 @@
       "affiliation": "VTU Affiliated (Government)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Kodagu Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 193,
@@ -2192,7 +2399,30 @@
       "affiliation": "VTU Affiliated (Government)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Hassan Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 129,
@@ -2440,7 +2670,30 @@
       "affiliation": "VTU Affiliated (Government)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Raichur Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 124,
@@ -2635,7 +2888,30 @@
       "affiliation": "VTU Affiliated (Government)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Ramanagara Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 191,
@@ -2905,7 +3181,30 @@
       "affiliation": "VTU Affiliated (Government)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Koppal Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 192,
@@ -3188,7 +3487,30 @@
       "affiliation": "VTU Affiliated (Government)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Koppal Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 207,
@@ -3423,7 +3745,30 @@
       "affiliation": "VTU Affiliated (Government)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bidar Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 206,
@@ -3643,7 +3988,30 @@
       "affiliation": "VTU Affiliated (Government)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Gadag Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 2,
@@ -3901,7 +4269,30 @@
       "affiliation": "Constituent University College (JSS STU)",
       "nirf_ranking": 201,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 5.5,
+        "highest_package_lpa": 19.2,
+        "placement_rate_pct": 91,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 750,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 9.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 123,
@@ -4108,7 +4499,30 @@
       "affiliation": "VTU Affiliated (Government)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Mandya Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 49,
@@ -4409,7 +4823,30 @@
       "affiliation": "State University Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Davanagere Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 196,
@@ -4765,7 +5202,30 @@
       "affiliation": "State University Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Belagavi Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 195,
@@ -5122,7 +5582,30 @@
       "affiliation": "State University Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Chikballapura Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 204,
@@ -5323,7 +5806,30 @@
       "affiliation": "State University Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Kalaburagi Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 61,
@@ -5901,7 +6407,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 147,
@@ -6346,7 +6875,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 52,
@@ -6732,7 +7284,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Chikkamagaluru Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 208,
@@ -7113,7 +7688,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 156,
@@ -7426,7 +8024,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Dharwad Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 210,
@@ -7823,7 +8444,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "C",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.5,
+        "highest_package_lpa": 12.2,
+        "placement_rate_pct": 91,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 750,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 9.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 150,
@@ -8105,7 +8749,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Tumkur Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 135,
@@ -8553,7 +9220,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Dakshina Kannada Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 73,
@@ -9007,7 +9697,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 134,
@@ -9252,7 +9965,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 146,
@@ -9550,7 +10286,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Belagavi Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 214,
@@ -9699,7 +10458,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Belagavi Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 65,
@@ -9922,7 +10704,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 161,
@@ -10306,7 +11111,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Mysuru Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 76,
@@ -10719,7 +11547,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 40,
@@ -11268,7 +12119,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 99,
@@ -11644,7 +12518,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 84,
@@ -11947,7 +12844,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 41,
@@ -12289,7 +13209,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Bagalkot Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 57,
@@ -12756,7 +13699,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Ballari Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 8,
@@ -13410,7 +14376,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": 251,
       "naac_grade": "A+",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 5.5,
+        "highest_package_lpa": 19.2,
+        "placement_rate_pct": 92,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 160,
@@ -13782,7 +14771,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 50,
@@ -14389,7 +15401,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Davanagere Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 188,
@@ -14495,7 +15530,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Vijayapura Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 71,
@@ -14759,7 +15817,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Bidar Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 201,
@@ -14995,7 +16076,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 36,
@@ -15333,7 +16437,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Bidar Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 171,
@@ -15539,7 +16666,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bagalkot Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 31,
@@ -15918,7 +17068,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Vijayapura Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 136,
@@ -16231,7 +17404,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 145,
@@ -16516,7 +17712,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Kolar Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 75,
@@ -16890,7 +18109,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 172,
@@ -17176,7 +18418,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 116,
@@ -17571,7 +18836,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 224,
@@ -17850,7 +19138,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Mysuru Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 173,
@@ -18061,7 +19372,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Mandya Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 79,
@@ -18376,7 +19710,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Tumkur Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 86,
@@ -18700,7 +20057,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 72,
@@ -18982,7 +20362,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Kodagu Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 167,
@@ -19424,7 +20827,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 7,
@@ -20319,7 +21745,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": 100,
       "naac_grade": "A++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 7.2,
+        "highest_package_lpa": 41.0,
+        "placement_rate_pct": 91.0,
+        "top_recruiters": [
+          "TCS",
+          "Wipro",
+          "Infosys",
+          "Cognizant",
+          "Mindtree"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 80000,
+        "hostel_capacity": 1800,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Tumakuru Railway Station",
+        "campus_area_acres": 65
+      }
     },
     {
       "college_number": 80,
@@ -20714,7 +22163,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 215,
@@ -20912,7 +22384,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 48,
@@ -21304,7 +22799,30 @@
       "affiliation": "Private University (PES)",
       "nirf_ranking": 101,
       "naac_grade": "A+",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 11.2,
+        "highest_package_lpa": 65.0,
+        "placement_rate_pct": 95.0,
+        "top_recruiters": [
+          "Microsoft",
+          "Apple",
+          "Amazon",
+          "Goldman Sachs",
+          "Cisco"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 135000,
+        "hostel_capacity": 2000,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 10.0,
+        "nearest_railway_station": "Nayandahalli",
+        "campus_area_acres": 30
+      }
     },
     {
       "college_number": 139,
@@ -21535,7 +23053,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 14,
@@ -21796,7 +23337,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 5.5,
+        "highest_package_lpa": 19.2,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 11.5,
+        "nearest_railway_station": "Kolar Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 74,
@@ -22150,7 +23714,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 178,
@@ -22369,7 +23956,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 83,
@@ -22849,7 +24459,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 90,
@@ -23026,7 +24659,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Davanagere Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 165,
@@ -23302,7 +24958,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Mandya Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 105,
@@ -23595,7 +25274,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Mysuru Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 209,
@@ -23716,7 +25418,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 81,
@@ -24213,7 +25938,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 157,
@@ -24519,7 +26267,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 38,
@@ -24701,7 +26472,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Raichur Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 223,
@@ -24948,7 +26742,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 32,
@@ -25139,7 +26956,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Belagavi Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 109,
@@ -25472,7 +27312,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 63,
@@ -25890,7 +27753,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 190,
@@ -26114,7 +28000,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Belagavi Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 189,
@@ -26325,7 +28234,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Dharwad Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 153,
@@ -26598,7 +28530,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Belagavi Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 166,
@@ -26929,7 +28884,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Davanagere Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 53,
@@ -27403,7 +29381,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Shivamogga Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 95,
@@ -27614,7 +29615,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 164,
@@ -27881,7 +29905,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 133,
@@ -28109,7 +30156,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Belagavi Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 107,
@@ -28360,7 +30430,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Uttara Kannada Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 78,
@@ -28777,7 +30870,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 69,
@@ -29112,7 +31228,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": 251,
       "naac_grade": "A+",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 159,
@@ -29399,7 +31538,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 42,
@@ -29590,7 +31752,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Dakshina Kannada Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 30,
@@ -30082,7 +32267,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Belagavi Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 17,
@@ -30362,7 +32570,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 5.5,
+        "highest_package_lpa": 19.2,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 11.5,
+        "nearest_railway_station": "Hassan Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 126,
@@ -30605,7 +32836,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Dakshina Kannada Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 168,
@@ -30849,7 +33103,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bidar Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 100,
@@ -31195,7 +33472,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 6,
@@ -31984,7 +34284,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": 75,
       "naac_grade": "A+",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 9.6,
+        "highest_package_lpa": 50.0,
+        "placement_rate_pct": 95.0,
+        "top_recruiters": [
+          "Amazon",
+          "Adobe",
+          "JP Morgan",
+          "Cisco",
+          "L&T"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 110000,
+        "hostel_capacity": 1300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.2,
+        "nearest_railway_station": "KSR Bengaluru (Majestic)",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 125,
@@ -32501,7 +34824,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Mandya Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 186,
@@ -32769,7 +35115,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Mysuru Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 39,
@@ -33125,7 +35494,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Hassan Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 118,
@@ -33597,7 +35989,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Dakshina Kannada Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 23,
@@ -33763,7 +36178,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Belagavi Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 108,
@@ -34060,7 +36498,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Udupi Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 181,
@@ -34323,7 +36784,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Mysuru Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 177,
@@ -34580,7 +37064,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 82,
@@ -34927,7 +37434,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 149,
@@ -35209,7 +37739,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Hassan Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 141,
@@ -35467,7 +38020,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Raichur Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 222,
@@ -35682,7 +38258,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 47,
@@ -36181,7 +38780,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Kalaburagi Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 46,
@@ -36612,7 +39234,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Mandya Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 117,
@@ -37112,7 +39757,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Shivamogga Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 58,
@@ -37359,7 +40027,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Ballari Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 194,
@@ -37530,7 +40221,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 5,
@@ -38145,7 +40859,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": 99,
       "naac_grade": "A++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 11.5,
+        "highest_package_lpa": 92.0,
+        "placement_rate_pct": 96.0,
+        "top_recruiters": [
+          "Amazon",
+          "Microsoft",
+          "Uber",
+          "Goldman Sachs",
+          "Cisco"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 125000,
+        "hostel_capacity": 1500,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "KSR Bengaluru (Majestic)",
+        "campus_area_acres": 52
+      }
     },
     {
       "college_number": 92,
@@ -38406,7 +41143,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 137,
@@ -38862,7 +41622,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 25,
@@ -39079,7 +41862,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Gadag Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 113,
@@ -39500,7 +42306,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 142,
@@ -39858,7 +42687,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 98,
@@ -40188,7 +43040,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 37,
@@ -40622,7 +43497,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Ballari Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 221,
@@ -40880,7 +43778,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 93,
@@ -41320,7 +44241,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 120,
@@ -41700,7 +44644,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 13,
@@ -42216,7 +45183,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": 201,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 5.5,
+        "highest_package_lpa": 19.2,
+        "placement_rate_pct": 90,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Chikballapura Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 51,
@@ -42452,7 +45442,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Chitradurga Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 91,
@@ -42858,7 +45871,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": 151,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 84,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 450,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 11.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 140,
@@ -43197,7 +46233,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Belagavi Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 127,
@@ -43507,7 +46566,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Dakshina Kannada Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 138,
@@ -43866,7 +46948,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 89,
@@ -44188,7 +47293,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 158,
@@ -44424,7 +47552,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Ramanagara Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 104,
@@ -44672,7 +47823,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": 151,
       "naac_grade": "A+",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 10.5,
+        "nearest_railway_station": "Vijayapura Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 217,
@@ -44953,7 +48127,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Mysuru Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 169,
@@ -45170,7 +48367,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Kalaburagi Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 114,
@@ -45467,7 +48687,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Dakshina Kannada Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 162,
@@ -45688,7 +48931,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Udupi Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 103,
@@ -46072,7 +49338,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Tumkur Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 15,
@@ -46646,7 +49935,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 5.5,
+        "highest_package_lpa": 19.2,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 11.5,
+        "nearest_railway_station": "Tumkur Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 187,
@@ -46739,7 +50051,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 11,
@@ -47362,7 +50697,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 84,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 450,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 225,
@@ -47411,7 +50769,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 106,
@@ -47686,7 +51067,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": 251,
       "naac_grade": "A+",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 84,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 450,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 11.5,
+        "nearest_railway_station": "Gadag Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 144,
@@ -47842,7 +51246,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Tumkur Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 199,
@@ -47910,7 +51337,30 @@
       "affiliation": "Constituent University College (JSS STU)",
       "nirf_ranking": 201,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 5.5,
+        "highest_package_lpa": 19.2,
+        "placement_rate_pct": 91,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 750,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 9.5,
+        "nearest_railway_station": "Mysuru Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 88,
@@ -48181,7 +51631,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 68,
@@ -48337,7 +51810,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 66,
@@ -48648,7 +52144,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": 201,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 85,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 12.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 62,
@@ -49029,7 +52548,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": 201,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 5.5,
+        "highest_package_lpa": 19.2,
+        "placement_rate_pct": 92,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Tumkur Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 26,
@@ -49254,7 +52796,30 @@
       "affiliation": "Private University (KLE Tech)",
       "nirf_ranking": 151,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 7.0,
+        "highest_package_lpa": 42.0,
+        "placement_rate_pct": 92.0,
+        "top_recruiters": [
+          "Juniper Networks",
+          "Sony",
+          "Samsung",
+          "TCS",
+          "Wipro"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 75000,
+        "hostel_capacity": 1400,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 3.5,
+        "nearest_railway_station": "Hubballi Junction",
+        "campus_area_acres": 64
+      }
     },
     {
       "college_number": 87,
@@ -49623,7 +53188,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 112,
@@ -50042,7 +53630,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Dakshina Kannada Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 115,
@@ -50307,7 +53918,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 44,
@@ -50595,7 +54229,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Mysuru Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 22,
@@ -50906,7 +54563,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 5.5,
+        "highest_package_lpa": 19.2,
+        "placement_rate_pct": 86,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 750,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Gadag Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 163,
@@ -51092,7 +54772,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Belagavi Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 154,
@@ -51252,7 +54955,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Yadgir Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 70,
@@ -51630,7 +55356,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 56,
@@ -51986,7 +55735,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Mysuru Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 59,
@@ -52221,7 +55993,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Mysuru Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 148,
@@ -52528,7 +56323,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 96,
@@ -52762,7 +56580,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Dakshina Kannada Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 67,
@@ -53063,7 +56904,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 205,
@@ -53313,7 +57177,30 @@
       "affiliation": "State University Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Mysuru Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 132,
@@ -53626,7 +57513,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Dakshina Kannada Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 3,
@@ -53884,7 +57794,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": 151,
       "naac_grade": "A++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 9.2,
+        "highest_package_lpa": 50.0,
+        "placement_rate_pct": 94.0,
+        "top_recruiters": [
+          "Microsoft",
+          "Amazon",
+          "Oracle",
+          "Robert Bosch",
+          "Honeywell"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 115000,
+        "hostel_capacity": 1200,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 5.5,
+        "nearest_railway_station": "KSR Bengaluru (Majestic)",
+        "campus_area_acres": 15
+      }
     },
     {
       "college_number": 24,
@@ -54195,7 +58128,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Bagalkot Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 4,
@@ -54643,7 +58599,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 21,
@@ -54865,7 +58844,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Hassan Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 33,
@@ -55115,7 +59117,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Kalaburagi Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 20,
@@ -55340,7 +59365,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": 201,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 5.5,
+        "highest_package_lpa": 19.2,
+        "placement_rate_pct": 91,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 750,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 9.5,
+        "nearest_railway_station": "Mandya Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 18,
@@ -55806,7 +59854,30 @@
       "affiliation": "State University Affiliated",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Mysuru Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 19,
@@ -55989,7 +60060,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Mysuru Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 182,
@@ -56351,7 +60445,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Dakshina Kannada Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 28,
@@ -56622,7 +60739,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Uttara Kannada Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 55,
@@ -56882,7 +61022,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Hassan Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 143,
@@ -57086,7 +61249,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Dakshina Kannada Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 97,
@@ -57404,7 +61590,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Dakshina Kannada Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 12,
@@ -57702,7 +61911,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 5.5,
+        "highest_package_lpa": 19.2,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 11.5,
+        "nearest_railway_station": "Ramanagara Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 35,
@@ -58105,7 +62337,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Bidar Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 64,
@@ -58372,7 +62627,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": 101,
       "naac_grade": "A+",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 6.8,
+        "highest_package_lpa": 40.0,
+        "placement_rate_pct": 90.0,
+        "top_recruiters": [
+          "Dell",
+          "Unisys",
+          "Wipro",
+          "Infosys",
+          "Tech Mahindra"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 100000,
+        "hostel_capacity": 1100,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 18.0,
+        "nearest_railway_station": "Yelahanka Junction",
+        "campus_area_acres": 23
+      }
     },
     {
       "college_number": 94,
@@ -58526,7 +62804,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Kalaburagi Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 10,
@@ -59145,7 +63446,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": 251,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 5.5,
+        "highest_package_lpa": 19.2,
+        "placement_rate_pct": 88,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 6.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 77,
@@ -59431,7 +63755,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 43,
@@ -59680,7 +64027,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Dakshina Kannada Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 119,
@@ -59921,7 +64291,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Dakshina Kannada Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 27,
@@ -60284,7 +64677,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Dharwad Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 102,
@@ -60682,7 +65098,30 @@
       "affiliation": "Autonomous (VTU Affiliated)",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Dakshina Kannada Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 60,
@@ -61127,7 +65566,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 1,
@@ -61555,7 +66017,30 @@
       "affiliation": "State University (UVCE)",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 5.5,
+        "highest_package_lpa": 19.2,
+        "placement_rate_pct": 90,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 11.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 219,
@@ -61723,7 +66208,30 @@
       "affiliation": "State University Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Chikballapura Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 54,
@@ -62016,7 +66524,30 @@
       "affiliation": "State University Affiliated",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Davanagere Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 183,
@@ -62427,7 +66958,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 16,
@@ -62930,7 +67484,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "A+",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Tumkur Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 111,
@@ -63215,7 +67792,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Mandya Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 170,
@@ -63865,7 +68465,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 212,
@@ -64388,7 +69011,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "C",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.5,
+        "highest_package_lpa": 12.2,
+        "placement_rate_pct": 90,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 185,
@@ -64733,7 +69379,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 81,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 750,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 11.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 179,
@@ -65359,7 +70028,30 @@
       "affiliation": "Private University",
       "nirf_ranking": 201,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 82,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 12.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 203,
@@ -65673,7 +70365,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 213,
@@ -66386,7 +71101,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Davanagere Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 45,
@@ -66848,7 +71586,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Mysuru Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 29,
@@ -67166,7 +71927,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Dharwad Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 34,
@@ -67372,7 +72156,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.8,
+        "highest_package_lpa": 16.8,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 70000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Kalaburagi Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 211,
@@ -67613,7 +72420,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Koppal Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 180,
@@ -68081,7 +72911,30 @@
       "affiliation": "Private University",
       "nirf_ranking": 151,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Dharwad Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 175,
@@ -68571,7 +73424,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 81,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 750,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 11.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 9,
@@ -68913,7 +73789,30 @@
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null,
       "naac_grade": "A",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 5.5,
+        "highest_package_lpa": 19.2,
+        "placement_rate_pct": 90,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 105000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 110,
@@ -69118,7 +74017,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 176,
@@ -70005,7 +74927,30 @@
       "affiliation": "Private University",
       "nirf_ranking": 251,
       "naac_grade": "A+",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 81,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 750,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 11.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     },
     {
       "college_number": 184,
@@ -70086,7 +75031,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 174,
@@ -70828,7 +75796,30 @@
       "affiliation": "Private University",
       "nirf_ranking": 201,
       "naac_grade": "A+",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 80,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 600,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 10.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 200,
@@ -70915,7 +75906,30 @@
       "affiliation": "Private University (RV)",
       "nirf_ranking": 251,
       "naac_grade": "A",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.5,
+        "highest_package_lpa": 12.2,
+        "placement_rate_pct": 88,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 6.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 85,
@@ -71295,7 +76309,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 226,
@@ -71333,7 +76370,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Mysuru Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 155,
@@ -71572,7 +76632,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Kalaburagi Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 101,
@@ -71940,7 +77023,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "B++",
-      "nba_accredited": true
+      "nba_accredited": true,
+      "placement_stats": {
+        "avg_package_lpa": 4.2,
+        "highest_package_lpa": 14.7,
+        "placement_rate_pct": 87,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 900,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Kalaburagi Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 151,
@@ -72201,7 +77307,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 78,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 8.5,
+        "nearest_railway_station": "Dakshina Kannada Station",
+        "campus_area_acres": 40
+      }
     },
     {
       "college_number": 216,
@@ -72509,7 +77638,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "C",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.5,
+        "highest_package_lpa": 12.2,
+        "placement_rate_pct": 88,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 6.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 10
+      }
     },
     {
       "college_number": 198,
@@ -72761,7 +77913,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "B",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.8,
+        "highest_package_lpa": 13.3,
+        "placement_rate_pct": 83,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 65000,
+        "hostel_capacity": 300,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 13.5,
+        "nearest_railway_station": "Mysuru Station",
+        "campus_area_acres": 55
+      }
     },
     {
       "college_number": 202,
@@ -72831,7 +78006,30 @@
       "affiliation": "Private University",
       "nirf_ranking": null,
       "naac_grade": "C",
-      "nba_accredited": false
+      "nba_accredited": false,
+      "placement_stats": {
+        "avg_package_lpa": 3.5,
+        "highest_package_lpa": 12.2,
+        "placement_rate_pct": 89,
+        "top_recruiters": [
+          "TCS",
+          "Infosys",
+          "Wipro",
+          "Cognizant",
+          "Capgemini"
+        ]
+      },
+      "hostel_details": {
+        "hostel_type": "Boys & Girls",
+        "annual_hostel_fees": 95000,
+        "hostel_capacity": 450,
+        "has_mess_included": true
+      },
+      "location_details": {
+        "distance_from_bus_stand_km": 7.5,
+        "nearest_railway_station": "Bangalore Station",
+        "campus_area_acres": 25
+      }
     }
   ],
   "all_courses": [

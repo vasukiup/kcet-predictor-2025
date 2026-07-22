@@ -656,6 +656,18 @@ async function init() {
       if (naacFilter) naacFilter.value = '';
       const nbaFilter = document.getElementById('nba-filter');
       if (nbaFilter) nbaFilter.value = '';
+      const salarySlider = document.getElementById('min-salary');
+      const salarySliderVal = document.getElementById('min-salary-val');
+      if (salarySlider && salarySliderVal) {
+        salarySlider.value = 0;
+        salarySliderVal.textContent = '0 LPA+';
+      }
+      const hostelSlider = document.getElementById('max-hostel');
+      const hostelSliderVal = document.getElementById('max-hostel-val');
+      if (hostelSlider && hostelSliderVal) {
+        hostelSlider.value = 150000;
+        hostelSliderVal.textContent = 'Any Fee';
+      }
       const slider = document.getElementById('min-seats');
       if (slider) slider.value = 0;
       const sliderVal = document.getElementById('min-seats-val');
@@ -2006,6 +2018,8 @@ function applyFilters() {
   const affiliationVal = document.getElementById('affiliation-filter')?.value || '';
   const naacVal = document.getElementById('naac-filter')?.value || '';
   const nbaVal = document.getElementById('nba-filter')?.value || '';
+  const minSalaryVal = parseFloat(document.getElementById('min-salary')?.value || 0);
+  const maxHostelVal = parseInt(document.getElementById('max-hostel')?.value || 150000);
 
   let baseColleges = allData.colleges;
   const isInst = (currentUser && currentUser.role === 'institution');
@@ -2058,6 +2072,12 @@ function applyFilters() {
       const isAcc = !!c.nba_accredited;
       if (nbaVal === 'Accredited' && !isAcc) return false;
       if (nbaVal === 'Not Accredited' && isAcc) return false;
+    }
+    if (minSalaryVal > 0) {
+      if (!c.placement_stats || (c.placement_stats.avg_package_lpa || 0) < minSalaryVal) return false;
+    }
+    if (maxHostelVal < 150000) {
+      if (!c.hostel_details || (c.hostel_details.annual_hostel_fees || 0) > maxHostelVal) return false;
     }
     if (q) {
       const nameMatch = c.college_name.toLowerCase().includes(q);
@@ -2178,6 +2198,8 @@ function renderCollegeCard(college, index) {
   const nirfBadg = college.nirf_ranking ? `<span class="meta-badge" style="background:rgba(234,179,8,0.06); color:#eab308; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700; display:inline-flex; align-items:center; gap:3px; border:1px solid rgba(234,179,8,0.15);">🏆 NIRF #${college.nirf_ranking}</span>` : '';
   const naacBadg = college.naac_grade ? `<span class="meta-badge" style="background:rgba(168,85,247,0.06); color:#a855f7; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700; display:inline-flex; align-items:center; gap:3px; border:1px solid rgba(168,85,247,0.15);">🎖️ NAAC ${college.naac_grade}</span>` : '';
   const nbaBadg = college.nba_accredited ? `<span class="meta-badge" style="background:rgba(20,184,166,0.06); color:#14b8a6; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700; display:inline-flex; align-items:center; gap:3px; border:1px solid rgba(20,184,166,0.15);">🛡️ NBA</span>` : '';
+  const placementInfo = college.placement_stats ? `<span class="meta-badge" style="background:rgba(34,197,94,0.06); color:#22c55e; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700; display:inline-flex; align-items:center; gap:3px; border:1px solid rgba(34,197,94,0.15);">💼 Avg: ${college.placement_stats.avg_package_lpa} LPA</span>` : '';
+  const hostelInfo = college.hostel_details ? `<span class="meta-badge" style="background:rgba(249,115,22,0.06); color:#f97316; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700; display:inline-flex; align-items:center; gap:3px; border:1px solid rgba(249,115,22,0.15);">🏠 Hostel: ₹${Math.round(college.hostel_details.annual_hostel_fees/1000)}k/yr</span>` : '';
 
   return `
     <div class="college-card" style="animation-delay:${Math.min(index * 0.03, 0.3)}s" data-index="${index}" data-college-number="${college.college_number}">
@@ -2198,6 +2220,8 @@ function renderCollegeCard(college, index) {
             ${nirfBadg}
             ${naacBadg}
             ${nbaBadg}
+            ${placementInfo}
+            ${hostelInfo}
           </div>
         </div>
         <span class="card-type-pill pill-${ann}">${annLabel}</span>
@@ -2505,6 +2529,10 @@ function maxZero(val) {
 function openModal(college) {
   const ann = college.annexure || 'C';
   const annLabel = ANNEXURE_LABELS[ann] || ann;
+
+  const plStats = college.placement_stats || { avg_package_lpa: '—', highest_package_lpa: '—', placement_rate_pct: '—', top_recruiters: [] };
+  const hDetails = college.hostel_details || { hostel_type: '—', annual_hostel_fees: 0, hostel_capacity: '—', has_mess_included: false };
+  const lDetails = college.location_details || { distance_from_bus_stand_km: '—', nearest_railway_station: '—', campus_area_acres: '—' };
 
   const totalIntake = college.total_intake || college.courses.reduce((s, c) => s + (c.total_intake || 0), 0);
   const totalKea = college.total_kea_seats || college.courses.reduce((s, c) => s + (c.total_kea_seats || 0), 0);
@@ -2975,6 +3003,85 @@ function openModal(college) {
         </div>
       </div>
       <div id="calc-note" style="font-size:11px; color:var(--text-faint); margin-top: 8px; text-align: center;">Based on KEA Quota rules</div>
+    </div>
+
+    <!-- Placements & Campus Life -->
+    <div class="modal-courses-title" style="margin-top:24px">💼 Placements & Campus Life</div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:16px; margin-bottom:16px;">
+      <!-- Placements Card -->
+      <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--radius); padding:16px;">
+        <div style="font-size:12px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px; display:flex; align-items:center; gap:6px;">
+          <span>📈</span> Placement Highlights
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div style="display:flex; justify-content:space-between; font-size:12px;">
+            <span style="color:var(--text-faint);">Average Salary Package:</span>
+            <strong style="color:var(--green); font-size:13px;">${plStats.avg_package_lpa} LPA</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:12px;">
+            <span style="color:var(--text-faint);">Highest Salary Package:</span>
+            <strong style="color:var(--green); font-size:13px;">${plStats.highest_package_lpa} LPA</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:12px;">
+            <span style="color:var(--text-faint);">Placement Percentage:</span>
+            <strong>${plStats.placement_rate_pct}%</strong>
+          </div>
+          ${plStats.top_recruiters && plStats.top_recruiters.length > 0 ? `
+            <div style="margin-top:6px;">
+              <div style="font-size:10px; color:var(--text-faint); margin-bottom:4px; text-transform:uppercase;">Top Recruiters:</div>
+              <div style="display:flex; flex-wrap:wrap; gap:4px;">
+                ${plStats.top_recruiters.map(r => `<span style="font-size:10px; background:rgba(255,255,255,0.04); border:1px solid var(--border); padding:2px 6px; border-radius:4px;">${r}</span>`).join('')}
+              </div>
+            </div>
+          ` : ''}
+        </div>
+      </div>
+
+      <!-- Hostel & Boarding Card -->
+      <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--radius); padding:16px;">
+        <div style="font-size:12px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px; display:flex; align-items:center; gap:6px;">
+          <span>🏠</span> Hostel & Boarding Details
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div style="display:flex; justify-content:space-between; font-size:12px;">
+            <span style="color:var(--text-faint);">Hostel Availability:</span>
+            <strong>${hDetails.hostel_type}</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:12px;">
+            <span style="color:var(--text-faint);">Annual Hostel Fees:</span>
+            <strong style="color:#f97316; font-size:13px;">${hDetails.annual_hostel_fees > 0 ? `₹${hDetails.annual_hostel_fees.toLocaleString()}/-` : '—'}</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:12px;">
+            <span style="color:var(--text-faint);">Capacity:</span>
+            <strong>${hDetails.hostel_capacity} students</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:12px;">
+            <span style="color:var(--text-faint);">Mess Charge & Food:</span>
+            <strong>${hDetails.has_mess_included ? 'Included in Fees (Veg/Non-Veg)' : 'Separate Charges'}</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Location & Transit Card -->
+      <div style="background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: var(--radius); padding:16px;">
+        <div style="font-size:12px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px; display:flex; align-items:center; gap:6px;">
+          <span>📍</span> Geolocation & Transit
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div style="display:flex; justify-content:space-between; font-size:12px;">
+            <span style="color:var(--text-faint);">Distance to Bus Stand:</span>
+            <strong>${lDetails.distance_from_bus_stand_km} km</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:12px;">
+            <span style="color:var(--text-faint);">Nearest Railway Station:</span>
+            <strong>${lDetails.nearest_railway_station}</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:12px;">
+            <span style="color:var(--text-faint);">Campus Size (Acres):</span>
+            <strong>${lDetails.campus_area_acres} Acres</strong>
+          </div>
+        </div>
+      </div>
     </div>
   `;
 
@@ -3678,6 +3785,27 @@ function bindEvents() {
     applyFilters();
   });
 
+  // Min salary slider
+  const salarySlider = document.getElementById('min-salary');
+  const salarySliderVal = document.getElementById('min-salary-val');
+  if (salarySlider && salarySliderVal) {
+    salarySlider.addEventListener('input', () => {
+      salarySliderVal.textContent = `${salarySlider.value} LPA+`;
+      applyFilters();
+    });
+  }
+
+  // Max hostel slider
+  const hostelSlider = document.getElementById('max-hostel');
+  const hostelSliderVal = document.getElementById('max-hostel-val');
+  if (hostelSlider && hostelSliderVal) {
+    hostelSlider.addEventListener('input', () => {
+      const val = parseInt(hostelSlider.value);
+      hostelSliderVal.textContent = val >= 150000 ? 'Any Fee' : `₹${(val/1000)}k/yr`;
+      applyFilters();
+    });
+  }
+
   // Reset
   document.getElementById('reset-btn').addEventListener('click', () => {
     filters = { search: '', annexure: 'all', district: '', course: '', minSeats: 0 };
@@ -3687,6 +3815,14 @@ function bindEvents() {
     if (affFilter) affFilter.value = '';
     if (naacFilter) naacFilter.value = '';
     if (nbaFilter) nbaFilter.value = '';
+    if (salarySlider) {
+      salarySlider.value = 0;
+      salarySliderVal.textContent = '0 LPA+';
+    }
+    if (hostelSlider) {
+      hostelSlider.value = 150000;
+      hostelSliderVal.textContent = 'Any Fee';
+    }
     slider.value = 0;
     sliderVal.textContent = '0+';
     document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
