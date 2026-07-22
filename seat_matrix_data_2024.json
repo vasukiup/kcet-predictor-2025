@@ -6,7 +6,7 @@
   },
   "colleges": [
     {
-      "college_number": 1,
+      "college_number": 218,
       "college_name": "CONSTITUENT COLLEGE OF VTU, CHINTAMANI CHIKABALLAPURA",
       "address": "DIST CHIKBALLAPURA",
       "annexure": "A",
@@ -229,7 +229,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 2,
+      "college_number": 197,
       "college_name": "Government Engineering College, Challakere, Chitradurga",
       "address": "BALLARI ROAD CHALLAKERE,CHITRADURGA",
       "annexure": "A",
@@ -451,7 +451,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 3,
+      "college_number": 121,
       "college_name": "Government Engineering College, Chamarajanagara",
       "address": "GOVERNMENT POLYTECHNIC CAMPUS,NANJANGUD ROAD,CHAMARAJANAGARA",
       "annexure": "A",
@@ -720,7 +720,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 4,
+      "college_number": 122,
       "college_name": "Government Engineering College, Hassan",
       "address": "DAIRY CIRCLE, B M ROAD, HASSAN",
       "annexure": "A",
@@ -1097,7 +1097,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 5,
+      "college_number": 130,
       "college_name": "Government Engineering College, Haveri",
       "address": "DEVAGIRI,HAVERI",
       "annexure": "A",
@@ -1355,7 +1355,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 6,
+      "college_number": 131,
       "college_name": "Government Engineering College, Hoovina Hadagali",
       "address": "HUVINAHADAGALI 583219,DIST: BELLARY",
       "annexure": "A",
@@ -1605,7 +1605,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 7,
+      "college_number": 152,
       "college_name": "Government Engineering College, Karwar",
       "address": "MAJALI VILLAGE, KARWAR TALUK, UTTARA KANNADA DIST, KARNATAKA -PIN 581345",
       "annexure": "A",
@@ -1844,7 +1844,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 8,
+      "college_number": 128,
       "college_name": "Government Engineering College, Kushalanagar",
       "address": "MEDIKERI ROAD,MADAPATNA,KUSHALANAGAR",
       "annexure": "A",
@@ -2107,7 +2107,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 9,
+      "college_number": 193,
       "college_name": "Government Engineering College, Mosale Hosahalli, Hassan",
       "address": "MOSALEHOSAHALLI, HASSAN",
       "annexure": "A",
@@ -2418,7 +2418,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 10,
+      "college_number": 129,
       "college_name": "Government Engineering College, Raichur",
       "address": "RAICHUR-HYDERABAD ROAD YERAMARUS,RAICHUR",
       "annexure": "A",
@@ -2716,7 +2716,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 11,
+      "college_number": 124,
       "college_name": "Government Engineering College, Ramanagaram",
       "address": "DODDAMANNUGUDDE, RAMANAGAR, RAMANAGAR DISTRICT - 571 511",
       "annexure": "A",
@@ -2953,7 +2953,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 12,
+      "college_number": 191,
       "college_name": "Government Engineering College, Talakal, Koppal",
       "address": "TALAKAL,TALUKA: YALABURGA, DIST: KOPPAL, KARNATAKA, PIN 583238",
       "annexure": "A",
@@ -3291,7 +3291,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 13,
+      "college_number": 192,
       "college_name": "Government Engineering College, Viprasinagar, Gangavathi",
       "address": "VIPRASAI NAGAR,GANGAVATHI,KOPPAL",
       "annexure": "A",
@@ -3602,7 +3602,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 14,
+      "college_number": 207,
       "college_name": "Government Engineering College,Mailur,Bidar",
       "address": "GANDHI NAGAR ITI CAMPUS MAILUR,BIDAR",
       "annexure": "A",
@@ -3941,7 +3941,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 15,
+      "college_number": 206,
       "college_name": "Government Engineering College,Naragund,Gadag",
       "address": "RON ROAD,SOMAPURA,NARAGUND 582207",
       "annexure": "A",
@@ -4226,7 +4226,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 16,
+      "college_number": 2,
       "college_name": "Govt.S K S J T Institute of Engineering, Bangalore",
       "address": "AMBEDKAR VEEDHI, K.R. CIRCLE, BANGALORE-01",
       "annexure": "A",
@@ -4565,10 +4565,10 @@
       "kea_code": "E002",
       "established_year": 1963,
       "affiliation": "Constituent University College (JSS STU)",
-      "nirf_ranking": null
+      "nirf_ranking": 201
     },
     {
-      "college_number": 17,
+      "college_number": 123,
       "college_name": "K R PET KRISHNA, GOVERNMENT ENGINEERING COLLEGES, K R PET, MANDYA",
       "address": "KRISHNARAJPET, MANDYA DIST. - 571 426,",
       "annexure": "A",
@@ -4832,7 +4832,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 18,
+      "college_number": 49,
       "college_name": "University B.D.T College of Engineering, Davanagere",
       "address": "P J EXTENSION,HADADI ROAD,DAVENGERE",
       "annexure": "A",
@@ -5321,7 +5321,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 19,
+      "college_number": 204,
       "college_name": "Visvesvaraya Technological University,VTU,CPGS,Kalburgi.",
       "address": "VTU CPGS & REGIONAL OFFICE, KUSNOOR ROAD, KALABURAGI",
       "annexure": "A",
@@ -5625,7 +5625,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 20,
+      "college_number": 205,
       "college_name": "Visvesvaraya Technological University,VTU,CPGS,Mysuru.",
       "address": "Mysuru.",
       "annexure": "A",
@@ -5943,7 +5943,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 21,
+      "college_number": 196,
       "college_name": "VISVESWARIAH TECHNOLOGICAL UNIVERISTY, BELAGAVI CAMPUS, BELAGAVI",
       "address": "JNANA SANGAMA, MACHHE, BELAGAVI",
       "annexure": "A",
@@ -6267,7 +6267,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 1,
+      "college_number": 3,
       "college_name": "B M S College of Engineering, Basavanagudi, Bangalore",
       "address": "POST BOX NO 1908, BULL TEMPLE ROAD,BANGALORE",
       "annexure": "B",
@@ -6668,7 +6668,7 @@
       "nirf_ranking": 101
     },
     {
-      "college_number": 2,
+      "college_number": 24,
       "college_name": "B V V Sangha`s Basaveshwara Engineering College , Bagalkote",
       "address": "NIJALINGAPPA ROAD,BAGALKOT 587102",
       "annexure": "B",
@@ -7084,7 +7084,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 3,
+      "college_number": 4,
       "college_name": "Dr. Ambedkar Institute of Technology, Bangalore",
       "address": "OUTER RING ROAD,NEAR JNANA BHARATHI CAMPUS,MALLATHAHALLI,BANGALORE-560056",
       "annexure": "B",
@@ -7718,7 +7718,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 4,
+      "college_number": 21,
       "college_name": "Malnad College of Engineering, Hassan",
       "address": "P.B. NO. 21, SALAGAME ROAD,HASSSAN",
       "annexure": "B",
@@ -8001,7 +8001,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 5,
+      "college_number": 33,
       "college_name": "P D A College of Engineering, Gulbarga",
       "address": "AIWAN-E-SHAHI AREA,STATION ROAD,GULBARGA-585102",
       "annexure": "B",
@@ -8344,7 +8344,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 6,
+      "college_number": 20,
       "college_name": "P E S College of Engineering, Mandya",
       "address": "MANDYA: 571 401",
       "annexure": "B",
@@ -8615,10 +8615,10 @@
       "kea_code": "E023",
       "established_year": 1963,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": 201
     },
     {
-      "college_number": 7,
+      "college_number": 18,
       "college_name": "Sri Jayachamarajendra College of Engineering(Constituent College of JSS Science & Technology University), Mysore",
       "address": "JSS TECHNICAL INSTITUTIONS CAMPUS,MANASAGANGOTHRI PO,MYSORE",
       "annexure": "B",
@@ -9217,7 +9217,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 8,
+      "college_number": 19,
       "college_name": "The National Institute of Engineering, Mysore",
       "address": "MANANDAVADI ROAD,MYSORE",
       "annexure": "B",
@@ -9461,7 +9461,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 1,
+      "college_number": 61,
       "college_name": "Acharya Institute of Technology, Soldevanahalli,Chikkabanavara post, Bangalore",
       "address": "SOLDEVANAHALLI, HESARAGHATTA MAIN ROAD, CHIKKABANAVARA POST,BANGALORE URBAN",
       "annexure": "C",
@@ -10153,7 +10153,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 2,
+      "college_number": 147,
       "college_name": "ACS College of Engineering, Mysore Road, Bangalore",
       "address": "207,KAMBIPURA, MYSORE ROAD, KENGERI HOBLI,BANGALORE - 560074.",
       "annexure": "C",
@@ -10586,7 +10586,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 3,
+      "college_number": 52,
       "college_name": "Adhichunchanagiri Institute of Technology, Chickamagalur",
       "address": "ADICHUNCHANAGIRI EXTENTION,JYOTHINAGAR,CHIKMAGALUR - 577102",
       "annexure": "C",
@@ -11014,7 +11014,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 4,
+      "college_number": 208,
       "college_name": "ADITYA COLLEGE OF ENGINEERING AND TECHNOLOGY",
       "address": "SURVEY NO 2/8 2/9 AND 2/2, KAMAKSHIPURA, SONNENAHALLI PANCHAYATH, HESARAGHATTA HOBLI, YELAHANKA",
       "annexure": "C",
@@ -11436,7 +11436,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 5,
+      "college_number": 156,
       "college_name": "AGM Rural Engineering College, Varur, Hubli",
       "address": "NH-4, P.B. ROAD OPP VRL HEAD OFFICE VARUR.,DHARWAD",
       "annexure": "C",
@@ -11748,7 +11748,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 6,
+      "college_number": 210,
       "college_name": "AKASH INTITUTE OF ENGINEERING AND TECHNOLOGY",
       "address": "PRASANNAHALLI MAIN RAOD, AKKUPETE VILLAGE, KASABA HOBLI",
       "annexure": "C",
@@ -12133,7 +12133,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 7,
+      "college_number": 150,
       "college_name": "Akshaya Institute of Technology, Lingapura, Tumkur Dist.",
       "address": "LINGAPURA",
       "annexure": "C",
@@ -12484,7 +12484,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 8,
+      "college_number": 135,
       "college_name": "Alva's Institute of Engineering & Technology, Moodabidre, D.K",
       "address": "SHOBHAVANA CAMPUS,MIJAR,MOODBIDRI - 574225,MANGALORE TALUK,DHAKSHINA KANNADA",
       "annexure": "C",
@@ -12949,7 +12949,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 9,
+      "college_number": 73,
       "college_name": "AMC Engineering College, Bannerghatta Road, Bangalore",
       "address": "18KM,BANNERAGHATTA ROAD,KALKERE,BANGALORE-560083,BANGALORE URBAN",
       "annexure": "C",
@@ -13580,7 +13580,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 10,
+      "college_number": 134,
       "college_name": "Amrutha Institute of Engineering & Management Science (AIEMS), Ramanagar",
       "address": "BIDADI INDUSTRIAL AREA, OFF MYSORE ROAD, NEAR TOYOTA KIRLOSKAR MOTORS, BMRDA REGION, BANGALORE",
       "annexure": "C",
@@ -13849,7 +13849,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 11,
+      "college_number": 146,
       "college_name": "Angadi Institute of Technology and Management , Savgoan Rd., Belgaum",
       "address": "SAVAGAON ROAD BELGAUM",
       "annexure": "C",
@@ -14176,7 +14176,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 12,
+      "college_number": 65,
       "college_name": "APS College of Engineering, Somanahalli, Bangalore",
       "address": "26 KM KANAKAPURA ROAD BANGALORE 82,BANGALORE URBAN",
       "annexure": "C",
@@ -14508,7 +14508,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 13,
+      "college_number": 161,
       "college_name": "ATME College of Engineering, Mysore",
       "address": "SY.NO.1002, HAROHALLI (MELLAHALLI),MYSORE",
       "annexure": "C",
@@ -14951,7 +14951,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 14,
+      "college_number": 76,
       "college_name": "Atria Institute of Technology, Anand Nagar, Hebbal PO, Bangalore",
       "address": "ASKB CAMPUS, AG'S COLONY, 1ST MAIN, ANANDNAGAR,BANGALORE",
       "annexure": "C",
@@ -15448,7 +15448,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 15,
+      "college_number": 40,
       "college_name": "B M S College of Engineering, Basavanagudi, Bangalore",
       "address": "POST BOX NO 1908, BULL TEMPLE ROAD,BANGALORE",
       "annexure": "C",
@@ -16308,7 +16308,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 16,
+      "college_number": 99,
       "college_name": "B M S Institute of Technology & Management, Yelahanka, Bangalore",
       "address": "POST BOX NO.6443, AVALAHALLI,DODDABALLAPURA MAIN ROAD,YELAHANKA, BANGALORE - 560064.",
       "annexure": "C",
@@ -16872,7 +16872,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 17,
+      "college_number": 84,
       "college_name": "B N M Institute of Technology, Bangalore (Autonomous)",
       "address": "12TH MAIN, 27TH CROSS, BSK SECOND STAGE",
       "annexure": "C",
@@ -17293,7 +17293,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 18,
+      "college_number": 41,
       "college_name": "B V V Sangha`s Basaveshwara Engineering College , Bagalkote",
       "address": "NIJALINGAPPA ROAD,BAGALKOT 587102",
       "annexure": "C",
@@ -17749,7 +17749,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 19,
+      "college_number": 57,
       "college_name": "Ballari Institute of Technology & Management, Bellary",
       "address": "\"JNANA GANGOTRI\" CAMPUS, #873/2 OF KOLAGAL VILLAGE,BELLARY-HOSPET ROAD, ALLIPUR",
       "annexure": "C",
@@ -18314,7 +18314,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 20,
+      "college_number": 228,
       "college_name": "Bangalore College of Engineering & Technology, Chandapura, Bangalore",
       "address": "NEAR HEELALIGE RAILWAY STATION,CHANDAPURA,ANEKAL TALUK,BANGALORE, 560081.",
       "annexure": "C",
@@ -18566,7 +18566,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 21,
+      "college_number": 8,
       "college_name": "Bangalore Institute of Technology, K.R.Road, Bangalore",
       "address": "K.R.ROAD, V.V.PURA, BANGALORE-560004",
       "annexure": "C",
@@ -19404,10 +19404,10 @@
       "kea_code": "E008",
       "established_year": 1979,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": 251
     },
     {
-      "college_number": 22,
+      "college_number": 160,
       "college_name": "Bangalore Technological Institute, Sarjapura Road, Bangalore",
       "address": "SY NO.66/6,66/5,67/6,&67/5, KODATHI VILLAGE, VARTHOOR HOBLI,BANGALORE EAST TQ BANGALORE URBAN",
       "annexure": "C",
@@ -19737,7 +19737,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 23,
+      "college_number": 50,
       "college_name": "Bapuji Institute of Engineering & Technology, Davangere (AUTONOMOUS)",
       "address": "BAPUJI INSTITUTE OF ENGINEERING & TECHNOLOGY,P.B. NO.325,SHAMANUR ROAD,DAVANGERE-577 004",
       "annexure": "C",
@@ -20485,7 +20485,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 24,
+      "college_number": 71,
       "college_name": "Basavakalyana Engineering College, Basavakalyana, Bidar District",
       "address": "N.H.9 ,BASAVAKALYAN-585327,DIST. BIDAR",
       "annexure": "C",
@@ -20797,7 +20797,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 25,
+      "college_number": 201,
       "college_name": "BGS College of Engineering & Technology,Bangalore",
       "address": "CA SITE NO. 6 & 7, 3RD MAIN, PIPE LINE ROAD, MAHALAKSHMIPURAM, WEST OF CHORD ROAD",
       "annexure": "C",
@@ -21073,7 +21073,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 26,
+      "college_number": 214,
       "college_name": "BHARATESH INSTITUTE OF TECHNOLOGY",
       "address": "BELAGAVI",
       "annexure": "C",
@@ -21294,7 +21294,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 27,
+      "college_number": 36,
       "college_name": "Bheemanna Khandre Institute of Technology, Bhalki",
       "address": "BHALKI-HUMNABAD ROAD,BHALKI- 585328,DIST. BIDAR",
       "annexure": "C",
@@ -21708,7 +21708,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 28,
+      "college_number": 171,
       "college_name": "Biluru Gurubasava Mahaswamiji Institute of Technology,Mudhol,Bagalkote.",
       "address": "MANTUR ROAD, MUDHOL,BAGALKOTE",
       "annexure": "C",
@@ -21952,7 +21952,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 29,
+      "college_number": 31,
       "college_name": "BLDEA's VP. Dr.P.G. Hallakatti College of Engineering & Technology, Bijapur",
       "address": "ASHRAM ROAD,BIJAPUR - 586103",
       "annexure": "C",
@@ -22400,7 +22400,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 30,
+      "college_number": 136,
       "college_name": "Brindavan College of Engineering, Yelahanaka, Bangalore",
       "address": "DWARAKANAGARA, BAGALUR MAIN ROAD,YELAHANKA, BANGALORE - 560 063",
       "annexure": "C",
@@ -22757,7 +22757,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 31,
+      "college_number": 145,
       "college_name": "C Byre Gowda Institute of Technology, Thoradevandahalli Village, Kolar",
       "address": "SRINIVASPURA ROAD, THORADEVANDAHALLI, KOLAR-563101",
       "annexure": "C",
@@ -23043,7 +23043,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 32,
+      "college_number": 75,
       "college_name": "C M R Institute of Technology, Kundala Halli village, Bangalore",
       "address": "# 132, KUNDALAHALLI VILLAGE,IT PARK ROAD,BANGALORE - 560 037",
       "annexure": "C",
@@ -23537,7 +23537,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 33,
+      "college_number": 172,
       "college_name": "Cambridge Institute Of Technology, North Campus, Devanahalli, Bangalore",
       "address": "SURVEY NO. 73, LINGADHEERA GOLLAHALLI, KUNDANA POST, DEVANAHALLI TALUK",
       "annexure": "C",
@@ -23762,7 +23762,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 34,
+      "college_number": 116,
       "college_name": "Cambridge Institutute of Technology, K.R.Puram, Bangalore",
       "address": "K R PURAM,BANGALORE",
       "annexure": "C",
@@ -24321,7 +24321,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 35,
+      "college_number": 173,
       "college_name": "Cauvery institute of Technology, Koppalu gate, Sundahally, Mandya",
       "address": "SUNDAHALLI, SIDDAIAHNA KOPPALU GATE, YELIHUR POST, KOTHATHI HOBLI, MANDYA",
       "annexure": "C",
@@ -24545,7 +24545,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 36,
+      "college_number": 79,
       "college_name": "Channabasaveshwara Institute of Technology, Gubbi Herur, Tumkur",
       "address": "NH 206 (BH ROAD), GUBBI, TUMKUR. KARNATAKA",
       "annexure": "C",
@@ -24932,7 +24932,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 37,
+      "college_number": 86,
       "college_name": "City Engineering College,Doddakalisandra, Bangalore South",
       "address": "DODDAKALLASANDRA, KANAKAPURA ROAD, BANGALORE.",
       "annexure": "C",
@@ -25289,7 +25289,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 38,
+      "college_number": 72,
       "college_name": "Coorg Institute of Technology, Kunda, Ponnampet",
       "address": "POST BOX NO.11,COORG",
       "annexure": "C",
@@ -25616,7 +25616,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 39,
+      "college_number": 167,
       "college_name": "Dayananda Sagar Academy of Technology & Management Technical Campus, Bangalore",
       "address": "UDAYAPURA,KANAKAPURA ROAD,BANGALORE URBAN",
       "annexure": "C",
@@ -26352,7 +26352,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 40,
+      "college_number": 7,
       "college_name": "Dayananda Sagar College of Engineering, Bangalore",
       "address": "SHAVIGE MALLESHWARA HILLS, KUMARASWAMY LAYOUT, BANGALORE-560078",
       "annexure": "C",
@@ -27650,10 +27650,10 @@
       "kea_code": "E007",
       "established_year": 1963,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": 101
+      "nirf_ranking": 100
     },
     {
-      "college_number": 41,
+      "college_number": 80,
       "college_name": "DONBOSCO Institute of Technology, Bangalore",
       "address": "KUMBALAGODU, MYSORE ROAD, KENGERI HOBLI,BANGALORE-560074",
       "annexure": "C",
@@ -28102,7 +28102,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 42,
+      "college_number": 215,
       "college_name": "DR H N NATIONAL COLLEGE OF ENGINEERING",
       "address": "BENGALURU",
       "annexure": "C",
@@ -28347,7 +28347,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 43,
+      "college_number": 48,
       "college_name": "Dr. Ambedkar Institute of Technology, Bangalore",
       "address": "OUTER RING ROAD,NEAR JNANA BHARATHI CAMPUS,MALLATHAHALLI,BANGALORE-560056",
       "annexure": "C",
@@ -28807,7 +28807,7 @@
       "nirf_ranking": 101
     },
     {
-      "college_number": 44,
+      "college_number": 139,
       "college_name": "Dr. Sri Sri Sri Shivakumara Mahaswamyji College of Engineering, Byranayakanahalli, Bangalore Rural",
       "address": "BYARANAYAKANAHALLI,DODDABALE POST,NELAMANGALA TALUK,BANGALORE RURAL DISTRICT",
       "annexure": "C",
@@ -29057,7 +29057,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 45,
+      "college_number": 14,
       "college_name": "Dr.T.Thimmaiah Institute of Technology, KGF",
       "address": "00RGAUM POST,KOLAR GOLD FIELDS - 563 120",
       "annexure": "C",
@@ -29397,7 +29397,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 46,
+      "college_number": 74,
       "college_name": "East Point College of Engineering & Technology, Bangalore",
       "address": "JNANA PRABHA, BIDARAHALLI,VIRGONAGAR POST,BANGALORE.",
       "annexure": "C",
@@ -29887,7 +29887,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 47,
+      "college_number": 178,
       "college_name": "East West College Of Engineering, Yelahanka,Bangalore",
       "address": "NO.13 SECTOR \"A\", YELAHANKA NEW TOWN,YELAHANKA, BANGALORE-560064",
       "annexure": "C",
@@ -30151,7 +30151,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 48,
+      "college_number": 83,
       "college_name": "East West Institute Of Technology,Bangalore",
       "address": "SY. NO.63, OFF MAGADI MAIN ROAD, VISHWANEEDAM POST,BANGALORE",
       "annexure": "C",
@@ -30775,7 +30775,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 49,
+      "college_number": 90,
       "college_name": "G M Institute of Technology, Davanagere",
       "address": "POST BOX. NO. 4, P.B.ROAD.DAVANGERE.",
       "annexure": "C",
@@ -31203,7 +31203,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 50,
+      "college_number": 165,
       "college_name": "G Madegowda Institute of Technology, Bharathinagara, Maddur, Mandya",
       "address": "BHARATHINAGARA (K M DODDY) MADDUR TQ,MANDYA",
       "annexure": "C",
@@ -31493,7 +31493,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 51,
+      "college_number": 105,
       "college_name": "G S S S Institute of Engineering & Technology for Women, Mysore",
       "address": "K.R.S. ROAD, METAGALLI INDUSTRIAL AREA, MYSORE-16",
       "annexure": "C",
@@ -31912,7 +31912,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 52,
+      "college_number": 209,
       "college_name": "Ghousia Institute of Technology for Women, Bangalore",
       "address": "Hosur Road, DRC Post, Banglaore-29",
       "annexure": "C",
@@ -32058,7 +32058,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 53,
+      "college_number": 81,
       "college_name": "Global Academy of Technology, Bangalore",
       "address": "IDEAL HOMES TOWNSHIP,RAJARAJESHWARINAGAR,BANGALORE-560098",
       "annexure": "C",
@@ -32775,7 +32775,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 54,
+      "college_number": 157,
       "college_name": "Gopalan College of Engineering & Management, K.R. Puram, Bangalore",
       "address": "SONNENAHALLI, HOODI VILLAGE, ITPL ROAD,BANGALORE",
       "annexure": "C",
@@ -33067,7 +33067,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 55,
+      "college_number": 38,
       "college_name": "H K E's Society's Sir M Visvesvaraya College of Engineering, Raichur",
       "address": "YERAMARUS CAMP,RAICHUR-584 135,",
       "annexure": "C",
@@ -33271,7 +33271,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 56,
+      "college_number": 62,
       "college_name": "H M S Institute of Technology, Tumkur",
       "address": "NH-4, KESARAMADU POST, KYATHASANDRA,TUMKUR",
       "annexure": "C",
@@ -33523,10 +33523,10 @@
       "kea_code": "E081",
       "established_year": 1979,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": 151
     },
     {
-      "college_number": 57,
+      "college_number": 32,
       "college_name": "Hira Sugar Institute of Technology, Nidasoshi",
       "address": "NIDAOSHI,TALUKA: HUKERI,DISTRICT: BELGAUM",
       "annexure": "C",
@@ -33755,7 +33755,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 58,
+      "college_number": 109,
       "college_name": "Impact College of Engineering & Applied Sciences, Bangalore",
       "address": "KODIGEHALLI,SAHAKARANAGAR SOUTH BANGALORE",
       "annexure": "C",
@@ -34074,7 +34074,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 59,
+      "college_number": 63,
       "college_name": "J S S Academy of Technical Education, Bangalore",
       "address": "JSSATE CAMPUS,UTTARAHALLI-KENGERI ROAD ,BANGALORE 560060",
       "annexure": "C",
@@ -34619,7 +34619,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 60,
+      "college_number": 190,
       "college_name": "Jain College Of Engineering and Research, Belgaum",
       "address": "SHREYAS CTS 1598 ADAJCENT TO TO FOUNDRY CLUSTER NEAR DUTCH INDUSTRIAL ESTATE CHANNAMMA NAGAR ANAGOL BELGAVI",
       "annexure": "C",
@@ -34886,7 +34886,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 61,
+      "college_number": 189,
       "college_name": "Jain College of Engineering and Technology,Hubballi",
       "address": "404/4, 404/5, SAI NAGAR, UNKAL, HUBLI",
       "annexure": "C",
@@ -35167,7 +35167,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 62,
+      "college_number": 153,
       "college_name": "Jain College of Engineering,Machche, Belgaum",
       "address": "T.S. NAGAR,HUNCHANHATTI ROAD,MACCHE, BELGAUM- 590014.",
       "annexure": "C",
@@ -35520,7 +35520,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 63,
+      "college_number": 166,
       "college_name": "Jain Institute of Technology, Davanagere",
       "address": "323, BADA CROSS NEAR BLIND SCHOOL AVARAGERE DAVANGERE",
       "annexure": "C",
@@ -35936,7 +35936,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 64,
+      "college_number": 53,
       "college_name": "Jawaharlal Nehru New College of Engineering, Shimoga",
       "address": "P.B. NO. 128,NAVULE, SHIMOGA",
       "annexure": "C",
@@ -36502,7 +36502,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 65,
+      "college_number": 95,
       "college_name": "Jnanavikasa Institute of Technology, Bidadi,Ramanagar",
       "address": "VIDYA SOUDHA, 32ND K.M.BANGALORE - MYSORE HIGH WAY,",
       "annexure": "C",
@@ -36715,7 +36715,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 66,
+      "college_number": 164,
       "college_name": "Jyothi Institute of Technology, Kanakapura Road,Bangalore",
       "address": ",BANGALORE",
       "annexure": "C",
@@ -37027,7 +37027,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 67,
+      "college_number": 229,
       "college_name": "K L E Institute of Technology, Hubli",
       "address": "OPP. TO AIRPORT,GOKUL,DHARWAD",
       "annexure": "C",
@@ -37357,7 +37357,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 68,
+      "college_number": 133,
       "college_name": "K L E S's K L E College of Engineering & Technology, Chikkodi, Belgaum Dist.",
       "address": "BANANTIKODI ROAD CHIKODI,BELGAUM -591 201,",
       "annexure": "C",
@@ -37628,7 +37628,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 69,
+      "college_number": 107,
       "college_name": "K L S Viswanathrao Deshpande Institute of Technology, Haliyal",
       "address": "UDYOG VIDYA NAGAR,DANDELI ROAD, HALIYAL-581329",
       "annexure": "C",
@@ -37942,7 +37942,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 70,
+      "college_number": 78,
       "college_name": "K N S Institute of Technology, Bangalore",
       "address": "THIRUMENAHALLI, HEGGADENAGAR-KOGILU ROAD, YELAHANKA, BANGALORE-560064",
       "annexure": "C",
@@ -38276,7 +38276,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 71,
+      "college_number": 69,
       "college_name": "K S Institute of Technology, Raghuvanahalli, Bangalore",
       "address": "#14,RAGUVANAHALLI, KANAKAPURA MAIN ROAD,BANGALORE - 560 062.",
       "annexure": "C",
@@ -38686,10 +38686,10 @@
       "kea_code": "E091",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": 251
     },
     {
-      "college_number": 72,
+      "college_number": 159,
       "college_name": "K S School of Engineering & Management, Mallasandra, Bangalore",
       "address": "#15/1, MALLASANDRA, OFF KANAKAPURA ROAD, BANGALORE - 560062",
       "annexure": "C",
@@ -38999,7 +38999,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 73,
+      "college_number": 42,
       "college_name": "K V G College of Engineering, Sullia",
       "address": "KURUNJIBHAG,",
       "annexure": "C",
@@ -39209,7 +39209,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 74,
+      "college_number": 30,
       "college_name": "K.L.S. Gogte Institute of Technology, Belgaum.",
       "address": "\"JNANA GANGA\", UDYAMBAG,BELGAUM",
       "annexure": "C",
@@ -39785,7 +39785,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 75,
+      "college_number": 17,
       "college_name": "Kalpatharu Institute of Technology, Tiptur",
       "address": "B.H.ROAD,HASSAN CIRCLE,TIPTUR-572202",
       "annexure": "C",
@@ -40111,7 +40111,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 76,
+      "college_number": 126,
       "college_name": "Karavali Institute of Technology, Neermarga, Mangalore",
       "address": "PADU POST, VIA PEDUMALE,NEERUMARGA,MANGALORE -575029",
       "annexure": "C",
@@ -40370,7 +40370,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 77,
+      "college_number": 168,
       "college_name": "Lingarajappa Engineering College, Bidar",
       "address": "SURVEY NO. 25/1, GORNALLI ,BIDAR",
       "annexure": "C",
@@ -40620,7 +40620,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 78,
+      "college_number": 100,
       "college_name": "M S Engineering College, Bangalore",
       "address": "NAVARATHNA AGRAHARA, SADAHALLIPOST, NEAR BIAL, BANGALORE",
       "annexure": "C",
@@ -40891,7 +40891,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 79,
+      "college_number": 6,
       "college_name": "M S Ramaiah Institute of Technology, Bangalore",
       "address": "VIDYA SOUDHA,MSR NAGAR,MSRIT POST,BANGALORE - 560054.",
       "annexure": "C",
@@ -42050,10 +42050,10 @@
       "kea_code": "E006",
       "established_year": 1962,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": 78
+      "nirf_ranking": 75
     },
     {
-      "college_number": 80,
+      "college_number": 125,
       "college_name": "Maharaja Institute of Technology Mysore,Belawadi,Srirangapatna,Mandya",
       "address": "BEHIND K R MILLS,BELAWADI VILLAGE,NAGUVANAHALLI PANCHAYAT,SRIRANGAPATNA TALUK,MANDYA DISTRICT",
       "annexure": "C",
@@ -42730,7 +42730,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 81,
+      "college_number": 186,
       "college_name": "Maharaja Institute of Technology,Tandavapura,Mysore",
       "address": "THANDAVAPURA VILLAGA,ON NATIONAL HIGHWWAYNANJANAGUD TALUK,MYSORE DISTRICT",
       "annexure": "C",
@@ -43077,7 +43077,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 82,
+      "college_number": 39,
       "college_name": "Malnad College of Engineering, Hassan",
       "address": "P.B. NO. 21, SALAGAME ROAD,HASSSAN",
       "annexure": "C",
@@ -43534,7 +43534,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 83,
+      "college_number": 118,
       "college_name": "Mangalore Institute of Technology & Engineering, Moodabidri, Mangalore",
       "address": "BADAGA MIJAR,",
       "annexure": "C",
@@ -43992,13 +43992,13 @@
           "round3_cutoff": {}
         }
       ],
-      "kea_code": "E169",
+      "kea_code": "E151",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
       "nirf_ranking": null
     },
     {
-      "college_number": 84,
+      "college_number": 23,
       "college_name": "Maratha Mandal Engineering College, Belgaum",
       "address": "RS. NO.104, HALBHAVI VILLAGE, POST: NEW VANTMURI, VIA KAKATI, TALUKA & DIST. BELGAUM-591113",
       "annexure": "C",
@@ -44208,7 +44208,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 85,
+      "college_number": 108,
       "college_name": "Moodalakatte Institute of Technology, Kundapura, Udupi",
       "address": "MOODLAKATTE,KUNDAPURA TALUK,UDUPI DISTRICT",
       "annexure": "C",
@@ -44522,7 +44522,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 86,
+      "college_number": 181,
       "college_name": "Mysore College Of Engineering and Management,Mysore",
       "address": "CHIKAHALLI, VARUNA HOBALI, NEAR BIG BANYAN TREE, TN ROAD,MYSORE",
       "annexure": "C",
@@ -44789,7 +44789,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 87,
+      "college_number": 177,
       "college_name": "Mysuru Royal Institute Of Technology,Lakshmipura road,Mysuru",
       "address": "LAKSHMIPURA ROAD, OFF MYSURU -BENGALURU HIGHWAY,MANDYA",
       "annexure": "C",
@@ -45076,7 +45076,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 88,
+      "college_number": 82,
       "college_name": "Nagarjuna College of Engineering & Technology,venkatagiri Kote, Devanahalli, Bangalore Rural.(Autonomous)",
       "address": "MUDUGURKIVENKATAGIRI KOTE DEVANAHALLI,BANGALORE",
       "annexure": "C",
@@ -45426,7 +45426,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 89,
+      "college_number": 149,
       "college_name": "NAVKIS COLLEGE OF ENGINEERING, KIADB Industrial Area,Thimmanahally, Hassan",
       "address": "P.B.NO. 55, NH-48, KIADB INDUSTRIAL AREA, THIMMANAHALLY, HASSAN-573201",
       "annexure": "C",
@@ -45705,7 +45705,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 90,
+      "college_number": 141,
       "college_name": "Navodaya Institute of Technology, Raichur",
       "address": "NAVODAYA NAGAR, MANATRALAYAM ROAD, RAICHUR",
       "annexure": "C",
@@ -45971,7 +45971,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 91,
+      "college_number": 230,
       "college_name": "Nitte Meenakshi Institutute of Technology, Bangalore",
       "address": "GOLLAHALLI, GOVINDAPURA,P.B NO 6429 ,YELAHANKA, BANGALORE-560064",
       "annexure": "C",
@@ -46744,7 +46744,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 92,
+      "college_number": 231,
       "college_name": "Nitte School of Architecture,Yelahanka,Bangalore",
       "address": "Post box No.6429, Govindapura, Gollahali Village, Yelahanka, NMIT-Off.International Airport Road, NH-7 , Bengaluru KARNATAKA, pin code -560064",
       "annexure": "C",
@@ -46805,7 +46805,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 93,
+      "college_number": 47,
       "college_name": "P D A College of Engineering, Gulbarga",
       "address": "AIWAN-E-SHAHI AREA,STATION ROAD,GULBARGA-585102",
       "annexure": "C",
@@ -47385,7 +47385,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 94,
+      "college_number": 46,
       "college_name": "P E S College of Engineering, Mandya",
       "address": "MANDYA: 571 401",
       "annexure": "C",
@@ -47841,7 +47841,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 95,
+      "college_number": 117,
       "college_name": "P E S Institute of Technology & Management, Shimoga",
       "address": "GUDDADAARAKERE, KOTEGANGOORSAGAR ROAD,SHIMOGA",
       "annexure": "C",
@@ -48291,7 +48291,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 96,
+      "college_number": 58,
       "college_name": "Proudadevaraya Institute of Technology, Hospet",
       "address": "SHAH BHAVARLAL BABULAL NAHAR CAMPUS,T.B.DAM ROAD, BESIDE TSP LIMITED,HOSPET - 583225,BELLARY DISTRICT",
       "annexure": "C",
@@ -48597,7 +48597,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 97,
+      "college_number": 194,
       "college_name": "R V Institute Of Technology and Management, Bengaluru",
       "address": "KOTHANUR, 8TH PHASE J.P.NAGAR, BENGALURU-560 078.",
       "annexure": "C",
@@ -48835,7 +48835,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 98,
+      "college_number": 5,
       "college_name": "R. V. College of Engineering, Bangalore",
       "address": "R.V. VIDYANIKETAN POST, MYSORE ROAD,BANGALORE",
       "annexure": "C",
@@ -49766,10 +49766,10 @@
       "kea_code": "E005",
       "established_year": 1963,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": 96
+      "nirf_ranking": 99
     },
     {
-      "college_number": 99,
+      "college_number": 92,
       "college_name": "R.L.Jalappa Institute of Technology, Doddaballapura",
       "address": "KODIGEHALLI, DODDABALLAPUR-561203, BANGALORE RURAL",
       "annexure": "C",
@@ -50032,7 +50032,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 100,
+      "college_number": 137,
       "college_name": "R.R. Institute of Technology, Chikkabanavara, Bangalore",
       "address": "NO. 67, RAJA REDDY LAYOUT,NEAR CHIKKABANAVARA RAILWAY STATION,CHIKKABANAVARA,BANGALORE - 560090",
       "annexure": "C",
@@ -50447,7 +50447,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 101,
+      "college_number": 25,
       "college_name": "R.T.E. Soceity's Rural Engineering College, Hulkoti",
       "address": "HULKOTI -582 205,GADAG",
       "annexure": "C",
@@ -50708,7 +50708,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 102,
+      "college_number": 113,
       "college_name": "Rajarajeswari College of Engineering, Bangalore (Autonomous)",
       "address": "#14, RAMOHOLLI CROSS,KUMBALGODU, MYSORE ROAD,BANGALORE - 560074",
       "annexure": "C",
@@ -51237,7 +51237,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 103,
+      "college_number": 142,
       "college_name": "Rajeev Institute of Technology, Hassan",
       "address": "PLOT 1-D(P-1), GROWTH CENTRE, INDUSTRIAL AREA, BANGALORE MANGALORE BYPASS ROAD",
       "annexure": "C",
@@ -51662,7 +51662,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 104,
+      "college_number": 98,
       "college_name": "Rajiv Gandhi Institute of Technology, Bangalore",
       "address": "CHOLANGAR,R.T.NAGAR POST, HEBBAL,BANGALORE-560032",
       "annexure": "C",
@@ -51920,7 +51920,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 105,
+      "college_number": 37,
       "college_name": "Rao Bahadur Y.Mahabaleswarappa Engineering College, Bellary",
       "address": "CONTONMENT, BELLARY-583104",
       "annexure": "C",
@@ -52423,7 +52423,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 106,
+      "college_number": 93,
       "college_name": "RNS Institute of Technology, Bangalore",
       "address": "CHANNASANDRA,UTTARAHALLI -KENGERI MAIN ROAD,SUBRAMANYAPURA POST,BANGALORE",
       "annexure": "C",
@@ -52977,7 +52977,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 107,
+      "college_number": 120,
       "college_name": "S E A College of Engineering & Technology, Virgonagar, Bangalore",
       "address": "EKTA NAGAR, BASAVANAPURA, VIRGO NAGAR POST, BANGALORE - 560 049.",
       "annexure": "C",
@@ -53412,7 +53412,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 108,
+      "college_number": 13,
       "college_name": "S J C Institute of Technology, Chickkaballapur",
       "address": "P B NO. 20, B B ROAD, CHICKBALLAPUR, CHICKBALLAPUR (DISTRICT)",
       "annexure": "C",
@@ -53971,10 +53971,10 @@
       "kea_code": "E014",
       "established_year": 1962,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": 201
     },
     {
-      "college_number": 109,
+      "college_number": 51,
       "college_name": "S J M Institute of Technology, Chitradurga",
       "address": "P B NO 73, NH -4 BYE PASS, CHITRADURGA",
       "annexure": "C",
@@ -54245,7 +54245,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 110,
+      "college_number": 91,
       "college_name": "S.J B. Institute of Technology, Bangalore (Autonomous)",
       "address": "BGS HEALTH & EDUCATION CITY,NO 67, UTTARAHALLI ROAD.KENGERI, BANGALORE -60",
       "annexure": "C",
@@ -54729,10 +54729,10 @@
       "kea_code": "E115",
       "established_year": 2001,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": 201
     },
     {
-      "college_number": 111,
+      "college_number": 140,
       "college_name": "S.S.E.T.S.S.G.Balekundri Institute of Technology, Shivabasavanagar, Belgaum",
       "address": "SHIVABASAVA NAGAR, BELGAUM - 590010",
       "annexure": "C",
@@ -55131,7 +55131,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 112,
+      "college_number": 127,
       "college_name": "Sahyadri College Of Engineering & Management, Adyar, Mangalore",
       "address": "'SAHYADRI CAMPUS'N.H-48, ADYAR,MANGALORE",
       "annexure": "C",
@@ -55556,7 +55556,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 113,
+      "college_number": 138,
       "college_name": "Sai Vidya Institute of Technology, Rajanakunte, Bangalore",
       "address": "RAJANUKUNTE,DODDBALLAPURA ROAD ,VIA: YELAHANKA,BANGALORE",
       "annexure": "C",
@@ -55941,7 +55941,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 114,
+      "college_number": 89,
       "college_name": "Sambhram Institute of Technology, Bangalore",
       "address": "AMBABHAVANI TEMPLE ROAD,M.S.PALYA, JALAHALLI EAST,VIDYARANYAPURA POST,BANGALORE",
       "annexure": "C",
@@ -56357,7 +56357,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 115,
+      "college_number": 158,
       "college_name": "Sampoorna Group of Institutions, Channapatana, Ramanagara District",
       "address": "BELEKERE, MALLUR HOBLI, CHANNAPATNA TALUK, RAMANAGAR,DISTRICT",
       "annexure": "C",
@@ -56653,7 +56653,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 116,
+      "college_number": 104,
       "college_name": "Secab Institute of Engineering & Technology, Bijapur",
       "address": "424, NAURASPUR, BAGALKOT ROAD, HUDCO CROSS,BIJAPUR-586101",
       "annexure": "C",
@@ -56927,10 +56927,10 @@
       "kea_code": "E132",
       "established_year": 2000,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": 251
     },
     {
-      "college_number": 117,
+      "college_number": 217,
       "college_name": "SESHADRIPURAM INSTITUTE OF TECHNOLOGY MYSURU",
       "address": "MYSURU",
       "annexure": "C",
@@ -57184,7 +57184,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 118,
+      "college_number": 169,
       "college_name": "Shetty Institute of Technology,Gulbarga",
       "address": "5TH KM RAJAPUR SHAHABAD ROAD GULBARGA",
       "annexure": "C",
@@ -57386,7 +57386,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 119,
+      "college_number": 114,
       "college_name": "Shreedevi Institute of Technology, Mangalore",
       "address": "AIRPORT ROAD, KENJAR VILLAGE,MALAVOOR PANCHAYAT,DAKSHINA KANNADA",
       "annexure": "C",
@@ -57754,7 +57754,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 120,
+      "college_number": 162,
       "college_name": "Shri Madhwa Vadiraja Institute of Technology and Management, Udupi",
       "address": "VISHWOTHAMA NAGAR,",
       "annexure": "C",
@@ -58015,7 +58015,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 121,
+      "college_number": 103,
       "college_name": "Shridevi Institute of Engineering & Technology, Tumkur",
       "address": "MARELENAHALLY,SIRA ROAD ,TUMKUR",
       "annexure": "C",
@@ -58468,7 +58468,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 122,
+      "college_number": 15,
       "college_name": "Siddaganga Institute of Technology, Tumkur",
       "address": "B.H.ROAD,TUMKUR",
       "annexure": "C",
@@ -59355,7 +59355,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 123,
+      "college_number": 11,
       "college_name": "Sir M.Visveswaraya Institute of Technology, Bangalore",
       "address": "KRISHNADEVARAYANAGAR, HUNASAMARANAHALLI, VIA YELAHANKA,BANGALORE - 562 157",
       "annexure": "C",
@@ -60150,7 +60150,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 124,
+      "college_number": 225,
       "college_name": "SJB School of Achitecture & Planning, Uthrahalli Road, Kengeri, Bangalore",
       "address": "67 BGS Health and Education City, Uttarahalli Road, Kengeri, Bangalore",
       "annexure": "C",
@@ -60183,7 +60183,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 125,
+      "college_number": 106,
       "college_name": "Smt. Kamala & Sri Venkappa M.Agadi College of Engineering & Technology, Gadag",
       "address": "SAVANUR ROAD, GULAGANJIKOPPA,LAXMESHWAR DIST: GADAG",
       "annexure": "C",
@@ -60493,10 +60493,10 @@
       "kea_code": "E134",
       "established_year": 2001,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": 251
     },
     {
-      "college_number": 126,
+      "college_number": 144,
       "college_name": "Sri Basaveswara Institute of Technology, Madenur Gate, B.H. Road, Tiptur",
       "address": "",
       "annexure": "C",
@@ -60716,7 +60716,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 127,
+      "college_number": 18,
       "college_name": "Sri Jayachamarajendra College of Engineering(Constituent College of JSS Science & Technology University), Mysore",
       "address": "JSS TECHNICAL INSTITUTIONS CAMPUS,MANASAGANGOTHRI PO,MYSORE",
       "annexure": "C",
@@ -60806,7 +60806,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 128,
+      "college_number": 88,
       "college_name": "Sri Krishna Institute of Technology, Bangalore",
       "address": "NO. 29, HESARAGHATTA MAIN ROAD,CHIMNEY HILLS, CHIKKABANAVARA POST,BANGALORE - 560090",
       "annexure": "C",
@@ -61143,7 +61143,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 129,
+      "college_number": 68,
       "college_name": "Sri Revana Siddeswara Institute of Technology, Bangalore",
       "address": "CHOKKANAHALLI, CHIKKAJALA,BANGALORE NORTH - 562157",
       "annexure": "C",
@@ -61314,7 +61314,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 130,
+      "college_number": 66,
       "college_name": "Sri Sairam College Of Engineering, Anekal, Bangalore",
       "address": "SAI LEO NAGAR",
       "annexure": "C",
@@ -61678,12 +61678,12 @@
         }
       ],
       "kea_code": "E086",
-      "established_year": 1997,
+      "established_year": 2002,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": 201
     },
     {
-      "college_number": 131,
+      "college_number": 26,
       "college_name": "Sri Taralabalu Jagadguru Institute of Technology, Ranebennur",
       "address": "P B ROAD (NH4),RANEBENNUR-581 115,HAVERI DISTRICT",
       "annexure": "C",
@@ -61949,7 +61949,7 @@
       "nirf_ranking": 151
     },
     {
-      "college_number": 132,
+      "college_number": 87,
       "college_name": "Sri Venkateshwara College of Engineering, Bangalore",
       "address": "VIDYANAGAR, BENGALURU INTERNATIONAL AIRPORT ROAD,BETTAHALASUR POST,BENGALURU NORTH,BENGALURU - 562 157",
       "annexure": "C",
@@ -62345,7 +62345,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 133,
+      "college_number": 112,
       "college_name": "Srinivas Institute of Technology, Mangalore",
       "address": "SRINIVAS CAMPUS",
       "annexure": "C",
@@ -62874,7 +62874,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 134,
+      "college_number": 115,
       "college_name": "T.John Institute of technology, Bangalore",
       "address": "#86/1, KAMMANAHALLI,GOTTIGERE,BANNERUGATTA ROAD,BANGALORE",
       "annexure": "C",
@@ -63206,7 +63206,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 135,
+      "college_number": 44,
       "college_name": "The National Institute of Engineering, Mysore",
       "address": "MANANDAVADI ROAD,MYSORE",
       "annexure": "C",
@@ -63759,7 +63759,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 136,
+      "college_number": 22,
       "college_name": "Tontadarya College of Engineering, Gadag",
       "address": "MUNDARAGI ROAD ,GADAG - 582101",
       "annexure": "C",
@@ -64070,7 +64070,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 137,
+      "college_number": 163,
       "college_name": "V S M`s Institute of Technology, Belgaum.",
       "address": "BASAV-VIDYA NAGAR,BELGAUM",
       "annexure": "C",
@@ -64462,13 +64462,13 @@
           }
         }
       ],
-      "kea_code": "E006",
-      "established_year": 1962,
-      "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": 78
+      "kea_code": "E207",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
-      "college_number": 138,
+      "college_number": 154,
       "college_name": "Veerappa Nisty Engineering College, Shorapur, Yadigir",
       "address": "POST:HASNAPUR, TQ:SHORAPUR, DIST: YADGIR",
       "annexure": "C",
@@ -64668,7 +64668,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 139,
+      "college_number": 70,
       "college_name": "Vemana Institute of Technology, Bangalore",
       "address": "#1, MAHAYOGI VEMANA ROAD, 3RD BLOCK, KORMANGALA, BANGALORE -560034.",
       "annexure": "C",
@@ -65041,7 +65041,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 140,
+      "college_number": 56,
       "college_name": "Vidya Vardhaka College of Engineering, Mysore",
       "address": "P.B.NO.206,GOKULAM 3RD STAGE,MYSORE",
       "annexure": "C",
@@ -65613,7 +65613,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 141,
+      "college_number": 59,
       "college_name": "Vidya Vikas Institute of Engineering & Technology, Mysore",
       "address": "#127,ALANAHALLY,ALANAHALLY POST,MYSORE-BANNUR ROAD,MYSORE",
       "annexure": "C",
@@ -65926,7 +65926,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 142,
+      "college_number": 148,
       "college_name": "Vijaya Vittala Institute of Technology, Doddagubbi, Hennur Bagalur Road, Bangalore",
       "address": "#35/1, DODDA GUBBI POST, HENNUR-BAGALURU ROAD,BANGALORE",
       "annexure": "C",
@@ -66219,7 +66219,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 143,
+      "college_number": 96,
       "college_name": "Vivekananada College of Engineering Technology, Puttur",
       "address": "NEHARU NAGARA,PUTTUR TALUK,DAKSHINA KANNADA",
       "annexure": "C",
@@ -66470,7 +66470,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 1,
+      "college_number": 182,
       "college_name": "A J Institute Of Engineering And Technology.Kottar chowki Boloor Village Mangalore",
       "address": "KOTTARA CHOWKI BOLOOR VILLAGE,DAKSHINA KANNADA",
       "annexure": "D",
@@ -66891,7 +66891,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 2,
+      "college_number": 28,
       "college_name": "Anjuman Institute of Technology & Management, Bhatkal",
       "address": "ANJUMANABAD,BHATKAL,(U K DIST), PIN 581320",
       "annexure": "D",
@@ -67179,7 +67179,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 3,
+      "college_number": 55,
       "college_name": "Bahubali College of Engineering, Shravanabelagola, Hassan",
       "address": "GOMMATANAGARA,SHRAVANABELAGOLA - 573135 HASSAN",
       "annexure": "D",
@@ -67434,7 +67434,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 4,
+      "college_number": 143,
       "college_name": "Beary's Institute of Technology, Boliar Village,Bantwal Tq, Mangalore",
       "address": "LANDS END, INNOLI,BOLIYAR VILLAGE,NEAR MANGALORE UNIVERSITY,MANGALORE-574 153",
       "annexure": "D",
@@ -67637,7 +67637,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 5,
+      "college_number": 97,
       "college_name": "Canara Engineering College Bantwal,",
       "address": "BENJANAPADAVU,BANTWAL,PIN 574219,DAKSHINA KANNADA DIST,",
       "annexure": "D",
@@ -67974,7 +67974,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 6,
+      "college_number": 12,
       "college_name": "Ghousia Engineering College, Ramanagara",
       "address": "BANGALORE - MYSORE ROAD,RAMANAGARA",
       "annexure": "D",
@@ -68336,7 +68336,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 7,
+      "college_number": 35,
       "college_name": "Gurunanak Dev Engineering College, Bidar",
       "address": "MAILOOR ROAD,BIDAR 585403",
       "annexure": "D",
@@ -68895,7 +68895,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 8,
+      "college_number": 64,
       "college_name": "H.K.B.K.College of Engineering, Bangalore",
       "address": "# 22/1, NAGAWARA, BANGALORE-560045",
       "annexure": "D",
@@ -69229,7 +69229,7 @@
       "nirf_ranking": 151
     },
     {
-      "college_number": 9,
+      "college_number": 94,
       "college_name": "K C T Engineering College, Gulbarga",
       "address": "KCT CAMPUS",
       "annexure": "D",
@@ -70162,10 +70162,10 @@
       "kea_code": "E011",
       "established_year": 1960,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": 251
     },
     {
-      "college_number": 11,
+      "college_number": 77,
       "college_name": "New Horizon College of Engineering, Varthur, Bangalore",
       "address": "RING ROAD, NEAR MARATHALLI, BELLANDUR POST,KADUBHISANAHALLI,BANGALORE",
       "annexure": "D",
@@ -70584,7 +70584,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 12,
+      "college_number": 43,
       "college_name": "P A College of Engineering, Kairangal, Bantwala Tq,. Mangalore",
       "address": "NADUPADAV, NEAR MANGALORE UNIVERSITY,MONTEPADAV POST, KAIRANGALA VILLAGE,BANTWAL-MANGALORE",
       "annexure": "D",
@@ -70880,7 +70880,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 13,
+      "college_number": 119,
       "college_name": "S D M Institute of Tech., Ujire, Dakshina Kannada",
       "address": "UJIRE-574240 DAKSHINA KANNADA KARNATAKA",
       "annexure": "D",
@@ -71186,7 +71186,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 14,
+      "college_number": 27,
       "college_name": "SDM College of Engineering, Dharwad",
       "address": "DHAVALAGIRI,KALGHATGI ROAD,DHARWAD",
       "annexure": "D",
@@ -71677,7 +71677,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 15,
+      "college_number": 102,
       "college_name": "St.Joseph Engineering College, Mangalore",
       "address": "MANGALORE",
       "annexure": "D",
@@ -72092,7 +72092,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 1,
+      "college_number": 111,
       "college_name": "Adhichunchanagiri University (Formerly B G S Institute of Technology)",
       "address": "B.G.NAGARA ,NAGAMANGALA TALUK,MANDYA DISTRICT -571448",
       "annexure": "O",
@@ -72411,7 +72411,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 2,
+      "college_number": 170,
       "college_name": "ALLIANCE University",
       "address": "Central Campus, Chikkahadage Cross Chandapura-Anekal, Main Road, Bengaluru, Karnataka 562106",
       "annexure": "O",
@@ -73014,7 +73014,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 3,
+      "college_number": 212,
       "college_name": "AMITY UNIVERSITY",
       "address": "National Highway 648 (old 207), Devanahalli - Doddaballapur Road",
       "annexure": "O",
@@ -73454,7 +73454,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 4,
+      "college_number": 185,
       "college_name": "CMR University",
       "address": "Main Campus, Off Hennur Bagalur Main Road, Chagalatti, Bangalore",
       "annexure": "O",
@@ -73861,7 +73861,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 5,
+      "college_number": 179,
       "college_name": "Dayananda Sagar University",
       "address": "DEVARAKAGGALAHALLI VILLAGE, HAROHALLI, KANAKAPURA MAIN ROAD, RAMANAGAR DIST",
       "annexure": "O",
@@ -74559,10 +74559,10 @@
       "kea_code": "E240",
       "established_year": 2014,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": 201
     },
     {
-      "college_number": 6,
+      "college_number": 183,
       "college_name": "GANDHI INSTITUTE OF TECHNOLOGY AND MANAGEMENT GITAM OFF CAMPUS BENGALURU",
       "address": "NH 207, Nagadenehalli Doddaballapur taluk. Bengaluru-561203",
       "annexure": "O",
@@ -75049,7 +75049,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 7,
+      "college_number": 203,
       "college_name": "Garden City University",
       "address": "16th KM, Old Madras Road (Near K R Puram), Bangalore, Karnataka, 560049.",
       "annexure": "O",
@@ -75314,7 +75314,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 8,
+      "college_number": 213,
       "college_name": "GM University",
       "address": "KARUR VILLAGE, KASABA HOBLI, DAVANGERE TALUK AND DISTRICT",
       "annexure": "O",
@@ -76062,7 +76062,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 9,
+      "college_number": 45,
       "college_name": "JSS Science and Technology University",
       "address": "JSS TECHNICAL INSTITUTIONS CAMPUS, MANASAGANGOTHRI, MYSURU 570006",
       "annexure": "O",
@@ -76539,7 +76539,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 10,
+      "college_number": 29,
       "college_name": "K L E Technological Univeristy, Belgaum Campus (Formerly KLE Dr M.S.Sheshagiri College of Engineering and Technology)",
       "address": "UDYAMBAGH,BELGAUM",
       "annexure": "O",
@@ -77012,7 +77012,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 11,
+      "college_number": 34,
       "college_name": "Khaja Bandanawaz University",
       "address": "KBN University Street, Khaja Colony, Kalaburagi, Karnataka 585104",
       "annexure": "O",
@@ -77237,7 +77237,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 12,
+      "college_number": 211,
       "college_name": "KISHKINDA UNIVERISTY",
       "address": "BALLARI INSTITUTE OF TECHNOLOGY & MANAGEMENT (BITM) CAMPUS, BALLARI-HOSPET ROAD, NEAR ALLIPUR, BALLARI-583104",
       "annexure": "O",
@@ -77509,7 +77509,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 13,
+      "college_number": 180,
       "college_name": "KLE Technological University(Formerly (BVBCET)",
       "address": "BVBHOOMARADDI COLLEGE CAMPUS, VIDYANAGAR, HUBBALLI",
       "annexure": "O",
@@ -78153,7 +78153,7 @@
       "nirf_ranking": 151
     },
     {
-      "college_number": 14,
+      "college_number": 175,
       "college_name": "M . S . Ramaiah University of Applied Sciences",
       "address": "UNIVERSITY HOUSE, GNANAGANGOTHRI CAMPUS, NEW BEL ROAD, MSR ROAD, BANGALORE - 560054",
       "annexure": "O",
@@ -78766,7 +78766,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 15,
+      "college_number": 9,
       "college_name": "PES University",
       "address": "100 Feet Ring Road, Banashankari, 3rd Stage, Hosakerehalli, Near DSERT, , Bangalore KARNATAKA, pin code -560085",
       "annexure": "O",
@@ -79280,7 +79280,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 16,
+      "college_number": 110,
       "college_name": "PES UNIVERSITY(Electronic City Campus)",
       "address": "Hosur Rd, Konappana Agrahara, Electronic City, Bengaluru, Karnataka 560100",
       "annexure": "O",
@@ -79587,7 +79587,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 17,
+      "college_number": 176,
       "college_name": "PRESIDENCY University",
       "address": "ITGALPURA, RAJANUKUNTE, YELAHANKA, BENGALURU - 560 064",
       "annexure": "O",
@@ -81001,10 +81001,10 @@
       "kea_code": "E237",
       "established_year": 2013,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": 251
     },
     {
-      "college_number": 18,
+      "college_number": 184,
       "college_name": "RAI TECHNOLOGICAL UNIERSITY",
       "address": "11TH MILE GALLU, DODDABALLAPUR - NELAMANGALA ROAD, MALLOHALLI VILLAGE KADANUR, DODDABALLAPUR TALUK, BENGALURU",
       "annexure": "O",
@@ -81099,7 +81099,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 19,
+      "college_number": 174,
       "college_name": "REVA University",
       "address": "RUKMINI KNOWLEDGE PARK, KATTIGENAHALLI, YELAHANKA,BANGALORE - 560064,",
       "annexure": "O",
@@ -82137,10 +82137,10 @@
       "kea_code": "E232",
       "established_year": 2012,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": 201
     },
     {
-      "college_number": 20,
+      "college_number": 200,
       "college_name": "RV University",
       "address": "R.V. VIDYANIKETAN POST, MYSORE ROAD,BANGALORE",
       "annexure": "O",
@@ -82266,10 +82266,10 @@
       "kea_code": "E285",
       "established_year": 2020,
       "affiliation": "Private University (RV)",
-      "nirf_ranking": null
+      "nirf_ranking": 251
     },
     {
-      "college_number": 21,
+      "college_number": 85,
       "college_name": "SAPTHAGIRI NPS UNIVERISTY",
       "address": "#14/5, CHIKKASANDRA,HESARAGHATTA MAIN ROAD,BANGALURU",
       "annexure": "O",
@@ -82681,7 +82681,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 22,
+      "college_number": 232,
       "college_name": "School of Planning and Architchure, University of Mysore",
       "address": "2nd Floor, Senate Bhavan, Manasagangotri P.O., Mysore",
       "annexure": "O",
@@ -82714,7 +82714,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 23,
+      "college_number": 155,
       "college_name": "Sharanbasava University (Exclusively for Women) (Formerly Goduati Engineering College For Women)",
       "address": "SHARNBASVESHWARA INSTITUTIONS CAMPUS , KALABURAGI ( GULBARGA) -585103 , KARNATAKA",
       "annexure": "O",
@@ -83001,7 +83001,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 24,
+      "college_number": 101,
       "college_name": "Sharanbasava University (Formerly Appa Institute of Engineering and Tech)",
       "address": "SHARNBASVESHWARA INSTITUTIONS CAMPUS , KALABURAGI ( GULBARGA) -585103 , KARNATAKA",
       "annexure": "O",
@@ -83427,7 +83427,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 25,
+      "college_number": 151,
       "college_name": "Srinivas University",
       "address": "SRINIVAS CAMPUS MUKKA MANGALURU",
       "annexure": "O",
@@ -83694,7 +83694,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 26,
+      "college_number": 216,
       "college_name": "THE CHANAKYA UNIVERSITY",
       "address": "NO 29 HARALURU, DEVANAHALLI TALUK (NEAR BENGALURU INTERNATIONLA AIRPORT)",
       "annexure": "O",
@@ -83949,7 +83949,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 27,
+      "college_number": 198,
       "college_name": "University of Mysuru",
       "address": "B.N.BAHADUR INSTITUTE OF MANAGEMENT SCIENCES, (DOS IN BUSSINESS ADMINISTRATION)UNIVERSITY OF MYSORE,",
       "annexure": "O",
@@ -84163,7 +84163,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 22,
+      "college_number": 195,
       "college_name": "VISVESWARIAH TECHNOLOGICAL UNIVERISTY, BELAGAVI, VIAT, MUDDENAHALLI CAMPUS, CHIKKABALLAPUR",
       "address": "Muddenahalli campus,Chikkaballapur",
       "annexure": "A",
@@ -84501,7 +84501,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 144,
+      "college_number": 67,
       "college_name": "Vivekananada Institute of Technology,Kengeri, Bangalore",
       "address": "GUDIMAVU VILLAGE,KENGERI(HOBLI)NEAR KUMBALAGODU,BANGALORE",
       "annexure": "C",
@@ -84837,7 +84837,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 145,
+      "college_number": 132,
       "college_name": "Yenepoya Institute Of Technology,Mangalore",
       "address": "VIDYANAGAR N.H 13THODAR MIJAR POST MOODBIDRI MANGALORE TQ",
       "annexure": "C",
@@ -85180,7 +85180,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 16,
+      "college_number": 60,
       "college_name": "The Oxford College of Engineering, Bangalore",
       "address": "HOSUR ROAD, BOMMANAHALLI, BANGALORE",
       "annexure": "D",
@@ -86363,7 +86363,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 28,
+      "college_number": 202,
       "college_name": "Vidyashilp University",
       "address": "#125, Bettenahalli, Kundana Hobli, Chapparkallu Rd, Bengaluru, Karnataka 562110",
       "annexure": "O",
@@ -86438,7 +86438,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 1,
+      "college_number": 16,
       "college_name": "Sri Siddhartha Institute of Technology, Tumkur",
       "address": "MARALUR, TUMKUR",
       "annexure": "P",
@@ -87086,7 +87086,7 @@
       "nirf_ranking": null
     },
     {
-      "college_number": 24,
+      "college_number": 233,
       "college_name": "BASAV ENGINEERING SCHOOL OF TECHNOLOGY, VIJAYAPURA",
       "address": "ZALKI, TQ. INDI, DIST VIJAYAPURA",
       "annexure": "C",
