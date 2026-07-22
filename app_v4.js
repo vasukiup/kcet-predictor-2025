@@ -2674,102 +2674,155 @@ function openModal(college) {
         <td class="td-cutoff-r3" data-course-idx="${idx}" style="color:var(--pink); text-align:right; font-family:var(--font-display); font-weight:700; line-height:1.2; padding:6px 8px;">${initialCutoffR3}</td>
       </tr>
       <tr class="course-drawer-row" id="drawer-row-${idx}" style="display:none; background:var(--bg-elevated, #1a233b);">
-        <td colspan="15" style="padding:14px 18px; border-bottom:2px solid var(--blue);">
-          <div style="font-size:12px; font-weight:700; color:var(--text); margin-bottom:8px;">📊 Detailed Sub-Category Breakdown for <em>${escHtml(c.course_name)}</em></div>
-          <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
-            <span style="padding:4px 10px; border-radius:6px; background:rgba(59,130,246,0.15); color:var(--blue); font-size:11px; font-weight:600;">Rest of Karnataka (RK): ${c.kea_rk || 0} seats</span>
-            <span style="padding:4px 10px; border-radius:6px; background:rgba(168,85,247,0.15); color:var(--purple); font-size:11px; font-weight:600;">Hyderabad Karnataka (371-J): ${c.kea_hk || 0} seats</span>
-            <span style="padding:4px 10px; border-radius:6px; background:rgba(34,197,94,0.15); color:#22c55e; font-size:11px; font-weight:600;">Supernumerary (SNQ 5%): ${c.snq_5pct || c.over_above_5pct || 0} seats</span>
-            ${c.sports ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">🏅 Sports: ${c.sports}</span>` : ''}
-            ${c.ncc ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">🎖️ NCC: ${c.ncc}</span>` : ''}
-            ${c.sct_guides ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">⚜️ Scouts & Guides: ${c.sct_guides}</span>` : ''}
-            ${c.defence ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">🛡️ Defence: ${c.defence}</span>` : ''}
-            ${c.ex_defence ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">🎗️ Ex-Defence: ${c.ex_defence}</span>` : ''}
-            ${c.capf ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">👮 CAPF: ${c.capf}</span>` : ''}
-            ${c.kea_ph ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">♿ PH: ${c.kea_ph}</span>` : ''}
-          </div>
+        <td colspan="15" style="padding:16px 20px; border-bottom:2px solid var(--blue);">
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:20px; align-items:start; flex-wrap:wrap;">
+            <!-- Left side: Seats breakdown & cutoffs -->
+            <div>
+              <div style="font-size:12px; font-weight:700; color:var(--text); margin-bottom:8px;">📊 Detailed Sub-Category Breakdown for <em>${escHtml(c.course_name)}</em></div>
+              <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+                <span style="padding:4px 10px; border-radius:6px; background:rgba(59,130,246,0.15); color:var(--blue); font-size:11px; font-weight:600;">Rest of Karnataka (RK): ${c.kea_rk || 0} seats</span>
+                <span style="padding:4px 10px; border-radius:6px; background:rgba(168,85,247,0.15); color:var(--purple); font-size:11px; font-weight:600;">Hyderabad Karnataka (371-J): ${c.kea_hk || 0} seats</span>
+                <span style="padding:4px 10px; border-radius:6px; background:rgba(34,197,94,0.15); color:#22c55e; font-size:11px; font-weight:600;">Supernumerary (SNQ 5%): ${c.snq_5pct || c.over_above_5pct || 0} seats</span>
+                ${c.sports ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">🏅 Sports: ${c.sports}</span>` : ''}
+                ${c.ncc ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">🎖️ NCC: ${c.ncc}</span>` : ''}
+                ${c.sct_guides ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">⚜️ Scouts & Guides: ${c.sct_guides}</span>` : ''}
+                ${c.defence ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">🛡️ Defence: ${c.defence}</span>` : ''}
+                ${c.ex_defence ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">🎗️ Ex-Defence: ${c.ex_defence}</span>` : ''}
+                ${c.capf ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">👮 CAPF: ${c.capf}</span>` : ''}
+                ${c.kea_ph ? `<span style="padding:4px 10px; border-radius:6px; background:rgba(234,179,8,0.15); color:#eab308; font-size:11px; font-weight:600;">♿ PH: ${c.kea_ph}</span>` : ''}
+              </div>
 
-          <div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-top:12px; margin-bottom:6px;">📋 Sub-Category Seat Allocation Matrix (PDF Layout):</div>
-          <table class="modal-courses-table" style="font-size:11px; background:var(--bg-card); border-radius:8px; overflow:hidden; margin-bottom:14px;">
-            <thead>
-              <tr style="background:rgba(255,255,255,0.04);">
-                <th>Quota / Reservation</th>
-                <th style="text-align:center;">GM</th>
-                <th style="text-align:center;">SC</th>
-                <th style="text-align:center;">ST</th>
-                <th style="text-align:center;">Cat-1</th>
-                <th style="text-align:center;">2A</th>
-                <th style="text-align:center;">2B</th>
-                <th style="text-align:center;">3A</th>
-                <th style="text-align:center;">3B</th>
-                <th style="text-align:right;">Sub-Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Urban / General (G)</strong></td>
-                <td style="text-align:center;">${sub.rkSplit['GMG']}</td>
-                <td style="text-align:center;">${sub.rkSplit['SCG']}</td>
-                <td style="text-align:center;">${sub.rkSplit['STG']}</td>
-                <td style="text-align:center;">${sub.rkSplit['1G']}</td>
-                <td style="text-align:center;">${sub.rkSplit['2AG']}</td>
-                <td style="text-align:center;">${sub.rkSplit['2BG']}</td>
-                <td style="text-align:center;">${sub.rkSplit['3AG']}</td>
-                <td style="text-align:center;">${sub.rkSplit['3BG']}</td>
-                <td style="text-align:right; font-weight:bold; color:var(--blue);">${sub.urbSum}</td>
-              </tr>
-              <tr>
-                <td><strong>Rural Quota (R)</strong></td>
-                <td style="text-align:center;">${sub.rkSplit['GMR']}</td>
-                <td style="text-align:center;">${sub.rkSplit['SCR']}</td>
-                <td style="text-align:center;">${sub.rkSplit['STR']}</td>
-                <td style="text-align:center;">${sub.rkSplit['1R']}</td>
-                <td style="text-align:center;">${sub.rkSplit['2AR']}</td>
-                <td style="text-align:center;">${sub.rkSplit['2BR']}</td>
-                <td style="text-align:center;">${sub.rkSplit['3AR']}</td>
-                <td style="text-align:center;">${sub.rkSplit['3BR']}</td>
-                <td style="text-align:right; font-weight:bold; color:var(--blue);">${sub.rurSum}</td>
-              </tr>
-              <tr>
-                <td><strong>Kannada Medium (K)</strong></td>
-                <td style="text-align:center;">${sub.rkSplit['GMK']}</td>
-                <td style="text-align:center;">${sub.rkSplit['SCK']}</td>
-                <td style="text-align:center;">${sub.rkSplit['STK']}</td>
-                <td style="text-align:center;">${sub.rkSplit['1K']}</td>
-                <td style="text-align:center;">${sub.rkSplit['2AK']}</td>
-                <td style="text-align:center;">${sub.rkSplit['2BK']}</td>
-                <td style="text-align:center;">${sub.rkSplit['3AK']}</td>
-                <td style="text-align:center;">${sub.rkSplit['3BK']}</td>
-                <td style="text-align:right; font-weight:bold; color:var(--blue);">${sub.kmSum}</td>
-              </tr>
-              ${sub.hkTot > 0 ? `
-                <tr style="background:rgba(168,85,247,0.05);">
-                  <td><strong style="color:var(--purple);">HK 371-J Local (H)</strong></td>
-                  <td style="text-align:center;">${sub.hkSplit['GMH']}</td>
-                  <td style="text-align:center;">${sub.hkSplit['SCH']}</td>
-                  <td style="text-align:center;">${sub.hkSplit['STH']}</td>
-                  <td style="text-align:center;">${sub.hkSplit['1H']}</td>
-                  <td style="text-align:center;">${sub.hkSplit['2AH']}</td>
-                  <td style="text-align:center;">${sub.hkSplit['2BH']}</td>
-                  <td style="text-align:center;">${sub.hkSplit['3AH']}</td>
-                  <td style="text-align:center;">${sub.hkSplit['3BH']}</td>
-                  <td style="text-align:right; font-weight:bold; color:var(--purple);">${sub.hkTot}</td>
-                </tr>
-              ` : ''}
-            </tbody>
-          </table>
+              <div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-top:12px; margin-bottom:6px;">📋 Sub-Category Seat Allocation Matrix (PDF Layout):</div>
+              <table class="modal-courses-table" style="font-size:11px; background:var(--bg-card); border-radius:8px; overflow:hidden; margin-bottom:14px;">
+                <thead>
+                  <tr style="background:rgba(255,255,255,0.04);">
+                    <th>Quota / Reservation</th>
+                    <th style="text-align:center;">GM</th>
+                    <th style="text-align:center;">SC</th>
+                    <th style="text-align:center;">ST</th>
+                    <th style="text-align:center;">Cat-1</th>
+                    <th style="text-align:center;">2A</th>
+                    <th style="text-align:center;">2B</th>
+                    <th style="text-align:center;">3A</th>
+                    <th style="text-align:center;">3B</th>
+                    <th style="text-align:right;">Sub-Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Urban / General (G)</strong></td>
+                    <td style="text-align:center;">${sub.rkSplit['GMG']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['SCG']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['STG']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['1G']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['2AG']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['2BG']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['3AG']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['3BG']}</td>
+                    <td style="text-align:right; font-weight:bold; color:var(--blue);">${sub.urbSum}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Rural Quota (R)</strong></td>
+                    <td style="text-align:center;">${sub.rkSplit['GMR']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['SCR']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['STR']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['1R']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['2AR']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['2BR']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['3AR']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['3BR']}</td>
+                    <td style="text-align:right; font-weight:bold; color:var(--blue);">${sub.rurSum}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Kannada Medium (K)</strong></td>
+                    <td style="text-align:center;">${sub.rkSplit['GMK']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['SCK']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['STK']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['1K']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['2AK']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['2BK']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['3AK']}</td>
+                    <td style="text-align:center;">${sub.rkSplit['3BK']}</td>
+                    <td style="text-align:right; font-weight:bold; color:var(--blue);">${sub.kmSum}</td>
+                  </tr>
+                  ${sub.hkTot > 0 ? `
+                    <tr style="background:rgba(168,85,247,0.05);">
+                      <td><strong style="color:var(--purple);">HK 371-J Local (H)</strong></td>
+                      <td style="text-align:center;">${sub.hkSplit['GMH']}</td>
+                      <td style="text-align:center;">${sub.hkSplit['SCH']}</td>
+                      <td style="text-align:center;">${sub.hkSplit['STH']}</td>
+                      <td style="text-align:center;">${sub.hkSplit['1H']}</td>
+                      <td style="text-align:center;">${sub.hkSplit['2AH']}</td>
+                      <td style="text-align:center;">${sub.hkSplit['2BH']}</td>
+                      <td style="text-align:center;">${sub.hkSplit['3AH']}</td>
+                      <td style="text-align:center;">${sub.hkSplit['3BH']}</td>
+                      <td style="text-align:right; font-weight:bold; color:var(--purple);">${sub.hkTot}</td>
+                    </tr>
+                  ` : ''}
+                </tbody>
+              </table>
 
-          ${c.round1_cutoff ? `
-            <div style="font-size:11px; font-weight:600; color:var(--text-muted); margin-bottom:6px;">Round 1 Cut-off Ranks by Category:</div>
-            <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap:6px; font-size:11px;">
-              ${Object.entries(c.round1_cutoff).map(([catKey, val]) => `
-                <div style="background:var(--bg-card); padding:5px 8px; border-radius:6px; border:1px solid var(--border); display:flex; justify-content:space-between;">
-                  <span style="font-weight:600;">${catKey}:</span>
-                  <span style="color:var(--blue); font-weight:700;">${parseInt(val).toLocaleString()}</span>
+              ${c.round1_cutoff ? `
+                <div style="font-size:11px; font-weight:600; color:var(--text-muted); margin-bottom:6px;">Round 1 Cut-off Ranks by Category:</div>
+                <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap:6px; font-size:11px;">
+                  ${Object.entries(c.round1_cutoff).map(([catKey, val]) => `
+                    <div style="background:var(--bg-card); padding:5px 8px; border-radius:6px; border:1px solid var(--border); display:flex; justify-content:space-between;">
+                      <span style="font-weight:600;">${catKey}:</span>
+                      <span style="color:var(--blue); font-weight:700;">${parseInt(val).toLocaleString()}</span>
+                    </div>
+                  `).join('')}
                 </div>
-              `).join('')}
+              ` : ''}
             </div>
-          ` : ''}
+
+            <!-- Right side: Course Placement Profile -->
+            <div style="background:rgba(255,255,255,0.015); border:1px solid var(--border); padding:16px; border-radius:12px; display:flex; flex-direction:column; gap:12px; position:sticky; top:10px;">
+              <div style="font-size:12px; font-weight:700; color:var(--text); margin-bottom:4px; display:flex; align-items:center; gap:6px; border-bottom:1px solid var(--border); padding-bottom:8px;">
+                <span>💼</span> ${abbrCourseName(c.course_name)} Placement Profile
+              </div>
+              
+              <div style="display:flex; flex-direction:column; gap:10px; font-size:11px;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="color:var(--text-faint);">Average Salary:</span>
+                  <strong style="color:var(--green); font-size:13px; font-family:var(--font-display);">${c.course_placements?.avg_package_lpa || '—'} LPA</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="color:var(--text-faint);">Highest Salary:</span>
+                  <strong style="color:var(--green); font-size:13px; font-family:var(--font-display);">${c.course_placements?.max_package_lpa || '—'} LPA</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="color:var(--text-faint);">Minimum Salary:</span>
+                  <strong style="color:var(--text);">${c.course_placements?.min_package_lpa || '—'} LPA</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="color:var(--text-faint);">Placement Rate:</span>
+                  <strong style="color:var(--text);">${c.course_placements?.placement_rate_pct || '—'}%</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
+                  <span style="color:var(--text-faint);">Sector Category:</span>
+                  <span style="padding:2px 6px; border-radius:4px; font-weight:700; font-size:9px; background:${
+                    (c.course_placements?.industry_type || '').includes('Product') ? 'rgba(34,197,94,0.06)' :
+                    (c.course_placements?.industry_type || '').includes('VLSI') ? 'rgba(59,130,246,0.06)' : 'rgba(249,115,22,0.06)'
+                  }; color:${
+                    (c.course_placements?.industry_type || '').includes('Product') ? '#22c55e' :
+                    (c.course_placements?.industry_type || '').includes('VLSI') ? 'var(--blue)' : '#f97316'
+                  }; border:1px solid ${
+                    (c.course_placements?.industry_type || '').includes('Product') ? 'rgba(34,197,94,0.15)' :
+                    (c.course_placements?.industry_type || '').includes('VLSI') ? 'rgba(59,130,246,0.15)' : 'rgba(249,115,22,0.15)'
+                  };">${c.course_placements?.industry_type || '—'}</span>
+                </div>
+
+                ${c.course_placements?.top_recruiters && c.course_placements.top_recruiters.length > 0 ? `
+                  <div style="margin-top:8px; border-top:1px solid var(--border); padding-top:8px;">
+                    <div style="font-size:9px; color:var(--text-faint); margin-bottom:4px; text-transform:uppercase;">Top Recruiters:</div>
+                    <div style="display:flex; flex-wrap:wrap; gap:4px;">
+                      ${c.course_placements.top_recruiters.map(r => `<span style="font-size:9px; background:rgba(255,255,255,0.04); border:1px solid var(--border); padding:2px 5px; border-radius:4px;">${r}</span>`).join('')}
+                    </div>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          </div>
         </td>
       </tr>
     `;
