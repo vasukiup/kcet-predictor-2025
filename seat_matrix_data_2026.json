@@ -175,7 +175,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Chikballapura",
-      "kea_code": "E308"
+      "kea_code": "E308",
+      "established_year": 2015,
+      "affiliation": "State University Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 2,
@@ -394,7 +397,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Hassan",
-      "kea_code": "E310"
+      "kea_code": "E310",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated (Government)",
+      "nirf_ranking": null
     },
     {
       "college_number": 3,
@@ -558,7 +564,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Ballari",
-      "kea_code": "E281"
+      "kea_code": "E281",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated (Government)",
+      "nirf_ranking": null
     },
     {
       "college_number": 4,
@@ -763,7 +772,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Chamarajanagara",
-      "kea_code": "E154"
+      "kea_code": "E154",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated (Government)",
+      "nirf_ranking": null
     },
     {
       "college_number": 5,
@@ -1040,7 +1052,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Hassan",
-      "kea_code": "E155"
+      "kea_code": "E155",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated (Government)",
+      "nirf_ranking": null
     },
     {
       "college_number": 6,
@@ -1249,7 +1264,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Haveri",
-      "kea_code": "E163"
+      "kea_code": "E163",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated (Government)",
+      "nirf_ranking": null
     },
     {
       "college_number": 7,
@@ -1483,7 +1501,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Ballari",
-      "kea_code": "E164"
+      "kea_code": "E164",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated (Government)",
+      "nirf_ranking": null
     },
     {
       "college_number": 8,
@@ -1678,7 +1699,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Uttara Kannada",
-      "kea_code": "E194"
+      "kea_code": "E194",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated (Government)",
+      "nirf_ranking": null
     },
     {
       "college_number": 9,
@@ -1871,7 +1895,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Kodagu",
-      "kea_code": "E161"
+      "kea_code": "E161",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated (Government)",
+      "nirf_ranking": null
     },
     {
       "college_number": 10,
@@ -2142,7 +2169,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Hassan",
-      "kea_code": "E274"
+      "kea_code": "E274",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated (Government)",
+      "nirf_ranking": null
     },
     {
       "college_number": 11,
@@ -2385,7 +2415,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Raichur",
-      "kea_code": "E162"
+      "kea_code": "E162",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated (Government)",
+      "nirf_ranking": null
     },
     {
       "college_number": 12,
@@ -2575,7 +2608,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Ramanagara",
-      "kea_code": "E157"
+      "kea_code": "E157",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated (Government)",
+      "nirf_ranking": null
     },
     {
       "college_number": 13,
@@ -2840,7 +2876,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Koppal",
-      "kea_code": "E272"
+      "kea_code": "E272",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated (Government)",
+      "nirf_ranking": null
     },
     {
       "college_number": 14,
@@ -3118,7 +3157,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Koppal",
-      "kea_code": "E273"
+      "kea_code": "E273",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated (Government)",
+      "nirf_ranking": null
     },
     {
       "college_number": 15,
@@ -3348,7 +3390,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Bidar",
-      "kea_code": "E292"
+      "kea_code": "E292",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated (Government)",
+      "nirf_ranking": null
     },
     {
       "college_number": 16,
@@ -3563,7 +3608,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Gadag",
-      "kea_code": "E291"
+      "kea_code": "E291",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated (Government)",
+      "nirf_ranking": null
     },
     {
       "college_number": 17,
@@ -3816,7 +3864,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Bangalore",
-      "kea_code": "E002"
+      "kea_code": "E002",
+      "established_year": 1963,
+      "affiliation": "Constituent University College (JSS STU)",
+      "nirf_ranking": null
     },
     {
       "college_number": 18,
@@ -4018,7 +4069,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Mandya",
-      "kea_code": "E156"
+      "kea_code": "E156",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated (Government)",
+      "nirf_ranking": null
     },
     {
       "college_number": 19,
@@ -4314,7 +4368,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Davanagere",
-      "kea_code": "E061"
+      "kea_code": "E061",
+      "established_year": 1997,
+      "affiliation": "State University Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 20,
@@ -4665,7 +4722,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Belagavi",
-      "kea_code": "E279"
+      "kea_code": "E279",
+      "established_year": 2015,
+      "affiliation": "State University Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 21,
@@ -5017,7 +5077,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Chikballapura",
-      "kea_code": "E278"
+      "kea_code": "E278",
+      "established_year": 2015,
+      "affiliation": "State University Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 22,
@@ -5213,7 +5276,10 @@
       "cat2_pct": 0,
       "cat3_pct": 0,
       "district": "Kalaburagi",
-      "kea_code": "E289"
+      "kea_code": "E289",
+      "established_year": 2015,
+      "affiliation": "State University Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 1,
@@ -5786,7 +5852,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E079"
+      "kea_code": "E079",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 2,
@@ -6226,7 +6295,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E186"
+      "kea_code": "E186",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 3,
@@ -6607,7 +6679,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Chikkamagaluru",
-      "kea_code": "E064"
+      "kea_code": "E064",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 4,
@@ -6983,7 +7058,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E297"
+      "kea_code": "E297",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 5,
@@ -7291,7 +7369,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Dharwad",
-      "kea_code": "E199"
+      "kea_code": "E199",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 6,
@@ -7683,7 +7764,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E300"
+      "kea_code": "E300",
+      "established_year": 2023,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 7,
@@ -7960,7 +8044,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Tumkur",
-      "kea_code": "E191"
+      "kea_code": "E191",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 8,
@@ -8403,7 +8490,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Dakshina Kannada",
-      "kea_code": "E169"
+      "kea_code": "E169",
+      "established_year": 2010,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 9,
@@ -8852,7 +8942,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E095"
+      "kea_code": "E095",
+      "established_year": 1997,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 10,
@@ -9092,7 +9185,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E168"
+      "kea_code": "E168",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 11,
@@ -9385,7 +9481,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Belagavi",
-      "kea_code": "E185"
+      "kea_code": "E185",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 12,
@@ -9529,7 +9628,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Belagavi",
-      "kea_code": "E304"
+      "kea_code": "E304",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 13,
@@ -9747,7 +9849,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E085"
+      "kea_code": "E085",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 14,
@@ -10126,7 +10231,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Mysuru",
-      "kea_code": "E205"
+      "kea_code": "E205",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 15,
@@ -10534,7 +10642,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E098"
+      "kea_code": "E098",
+      "established_year": 1997,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 16,
@@ -11078,7 +11189,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E048"
+      "kea_code": "E048",
+      "established_year": 1982,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 17,
@@ -11449,7 +11563,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E126"
+      "kea_code": "E126",
+      "established_year": 2004,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 18,
@@ -11747,7 +11864,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E107"
+      "kea_code": "E107",
+      "established_year": 2004,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 19,
@@ -12084,7 +12204,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bagalkot",
-      "kea_code": "E049"
+      "kea_code": "E049",
+      "established_year": 1982,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 20,
@@ -12546,7 +12669,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Ballari",
-      "kea_code": "E075"
+      "kea_code": "E075",
+      "established_year": 1997,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 21,
@@ -13195,7 +13321,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E008"
+      "kea_code": "E008",
+      "established_year": 1979,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 22,
@@ -13562,7 +13691,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E204"
+      "kea_code": "E204",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 23,
@@ -14164,7 +14296,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Davanagere",
-      "kea_code": "E062"
+      "kea_code": "E062",
+      "established_year": 1997,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 24,
@@ -14265,7 +14400,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Vijayapura",
-      "kea_code": "E264"
+      "kea_code": "E264",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 25,
@@ -14524,7 +14662,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bidar",
-      "kea_code": "E093"
+      "kea_code": "E093",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 26,
@@ -14755,7 +14896,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E286"
+      "kea_code": "E286",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 27,
@@ -15088,7 +15232,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bidar",
-      "kea_code": "E044"
+      "kea_code": "E044",
+      "established_year": 1982,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 28,
@@ -15289,7 +15436,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bagalkot",
-      "kea_code": "E221"
+      "kea_code": "E221",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 29,
@@ -15663,7 +15813,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Vijayapura",
-      "kea_code": "E038"
+      "kea_code": "E038",
+      "established_year": 1982,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 30,
@@ -15971,7 +16124,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E171"
+      "kea_code": "E171",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 31,
@@ -16251,7 +16407,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Kolar",
-      "kea_code": "E184"
+      "kea_code": "E184",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 32,
@@ -16620,7 +16779,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E097"
+      "kea_code": "E097",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 33,
@@ -16901,7 +17063,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E222"
+      "kea_code": "E222",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 34,
@@ -17291,7 +17456,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E149"
+      "kea_code": "E149",
+      "established_year": 2004,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 35,
@@ -17565,7 +17733,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Mysuru",
-      "kea_code": "E314"
+      "kea_code": "E314",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 36,
@@ -17771,7 +17942,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Mandya",
-      "kea_code": "E227"
+      "kea_code": "E227",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 37,
@@ -18081,7 +18255,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Tumkur",
-      "kea_code": "E101"
+      "kea_code": "E101",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 38,
@@ -18400,7 +18577,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E109"
+      "kea_code": "E109",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 39,
@@ -18677,7 +18857,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Kodagu",
-      "kea_code": "E094"
+      "kea_code": "E094",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 40,
@@ -19114,7 +19297,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E212"
+      "kea_code": "E212",
+      "established_year": 2015,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 41,
@@ -20004,7 +20190,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E007"
+      "kea_code": "E007",
+      "established_year": 1963,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": 101
     },
     {
       "college_number": 42,
@@ -20394,7 +20583,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E102"
+      "kea_code": "E102",
+      "established_year": 2004,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 43,
@@ -20587,7 +20779,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E305"
+      "kea_code": "E305",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 44,
@@ -20974,7 +21169,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E060"
+      "kea_code": "E060",
+      "established_year": 2013,
+      "affiliation": "Private University (PES)",
+      "nirf_ranking": 101
     },
     {
       "college_number": 45,
@@ -21200,7 +21398,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E174"
+      "kea_code": "E174",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 46,
@@ -21456,7 +21657,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Kolar",
-      "kea_code": "E015"
+      "kea_code": "E015",
+      "established_year": 1965,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 47,
@@ -21805,7 +22009,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E096"
+      "kea_code": "E096",
+      "established_year": 1997,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 48,
@@ -22019,7 +22226,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E239"
+      "kea_code": "E239",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 49,
@@ -22494,7 +22704,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E106"
+      "kea_code": "E106",
+      "established_year": 2004,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 50,
@@ -22666,7 +22879,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Davanagere",
-      "kea_code": "E114"
+      "kea_code": "E114",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 51,
@@ -22937,7 +23153,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Mandya",
-      "kea_code": "E210"
+      "kea_code": "E210",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 52,
@@ -23225,7 +23444,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Mysuru",
-      "kea_code": "E133"
+      "kea_code": "E133",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 53,
@@ -23341,7 +23563,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E299"
+      "kea_code": "E299",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 54,
@@ -23833,7 +24058,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E103"
+      "kea_code": "E103",
+      "established_year": 2004,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 55,
@@ -24134,7 +24362,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E201"
+      "kea_code": "E201",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 56,
@@ -24311,7 +24542,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Raichur",
-      "kea_code": "E046"
+      "kea_code": "E046",
+      "established_year": 1982,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 57,
@@ -24553,7 +24787,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E313"
+      "kea_code": "E313",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 58,
@@ -24739,7 +24976,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Belagavi",
-      "kea_code": "E040"
+      "kea_code": "E040",
+      "established_year": 1982,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 59,
@@ -25067,7 +25307,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E139"
+      "kea_code": "E139",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 60,
@@ -25480,7 +25723,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E082"
+      "kea_code": "E082",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 61,
@@ -25699,7 +25945,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Belagavi",
-      "kea_code": "E269"
+      "kea_code": "E269",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 62,
@@ -25905,7 +26154,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Dharwad",
-      "kea_code": "E265"
+      "kea_code": "E265",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 63,
@@ -26173,7 +26425,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Belagavi",
-      "kea_code": "E196"
+      "kea_code": "E196",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 64,
@@ -26499,7 +26754,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Davanagere",
-      "kea_code": "E211"
+      "kea_code": "E211",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 65,
@@ -26968,7 +27226,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Shivamogga",
-      "kea_code": "E065"
+      "kea_code": "E065",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 66,
@@ -27174,7 +27435,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E120"
+      "kea_code": "E120",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 67,
@@ -27436,7 +27700,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E209"
+      "kea_code": "E209",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 68,
@@ -27659,7 +27926,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Belagavi",
-      "kea_code": "E167"
+      "kea_code": "E167",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 69,
@@ -27905,7 +28175,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Uttara Kannada",
-      "kea_code": "E135"
+      "kea_code": "E135",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 70,
@@ -28317,7 +28590,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E100"
+      "kea_code": "E100",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 71,
@@ -28647,7 +28923,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E091"
+      "kea_code": "E091",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 72,
@@ -28929,7 +29208,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E203"
+      "kea_code": "E203",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 73,
@@ -29115,7 +29397,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Dakshina Kannada",
-      "kea_code": "E054"
+      "kea_code": "E054",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 74,
@@ -29602,7 +29887,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Belagavi",
-      "kea_code": "E037"
+      "kea_code": "E037",
+      "established_year": 1982,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 75,
@@ -29877,7 +30165,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Hassan",
-      "kea_code": "E018"
+      "kea_code": "E018",
+      "established_year": 1965,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 76,
@@ -30115,7 +30406,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Dakshina Kannada",
-      "kea_code": "E159"
+      "kea_code": "E159",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 77,
@@ -30354,7 +30648,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bidar",
-      "kea_code": "E213"
+      "kea_code": "E213",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 78,
@@ -30695,7 +30992,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E127"
+      "kea_code": "E127",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 79,
@@ -31479,7 +31779,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E006"
+      "kea_code": "E006",
+      "established_year": 1962,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": 78
     },
     {
       "college_number": 80,
@@ -31991,7 +32294,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Mandya",
-      "kea_code": "E158"
+      "kea_code": "E158",
+      "established_year": 2010,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 81,
@@ -32254,7 +32560,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Mysuru",
-      "kea_code": "E258"
+      "kea_code": "E258",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 82,
@@ -32605,7 +32914,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Hassan",
-      "kea_code": "E047"
+      "kea_code": "E047",
+      "established_year": 1982,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 83,
@@ -33072,7 +33384,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Dakshina Kannada",
-      "kea_code": "E151"
+      "kea_code": "E151",
+      "established_year": 2010,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 84,
@@ -33233,7 +33548,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Belagavi",
-      "kea_code": "E029"
+      "kea_code": "E029",
+      "established_year": 1982,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 85,
@@ -33525,7 +33843,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Udupi",
-      "kea_code": "E136"
+      "kea_code": "E136",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 86,
@@ -33783,7 +34104,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Mysuru",
-      "kea_code": "E252"
+      "kea_code": "E252",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 87,
@@ -34035,7 +34359,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E238"
+      "kea_code": "E238",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 88,
@@ -34377,7 +34704,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E104"
+      "kea_code": "E104",
+      "established_year": 2004,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 89,
@@ -34654,7 +34984,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Hassan",
-      "kea_code": "E189"
+      "kea_code": "E189",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 90,
@@ -34907,7 +35240,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Raichur",
-      "kea_code": "E176"
+      "kea_code": "E176",
+      "established_year": 2010,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 91,
@@ -35117,7 +35453,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E312"
+      "kea_code": "E312",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 92,
@@ -35611,7 +35950,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Kalaburagi",
-      "kea_code": "E059"
+      "kea_code": "E059",
+      "established_year": 1997,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 93,
@@ -36037,7 +36379,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Mandya",
-      "kea_code": "E058"
+      "kea_code": "E058",
+      "established_year": 1997,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 94,
@@ -36532,7 +36877,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Shivamogga",
-      "kea_code": "E150"
+      "kea_code": "E150",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 95,
@@ -36774,7 +37122,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Ballari",
-      "kea_code": "E076"
+      "kea_code": "E076",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 96,
@@ -36940,7 +37291,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E275"
+      "kea_code": "E275",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 97,
@@ -37550,7 +37904,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E005"
+      "kea_code": "E005",
+      "established_year": 1963,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": 96
     },
     {
       "college_number": 98,
@@ -37806,7 +38163,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E116"
+      "kea_code": "E116",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 99,
@@ -38257,7 +38617,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E172"
+      "kea_code": "E172",
+      "established_year": 2010,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 100,
@@ -38469,7 +38832,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Gadag",
-      "kea_code": "E032"
+      "kea_code": "E032",
+      "established_year": 1982,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 101,
@@ -38885,7 +39251,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E145"
+      "kea_code": "E145",
+      "established_year": 2004,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 102,
@@ -39238,7 +39607,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E177"
+      "kea_code": "E177",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 103,
@@ -39563,7 +39935,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E124"
+      "kea_code": "E124",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 104,
@@ -39992,7 +40367,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Ballari",
-      "kea_code": "E045"
+      "kea_code": "E045",
+      "established_year": 1982,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 105,
@@ -40245,7 +40623,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E311"
+      "kea_code": "E311",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 106,
@@ -40680,7 +41061,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E118"
+      "kea_code": "E118",
+      "established_year": 2004,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 107,
@@ -41055,7 +41439,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E153"
+      "kea_code": "E153",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 108,
@@ -41566,7 +41953,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Chikballapura",
-      "kea_code": "E014"
+      "kea_code": "E014",
+      "established_year": 1962,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 109,
@@ -41797,7 +42187,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Chitradurga",
-      "kea_code": "E063"
+      "kea_code": "E063",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 110,
@@ -42198,7 +42591,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E115"
+      "kea_code": "E115",
+      "established_year": 2001,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 111,
@@ -42532,7 +42928,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Belagavi",
-      "kea_code": "E175"
+      "kea_code": "E175",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 112,
@@ -42837,7 +43236,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Dakshina Kannada",
-      "kea_code": "E160"
+      "kea_code": "E160",
+      "established_year": 2010,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 113,
@@ -43191,7 +43593,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E173"
+      "kea_code": "E173",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 114,
@@ -43508,7 +43913,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E113"
+      "kea_code": "E113",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 115,
@@ -43739,7 +44147,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Ramanagara",
-      "kea_code": "E202"
+      "kea_code": "E202",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 116,
@@ -43982,7 +44393,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Vijayapura",
-      "kea_code": "E132"
+      "kea_code": "E132",
+      "established_year": 2000,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 117,
@@ -44258,7 +44672,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Mysuru",
-      "kea_code": "E307"
+      "kea_code": "E307",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 118,
@@ -44470,7 +44887,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Kalaburagi",
-      "kea_code": "E216"
+      "kea_code": "E216",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 119,
@@ -44762,7 +45182,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Dakshina Kannada",
-      "kea_code": "E146"
+      "kea_code": "E146",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 120,
@@ -44978,7 +45401,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Udupi",
-      "kea_code": "E206"
+      "kea_code": "E206",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 121,
@@ -45357,7 +45783,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Tumkur",
-      "kea_code": "E130"
+      "kea_code": "E130",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 122,
@@ -45926,7 +46355,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Tumkur",
-      "kea_code": "E016"
+      "kea_code": "E016",
+      "established_year": 1965,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 123,
@@ -46014,7 +46446,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E259"
+      "kea_code": "E259",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 124,
@@ -46632,7 +47067,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E012"
+      "kea_code": "E012",
+      "established_year": 1986,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 125,
@@ -46676,7 +47114,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": null
+      "kea_code": null,
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 126,
@@ -46946,7 +47387,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Gadag",
-      "kea_code": "E134"
+      "kea_code": "E134",
+      "established_year": 2001,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 127,
@@ -47097,7 +47541,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Tumkur",
-      "kea_code": "E181"
+      "kea_code": "E181",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 128,
@@ -47160,7 +47607,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Mysuru",
-      "kea_code": "E284"
+      "kea_code": "E284",
+      "established_year": 1963,
+      "affiliation": "Constituent University College (JSS STU)",
+      "nirf_ranking": null
     },
     {
       "college_number": 129,
@@ -47426,7 +47876,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E112"
+      "kea_code": "E112",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 130,
@@ -47577,7 +48030,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E090"
+      "kea_code": "E090",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 131,
@@ -47883,7 +48339,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E086"
+      "kea_code": "E086",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 132,
@@ -48259,7 +48718,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Tumkur",
-      "kea_code": "E081"
+      "kea_code": "E081",
+      "established_year": 1979,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 133,
@@ -48479,7 +48941,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Haveri",
-      "kea_code": "E033"
+      "kea_code": "E033",
+      "established_year": 1947,
+      "affiliation": "Private University (KLE Tech)",
+      "nirf_ranking": 151
     },
     {
       "college_number": 134,
@@ -48843,7 +49308,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E111"
+      "kea_code": "E111",
+      "established_year": 2004,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 135,
@@ -49257,7 +49725,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Dakshina Kannada",
-      "kea_code": "E144"
+      "kea_code": "E144",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 136,
@@ -49517,7 +49988,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E147"
+      "kea_code": "E147",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 137,
@@ -49800,7 +50274,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Mysuru",
-      "kea_code": "E056"
+      "kea_code": "E056",
+      "established_year": 1997,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 138,
@@ -50106,7 +50583,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Gadag",
-      "kea_code": "E028"
+      "kea_code": "E028",
+      "established_year": 1958,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 139,
@@ -50287,7 +50767,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Belagavi",
-      "kea_code": "E207"
+      "kea_code": "E207",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 140,
@@ -50442,7 +50925,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Yadgir",
-      "kea_code": "E197"
+      "kea_code": "E197",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 141,
@@ -50815,7 +51301,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E092"
+      "kea_code": "E092",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 142,
@@ -51166,7 +51655,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Mysuru",
-      "kea_code": "E071"
+      "kea_code": "E071",
+      "established_year": 1997,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 143,
@@ -51396,7 +51888,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Mysuru",
-      "kea_code": "E077"
+      "kea_code": "E077",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 144,
@@ -51698,7 +52193,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E188"
+      "kea_code": "E188",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 145,
@@ -51927,7 +52425,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Dakshina Kannada",
-      "kea_code": "E121"
+      "kea_code": "E121",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 146,
@@ -52223,7 +52724,10 @@
       "cat2_pct": 30,
       "cat3_pct": 25,
       "district": "Bangalore",
-      "kea_code": "E087"
+      "kea_code": "E087",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 23,
@@ -52468,7 +52972,10 @@
           }
         }
       ],
-      "kea_code": "E290"
+      "kea_code": "E290",
+      "established_year": 2015,
+      "affiliation": "State University Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 147,
@@ -52776,7 +53283,10 @@
           }
         }
       ],
-      "kea_code": "E165"
+      "kea_code": "E165",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 1,
@@ -53029,7 +53539,10 @@
           }
         }
       ],
-      "kea_code": "E003"
+      "kea_code": "E003",
+      "established_year": 1946,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": 101
     },
     {
       "college_number": 2,
@@ -53335,7 +53848,10 @@
           }
         }
       ],
-      "kea_code": "E031"
+      "kea_code": "E031",
+      "established_year": 1982,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 3,
@@ -53778,7 +54294,10 @@
           }
         }
       ],
-      "kea_code": "E004"
+      "kea_code": "E004",
+      "established_year": 1980,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 4,
@@ -53995,7 +54514,10 @@
           }
         }
       ],
-      "kea_code": "E024"
+      "kea_code": "E024",
+      "established_year": 1982,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 5,
@@ -54240,7 +54762,10 @@
           }
         }
       ],
-      "kea_code": "E041"
+      "kea_code": "E041",
+      "established_year": 1982,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 6,
@@ -54460,7 +54985,10 @@
           }
         }
       ],
-      "kea_code": "E023"
+      "kea_code": "E023",
+      "established_year": 1963,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 7,
@@ -54921,7 +55449,10 @@
           }
         }
       ],
-      "kea_code": "E021"
+      "kea_code": "E021",
+      "established_year": 1982,
+      "affiliation": "State University Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 8,
@@ -55099,7 +55630,10 @@
           }
         }
       ],
-      "kea_code": "E022"
+      "kea_code": "E022",
+      "established_year": 1982,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 1,
@@ -55456,7 +55990,10 @@
           }
         }
       ],
-      "kea_code": "E254"
+      "kea_code": "E254",
+      "established_year": 2015,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 2,
@@ -55722,7 +56259,10 @@
           }
         }
       ],
-      "kea_code": "E035"
+      "kea_code": "E035",
+      "established_year": 1982,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 3,
@@ -55977,7 +56517,10 @@
           }
         }
       ],
-      "kea_code": "E070"
+      "kea_code": "E070",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 4,
@@ -56176,7 +56719,10 @@
           }
         }
       ],
-      "kea_code": "E180"
+      "kea_code": "E180",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 5,
@@ -56489,7 +57035,10 @@
           }
         }
       ],
-      "kea_code": "E123"
+      "kea_code": "E123",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 6,
@@ -56782,7 +57331,10 @@
           }
         }
       ],
-      "kea_code": "E013"
+      "kea_code": "E013",
+      "established_year": 1965,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 7,
@@ -57180,7 +57732,10 @@
           }
         }
       ],
-      "kea_code": "E043"
+      "kea_code": "E043",
+      "established_year": 1982,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 8,
@@ -57442,7 +57997,10 @@
           }
         }
       ],
-      "kea_code": "E083"
+      "kea_code": "E083",
+      "established_year": 2001,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": 151
     },
     {
       "college_number": 9,
@@ -57591,7 +58149,10 @@
           }
         }
       ],
-      "kea_code": "E119"
+      "kea_code": "E119",
+      "established_year": 2004,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 10,
@@ -58205,7 +58766,10 @@
           }
         }
       ],
-      "kea_code": "E011"
+      "kea_code": "E011",
+      "established_year": 1960,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 11,
@@ -58486,7 +59050,10 @@
           }
         }
       ],
-      "kea_code": "E099"
+      "kea_code": "E099",
+      "established_year": 1997,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 12,
@@ -58730,7 +59297,10 @@
           }
         }
       ],
-      "kea_code": "E055"
+      "kea_code": "E055",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 13,
@@ -58966,7 +59536,10 @@
           }
         }
       ],
-      "kea_code": "E152"
+      "kea_code": "E152",
+      "established_year": 2010,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 14,
@@ -59324,7 +59897,10 @@
           }
         }
       ],
-      "kea_code": "E034"
+      "kea_code": "E034",
+      "established_year": 1982,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 15,
@@ -59717,7 +60293,10 @@
           }
         }
       ],
-      "kea_code": "E129"
+      "kea_code": "E129",
+      "established_year": 2004,
+      "affiliation": "Autonomous (VTU Affiliated)",
+      "nirf_ranking": null
     },
     {
       "college_number": 16,
@@ -60157,7 +60736,10 @@
           }
         }
       ],
-      "kea_code": "E078"
+      "kea_code": "E078",
+      "established_year": 1997,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 1,
@@ -60580,7 +61162,10 @@
           }
         }
       ],
-      "kea_code": "E001"
+      "kea_code": "E001",
+      "established_year": 1917,
+      "affiliation": "State University (UVCE)",
+      "nirf_ranking": null
     },
     {
       "college_number": 1,
@@ -60743,7 +61328,10 @@
             "SCG": "244290"
           }
         }
-      ]
+      ],
+      "established_year": 2015,
+      "affiliation": "State University Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 2,
@@ -61031,7 +61619,10 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {}
         }
-      ]
+      ],
+      "established_year": 1997,
+      "affiliation": "State University Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 1,
@@ -61437,7 +62028,10 @@
           "mock_round1_cutoff": {}
         }
       ],
-      "kea_code": "E255"
+      "kea_code": "E255",
+      "established_year": 2015,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 2,
@@ -61935,7 +62529,10 @@
           "mock_round1_cutoff": {}
         }
       ],
-      "kea_code": "E017"
+      "kea_code": "E017",
+      "established_year": 1982,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 1,
@@ -62215,7 +62812,10 @@
           }
         }
       ],
-      "kea_code": "E142"
+      "kea_code": "E142",
+      "established_year": 2004,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 2,
@@ -62860,7 +63460,10 @@
           }
         }
       ],
-      "kea_code": "E220"
+      "kea_code": "E220",
+      "established_year": 2010,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 3,
@@ -63378,7 +63981,10 @@
           }
         }
       ],
-      "kea_code": "E302"
+      "kea_code": "E302",
+      "established_year": 2022,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 4,
@@ -63718,7 +64324,10 @@
           "mock_round1_cutoff": {}
         }
       ],
-      "kea_code": "E257"
+      "kea_code": "E257",
+      "established_year": 2013,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 5,
@@ -64339,7 +64948,10 @@
           }
         }
       ],
-      "kea_code": "E240"
+      "kea_code": "E240",
+      "established_year": 2014,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 6,
@@ -64648,7 +65260,10 @@
           }
         }
       ],
-      "kea_code": "E288"
+      "kea_code": "E288",
+      "established_year": 2015,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 7,
@@ -65356,7 +65971,10 @@
           }
         }
       ],
-      "kea_code": "E303"
+      "kea_code": "E303",
+      "established_year": 2015,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 8,
@@ -65813,7 +66431,10 @@
           "mock_round1_cutoff": {}
         }
       ],
-      "kea_code": "E057"
+      "kea_code": "E057",
+      "established_year": 1997,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 9,
@@ -66126,7 +66747,10 @@
           }
         }
       ],
-      "kea_code": "E036"
+      "kea_code": "E036",
+      "established_year": 1982,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 10,
@@ -66327,7 +66951,10 @@
           }
         }
       ],
-      "kea_code": "E042"
+      "kea_code": "E042",
+      "established_year": 1982,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 11,
@@ -66563,7 +67190,10 @@
           }
         }
       ],
-      "kea_code": "E301"
+      "kea_code": "E301",
+      "established_year": 2015,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 12,
@@ -67026,7 +67656,10 @@
           }
         }
       ],
-      "kea_code": "E241"
+      "kea_code": "E241",
+      "established_year": 2015,
+      "affiliation": "Private University",
+      "nirf_ranking": 151
     },
     {
       "college_number": 13,
@@ -67511,7 +68144,10 @@
           "mock_round1_cutoff": {}
         }
       ],
-      "kea_code": "E235"
+      "kea_code": "E235",
+      "established_year": 2013,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 14,
@@ -67848,7 +68484,10 @@
           }
         }
       ],
-      "kea_code": "E009"
+      "kea_code": "E009",
+      "established_year": 1962,
+      "affiliation": "VTU Affiliated",
+      "nirf_ranking": null
     },
     {
       "college_number": 15,
@@ -68048,7 +68687,10 @@
           "mock_round1_cutoff": {}
         }
       ],
-      "kea_code": "E141"
+      "kea_code": "E141",
+      "established_year": 2004,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 16,
@@ -68930,7 +69572,10 @@
           "mock_round1_cutoff": {}
         }
       ],
-      "kea_code": "E237"
+      "kea_code": "E237",
+      "established_year": 2013,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 17,
@@ -69006,7 +69651,10 @@
           "mock_round1_cutoff": {}
         }
       ],
-      "kea_code": "E256"
+      "kea_code": "E256",
+      "established_year": 2015,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 18,
@@ -69743,7 +70391,10 @@
           }
         }
       ],
-      "kea_code": "E232"
+      "kea_code": "E232",
+      "established_year": 2012,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 19,
@@ -69825,7 +70476,10 @@
           }
         }
       ],
-      "kea_code": "E285"
+      "kea_code": "E285",
+      "established_year": 2020,
+      "affiliation": "Private University (RV)",
+      "nirf_ranking": null
     },
     {
       "college_number": 20,
@@ -70200,7 +70854,10 @@
           "mock_round1_cutoff": {}
         }
       ],
-      "kea_code": "E108"
+      "kea_code": "E108",
+      "established_year": 2004,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 21,
@@ -70233,7 +70890,10 @@
           "round3_cutoff": {}
         }
       ],
-      "kea_code": null
+      "kea_code": null,
+      "established_year": 2015,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 22,
@@ -70467,7 +71127,10 @@
           "mock_round1_cutoff": {}
         }
       ],
-      "kea_code": "E198"
+      "kea_code": "E198",
+      "established_year": 2010,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 23,
@@ -70830,7 +71493,10 @@
           "mock_round1_cutoff": {}
         }
       ],
-      "kea_code": "E128"
+      "kea_code": "E128",
+      "established_year": 2004,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 24,
@@ -71086,7 +71752,10 @@
           }
         }
       ],
-      "kea_code": "E193"
+      "kea_code": "E193",
+      "established_year": 2010,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 25,
@@ -71389,7 +72058,10 @@
           }
         }
       ],
-      "kea_code": "E306"
+      "kea_code": "E306",
+      "established_year": 2020,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 26,
@@ -71636,7 +72308,10 @@
           }
         }
       ],
-      "kea_code": "E283"
+      "kea_code": "E283",
+      "established_year": 2015,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     },
     {
       "college_number": 27,
@@ -71701,7 +72376,10 @@
           }
         }
       ],
-      "kea_code": "E287"
+      "kea_code": "E287",
+      "established_year": 2021,
+      "affiliation": "Private University",
+      "nirf_ranking": null
     }
   ],
   "all_courses": [

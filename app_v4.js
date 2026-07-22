@@ -650,6 +650,8 @@ async function init() {
       if (distFilter) distFilter.value = '';
       const courseFilter = document.getElementById('course-filter');
       if (courseFilter) courseFilter.value = '';
+      const affFilter = document.getElementById('affiliation-filter');
+      if (affFilter) affFilter.value = '';
       const slider = document.getElementById('min-seats');
       if (slider) slider.value = 0;
       const sliderVal = document.getElementById('min-seats-val');
@@ -1997,6 +1999,7 @@ function bindOptionEntryEvents() {
 function applyFilters() {
   const { search, annexure, district, course, minSeats } = filters;
   const q = search.toLowerCase().trim();
+  const affiliationVal = document.getElementById('affiliation-filter')?.value || '';
 
   let baseColleges = allData.colleges;
   const isInst = (currentUser && currentUser.role === 'institution');
@@ -2019,6 +2022,19 @@ function applyFilters() {
       if (!has) return false;
     }
     if (minSeats > 0 && (c.total_intake || 0) < minSeats) return false;
+    if (affiliationVal) {
+      if (affiliationVal === 'Autonomous') {
+        if (!c.affiliation || !c.affiliation.includes('Autonomous')) return false;
+      } else if (affiliationVal === 'Private University') {
+        if (!c.affiliation || !c.affiliation.includes('Private University')) return false;
+      } else if (affiliationVal === 'State University') {
+        if (!c.affiliation || !c.affiliation.includes('State University')) return false;
+      } else if (affiliationVal === 'VTU Affiliated (Government)') {
+        if (!c.affiliation || !c.affiliation.includes('VTU Affiliated (Government)')) return false;
+      } else if (affiliationVal === 'VTU Affiliated') {
+        if (!c.affiliation || c.affiliation !== 'VTU Affiliated') return false;
+      }
+    }
     if (q) {
       const nameMatch = c.college_name.toLowerCase().includes(q);
       const addrMatch = (c.address || '').toLowerCase().includes(q);
@@ -2133,6 +2149,10 @@ function renderCollegeCard(college, index) {
     </div>` : ''}
   `;
 
+  const estBadg = college.established_year ? `<span class="meta-badge" style="background:rgba(255,255,255,0.04); color:var(--text-muted); padding:2px 6px; border-radius:4px; font-size:10px; font-weight:600; display:inline-flex; align-items:center; gap:3px; border:1px solid var(--border);">📅 Est. ${college.established_year}</span>` : '';
+  const affBadg = college.affiliation ? `<span class="meta-badge" style="background:rgba(59,130,246,0.06); color:var(--blue); padding:2px 6px; border-radius:4px; font-size:10px; font-weight:600; display:inline-flex; align-items:center; gap:3px; border:1px solid rgba(59,130,246,0.15);">🎓 ${college.affiliation}</span>` : '';
+  const nirfBadg = college.nirf_ranking ? `<span class="meta-badge" style="background:rgba(234,179,8,0.06); color:#eab308; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700; display:inline-flex; align-items:center; gap:3px; border:1px solid rgba(234,179,8,0.15);">🏆 NIRF #${college.nirf_ranking}</span>` : '';
+
   return `
     <div class="college-card" style="animation-delay:${Math.min(index * 0.03, 0.3)}s" data-index="${index}" data-college-number="${college.college_number}">
       <div class="card-top">
@@ -2145,6 +2165,11 @@ function renderCollegeCard(college, index) {
                <circle cx="12" cy="9" r="2.5"/>
             </svg>
             ${escHtml(college.district || 'Karnataka')}
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:6px;">
+            ${estBadg}
+            ${affBadg}
+            ${nirfBadg}
           </div>
         </div>
         <span class="card-type-pill pill-${ann}">${annLabel}</span>
@@ -2771,6 +2796,10 @@ function openModal(college) {
     .map(cat => `<option value="${cat}" ${cat === defaultCat ? 'selected' : ''}>${cat}</option>`)
     .join('');
 
+  const ageSpan = college.established_year ? `<span style="font-size:12px; font-weight:600; color:var(--text-muted); background:rgba(255,255,255,0.03); border:1px solid var(--border); padding:4px 10px; border-radius:6px; display:inline-flex; align-items:center; gap:4px;">📅 Established: <strong>${college.established_year}</strong> (${new Date().getFullYear() - college.established_year} years old)</span>` : '';
+  const affSpan = college.affiliation ? `<span style="font-size:12px; font-weight:600; color:var(--blue); background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.15); padding:4px 10px; border-radius:6px; display:inline-flex; align-items:center; gap:4px;">🎓 Affiliation: <strong>${college.affiliation}</strong></span>` : '';
+  const nirfSpan = college.nirf_ranking ? `<span style="font-size:12px; font-weight:700; color:#eab308; background:rgba(234,179,8,0.06); border:1px solid rgba(234,179,8,0.15); padding:4px 10px; border-radius:6px; display:inline-flex; align-items:center; gap:4px;">🏆 NIRF Rank: <strong>#${college.nirf_ranking} (Engg 2025)</strong></span>` : '';
+
   document.getElementById('modal-content').innerHTML = `
     <div class="modal-header">
       <div class="modal-badge-row">
@@ -2782,6 +2811,11 @@ function openModal(college) {
       </div>
       <div class="modal-title">${college.kea_code ? `<span class="kea-code-badge large">${college.kea_code}</span> ` : ''}${escHtml(college.college_name)}</div>
       <div class="modal-address">📌 ${escHtml(college.address || 'Karnataka')}</div>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; margin-bottom:4px;">
+        ${ageSpan}
+        ${affSpan}
+        ${nirfSpan}
+      </div>
     </div>
 
     <div class="modal-seats-row">
@@ -3579,6 +3613,14 @@ function bindEvents() {
     applyFilters();
   });
 
+  // Affiliation filter
+  const affFilter = document.getElementById('affiliation-filter');
+  if (affFilter) {
+    affFilter.addEventListener('change', () => {
+      applyFilters();
+    });
+  }
+
   // Min seats slider
   const slider = document.getElementById('min-seats');
   const sliderVal = document.getElementById('min-seats-val');
@@ -3594,6 +3636,7 @@ function bindEvents() {
     searchInput.value = '';
     document.getElementById('district-filter').value = '';
     document.getElementById('course-filter').value = '';
+    if (affFilter) affFilter.value = '';
     slider.value = 0;
     sliderVal.textContent = '0+';
     document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
