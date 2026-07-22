@@ -652,6 +652,10 @@ async function init() {
       if (courseFilter) courseFilter.value = '';
       const affFilter = document.getElementById('affiliation-filter');
       if (affFilter) affFilter.value = '';
+      const naacFilter = document.getElementById('naac-filter');
+      if (naacFilter) naacFilter.value = '';
+      const nbaFilter = document.getElementById('nba-filter');
+      if (nbaFilter) nbaFilter.value = '';
       const slider = document.getElementById('min-seats');
       if (slider) slider.value = 0;
       const sliderVal = document.getElementById('min-seats-val');
@@ -2000,6 +2004,8 @@ function applyFilters() {
   const { search, annexure, district, course, minSeats } = filters;
   const q = search.toLowerCase().trim();
   const affiliationVal = document.getElementById('affiliation-filter')?.value || '';
+  const naacVal = document.getElementById('naac-filter')?.value || '';
+  const nbaVal = document.getElementById('nba-filter')?.value || '';
 
   let baseColleges = allData.colleges;
   const isInst = (currentUser && currentUser.role === 'institution');
@@ -2034,6 +2040,24 @@ function applyFilters() {
       } else if (affiliationVal === 'VTU Affiliated') {
         if (!c.affiliation || c.affiliation !== 'VTU Affiliated') return false;
       }
+    }
+    if (naacVal) {
+      if (!c.naac_grade) return false;
+      if (naacVal === 'A++' && c.naac_grade !== 'A++') return false;
+      if (naacVal === 'A+') {
+        if (c.naac_grade !== 'A++' && c.naac_grade !== 'A+') return false;
+      }
+      if (naacVal === 'A') {
+        if (c.naac_grade !== 'A++' && c.naac_grade !== 'A+' && c.naac_grade !== 'A') return false;
+      }
+      if (naacVal === 'B++') {
+        if (c.naac_grade === 'B' || c.naac_grade === 'C') return false;
+      }
+    }
+    if (nbaVal) {
+      const isAcc = !!c.nba_accredited;
+      if (nbaVal === 'Accredited' && !isAcc) return false;
+      if (nbaVal === 'Not Accredited' && isAcc) return false;
     }
     if (q) {
       const nameMatch = c.college_name.toLowerCase().includes(q);
@@ -2152,6 +2176,8 @@ function renderCollegeCard(college, index) {
   const estBadg = college.established_year ? `<span class="meta-badge" style="background:rgba(255,255,255,0.04); color:var(--text-muted); padding:2px 6px; border-radius:4px; font-size:10px; font-weight:600; display:inline-flex; align-items:center; gap:3px; border:1px solid var(--border);">📅 Est. ${college.established_year}</span>` : '';
   const affBadg = college.affiliation ? `<span class="meta-badge" style="background:rgba(59,130,246,0.06); color:var(--blue); padding:2px 6px; border-radius:4px; font-size:10px; font-weight:600; display:inline-flex; align-items:center; gap:3px; border:1px solid rgba(59,130,246,0.15);">🎓 ${college.affiliation}</span>` : '';
   const nirfBadg = college.nirf_ranking ? `<span class="meta-badge" style="background:rgba(234,179,8,0.06); color:#eab308; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700; display:inline-flex; align-items:center; gap:3px; border:1px solid rgba(234,179,8,0.15);">🏆 NIRF #${college.nirf_ranking}</span>` : '';
+  const naacBadg = college.naac_grade ? `<span class="meta-badge" style="background:rgba(168,85,247,0.06); color:#a855f7; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700; display:inline-flex; align-items:center; gap:3px; border:1px solid rgba(168,85,247,0.15);">🎖️ NAAC ${college.naac_grade}</span>` : '';
+  const nbaBadg = college.nba_accredited ? `<span class="meta-badge" style="background:rgba(20,184,166,0.06); color:#14b8a6; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700; display:inline-flex; align-items:center; gap:3px; border:1px solid rgba(20,184,166,0.15);">🛡️ NBA</span>` : '';
 
   return `
     <div class="college-card" style="animation-delay:${Math.min(index * 0.03, 0.3)}s" data-index="${index}" data-college-number="${college.college_number}">
@@ -2170,6 +2196,8 @@ function renderCollegeCard(college, index) {
             ${estBadg}
             ${affBadg}
             ${nirfBadg}
+            ${naacBadg}
+            ${nbaBadg}
           </div>
         </div>
         <span class="card-type-pill pill-${ann}">${annLabel}</span>
@@ -2799,6 +2827,8 @@ function openModal(college) {
   const ageSpan = college.established_year ? `<span style="font-size:12px; font-weight:600; color:var(--text-muted); background:rgba(255,255,255,0.03); border:1px solid var(--border); padding:4px 10px; border-radius:6px; display:inline-flex; align-items:center; gap:4px;">📅 Established: <strong>${college.established_year}</strong> (${new Date().getFullYear() - college.established_year} years old)</span>` : '';
   const affSpan = college.affiliation ? `<span style="font-size:12px; font-weight:600; color:var(--blue); background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.15); padding:4px 10px; border-radius:6px; display:inline-flex; align-items:center; gap:4px;">🎓 Affiliation: <strong>${college.affiliation}</strong></span>` : '';
   const nirfSpan = college.nirf_ranking ? `<span style="font-size:12px; font-weight:700; color:#eab308; background:rgba(234,179,8,0.06); border:1px solid rgba(234,179,8,0.15); padding:4px 10px; border-radius:6px; display:inline-flex; align-items:center; gap:4px;">🏆 NIRF Rank: <strong>#${college.nirf_ranking} (Engg 2025)</strong></span>` : '';
+  const naacSpan = college.naac_grade ? `<span style="font-size:12px; font-weight:700; color:#a855f7; background:rgba(168,85,247,0.06); border:1px solid rgba(168,85,247,0.15); padding:4px 10px; border-radius:6px; display:inline-flex; align-items:center; gap:4px;">🎖️ NAAC Grade: <strong>${college.naac_grade}</strong></span>` : '';
+  const nbaSpan = `<span style="font-size:12px; font-weight:700; color:${college.nba_accredited ? '#14b8a6' : 'var(--text-muted)'}; background:${college.nba_accredited ? 'rgba(20,184,166,0.06)' : 'rgba(255,255,255,0.02)'}; border:1px solid ${college.nba_accredited ? 'rgba(20,184,166,0.15)' : 'var(--border)'}; padding:4px 10px; border-radius:6px; display:inline-flex; align-items:center; gap:4px;">🛡️ NBA: <strong>${college.nba_accredited ? 'Accredited' : 'Not Accredited / Candidate'}</strong></span>`;
 
   document.getElementById('modal-content').innerHTML = `
     <div class="modal-header">
@@ -2815,6 +2845,8 @@ function openModal(college) {
         ${ageSpan}
         ${affSpan}
         ${nirfSpan}
+        ${naacSpan}
+        ${nbaSpan}
       </div>
     </div>
 
@@ -3621,6 +3653,22 @@ function bindEvents() {
     });
   }
 
+  // NAAC filter
+  const naacFilter = document.getElementById('naac-filter');
+  if (naacFilter) {
+    naacFilter.addEventListener('change', () => {
+      applyFilters();
+    });
+  }
+
+  // NBA filter
+  const nbaFilter = document.getElementById('nba-filter');
+  if (nbaFilter) {
+    nbaFilter.addEventListener('change', () => {
+      applyFilters();
+    });
+  }
+
   // Min seats slider
   const slider = document.getElementById('min-seats');
   const sliderVal = document.getElementById('min-seats-val');
@@ -3637,6 +3685,8 @@ function bindEvents() {
     document.getElementById('district-filter').value = '';
     document.getElementById('course-filter').value = '';
     if (affFilter) affFilter.value = '';
+    if (naacFilter) naacFilter.value = '';
+    if (nbaFilter) nbaFilter.value = '';
     slider.value = 0;
     sliderVal.textContent = '0+';
     document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));

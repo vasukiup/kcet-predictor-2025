@@ -192,6 +192,26 @@
       </div>
 
       <div class="sidebar-section">
+        <div class="filter-label">🎖️ NAAC Rating / Grade</div>
+        <select id="naac-filter" class="select-filter">
+          <option value="">All NAAC Ratings</option>
+          <option value="A++">A++ Grade</option>
+          <option value="A+">A+ or Higher</option>
+          <option value="A">A or Higher</option>
+          <option value="B++">B++ or Higher</option>
+        </select>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="filter-label">🛡️ NBA Accreditation</div>
+        <select id="nba-filter" class="select-filter">
+          <option value="">All Statuses</option>
+          <option value="Accredited">NBA Accredited</option>
+          <option value="Not Accredited">Not Accredited / Candidate</option>
+        </select>
+      </div>
+
+      <div class="sidebar-section">
         <div class="filter-label">🪑 Min. Total Seats</div>
         <div class="range-row">
           <input type="range" id="min-seats" min="0" max="1000" step="30" value="0" class="range-input"/>

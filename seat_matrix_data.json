@@ -223,7 +223,9 @@
       "kea_code": "E308",
       "established_year": 2015,
       "affiliation": "State University Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 220,
@@ -506,7 +508,9 @@
       "kea_code": "E310",
       "established_year": 2015,
       "affiliation": "VTU Affiliated (Government)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 197,
@@ -715,7 +719,9 @@
       "kea_code": "E281",
       "established_year": 2015,
       "affiliation": "VTU Affiliated (Government)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 121,
@@ -951,7 +957,9 @@
       "kea_code": "E154",
       "established_year": 2010,
       "affiliation": "VTU Affiliated (Government)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 122,
@@ -1309,7 +1317,9 @@
       "kea_code": "E155",
       "established_year": 2010,
       "affiliation": "VTU Affiliated (Government)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 130,
@@ -1566,7 +1576,9 @@
       "kea_code": "E163",
       "established_year": 2010,
       "affiliation": "VTU Affiliated (Government)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 131,
@@ -1781,7 +1793,9 @@
       "kea_code": "E164",
       "established_year": 2010,
       "affiliation": "VTU Affiliated (Government)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 152,
@@ -2015,7 +2029,9 @@
       "kea_code": "E194",
       "established_year": 2010,
       "affiliation": "VTU Affiliated (Government)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 128,
@@ -2253,7 +2269,9 @@
       "kea_code": "E161",
       "established_year": 2010,
       "affiliation": "VTU Affiliated (Government)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 193,
@@ -2567,7 +2585,9 @@
       "kea_code": "E274",
       "established_year": 2015,
       "affiliation": "VTU Affiliated (Government)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 129,
@@ -2790,7 +2810,9 @@
       "kea_code": "E162",
       "established_year": 2010,
       "affiliation": "VTU Affiliated (Government)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 124,
@@ -3027,7 +3049,9 @@
       "kea_code": "E157",
       "established_year": 2010,
       "affiliation": "VTU Affiliated (Government)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 191,
@@ -3287,7 +3311,9 @@
       "kea_code": "E272",
       "established_year": 2015,
       "affiliation": "VTU Affiliated (Government)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 192,
@@ -3543,7 +3569,9 @@
       "kea_code": "E273",
       "established_year": 2015,
       "affiliation": "VTU Affiliated (Government)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 207,
@@ -3777,7 +3805,9 @@
       "kea_code": "E292",
       "established_year": 2015,
       "affiliation": "VTU Affiliated (Government)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 206,
@@ -4053,7 +4083,9 @@
       "kea_code": "E291",
       "established_year": 2015,
       "affiliation": "VTU Affiliated (Government)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 2,
@@ -4383,7 +4415,9 @@
       "kea_code": "E002",
       "established_year": 1963,
       "affiliation": "Constituent University College (JSS STU)",
-      "nirf_ranking": 201
+      "nirf_ranking": 201,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 123,
@@ -4629,7 +4663,9 @@
       "kea_code": "E156",
       "established_year": 2010,
       "affiliation": "VTU Affiliated (Government)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 49,
@@ -5079,7 +5115,9 @@
       "kea_code": "E061",
       "established_year": 1997,
       "affiliation": "State University Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 196,
@@ -5569,7 +5607,9 @@
       "kea_code": "E279",
       "established_year": 2015,
       "affiliation": "State University Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 195,
@@ -5971,7 +6011,9 @@
       "kea_code": "E278",
       "established_year": 2015,
       "affiliation": "State University Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 204,
@@ -6183,7 +6225,9 @@
       "kea_code": "E289",
       "established_year": 2015,
       "affiliation": "State University Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 61,
@@ -6977,7 +7021,9 @@
       "kea_code": "E079",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 147,
@@ -7510,7 +7556,9 @@
       "kea_code": "E186",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 52,
@@ -7969,7 +8017,9 @@
       "kea_code": "E064",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 208,
@@ -8365,7 +8415,9 @@
       "kea_code": "E297",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 156,
@@ -8724,7 +8776,9 @@
       "kea_code": "E199",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 210,
@@ -9124,7 +9178,9 @@
       "kea_code": "E300",
       "established_year": 2023,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "C",
+      "nba_accredited": false
     },
     {
       "college_number": 150,
@@ -9418,7 +9474,9 @@
       "kea_code": "E191",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 135,
@@ -9963,7 +10021,9 @@
       "kea_code": "E169",
       "established_year": 2010,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 73,
@@ -10548,7 +10608,9 @@
       "kea_code": "E095",
       "established_year": 1997,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 134,
@@ -10808,7 +10870,9 @@
       "kea_code": "E168",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 146,
@@ -11143,7 +11207,9 @@
       "kea_code": "E185",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 214,
@@ -11340,7 +11406,9 @@
       "kea_code": "E304",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 65,
@@ -11614,7 +11682,9 @@
       "kea_code": "E085",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 161,
@@ -12093,7 +12163,9 @@
       "kea_code": "E205",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 76,
@@ -12626,7 +12698,9 @@
       "kea_code": "E098",
       "established_year": 1997,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 40,
@@ -13399,7 +13473,9 @@
       "kea_code": "E048",
       "established_year": 1982,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 99,
@@ -13918,7 +13994,9 @@
       "kea_code": "E126",
       "established_year": 2004,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 84,
@@ -14344,7 +14422,9 @@
       "kea_code": "E107",
       "established_year": 2004,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 41,
@@ -14780,7 +14860,9 @@
       "kea_code": "E049",
       "established_year": 1982,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 57,
@@ -15248,7 +15330,9 @@
       "kea_code": "E075",
       "established_year": 1997,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 8,
@@ -16170,7 +16254,9 @@
       "kea_code": "E008",
       "established_year": 1979,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": 251
+      "nirf_ranking": 251,
+      "naac_grade": "A+",
+      "nba_accredited": true
     },
     {
       "college_number": 160,
@@ -16580,7 +16666,9 @@
       "kea_code": "E204",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 50,
@@ -17369,7 +17457,9 @@
       "kea_code": "E062",
       "established_year": 1997,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 188,
@@ -17493,7 +17583,9 @@
       "kea_code": "E264",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 71,
@@ -17728,7 +17820,9 @@
       "kea_code": "E093",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 201,
@@ -18050,7 +18144,9 @@
       "kea_code": "E286",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 36,
@@ -18362,7 +18458,9 @@
       "kea_code": "E044",
       "established_year": 1982,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 171,
@@ -18589,7 +18687,9 @@
       "kea_code": "E221",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 31,
@@ -19076,7 +19176,9 @@
       "kea_code": "E038",
       "established_year": 1982,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 136,
@@ -19457,7 +19559,9 @@
       "kea_code": "E171",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 145,
@@ -19767,7 +19871,9 @@
       "kea_code": "E184",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 75,
@@ -20297,7 +20403,9 @@
       "kea_code": "E097",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 172,
@@ -20663,7 +20771,9 @@
       "kea_code": "E222",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 116,
@@ -21205,7 +21315,9 @@
       "kea_code": "E149",
       "established_year": 2004,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 224,
@@ -21486,7 +21598,9 @@
       "kea_code": "E314",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 173,
@@ -21695,7 +21809,9 @@
       "kea_code": "E227",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 79,
@@ -22072,7 +22188,9 @@
       "kea_code": "E101",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 86,
@@ -22440,7 +22558,9 @@
       "kea_code": "E109",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 72,
@@ -22742,7 +22862,9 @@
       "kea_code": "E094",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 167,
@@ -23335,7 +23457,9 @@
       "kea_code": "E212",
       "established_year": 2015,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 7,
@@ -24553,7 +24677,9 @@
       "kea_code": "E007",
       "established_year": 1963,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": 100
+      "nirf_ranking": 100,
+      "naac_grade": "A++",
+      "nba_accredited": true
     },
     {
       "college_number": 80,
@@ -25071,7 +25197,9 @@
       "kea_code": "E102",
       "established_year": 2004,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 215,
@@ -25321,7 +25449,9 @@
       "kea_code": "E305",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 48,
@@ -25863,7 +25993,9 @@
       "kea_code": "E060",
       "established_year": 2013,
       "affiliation": "Private University (PES)",
-      "nirf_ranking": 101
+      "nirf_ranking": 101,
+      "naac_grade": "A+",
+      "nba_accredited": true
     },
     {
       "college_number": 139,
@@ -26098,7 +26230,9 @@
       "kea_code": "E174",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 14,
@@ -26367,7 +26501,9 @@
       "kea_code": "E015",
       "established_year": 1965,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 74,
@@ -26834,7 +26970,9 @@
       "kea_code": "E096",
       "established_year": 1997,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 178,
@@ -27102,7 +27240,9 @@
       "kea_code": "E239",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 83,
@@ -27731,7 +27871,9 @@
       "kea_code": "E106",
       "established_year": 2004,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 90,
@@ -27992,7 +28134,9 @@
       "kea_code": "E114",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 165,
@@ -28296,7 +28440,9 @@
       "kea_code": "E210",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 105,
@@ -28708,7 +28854,9 @@
       "kea_code": "E133",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 209,
@@ -28837,7 +28985,9 @@
       "kea_code": "E299",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 81,
@@ -29513,7 +29663,9 @@
       "kea_code": "E103",
       "established_year": 2004,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 157,
@@ -29891,7 +30043,9 @@
       "kea_code": "E201",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 38,
@@ -30054,7 +30208,9 @@
       "kea_code": "E046",
       "established_year": 1982,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 223,
@@ -30311,7 +30467,9 @@
       "kea_code": "E313",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 32,
@@ -30546,7 +30704,9 @@
       "kea_code": "E040",
       "established_year": 1982,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 109,
@@ -30899,7 +31059,9 @@
       "kea_code": "E139",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 63,
@@ -31432,7 +31594,9 @@
       "kea_code": "E082",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 190,
@@ -31708,7 +31872,9 @@
       "kea_code": "E269",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 189,
@@ -31982,7 +32148,9 @@
       "kea_code": "E265",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 153,
@@ -32322,7 +32490,9 @@
       "kea_code": "E196",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 166,
@@ -32686,7 +32856,9 @@
       "kea_code": "E211",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 53,
@@ -33302,7 +33474,9 @@
       "kea_code": "E065",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 95,
@@ -33498,7 +33672,9 @@
       "kea_code": "E120",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 164,
@@ -33808,7 +33984,9 @@
       "kea_code": "E209",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 133,
@@ -34085,7 +34263,9 @@
       "kea_code": "E167",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 107,
@@ -34408,7 +34588,9 @@
       "kea_code": "E135",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 78,
@@ -34883,7 +35065,9 @@
       "kea_code": "E100",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 69,
@@ -35323,7 +35507,9 @@
       "kea_code": "E091",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": 251
+      "nirf_ranking": 251,
+      "naac_grade": "A+",
+      "nba_accredited": true
     },
     {
       "college_number": 159,
@@ -35667,7 +35853,9 @@
       "kea_code": "E203",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 42,
@@ -35866,7 +36054,9 @@
       "kea_code": "E054",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 30,
@@ -36478,7 +36668,9 @@
       "kea_code": "E037",
       "established_year": 1982,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 17,
@@ -36806,7 +36998,9 @@
       "kea_code": "E018",
       "established_year": 1965,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 126,
@@ -37064,7 +37258,9 @@
       "kea_code": "E159",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 168,
@@ -37280,7 +37476,9 @@
       "kea_code": "E213",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 100,
@@ -37627,7 +37825,9 @@
       "kea_code": "E127",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 6,
@@ -38748,7 +38948,9 @@
       "kea_code": "E006",
       "established_year": 1962,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": 75
+      "nirf_ranking": 75,
+      "naac_grade": "A+",
+      "nba_accredited": true
     },
     {
       "college_number": 125,
@@ -39459,7 +39661,9 @@
       "kea_code": "E158",
       "established_year": 2010,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 186,
@@ -39804,7 +40008,9 @@
       "kea_code": "E258",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 39,
@@ -40286,7 +40492,9 @@
       "kea_code": "E047",
       "established_year": 1982,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 118,
@@ -40883,7 +41091,9 @@
       "kea_code": "E151",
       "established_year": 2010,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 23,
@@ -41075,7 +41285,9 @@
       "kea_code": "E029",
       "established_year": 1982,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 108,
@@ -41426,7 +41638,9 @@
       "kea_code": "E136",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 181,
@@ -41713,7 +41927,9 @@
       "kea_code": "E252",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 177,
@@ -41986,7 +42202,9 @@
       "kea_code": "E238",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 82,
@@ -42447,7 +42665,9 @@
       "kea_code": "E104",
       "established_year": 2004,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 149,
@@ -42779,7 +42999,9 @@
       "kea_code": "E189",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 141,
@@ -43010,7 +43232,9 @@
       "kea_code": "E176",
       "established_year": 2010,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 222,
@@ -43209,7 +43433,9 @@
       "kea_code": "E312",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 47,
@@ -43669,7 +43895,9 @@
       "kea_code": "E059",
       "established_year": 1997,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 46,
@@ -44260,7 +44488,9 @@
       "kea_code": "E058",
       "established_year": 1997,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 117,
@@ -44850,7 +45080,9 @@
       "kea_code": "E150",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 58,
@@ -45097,7 +45329,9 @@
       "kea_code": "E076",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 194,
@@ -45331,7 +45565,9 @@
       "kea_code": "E275",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 5,
@@ -46189,7 +46425,9 @@
       "kea_code": "E005",
       "established_year": 1963,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": 99
+      "nirf_ranking": 99,
+      "naac_grade": "A++",
+      "nba_accredited": true
     },
     {
       "college_number": 92,
@@ -46475,7 +46713,9 @@
       "kea_code": "E116",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 137,
@@ -46967,7 +47207,9 @@
       "kea_code": "E172",
       "established_year": 2010,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 25,
@@ -47208,7 +47450,9 @@
       "kea_code": "E032",
       "established_year": 1982,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 113,
@@ -47770,7 +48014,9 @@
       "kea_code": "E145",
       "established_year": 2004,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 142,
@@ -48155,7 +48401,9 @@
       "kea_code": "E177",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 98,
@@ -48554,7 +48802,9 @@
       "kea_code": "E124",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 37,
@@ -48967,7 +49217,9 @@
       "kea_code": "E045",
       "established_year": 1982,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 221,
@@ -49209,7 +49461,9 @@
       "kea_code": "E311",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 93,
@@ -49823,7 +50077,9 @@
       "kea_code": "E118",
       "established_year": 2004,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 120,
@@ -50278,7 +50534,9 @@
       "kea_code": "E153",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 13,
@@ -50885,7 +51143,9 @@
       "kea_code": "E014",
       "established_year": 1962,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": 201
+      "nirf_ranking": 201,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 51,
@@ -51177,7 +51437,9 @@
       "kea_code": "E063",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 91,
@@ -51702,7 +51964,9 @@
       "kea_code": "E115",
       "established_year": 2001,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": 151
+      "nirf_ranking": 151,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 140,
@@ -52124,7 +52388,9 @@
       "kea_code": "E175",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 127,
@@ -52573,7 +52839,9 @@
       "kea_code": "E160",
       "established_year": 2010,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 138,
@@ -53002,7 +53270,9 @@
       "kea_code": "E173",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 89,
@@ -53392,7 +53662,9 @@
       "kea_code": "E113",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 158,
@@ -53628,7 +53900,9 @@
       "kea_code": "E202",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 104,
@@ -53909,7 +54183,9 @@
       "kea_code": "E132",
       "established_year": 2000,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": 151
+      "nirf_ranking": 151,
+      "naac_grade": "A+",
+      "nba_accredited": true
     },
     {
       "college_number": 217,
@@ -54219,7 +54495,9 @@
       "kea_code": "E307",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 169,
@@ -54398,7 +54676,9 @@
       "kea_code": "E216",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 114,
@@ -54713,7 +54993,9 @@
       "kea_code": "E146",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 162,
@@ -54970,7 +55252,9 @@
       "kea_code": "E206",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 103,
@@ -55422,7 +55706,9 @@
       "kea_code": "E130",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 15,
@@ -56209,7 +56495,9 @@
       "kea_code": "E016",
       "established_year": 1965,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 227,
@@ -56274,7 +56562,9 @@
       "kea_code": null,
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 11,
@@ -57141,7 +57431,9 @@
       "kea_code": "E012",
       "established_year": 1986,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 225,
@@ -57188,7 +57480,9 @@
       "kea_code": null,
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 106,
@@ -57518,7 +57812,9 @@
       "kea_code": "E134",
       "established_year": 2001,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": 251
+      "nirf_ranking": 251,
+      "naac_grade": "A+",
+      "nba_accredited": true
     },
     {
       "college_number": 144,
@@ -57705,7 +58001,9 @@
       "kea_code": "E181",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 199,
@@ -57791,7 +58089,9 @@
       "kea_code": "E284",
       "established_year": 1963,
       "affiliation": "Constituent University College (JSS STU)",
-      "nirf_ranking": 201
+      "nirf_ranking": 201,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 88,
@@ -58093,7 +58393,9 @@
       "kea_code": "E112",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 68,
@@ -58258,7 +58560,9 @@
       "kea_code": "E090",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 66,
@@ -58640,7 +58944,9 @@
       "kea_code": "E086",
       "established_year": 2002,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": 201
+      "nirf_ranking": 201,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 62,
@@ -59029,7 +59335,9 @@
       "kea_code": "E081",
       "established_year": 1979,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": 201
+      "nirf_ranking": 201,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 26,
@@ -59281,7 +59589,9 @@
       "kea_code": "E033",
       "established_year": 1947,
       "affiliation": "Private University (KLE Tech)",
-      "nirf_ranking": 151
+      "nirf_ranking": 151,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 87,
@@ -59738,7 +60048,9 @@
       "kea_code": "E111",
       "established_year": 2004,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 112,
@@ -60226,7 +60538,9 @@
       "kea_code": "E144",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 115,
@@ -60558,7 +60872,9 @@
       "kea_code": "E147",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 44,
@@ -61025,7 +61341,9 @@
       "kea_code": "E056",
       "established_year": 1997,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 22,
@@ -61403,7 +61721,9 @@
       "kea_code": "E028",
       "established_year": 1958,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 163,
@@ -61639,7 +61959,9 @@
       "kea_code": "E207",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 154,
@@ -61796,7 +62118,9 @@
       "kea_code": "E197",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 70,
@@ -62270,7 +62594,9 @@
       "kea_code": "E092",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 56,
@@ -62754,7 +63080,9 @@
       "kea_code": "E071",
       "established_year": 1997,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 59,
@@ -63041,7 +63369,9 @@
       "kea_code": "E077",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 148,
@@ -63374,7 +63704,9 @@
       "kea_code": "E188",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 96,
@@ -63659,7 +63991,9 @@
       "kea_code": "E121",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 67,
@@ -63999,7 +64333,9 @@
       "kea_code": "E087",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 205,
@@ -64328,7 +64664,9 @@
       "kea_code": "E290",
       "established_year": 2015,
       "affiliation": "State University Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 132,
@@ -64653,7 +64991,9 @@
       "kea_code": "E165",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 3,
@@ -65025,7 +65365,9 @@
       "kea_code": "E003",
       "established_year": 1946,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": 151
+      "nirf_ranking": 151,
+      "naac_grade": "A++",
+      "nba_accredited": true
     },
     {
       "college_number": 24,
@@ -65423,7 +65765,9 @@
       "kea_code": "E031",
       "established_year": 1982,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 4,
@@ -66039,7 +66383,9 @@
       "kea_code": "E004",
       "established_year": 1980,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 21,
@@ -66319,7 +66665,9 @@
       "kea_code": "E024",
       "established_year": 1982,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 33,
@@ -66562,7 +66910,9 @@
       "kea_code": "E041",
       "established_year": 1982,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 20,
@@ -66831,7 +67181,9 @@
       "kea_code": "E023",
       "established_year": 1963,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": 201
+      "nirf_ranking": 201,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 18,
@@ -67478,7 +67830,9 @@
       "kea_code": "E021",
       "established_year": 1982,
       "affiliation": "State University Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 19,
@@ -67719,7 +68073,9 @@
       "kea_code": "E022",
       "established_year": 1982,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 182,
@@ -68113,7 +68469,9 @@
       "kea_code": "E254",
       "established_year": 2015,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 28,
@@ -68400,7 +68758,9 @@
       "kea_code": "E035",
       "established_year": 1982,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 55,
@@ -68653,7 +69013,9 @@
       "kea_code": "E070",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 143,
@@ -68872,7 +69234,9 @@
       "kea_code": "E180",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 97,
@@ -69215,7 +69579,9 @@
       "kea_code": "E123",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 12,
@@ -69567,7 +69933,9 @@
       "kea_code": "E013",
       "established_year": 1965,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 35,
@@ -69954,7 +70322,9 @@
       "kea_code": "E043",
       "established_year": 1982,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 64,
@@ -70292,7 +70662,9 @@
       "kea_code": "E083",
       "established_year": 2001,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": 101
+      "nirf_ranking": 101,
+      "naac_grade": "A+",
+      "nba_accredited": true
     },
     {
       "college_number": 94,
@@ -70432,7 +70804,9 @@
       "kea_code": "E119",
       "established_year": 2004,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 10,
@@ -71282,7 +71656,9 @@
       "kea_code": "E011",
       "established_year": 1960,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": 251
+      "nirf_ranking": 251,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 77,
@@ -71674,7 +72050,9 @@
       "kea_code": "E099",
       "established_year": 1997,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 43,
@@ -71953,7 +72331,9 @@
       "kea_code": "E055",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 119,
@@ -72211,7 +72591,9 @@
       "kea_code": "E152",
       "established_year": 2010,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 27,
@@ -72714,7 +73096,9 @@
       "kea_code": "E034",
       "established_year": 1982,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 102,
@@ -73211,7 +73595,9 @@
       "kea_code": "E129",
       "established_year": 2004,
       "affiliation": "Autonomous (VTU Affiliated)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 60,
@@ -73770,7 +74156,9 @@
       "kea_code": "E078",
       "established_year": 1997,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 1,
@@ -74373,7 +74761,9 @@
       "kea_code": "E001",
       "established_year": 1917,
       "affiliation": "State University (UVCE)",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 219,
@@ -74547,7 +74937,9 @@
       ],
       "established_year": 2015,
       "affiliation": "State University Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 54,
@@ -74937,7 +75329,9 @@
       ],
       "established_year": 1997,
       "affiliation": "State University Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 183,
@@ -75443,7 +75837,9 @@
       "kea_code": "E255",
       "established_year": 2015,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 16,
@@ -76100,7 +76496,9 @@
       "kea_code": "E017",
       "established_year": 1982,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A+",
+      "nba_accredited": true
     },
     {
       "college_number": 111,
@@ -76432,7 +76830,9 @@
       "kea_code": "E142",
       "established_year": 2004,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 170,
@@ -77344,7 +77744,9 @@
       "kea_code": "E220",
       "established_year": 2010,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": false
     },
     {
       "college_number": 212,
@@ -78023,7 +78425,9 @@
       "kea_code": "E302",
       "established_year": 2022,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "C",
+      "nba_accredited": false
     },
     {
       "college_number": 185,
@@ -78512,7 +78916,9 @@
       "kea_code": "E257",
       "established_year": 2013,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 179,
@@ -79370,7 +79776,9 @@
       "kea_code": "E240",
       "established_year": 2014,
       "affiliation": "Private University",
-      "nirf_ranking": 201
+      "nirf_ranking": 201,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 203,
@@ -79728,7 +80136,9 @@
       "kea_code": "E288",
       "established_year": 2015,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 213,
@@ -80605,7 +81015,9 @@
       "kea_code": "E303",
       "established_year": 2015,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 45,
@@ -81203,7 +81615,9 @@
       "kea_code": "E057",
       "established_year": 1997,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 29,
@@ -81620,7 +82034,9 @@
       "kea_code": "E036",
       "established_year": 1982,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 34,
@@ -81818,7 +82234,9 @@
       "kea_code": "E042",
       "established_year": 1982,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 211,
@@ -82063,7 +82481,9 @@
       "kea_code": "E301",
       "established_year": 2015,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 180,
@@ -82733,7 +83153,9 @@
       "kea_code": "E241",
       "established_year": 2015,
       "affiliation": "Private University",
-      "nirf_ranking": 151
+      "nirf_ranking": 151,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 175,
@@ -83410,7 +83832,9 @@
       "kea_code": "E235",
       "established_year": 2013,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 9,
@@ -83884,7 +84308,9 @@
       "kea_code": "E009",
       "established_year": 1962,
       "affiliation": "VTU Affiliated",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "A",
+      "nba_accredited": true
     },
     {
       "college_number": 110,
@@ -84167,7 +84593,9 @@
       "kea_code": "E141",
       "established_year": 2004,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 176,
@@ -84903,7 +85331,9 @@
       "kea_code": "E237",
       "established_year": 2013,
       "affiliation": "Private University",
-      "nirf_ranking": 251
+      "nirf_ranking": 251,
+      "naac_grade": "A+",
+      "nba_accredited": false
     },
     {
       "college_number": 184,
@@ -85007,7 +85437,9 @@
       "kea_code": "E256",
       "established_year": 2015,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 174,
@@ -86064,7 +86496,9 @@
       "kea_code": "E232",
       "established_year": 2012,
       "affiliation": "Private University",
-      "nirf_ranking": 201
+      "nirf_ranking": 201,
+      "naac_grade": "A+",
+      "nba_accredited": true
     },
     {
       "college_number": 200,
@@ -86176,7 +86610,9 @@
       "kea_code": "E285",
       "established_year": 2020,
       "affiliation": "Private University (RV)",
-      "nirf_ranking": 251
+      "nirf_ranking": 251,
+      "naac_grade": "A",
+      "nba_accredited": false
     },
     {
       "college_number": 85,
@@ -86657,7 +87093,9 @@
       "kea_code": "E108",
       "established_year": 2004,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 226,
@@ -86693,7 +87131,9 @@
       "kea_code": null,
       "established_year": 2015,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 155,
@@ -86919,7 +87359,9 @@
       "kea_code": "E198",
       "established_year": 2010,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 101,
@@ -87282,7 +87724,9 @@
       "kea_code": "E128",
       "established_year": 2004,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B++",
+      "nba_accredited": true
     },
     {
       "college_number": 151,
@@ -87539,7 +87983,9 @@
       "kea_code": "E193",
       "established_year": 2010,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 216,
@@ -87937,7 +88383,9 @@
       "kea_code": "E306",
       "established_year": 2020,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "C",
+      "nba_accredited": false
     },
     {
       "college_number": 198,
@@ -88254,7 +88702,9 @@
       "kea_code": "E283",
       "established_year": 2015,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "B",
+      "nba_accredited": false
     },
     {
       "college_number": 202,
@@ -88338,7 +88788,9 @@
       "kea_code": "E287",
       "established_year": 2021,
       "affiliation": "Private University",
-      "nirf_ranking": null
+      "nirf_ranking": null,
+      "naac_grade": "C",
+      "nba_accredited": false
     }
   ],
   "all_courses": [
