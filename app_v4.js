@@ -1765,8 +1765,8 @@ function generateSeedPriorities() {
   // Sort strictly by cutoff rank ascending (highest quality/hardest to get first)
   matches.sort((a, b) => a.cutoff - b.cutoff);
 
-  // Take top 40 matching priority options to keep it clean and performant
-  studentOptionsList = matches.slice(0, 40);
+  // Take top 100 matching priority options to keep it clean and performant
+  studentOptionsList = matches.slice(0, 100);
   
   saveCounsellorOptions();
 
