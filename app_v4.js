@@ -1920,6 +1920,121 @@ function renderOptionEntryList() {
       </tr>
     `;
   }).join('');
+
+  auditStudentOptionsList();
+}
+
+function auditStudentOptionsList() {
+  const container = document.getElementById('options-audit-container');
+  const badge = document.getElementById('options-audit-badge');
+  const budget = document.getElementById('options-audit-budget');
+  const warningsList = document.getElementById('options-audit-warnings');
+  
+  if (!container || !badge || !budget || !warningsList) return;
+
+  if (studentOptionsList.length === 0) {
+    container.style.display = 'none';
+    return;
+  }
+
+  container.style.display = 'flex';
+  const { rank: studentRank, category: studentCategory } = getActiveStudentProfile();
+
+  const warnings = [];
+  let totalFee = 0;
+  let safetyCount = 0;
+
+  const parseFeeVal = (str) => {
+    if (!str) return 0;
+    const clean = str.replace(/[^0-9]/g, '');
+    return parseInt(clean) || 0;
+  };
+
+  // 1. Fee calculations & safety count
+  studentOptionsList.forEach((opt) => {
+    if (allData && allData.colleges) {
+      const collegeObj = allData.colleges.find(col => col.college_number == opt.collegeNum || col.kea_code == opt.keaCode);
+      if (collegeObj) {
+        const courseObj = collegeObj.courses.find(c => c.course_name === opt.courseName);
+        if (courseObj) {
+          const cutoff = getCourseCutoff(courseObj, studentCategory) || 999999;
+          const chanceClass = getChanceClass(cutoff, studentRank);
+          opt.cutoff = cutoff;
+          opt.chanceClass = chanceClass;
+
+          // Fee calculations
+          const feeStr = getCourseFee(collegeObj, opt.courseName, courseObj.total_kea_seats);
+          const feeVal = parseFeeVal(feeStr);
+          totalFee += feeVal;
+
+          if (chanceClass === 'safety') {
+            safetyCount++;
+          }
+        }
+      }
+    }
+  });
+
+  // 2. Check for out-of-order cutoff ranks (the main KEA algorithm sequence rule)
+  for (let i = 1; i < studentOptionsList.length; i++) {
+    const prev = studentOptionsList[i - 1];
+    const curr = studentOptionsList[i];
+
+    if (prev.cutoff && curr.cutoff && curr.cutoff < prev.cutoff * 0.85) {
+      warnings.push({
+        type: 'out-of-order',
+        text: `⚠️ <strong>Out of Order:</strong> Option ${i+1} (${curr.courseName} at ${curr.collegeName}) has a tougher cutoff (<strong>${curr.cutoff.toLocaleString()}</strong>) than Option ${i} (${prev.courseName} at ${prev.collegeName}, Cutoff: <strong>${prev.cutoff.toLocaleString()}</strong>). Under KEA's allocation, Option ${i} will always prevent Option ${i+1} from being considered.`
+      });
+    }
+  }
+
+  // 3. Safety Check
+  if (safetyCount === 0) {
+    warnings.push({
+      type: 'high-risk',
+      text: `❌ <strong>High Risk:</strong> You have <strong>0 safety options</strong> in your choices list. If you do not meet the cutoffs for your Dream/Target options, you will not receive any allotment. Consider adding options with cutoff ranks higher than <strong>${Math.round(studentRank * 1.15).toLocaleString()}</strong>.`
+    });
+  } else if (safetyCount < 3) {
+    warnings.push({
+      type: 'low-safety',
+      text: `⚠️ <strong>Low Safety Margin:</strong> You only have <strong>${safetyCount} safety options</strong>. It is highly recommended to add at least 3 safety options to prevent blank allotments.`
+    });
+  }
+
+  // Update budget display
+  budget.textContent = `Annual Fee Budget: ₹${totalFee.toLocaleString()}`;
+
+  // Update badge status
+  if (warnings.length === 0) {
+    badge.textContent = '✅ Sequence Optimal';
+    badge.style.background = 'rgba(34,197,94,0.15)';
+    badge.style.color = '#22c55e';
+    warningsList.innerHTML = `<div style="font-size:11px; color:#22c55e; padding:8px 12px; background:rgba(34,197,94,0.05); border-radius:6px; border:1px solid rgba(34,197,94,0.1);">All checks passed! Your options sheet matches KEA choice entry strategies perfectly.</div>`;
+  } else {
+    const hasError = warnings.some(w => w.type === 'high-risk');
+    badge.textContent = hasError ? '❌ Strategic Flaws Found' : '⚠️ Warnings Found';
+    badge.style.background = hasError ? 'rgba(244,63,94,0.15)' : 'rgba(234,179,8,0.15)';
+    badge.style.color = hasError ? '#f43f5e' : '#eab308';
+
+    warningsList.innerHTML = warnings.map(w => `
+      <div style="font-size:11px; color:var(--text); padding:8px 12px; background:rgba(255,255,255,0.02); border-radius:6px; border:1px solid var(--border); display:flex; flex-direction:column; gap:4px;">
+        <div>${w.text}</div>
+      </div>
+    `).join('');
+  }
+}
+
+function optimizeStudentOptionsList() {
+  if (studentOptionsList.length === 0) return;
+
+  studentOptionsList.sort((a, b) => {
+    const cutA = a.cutoff || 999999;
+    const cutB = b.cutoff || 999999;
+    return cutA - cutB;
+  });
+
+  saveCounsellorOptions();
+  renderOptionEntryList();
 }
 
 function movePriorityOption(index, direction) {
@@ -2179,6 +2294,12 @@ function bindOptionEntryEvents() {
       addOptionBtn.disabled = true;
       selectedCollegeForAdd = null;
     });
+  }
+
+  // 7. Optimize Priorities
+  const optimizeBtn = document.getElementById('btn-optimize-options');
+  if (optimizeBtn) {
+    optimizeBtn.addEventListener('click', optimizeStudentOptionsList);
   }
 }
 
