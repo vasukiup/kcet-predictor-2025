@@ -1811,5 +1811,230 @@ select option, .form-select option, .download-select option {
   background: rgba(255, 255, 255, 0.02);
 }
 
+/* ==========================================================================
+   Superuser Viewport Simulator & Device Frames
+   ========================================================================== */
+#superuser-simulator-bar {
+  background: #18181b;
+  border-bottom: 1px solid var(--border);
+  padding: 8px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+.sim-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.sim-title {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  color: #a1a1aa;
+}
+
+.sim-modes {
+  display: flex;
+  gap: 6px;
+}
+
+.sim-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  color: #d4d4d8;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sim-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.sim-btn.active {
+  background: var(--blue);
+  color: #fff;
+  border-color: var(--blue);
+}
+
+.sim-rotate-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  color: #d4d4d8;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sim-rotate-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+/* App Viewport wrapper */
+#app-viewport-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--bg);
+  box-sizing: border-box;
+}
+
+/* Device simulation frames */
+#app-viewport-wrapper.sim-mode {
+  border: 12px solid #27272a;
+  border-radius: 36px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  margin-top: 24px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+/* Specific presets sizing */
+#app-viewport-wrapper.sim-ipad {
+  width: 768px;
+  height: 1024px;
+  min-height: 1024px;
+}
+#app-viewport-wrapper.sim-ipad.landscape {
+  width: 1024px;
+  height: 768px;
+  min-height: 768px;
+}
+
+#app-viewport-wrapper.sim-iphone15 {
+  width: 393px;
+  height: 852px;
+  min-height: 852px;
+}
+#app-viewport-wrapper.sim-iphone15.landscape {
+  width: 852px;
+  height: 393px;
+  min-height: 393px;
+}
+
+#app-viewport-wrapper.sim-s23 {
+  width: 360px;
+  height: 800px;
+  min-height: 800px;
+}
+#app-viewport-wrapper.sim-s23.landscape {
+  width: 800px;
+  height: 360px;
+  min-height: 360px;
+}
+
+#app-viewport-wrapper.sim-pixel8 {
+  width: 412px;
+  height: 915px;
+  min-height: 915px;
+}
+#app-viewport-wrapper.sim-pixel8.landscape {
+  width: 915px;
+  height: 412px;
+  min-height: 412px;
+}
+
+/* ==========================================================================
+   Enhanced Mobile Responsiveness (Slide-over Drawer & Full Modal Drawers)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .mobile-filter-toggle {
+    display: inline-block !important;
+  }
+  
+  .layout {
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .sidebar {
+    position: fixed !important;
+    top: 0;
+    left: -290px; /* Start hidden on the left */
+    width: 280px !important;
+    height: 100vh !important;
+    z-index: 2005 !important;
+    background: #0f0f12 !important; /* Premium dark background */
+    border-right: 1px solid var(--border) !important;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    overflow-y: auto !important;
+    box-shadow: 10px 0 25px rgba(0,0,0,0.5);
+    margin: 0 !important;
+  }
+
+  .sidebar.open {
+    left: 0 !important;
+  }
+
+  .main-content {
+    width: 100% !important;
+    padding: 16px !important;
+  }
+
+  .colleges-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .header-stats {
+    display: none !important;
+  }
+
+  /* Full screen modal adjustments */
+  .modal-dialog {
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    border-radius: 0 !important;
+  }
+
+  .modal-content {
+    height: 100% !important;
+    border-radius: 0 !important;
+  }
+
+  /* Scrollable tabs bar on mobile */
+  .tabs {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tab {
+    white-space: nowrap !important;
+  }
+  
+  /* Tap target improvements */
+  button, select, input, .tab, .chip, .sort-btn, .reorder-btn {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .reorder-btn {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+
 
 

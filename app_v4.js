@@ -1611,6 +1611,7 @@ function applyUserRole() {
 
   // Apply filtering
   applyFilters();
+  setupViewportSimulator();
 }
 
 // ─────────────────────────────────────────────────────
@@ -2477,6 +2478,13 @@ function bindOptionEntryEvents() {
 // Filtering
 // ─────────────────────────────
 function applyFilters() {
+  const sidebar = document.querySelector('.sidebar');
+  const mobileOverlay = document.getElementById('mobile-drawer-overlay');
+  if (sidebar && sidebar.classList.contains('open')) {
+    sidebar.classList.remove('open');
+    if (mobileOverlay) mobileOverlay.style.display = 'none';
+  }
+
   const { search, annexure, district, course, minSeats } = filters;
   const q = search.toLowerCase().trim();
   const affiliationVal = document.getElementById('affiliation-filter')?.value || '';
@@ -4281,6 +4289,21 @@ function getCategoryFeesList(college) {
 // Event Bindings
 // ─────────────────────────────
 function bindEvents() {
+  // Mobile filter drawer toggles
+  const mobileToggle = document.getElementById('mobile-filter-toggle');
+  const mobileOverlay = document.getElementById('mobile-drawer-overlay');
+  const sidebar = document.querySelector('.sidebar');
+  if (mobileToggle && mobileOverlay && sidebar) {
+    mobileToggle.addEventListener('click', () => {
+      sidebar.classList.add('open');
+      mobileOverlay.style.display = 'block';
+    });
+    mobileOverlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      mobileOverlay.style.display = 'none';
+    });
+  }
+
   // Search
   const searchInput = document.getElementById('search-input');
   let searchTimeout;
@@ -6620,5 +6643,87 @@ function calculateTuitionFee() {
       </div>
     `).join('');
   }
+}
+
+let simPreset = 'desktop';
+let simOrientation = 'portrait';
+
+function setupViewportSimulator() {
+  const bar = document.getElementById('superuser-simulator-bar');
+  const wrapper = document.getElementById('app-viewport-wrapper');
+  if (!bar || !wrapper) return;
+
+  const isSuper = currentUser && (currentUser.role === 'superuser');
+  bar.style.display = isSuper ? 'block' : 'none';
+
+  const btns = bar.querySelectorAll('.sim-btn');
+  const rotateBtn = document.getElementById('btn-sim-rotate');
+
+  // Remove existing listeners to avoid duplicates on re-binding
+  const newBtns = [];
+  btns.forEach(btn => {
+    const clone = btn.cloneNode(true);
+    btn.parentNode.replaceChild(clone, btn);
+    newBtns.push(clone);
+  });
+
+  if (rotateBtn) {
+    const newRotate = rotateBtn.cloneNode(true);
+    rotateBtn.parentNode.replaceChild(newRotate, rotateBtn);
+    
+    newRotate.addEventListener('click', () => {
+      simOrientation = simOrientation === 'portrait' ? 'landscape' : 'portrait';
+      if (simPreset !== 'desktop') {
+        wrapper.classList.toggle('landscape');
+        updateSimDimensionsBadge();
+      }
+    });
+  }
+
+  newBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      newBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const preset = btn.dataset.preset;
+      simPreset = preset;
+      
+      const rotateEl = document.getElementById('btn-sim-rotate');
+      
+      // Reset classes
+      wrapper.className = '';
+      if (preset === 'desktop') {
+        if (rotateEl) rotateEl.style.display = 'none';
+        updateSimDimensionsBadge();
+      } else {
+        if (rotateEl) rotateEl.style.display = 'inline-block';
+        wrapper.classList.add('sim-mode', `sim-${preset}`);
+        if (simOrientation === 'landscape') {
+          wrapper.classList.add('landscape');
+        }
+        updateSimDimensionsBadge();
+      }
+    });
+  });
+}
+
+function updateSimDimensionsBadge() {
+  const badge = document.getElementById('sim-dimensions-badge');
+  if (!badge) return;
+
+  if (simPreset === 'desktop') {
+    badge.textContent = '100% Fluid';
+    return;
+  }
+
+  const dimensions = {
+    ipad: { portrait: '768 x 1024 (iPad)', landscape: '1024 x 768 (iPad)' },
+    iphone15: { portrait: '393 x 852 (iPhone 15 Pro)', landscape: '852 x 393 (iPhone 15 Pro)' },
+    s23: { portrait: '360 x 800 (Galaxy S23)', landscape: '800 x 360 (Galaxy S23)' },
+    pixel8: { portrait: '412 x 915 (Pixel 8)', landscape: '915 x 412 (Pixel 8)' }
+  };
+
+  const text = dimensions[simPreset]?.[simOrientation] || 'Fluid';
+  badge.textContent = text;
 }
 
