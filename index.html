@@ -833,6 +833,18 @@
           <div style="font-family:var(--font-display); font-size:18px; font-weight:700; color:var(--text); margin-bottom:4px;">📋 KCET Counselling Option Entry Priority Builder</div>
           <div style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">Come up with your prioritized list of college options based on your branches, locations, and rank. You can drag or reorder options and export your sheet.</div>
 
+          <!-- Student Session Manager Bar -->
+          <div style="background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.15); border-radius:16px; padding:16px 20px; margin-bottom:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-size:12px; font-weight:700; color:var(--text); text-transform:uppercase; letter-spacing:0.05em; display:flex; align-items:center; gap:6px;">👤 Student Session:</span>
+              <select id="session-select" class="form-select" style="width:240px; padding:6px 12px; font-size:12px; margin:0; font-weight:600;"></select>
+            </div>
+            <div style="display:flex; gap:10px;">
+              <button id="btn-session-create" style="background:var(--blue); border:none; color:#fff; font-size:11px; font-weight:700; cursor:pointer; padding:8px 16px; border-radius:6px; transition:all 0.2s;">➕ New Session</button>
+              <button id="btn-session-delete" style="background:rgba(244,63,94,0.15); border:1px solid rgba(244,63,94,0.3); color:#f43f5e; font-size:11px; font-weight:700; cursor:pointer; padding:8px 16px; border-radius:6px; transition:all 0.2s;">🗑️ Delete Session</button>
+            </div>
+          </div>
+
           <!-- Configuration row -->
           <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:20px; margin-bottom:24px;">
             <div style="font-family:var(--font-display); font-size:14px; font-weight:700; color:var(--text); margin-bottom:12px; border-bottom:1px solid var(--border); padding-bottom:6px;">⚙️ Setup Option Entry Preferences</div>

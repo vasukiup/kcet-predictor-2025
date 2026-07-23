@@ -94,6 +94,8 @@ try {
 } catch(e) {
   studentOptionsList = [];
 }
+let kcetSessions = [];
+let currentSessionId = '';
 let superuserPerspective = 'student'; // 'student', 'institution', 'authority', 'counsellor'
 let superuserGroup = 'rvgroup';
 
@@ -719,7 +721,7 @@ async function init() {
   bindEvents();
   initAssistant();
   initAuth();
-  renderOptionEntryList();
+  initializeSessions();
 
   // Bind Year Selector Event
   const yearSelect = document.getElementById('year-select');
@@ -1644,6 +1646,131 @@ function getChanceClass(cutoff, studentRank) {
   return 'target';
 }
 
+function initializeSessions() {
+  try {
+    kcetSessions = JSON.parse(localStorage.getItem('kcet_sessions_list')) || [];
+    currentSessionId = localStorage.getItem('kcet_current_session_id') || '';
+  } catch(e) {
+    kcetSessions = [];
+    currentSessionId = '';
+  }
+
+  // If no sessions exist, seed with a default Guest profile
+  if (kcetSessions.length === 0) {
+    const defaultSession = {
+      id: 'session_' + Date.now(),
+      name: 'Default Guest Profile',
+      rank: 5000,
+      category: 'GM',
+      options: studentOptionsList || []
+    };
+    kcetSessions.push(defaultSession);
+    currentSessionId = defaultSession.id;
+    saveSessionsList();
+  }
+
+  // Ensure current session id is valid, else fallback to first
+  const exists = kcetSessions.some(s => s.id === currentSessionId);
+  if (!exists) {
+    currentSessionId = kcetSessions[0].id;
+    localStorage.setItem('kcet_current_session_id', currentSessionId);
+  }
+
+  renderSessionDropdown();
+  loadActiveSessionData();
+}
+
+function saveSessionsList() {
+  localStorage.setItem('kcet_sessions_list', JSON.stringify(kcetSessions));
+  localStorage.setItem('kcet_current_session_id', currentSessionId);
+}
+
+function renderSessionDropdown() {
+  const select = document.getElementById('session-select');
+  if (!select) return;
+
+  select.innerHTML = kcetSessions.map(s => 
+    `<option value="${s.id}" ${s.id === currentSessionId ? 'selected' : ''}>${escHtml(s.name)} (Rank: ${s.rank.toLocaleString()} - ${s.category})</option>`
+  ).join('');
+}
+
+function loadActiveSessionData() {
+  const activeSession = kcetSessions.find(s => s.id === currentSessionId);
+  if (!activeSession) return;
+
+  // Sync priority list
+  studentOptionsList = activeSession.options || [];
+
+  // Sync sidebar predictor inputs
+  const prRank = document.getElementById('pred-rank');
+  const prCat = document.getElementById('pred-category');
+  if (prRank) prRank.value = activeSession.rank;
+  if (prCat) prCat.value = activeSession.category;
+
+  // Run updates
+  renderOptionEntryList();
+  if (typeof applyFilters === 'function') {
+    applyFilters();
+  }
+}
+
+function syncCurrentSessionState() {
+  const activeSession = kcetSessions.find(s => s.id === currentSessionId);
+  if (!activeSession) return;
+
+  const prRank = parseInt(document.getElementById('pred-rank')?.value || 5000);
+  const prCat = document.getElementById('pred-category')?.value || 'GM';
+
+  activeSession.rank = prRank;
+  activeSession.category = prCat;
+  activeSession.options = studentOptionsList;
+
+  saveSessionsList();
+  renderSessionDropdown();
+}
+
+function createNewSession() {
+  const name = prompt("Enter Student/Candidate Name:", "Student " + (kcetSessions.length + 1));
+  if (!name) return;
+
+  const { rank: studentRank, category: studentCategory } = getActiveStudentProfile();
+
+  const newSession = {
+    id: 'session_' + Date.now(),
+    name: name,
+    rank: studentRank,
+    category: studentCategory,
+    options: []
+  };
+
+  kcetSessions.push(newSession);
+  currentSessionId = newSession.id;
+
+  saveSessionsList();
+  renderSessionDropdown();
+  loadActiveSessionData();
+  alert(`Created and switched to student session: "${name}"`);
+}
+
+function deleteCurrentSession() {
+  if (kcetSessions.length <= 1) {
+    alert("Cannot delete the only student session profile!");
+    return;
+  }
+
+  const activeSession = kcetSessions.find(s => s.id === currentSessionId);
+  if (!activeSession) return;
+
+  if (confirm(`Are you sure you want to delete session profile: "${activeSession.name}"?`)) {
+    kcetSessions = kcetSessions.filter(s => s.id !== currentSessionId);
+    currentSessionId = kcetSessions[0].id;
+
+    saveSessionsList();
+    renderSessionDropdown();
+    loadActiveSessionData();
+  }
+}
+
 function saveCounsellorOptions() {
   if (currentUser && currentUser.role === 'counsellor') {
     const activeStudent = currentUser.students.find(s => s.id === currentUser.activeStudentId);
@@ -1654,6 +1781,9 @@ function saveCounsellorOptions() {
   } else {
     localStorage.setItem('kcet_student_options', JSON.stringify(studentOptionsList));
   }
+  
+  // Sync back to our Student Session manager state
+  syncCurrentSessionState();
 }
 
 function renderCounsellorPortfolio() {
@@ -2300,6 +2430,46 @@ function bindOptionEntryEvents() {
   const optimizeBtn = document.getElementById('btn-optimize-options');
   if (optimizeBtn) {
     optimizeBtn.addEventListener('click', optimizeStudentOptionsList);
+  }
+
+  // 8. Counselor/Student Session Management
+  const sessionSelect = document.getElementById('session-select');
+  if (sessionSelect) {
+    sessionSelect.addEventListener('change', (e) => {
+      currentSessionId = e.target.value;
+      localStorage.setItem('kcet_current_session_id', currentSessionId);
+      loadActiveSessionData();
+    });
+  }
+
+  const createSessionBtn = document.getElementById('btn-session-create');
+  if (createSessionBtn) {
+    createSessionBtn.addEventListener('click', createNewSession);
+  }
+
+  const deleteSessionBtn = document.getElementById('btn-session-delete');
+  if (deleteSessionBtn) {
+    deleteSessionBtn.addEventListener('click', deleteCurrentSession);
+  }
+
+  // Sidebar rank/category listeners to sync dynamic session changes
+  const sidebarRankInput = document.getElementById('pred-rank');
+  const sidebarCatSelect = document.getElementById('pred-category');
+  if (sidebarRankInput) {
+    sidebarRankInput.addEventListener('change', () => {
+      syncCurrentSessionState();
+      renderOptionEntryList();
+    });
+    sidebarRankInput.addEventListener('input', () => {
+      syncCurrentSessionState();
+      renderOptionEntryList();
+    });
+  }
+  if (sidebarCatSelect) {
+    sidebarCatSelect.addEventListener('change', () => {
+      syncCurrentSessionState();
+      renderOptionEntryList();
+    });
   }
 }
 
