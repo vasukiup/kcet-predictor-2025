@@ -633,6 +633,85 @@ function renderYoYStats() {
 
   const elFees = document.getElementById('fee-changes-list');
   if (elFees) elFees.innerHTML = hikesHtml;
+
+  // YoY Branch Popularity Index
+  const elIndex = document.getElementById('popularity-branch-index');
+  if (elIndex) {
+    const branchKeys = ['CS', 'EC', 'EE', 'ME', 'CE', 'AD'];
+    const branchLabels = {
+      'CS': 'Computer Science & IS',
+      'EC': 'Electronics (ECE)',
+      'EE': 'Electrical (EEE)',
+      'ME': 'Mechanical Engg',
+      'CE': 'Civil Engg',
+      'AD': 'AI, ML & Data Science'
+    };
+
+    const calculateBranchAverage = (cache, branchCode) => {
+      let sum = 0;
+      let count = 0;
+      cache.colleges.forEach(col => {
+        col.courses.forEach(c => {
+          if (matchesBranch(c.course_name, branchCode)) {
+            const cut = parseInt(c.round1_cutoff?.GM);
+            if (cut && cut < 120000) { // Limit to competitive ranges to avoid skew
+              sum += cut;
+              count++;
+            }
+          }
+        });
+      });
+      return count > 0 ? sum / count : null;
+    };
+
+    const indexData = [];
+    branchKeys.forEach(key => {
+      const avgActive = calculateBranchAverage(activeCache, key);
+      const avgPrev = calculateBranchAverage(prevCache, key);
+
+      if (avgActive && avgPrev) {
+        const pctShift = ((avgActive - avgPrev) / avgPrev) * 100;
+        indexData.push({
+          key,
+          label: branchLabels[key],
+          avgActive,
+          avgPrev,
+          pctShift
+        });
+      }
+    });
+
+    elIndex.innerHTML = indexData.map(item => {
+      const isRising = item.pctShift < 0;
+      const arrow = isRising ? '▲' : '▼';
+      const absPct = Math.abs(item.pctShift).toFixed(1);
+      const badgeColor = isRising ? '#f43f5e' : '#22c55e';
+      const badgeBg = isRising ? 'rgba(244,63,94,0.1)' : 'rgba(34,197,94,0.1)';
+      const directionLabel = isRising ? 'Rising Demand' : 'Cooling Demand';
+
+      return `
+        <div style="background:rgba(255,255,255,0.01); border:1px solid var(--border); padding:16px; border-radius:12px; display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="font-size:12px; color:var(--text);">${item.label}</strong>
+            <span style="font-size:9px; font-weight:700; padding:2px 6px; border-radius:4px; background:${badgeBg}; color:${badgeColor}; border:1px solid rgba(255,255,255,0.02);">${arrow} ${absPct}% ${directionLabel}</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--text-muted); margin-top:4px;">
+            <span>Avg Cutoff (${prevYearText.slice(-2)}): <strong>${Math.round(item.avgPrev).toLocaleString()}</strong></span>
+            <span>Avg Cutoff (${activeYearText.slice(-2)}): <strong style="color:var(--text);">${Math.round(item.avgActive).toLocaleString()}</strong></span>
+          </div>
+          <div style="height:6px; background:rgba(255,255,255,0.05); border-radius:3px; overflow:hidden; margin-top:4px;">
+            <div style="height:100%; width:${Math.min(100, Math.max(10, (120000 - item.avgActive) / 1200))}%; background:var(--blue);"></div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Update header text dynamically
+  const elBranchTitle = document.getElementById('yoy-popularity-branch-title');
+  if (elBranchTitle) {
+    elBranchTitle.textContent = `Predictive YoY Branch Popularity Trends (${prevYearText} vs ${activeYearText})`;
+  }
 }
 
 async function init() {
@@ -4867,6 +4946,113 @@ function resolveCourseCutoff(college, course, category, selectedRound) {
   return null;
 }
 
+function computeCourseYoYTrend(college, courseName, category, selectedRound) {
+  const roundKeys = {
+    'mock_round1': 'mock_round1_cutoff',
+    'round1': 'round1_cutoff',
+    'round2': 'round2_cutoff',
+    'round3': 'round3_cutoff'
+  };
+  const targetKey = roundKeys[selectedRound] || 'round1_cutoff';
+
+  let val2026 = null;
+  let val2025 = null;
+  let val2024 = null;
+
+  // Resolve 2026
+  if (cache2026 && cache2026.colleges) {
+    const colObj = cache2026.colleges.find(c => (c.kea_code && c.kea_code === college.kea_code) || c.college_name === college.college_name);
+    if (colObj && colObj.courses) {
+      const crObj = colObj.courses.find(c => c.course_name === courseName);
+      if (crObj && crObj[targetKey]) {
+        val2026 = parseFloat(crObj[targetKey][category]);
+      }
+    }
+  } else if (allData && allData.year === '2026') {
+    const colObj = allData.colleges.find(c => (c.kea_code && c.kea_code === college.kea_code) || c.college_name === college.college_name);
+    if (colObj && colObj.courses) {
+      const crObj = colObj.courses.find(c => c.course_name === courseName);
+      if (crObj && crObj[targetKey]) {
+        val2026 = parseFloat(crObj[targetKey][category]);
+      }
+    }
+  }
+
+  // Resolve 2025
+  if (cache2025 && cache2025.colleges) {
+    const colObj = cache2025.colleges.find(c => (c.kea_code && c.kea_code === college.kea_code) || c.college_name === college.college_name);
+    if (colObj && colObj.courses) {
+      const crObj = colObj.courses.find(c => c.course_name === courseName);
+      if (crObj && crObj[targetKey]) {
+        val2025 = parseFloat(crObj[targetKey][category]);
+      }
+    }
+  } else if (allData && allData.year === '2025') {
+    const colObj = allData.colleges.find(c => (c.kea_code && c.kea_code === college.kea_code) || c.college_name === college.college_name);
+    if (colObj && colObj.courses) {
+      const crObj = colObj.courses.find(c => c.course_name === courseName);
+      if (crObj && crObj[targetKey]) {
+        val2025 = parseFloat(crObj[targetKey][category]);
+      }
+    }
+  }
+
+  // Resolve 2024
+  if (cache2024 && cache2024.colleges) {
+    const colObj = cache2024.colleges.find(c => (c.kea_code && c.kea_code === college.kea_code) || c.college_name === college.college_name);
+    if (colObj && colObj.courses) {
+      const crObj = colObj.courses.find(c => c.course_name === courseName);
+      if (crObj && crObj[targetKey]) {
+        val2024 = parseFloat(crObj[targetKey][category]);
+      }
+    }
+  } else if (allData && allData.year === '2024') {
+    const colObj = allData.colleges.find(c => (c.kea_code && c.kea_code === college.kea_code) || c.college_name === college.college_name);
+    if (colObj && colObj.courses) {
+      const crObj = colObj.courses.find(c => c.course_name === courseName);
+      if (crObj && crObj[targetKey]) {
+        val2024 = parseFloat(crObj[targetKey][category]);
+      }
+    }
+  }
+
+  // Compute shift
+  let pctShift = 0;
+  let hasShift = false;
+  if (val2026 && val2025 && !isNaN(val2026) && !isNaN(val2025) && val2025 > 0) {
+    pctShift = ((val2026 - val2025) / val2025) * 100;
+    hasShift = true;
+  } else if (val2025 && val2024 && !isNaN(val2025) && !isNaN(val2024) && val2024 > 0) {
+    pctShift = ((val2025 - val2024) / val2024) * 100;
+    hasShift = true;
+  }
+
+  if (!hasShift || Math.abs(pctShift) < 1) {
+    return {
+      label: '➡️ Stable',
+      color: 'var(--text-muted)',
+      bg: 'rgba(255,255,255,0.03)',
+      pct: 0
+    };
+  }
+
+  if (pctShift < 0) {
+    return {
+      label: `🔥 Tightening (-${Math.abs(Math.round(pctShift))}%)`,
+      color: '#f43f5e',
+      bg: 'rgba(244,63,94,0.1)',
+      pct: pctShift
+    };
+  } else {
+    return {
+      label: `📉 Easing (+${Math.round(pctShift)}%)`,
+      color: '#22c55e',
+      bg: 'rgba(34,197,94,0.1)',
+      pct: pctShift
+    };
+  }
+}
+
 function runPrediction() {
   const rankInput = document.getElementById('pred-rank');
   const catSel = document.getElementById('pred-category');
@@ -4919,6 +5105,8 @@ function runPrediction() {
         chanceClass = 'badge-high';
       }
       
+      const trend = computeCourseYoYTrend(college, course.course_name, category, selectedRound);
+      
       results.push({
         college,
         courseName: course.course_name,
@@ -4928,7 +5116,8 @@ function runPrediction() {
         chanceClass: chanceClass,
         sourceLabel: cutoffInfo.sourceLabel,
         isFallback: cutoffInfo.isFallback,
-        isEstimated: cutoffInfo.isEstimated
+        isEstimated: cutoffInfo.isEstimated,
+        trend: trend
       });
     });
   });
@@ -4991,6 +5180,7 @@ function renderPredictionResults(results, selectedRound) {
       </td>
       <td class="${diffClass}" style="font-family:var(--font-display); font-weight:700; text-align:right;">${diffText}</td>
       <td style="text-align:center;"><span class="badge-chance ${res.chanceClass}">${res.chance}</span></td>
+      <td style="text-align:center;"><span style="font-size:10px; font-weight:700; padding:4px 8px; border-radius:6px; background:${res.trend.bg}; color:${res.trend.color}; border:1px solid rgba(255,255,255,0.03); white-space:nowrap;">${res.trend.label}</span></td>
     </tr>`;
   }).join('');
   
