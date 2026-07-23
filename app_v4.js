@@ -89,6 +89,11 @@ let pendingIntakeRequests = []; // Stores intake requests from institutions
 let systemAnnouncements = ["⚠️ KEA Seat Matrix & Prediction Portal is online for candidate counselling validation."];
 let authorityLogs = [`[System] Console initialized. Ready for operations.`];
 let studentOptionsList = []; // Student option entry priority sheet
+try {
+  studentOptionsList = JSON.parse(localStorage.getItem('kcet_student_options')) || [];
+} catch(e) {
+  studentOptionsList = [];
+}
 let superuserPerspective = 'student'; // 'student', 'institution', 'authority', 'counsellor'
 let superuserGroup = 'rvgroup';
 
@@ -635,6 +640,7 @@ async function init() {
   bindEvents();
   initAssistant();
   initAuth();
+  renderOptionEntryList();
 
   // Bind Year Selector Event
   const yearSelect = document.getElementById('year-select');
@@ -1420,7 +1426,7 @@ function applyUserRole() {
     if (counsellorPortfolioSection) counsellorPortfolioSection.style.display = 'none';
     if (tabInst) tabInst.style.display = 'none';
     if (tabAuth) tabAuth.style.display = 'none';
-    if (tabOption) tabOption.style.display = 'none';
+    if (tabOption) tabOption.style.display = 'block';
     if (superuserBar) superuserBar.style.display = 'none';
     return;
   }
@@ -1498,7 +1504,7 @@ function applyUserRole() {
     if (counsellorPortfolioSection) counsellorPortfolioSection.style.display = 'none';
     if (tabInst) tabInst.style.display = 'block';
     if (tabAuth) tabAuth.style.display = 'none';
-    if (tabOption) tabOption.style.display = 'none';
+    if (tabOption) tabOption.style.display = 'block';
 
     setupInstitutionGroupColleges();
     renderInstitutionDashboard();
@@ -1508,7 +1514,7 @@ function applyUserRole() {
     if (counsellorPortfolioSection) counsellorPortfolioSection.style.display = 'none';
     if (tabInst) tabInst.style.display = 'none';
     if (tabAuth) tabAuth.style.display = 'block';
-    if (tabOption) tabOption.style.display = 'none';
+    if (tabOption) tabOption.style.display = 'block';
 
     renderAuthorityDashboard();
   }
@@ -1539,21 +1545,24 @@ const OPTION_BRANCH_MAP = {
 };
 
 function getActiveStudentProfile() {
-  if (!currentUser) return { rank: 5000, category: 'GM' };
+  const sidebarRank = parseInt(document.getElementById('pred-rank')?.value || document.getElementById('profile-rank')?.value || 5000);
+  const sidebarCat = document.getElementById('pred-category')?.value || document.getElementById('profile-category')?.value || 'GM';
+
+  if (!currentUser) return { rank: sidebarRank, category: sidebarCat };
   if (currentUser.role === 'counsellor') {
     const activeStudent = currentUser.students.find(s => s.id === currentUser.activeStudentId);
     if (activeStudent) {
       return { rank: activeStudent.rank, category: activeStudent.category };
     }
   }
-  return { rank: currentUser.rank || 5000, category: currentUser.category || 'GM' };
+  return { rank: currentUser.rank || sidebarRank, category: currentUser.category || sidebarCat };
 }
 
 function getChanceClass(cutoff, studentRank) {
-  if (!cutoff) return 'safety';
-  if (cutoff < studentRank) return 'dream';
-  if (cutoff >= studentRank && cutoff <= studentRank * 1.25) return 'target';
-  return 'safety';
+  if (!cutoff || cutoff === 999999) return 'dream';
+  if (studentRank <= cutoff * 0.9) return 'safety';
+  if (studentRank > cutoff * 1.15) return 'dream';
+  return 'target';
 }
 
 function saveCounsellorOptions() {
@@ -1563,6 +1572,8 @@ function saveCounsellorOptions() {
       activeStudent.optionList = studentOptionsList;
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
     }
+  } else {
+    localStorage.setItem('kcet_student_options', JSON.stringify(studentOptionsList));
   }
 }
 
@@ -1700,9 +1711,8 @@ function getCourseCutoff(course, category) {
 }
 
 function generateSeedPriorities() {
-  if (!currentUser) return;
-  const effectiveRole = currentUser.role === 'superuser' ? superuserPerspective : currentUser.role;
-  if (effectiveRole !== 'student' && effectiveRole !== 'counsellor') return;
+  const effectiveRole = currentUser ? (currentUser.role === 'superuser' ? superuserPerspective : currentUser.role) : 'student';
+  if (currentUser && effectiveRole !== 'student' && effectiveRole !== 'counsellor') return;
 
   // 1. Get Selected Branch Prefixes
   const activeBranchChips = document.querySelectorAll('#option-branch-chips .chip.active');
@@ -1768,6 +1778,8 @@ function renderOptionEntryList() {
   const tbody = document.getElementById('option-entry-tbody');
   if (!tbody) return;
 
+  const { rank: studentRank, category: studentCategory } = getActiveStudentProfile();
+
   if (studentOptionsList.length === 0) {
     tbody.innerHTML = `
       <tr>
@@ -1779,10 +1791,28 @@ function renderOptionEntryList() {
 
   tbody.innerHTML = studentOptionsList.map((opt, index) => {
     const priority = index + 1;
+    
+    // Dynamic feasibility recalculation
+    let cutoff = opt.cutoff;
+    let chanceClass = opt.chanceClass;
+    if (allData && allData.colleges) {
+      const collegeObj = allData.colleges.find(col => col.college_number == opt.collegeNum || col.kea_code == opt.keaCode);
+      if (collegeObj) {
+        const courseObj = collegeObj.courses.find(c => c.course_name === opt.courseName);
+        if (courseObj) {
+          cutoff = getCourseCutoff(courseObj, studentCategory) || 999999;
+          chanceClass = getChanceClass(cutoff, studentRank);
+          // Sync back to object
+          opt.cutoff = cutoff;
+          opt.chanceClass = chanceClass;
+        }
+      }
+    }
+
     let badgeHtml = '';
-    if (opt.chanceClass === 'dream') {
+    if (chanceClass === 'dream') {
       badgeHtml = '<span class="chance-badge chance-dream">Dream</span>';
-    } else if (opt.chanceClass === 'target') {
+    } else if (chanceClass === 'target') {
       badgeHtml = '<span class="chance-badge chance-target">Target</span>';
     } else {
       badgeHtml = '<span class="chance-badge chance-safety">Safety</span>';
@@ -1871,6 +1901,70 @@ function bindOptionEntryEvents() {
         saveCounsellorOptions();
         renderOptionEntryList();
       }
+    });
+  }
+
+  // Print priorities
+  const printBtn = document.getElementById('btn-print-options');
+  if (printBtn) {
+    printBtn.addEventListener('click', () => {
+      if (studentOptionsList.length === 0) {
+        alert("Your priority option list is empty!");
+        return;
+      }
+      
+      const printWindow = window.open('', '_blank');
+      const rowsHtml = studentOptionsList.map((opt, index) => `
+        <tr>
+          <td style="text-align:center; padding:8px; border:1px solid #ddd;">${index + 1}</td>
+          <td style="padding:8px; border:1px solid #ddd;"><strong>${opt.collegeName}</strong></td>
+          <td style="text-align:center; padding:8px; border:1px solid #ddd;"><code style="background:#f5f5f5; padding:2px 6px; border-radius:4px;">${opt.keaCode || 'N/A'}</code></td>
+          <td style="padding:8px; border:1px solid #ddd;">${opt.courseName}</td>
+          <td style="text-align:center; padding:8px; border:1px solid #ddd; text-transform:uppercase; font-weight:700; color:${opt.chanceClass === 'dream' ? '#f43f5e' : opt.chanceClass === 'target' ? '#eab308' : '#22c55e'}">${opt.chanceClass}</td>
+        </tr>
+      `).join('');
+
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>KEA KCET Priority Choice Checklist</title>
+            <style>
+              body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; padding: 20px; color: #333; }
+              h1 { font-size: 20px; margin-bottom: 5px; text-align: center; }
+              p { font-size: 12px; margin-bottom: 20px; text-align: center; color: #666; }
+              table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12px; }
+              th { background: #f0f0f0; padding: 10px; border: 1px solid #ddd; font-weight: 700; }
+              footer { margin-top: 30px; text-align: center; font-size: 10px; color: #999; border-top: 1px solid #eee; padding-top: 10px; }
+            </style>
+          </head>
+          <body>
+            <h1>KEA KCET Priority Choice Checklist</h1>
+            <p>Generated on ${new Date().toLocaleDateString()} - Keep this form handy during your official choice entry.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:80px;">Option No</th>
+                  <th>College Name</th>
+                  <th style="width:100px;">KEA Code</th>
+                  <th>Course / Branch</th>
+                  <th style="width:120px;">Feasibility Chance</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rowsHtml}
+              </tbody>
+            </table>
+            <footer>Generated via KCET Seat Matrix & Predictor Portal</footer>
+            <script>
+              window.onload = function() {
+                window.print();
+                window.close();
+              }
+            </script>
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
     });
   }
 
@@ -2658,6 +2752,7 @@ function openModal(college) {
         <td class="course-name-cell" style="cursor:pointer;" title="Click to expand full sub-category matrix">
           <span class="drawer-toggle-icon" id="toggle-icon-${idx}" style="display:inline-block; transition:transform 0.2s; font-size:10px; margin-right:4px; color:var(--blue);">▶</span>
           <strong>${escHtml(c.course_name)}</strong>
+          <button class="btn-add-option-inline" data-course-idx="${idx}" style="margin-left:8px; padding:2px 6px; font-size:9px; font-weight:700; background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.2); color:#22c55e; border-radius:4px; cursor:pointer; font-family:var(--font); display:inline-flex; align-items:center; gap:2px; vertical-align:middle; transition:background 0.2s;" title="Add this course to your Option Entry priority sheet">➕ Add</button>
         </td>
         <td class="td-total">${c.total_intake || 0}</td>
         <td class="td-kea">${c.total_kea_seats || 0}</td>
@@ -3195,7 +3290,7 @@ function openModal(college) {
   // Inline course drawer accordion toggle listener
   modalContent.querySelectorAll('.course-main-row').forEach(row => {
     row.addEventListener('click', (e) => {
-      if (e.target.closest('.subcat-clickable')) return;
+      if (e.target.closest('.subcat-clickable') || e.target.closest('.btn-add-option-inline')) return;
       const idx = row.dataset.courseIdx;
       const drawer = document.getElementById(`drawer-row-${idx}`);
       const icon = document.getElementById(`toggle-icon-${idx}`);
@@ -3204,6 +3299,50 @@ function openModal(college) {
         drawer.style.display = isOpen ? 'none' : 'table-row';
         if (icon) icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(90deg)';
       }
+    });
+  });
+
+  // Inline add option listener
+  modalContent.querySelectorAll('.btn-add-option-inline').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const idx = parseInt(btn.dataset.courseIdx);
+      const courseObj = college.courses[idx];
+      
+      const { rank: studentRank, category: studentCategory } = getActiveStudentProfile();
+      const cutoff = getCourseCutoff(courseObj, studentCategory) || 999999;
+
+      const chanceClass = getChanceClass(cutoff, studentRank);
+
+      const newOpt = {
+        id: college.college_number + '_' + courseObj.course_name,
+        collegeNum: college.college_number,
+        collegeName: college.college_name,
+        keaCode: college.kea_code,
+        courseName: courseObj.course_name,
+        cutoff: cutoff,
+        chanceClass: chanceClass
+      };
+
+      // Check for duplicate
+      if (studentOptionsList.some(o => o.id === newOpt.id)) {
+        alert("This option is already in your priority list!");
+        return;
+      }
+
+      studentOptionsList.push(newOpt);
+      saveCounsellorOptions();
+      renderOptionEntryList();
+
+      // Inline feedback
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '✔ Added';
+      btn.style.background = 'rgba(34,197,94,0.2)';
+      btn.style.color = '#22c55e';
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.style.background = 'rgba(34,197,94,0.1)';
+      }, 1500);
     });
   });
 
