@@ -2035,6 +2035,192 @@ select option, .form-select option, .download-select option {
   }
 }
 
+/* Simulator Active Device Styles (Force Mobile Rules on Desktop Simulator) */
+#app-viewport-wrapper.sim-iphone15,
+#app-viewport-wrapper.sim-s23,
+#app-viewport-wrapper.sim-pixel8 {
+  position: relative;
+  overflow: hidden;
+}
+#app-viewport-wrapper.sim-iphone15 .mobile-filter-toggle,
+#app-viewport-wrapper.sim-s23 .mobile-filter-toggle,
+#app-viewport-wrapper.sim-pixel8 .mobile-filter-toggle {
+  display: inline-block !important;
+}
+#app-viewport-wrapper.sim-iphone15 .layout,
+#app-viewport-wrapper.sim-s23 .layout,
+#app-viewport-wrapper.sim-pixel8 .layout {
+  position: relative;
+  overflow-x: hidden;
+  flex-direction: column !important;
+}
+#app-viewport-wrapper.sim-iphone15 .sidebar,
+#app-viewport-wrapper.sim-s23 .sidebar,
+#app-viewport-wrapper.sim-pixel8 .sidebar {
+  position: absolute !important;
+  top: 0;
+  left: -290px;
+  width: 280px !important;
+  height: 100% !important;
+  z-index: 2005 !important;
+  background: #0f0f12 !important;
+  border-right: 1px solid var(--border) !important;
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  overflow-y: auto !important;
+  box-shadow: 10px 0 25px rgba(0,0,0,0.5);
+  margin: 0 !important;
+}
+#app-viewport-wrapper.sim-iphone15 .sidebar.open,
+#app-viewport-wrapper.sim-s23 .sidebar.open,
+#app-viewport-wrapper.sim-pixel8 .sidebar.open {
+  left: 0 !important;
+}
+#app-viewport-wrapper.sim-iphone15 .main-content,
+#app-viewport-wrapper.sim-s23 .main-content,
+#app-viewport-wrapper.sim-pixel8 .main-content {
+  width: 100% !important;
+  padding: 16px !important;
+}
+#app-viewport-wrapper.sim-iphone15 .colleges-grid,
+#app-viewport-wrapper.sim-s23 .colleges-grid,
+#app-viewport-wrapper.sim-pixel8 .colleges-grid {
+  grid-template-columns: 1fr !important;
+}
+#app-viewport-wrapper.sim-iphone15 .header-stats,
+#app-viewport-wrapper.sim-s23 .header-stats,
+#app-viewport-wrapper.sim-pixel8 .header-stats {
+  display: none !important;
+}
+#app-viewport-wrapper.sim-iphone15 .tabs,
+#app-viewport-wrapper.sim-s23 .tabs,
+#app-viewport-wrapper.sim-pixel8 .tabs {
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  padding-bottom: 4px;
+}
+#app-viewport-wrapper.sim-iphone15 .tab,
+#app-viewport-wrapper.sim-s23 .tab,
+#app-viewport-wrapper.sim-pixel8 .tab {
+  white-space: nowrap !important;
+}
+#app-viewport-wrapper.sim-iphone15 button, 
+#app-viewport-wrapper.sim-iphone15 select, 
+#app-viewport-wrapper.sim-iphone15 input, 
+#app-viewport-wrapper.sim-iphone15 .tab, 
+#app-viewport-wrapper.sim-iphone15 .chip, 
+#app-viewport-wrapper.sim-iphone15 .sort-btn, 
+#app-viewport-wrapper.sim-iphone15 .reorder-btn,
+#app-viewport-wrapper.sim-s23 button, 
+#app-viewport-wrapper.sim-s23 select, 
+#app-viewport-wrapper.sim-s23 input, 
+#app-viewport-wrapper.sim-s23 .tab, 
+#app-viewport-wrapper.sim-s23 .chip, 
+#app-viewport-wrapper.sim-s23 .sort-btn, 
+#app-viewport-wrapper.sim-s23 .reorder-btn,
+#app-viewport-wrapper.sim-pixel8 button, 
+#app-viewport-wrapper.sim-pixel8 select, 
+#app-viewport-wrapper.sim-pixel8 input, 
+#app-viewport-wrapper.sim-pixel8 .tab, 
+#app-viewport-wrapper.sim-pixel8 .chip, 
+#app-viewport-wrapper.sim-pixel8 .sort-btn, 
+#app-viewport-wrapper.sim-pixel8 .reorder-btn {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#app-viewport-wrapper.sim-ipad .colleges-grid {
+  grid-template-columns: repeat(2, 1fr) !important;
+}
+#app-viewport-wrapper.sim-ipad .header-stats {
+  display: none !important;
+}
+
+/* Header & Superuser Bar Mobile Optimization */
+@media (max-width: 768px) {
+  .notification {
+    display: none !important;
+  }
+  .header-inner {
+    padding: 0 12px !important;
+    gap: 8px !important;
+  }
+  .brand-title {
+    font-size: 14px !important;
+  }
+  .brand-subtitle {
+    display: none !important;
+  }
+  .user-profile-chip {
+    padding: 4px 6px !important;
+  }
+  #superuser-view-bar {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 8px 12px !important;
+    gap: 8px !important;
+  }
+  #su-perspective-buttons {
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+  }
+  .su-btn {
+    padding: 2px 6px !important;
+    font-size: 9px !important;
+  }
+}
+
+#app-viewport-wrapper.sim-iphone15 .notification,
+#app-viewport-wrapper.sim-s23 .notification,
+#app-viewport-wrapper.sim-pixel8 .notification {
+  display: none !important;
+}
+#app-viewport-wrapper.sim-iphone15 .header-inner,
+#app-viewport-wrapper.sim-s23 .header-inner,
+#app-viewport-wrapper.sim-pixel8 .header-inner {
+  padding: 0 12px !important;
+  gap: 8px !important;
+}
+#app-viewport-wrapper.sim-iphone15 .brand-title,
+#app-viewport-wrapper.sim-s23 .brand-title,
+#app-viewport-wrapper.sim-pixel8 .brand-title {
+  font-size: 14px !important;
+}
+#app-viewport-wrapper.sim-iphone15 .brand-subtitle,
+#app-viewport-wrapper.sim-s23 .brand-subtitle,
+#app-viewport-wrapper.sim-pixel8 .brand-subtitle {
+  display: none !important;
+}
+#app-viewport-wrapper.sim-iphone15 .user-profile-chip,
+#app-viewport-wrapper.sim-s23 .user-profile-chip,
+#app-viewport-wrapper.sim-pixel8 .user-profile-chip {
+  padding: 4px 6px !important;
+}
+#app-viewport-wrapper.sim-iphone15 #superuser-view-bar,
+#app-viewport-wrapper.sim-s23 #superuser-view-bar,
+#app-viewport-wrapper.sim-pixel8 #superuser-view-bar {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  padding: 8px 12px !important;
+  gap: 8px !important;
+  display: flex !important;
+}
+#app-viewport-wrapper.sim-iphone15 #su-perspective-buttons,
+#app-viewport-wrapper.sim-s23 #su-perspective-buttons,
+#app-viewport-wrapper.sim-pixel8 #su-perspective-buttons {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 4px !important;
+}
+#app-viewport-wrapper.sim-iphone15 .su-btn,
+#app-viewport-wrapper.sim-s23 .su-btn,
+#app-viewport-wrapper.sim-pixel8 .su-btn {
+  padding: 2px 6px !important;
+  font-size: 9px !important;
+}
+
+
 
 
 
