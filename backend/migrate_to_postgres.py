@@ -30,15 +30,15 @@ def migrate_database():
 
     cursor = conn.cursor()
 
+    print("Dropping existing tables to refresh schema...")
+    cursor.execute("DROP TABLE IF EXISTS cutoffs, courses, colleges CASCADE;")
+    conn.commit()
+
     # Load and execute the schema script
     schema_path = os.path.join("backend", "schema_postgres.sql")
     print(f"Executing schema from {schema_path}...")
     with open(schema_path, "r", encoding="utf-8") as f:
         cursor.execute(f.read())
-    conn.commit()
-
-    print("Clearing existing records...")
-    cursor.execute("TRUNCATE TABLE cutoffs, courses, colleges RESTART IDENTITY CASCADE;")
     conn.commit()
 
     datasets = [

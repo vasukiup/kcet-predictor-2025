@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS cutoffs (
     course_id INTEGER NOT NULL,
     round INTEGER NOT NULL,
     category TEXT NOT NULL,
-    cutoff_rank INTEGER NOT NULL,
+    cutoff_rank BIGINT NOT NULL,
     year INTEGER DEFAULT 2025,
     FOREIGN KEY(course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
