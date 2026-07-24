@@ -411,8 +411,10 @@
         <div class="stats-grid">
           <div class="stat-card wide">
             <div class="stat-card-title">Seats by College Type</div>
-            <div class="donut-wrap" id="donut-type"></div>
-            <div class="legend" id="legend-type"></div>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 24px; margin-top: 16px; flex-wrap: wrap;">
+              <div id="donut-svg-wrap"></div>
+              <div id="donut-legends" style="display: flex; flex-direction: column; gap: 4px;"></div>
+            </div>
           </div>
           <div class="stat-card wide">
             <div class="stat-card-title">Top Districts by Total Seats</div>
