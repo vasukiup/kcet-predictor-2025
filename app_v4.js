@@ -4304,6 +4304,27 @@ function bindEvents() {
     });
   }
 
+  // Floating Action Button for Filters
+  const filterFab = document.getElementById('mobile-filter-fab');
+  if (filterFab && mobileOverlay && sidebar) {
+    filterFab.addEventListener('click', () => {
+      sidebar.classList.add('open');
+      mobileOverlay.style.display = 'block';
+    });
+  }
+
+  // Mobile Bottom Navigation Bar Buttons
+  const mobNavBtns = document.querySelectorAll('.mob-nav-btn');
+  mobNavBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetTabName = btn.dataset.tab;
+      const targetDesktopTab = document.getElementById(`tab-${targetTabName}`);
+      if (targetDesktopTab) {
+        targetDesktopTab.click();
+      }
+    });
+  });
+
   // Search
   const searchInput = document.getElementById('search-input');
   let searchTimeout;
@@ -4423,6 +4444,14 @@ function bindEvents() {
       tab.classList.add('active');
       currentTab = tab.dataset.tab;
       document.getElementById(`tab-content-${currentTab}`).classList.add('active');
+      
+      // Sync bottom navigation
+      document.querySelectorAll('.mob-nav-btn').forEach(mnb => {
+        mnb.classList.remove('active');
+        if (mnb.dataset.tab === currentTab) {
+          mnb.classList.add('active');
+        }
+      });
       
       if (currentTab === 'totals') {
         const activeBtn = document.querySelector('.totals-ann-btn.active');
@@ -6704,6 +6733,14 @@ function setupViewportSimulator() {
         updateSimDimensionsBadge();
       }
     });
+  });
+
+  // Synchronize bottom navigation buttons state
+  document.querySelectorAll('.mob-nav-btn').forEach(mnb => {
+    mnb.classList.remove('active');
+    if (mnb.dataset.tab === currentTab) {
+      mnb.classList.add('active');
+    }
   });
 }
 
