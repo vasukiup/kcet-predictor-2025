@@ -1997,18 +1997,19 @@ select option, .form-select option, .download-select option {
   }
 
   /* Full screen modal adjustments */
-  .modal-dialog {
+  .modal-overlay {
+    z-index: 2100 !important;
+    padding: 0 !important;
+  }
+
+  .modal {
     margin: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
     height: 100% !important;
     max-height: 100% !important;
     border-radius: 0 !important;
-  }
-
-  .modal-content {
-    height: 100% !important;
-    border-radius: 0 !important;
+    padding: 24px 16px !important;
   }
 
   /* Scrollable tabs bar on mobile */
@@ -2128,6 +2129,26 @@ select option, .form-select option, .download-select option {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Simulator Modal Layout Overrides */
+#app-viewport-wrapper.sim-iphone15 .modal-overlay,
+#app-viewport-wrapper.sim-s23 .modal-overlay,
+#app-viewport-wrapper.sim-pixel8 .modal-overlay {
+  position: absolute !important;
+  z-index: 2100 !important;
+  padding: 0 !important;
+}
+#app-viewport-wrapper.sim-iphone15 .modal,
+#app-viewport-wrapper.sim-s23 .modal,
+#app-viewport-wrapper.sim-pixel8 .modal {
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  border-radius: 0 !important;
+  padding: 24px 16px !important;
 }
 
 #app-viewport-wrapper.sim-ipad .colleges-grid {
