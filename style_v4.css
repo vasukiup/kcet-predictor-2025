@@ -2373,6 +2373,28 @@ select option, .form-select option, .download-select option {
   padding-bottom: 90px !important;
 }
 
+/* Sunburst Chart Custom Scrollbar & Transitions */
+#sunburst-legends::-webkit-scrollbar {
+  width: 4px;
+}
+#sunburst-legends::-webkit-scrollbar-track {
+  background: transparent;
+}
+#sunburst-legends::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+.sunburst-sector {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+.sunburst-sector:hover {
+  opacity: 1 !important;
+  stroke: rgba(255,255,255,0.4) !important;
+  stroke-width: 1px !important;
+}
+
+
 
 
 

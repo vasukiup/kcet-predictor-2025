@@ -2755,6 +2755,7 @@ function renderStats() {
   renderDistrictBarChart();
   renderCourseBarChart();
   renderQuotaDistributionChart();
+  renderSunburstChart();
 }
 
 function renderQuotaDistributionChart() {
@@ -2861,6 +2862,236 @@ function renderDonutChart() {
   `).join('');
   const legWrap = document.getElementById('donut-legends');
   if (legWrap) legWrap.innerHTML = legends;
+}
+
+function classifyCourseStream(courseName) {
+  const name = courseName.toLowerCase();
+  if (name.includes("computer science") || name.includes("cse") || name.includes("information science") || name.includes("ise") || name.includes("information technology") || name.includes("software engineering")) {
+    return "IT & Software";
+  } else if (name.includes("electronics") || name.includes("ece") || name.includes("electrical") || name.includes("eee") || name.includes("telecommunication") || name.includes("communication")) {
+    return "Electronics & Electrical";
+  } else if (name.includes("artificial intelligence") || name.includes("data science") || name.includes("cyber security") || name.includes("machine learning") || name.includes("aiml") || name.includes("robotics") || name.includes("iot") || name.includes("cloud computing") || name.includes("internet of things")) {
+    return "Allied & Emerging Tech";
+  } else {
+    return "Core Engineering";
+  }
+}
+
+function renderSunburstChart() {
+  const wrap = document.getElementById('sunburst-svg-wrap');
+  const legWrap = document.getElementById('sunburst-legends');
+  if (!wrap || !legWrap) return;
+
+  // Stream mapping config
+  const STREAM_COLORS = {
+    "IT & Software": "#3b82f6", // var(--blue)
+    "Electronics & Electrical": "#a855f7", // Purple
+    "Allied & Emerging Tech": "#14b8a6", // Teal
+    "Core Engineering": "#f97316" // Orange
+  };
+
+  // 1. Aggregate hierarchical data
+  const streamData = {};
+  let totalIntake = 0;
+
+  filtered.forEach(c => {
+    c.courses.forEach(cr => {
+      const intake = cr.total_intake || 0;
+      if (intake <= 0) return;
+
+      const courseName = cr.course_name;
+      const stream = classifyCourseStream(courseName);
+      totalIntake += intake;
+
+      if (!streamData[stream]) {
+        streamData[stream] = { seats: 0, branches: {} };
+      }
+      streamData[stream].seats += intake;
+      streamData[stream].branches[courseName] = (streamData[stream].branches[courseName] || 0) + intake;
+    });
+  });
+
+  if (totalIntake === 0) {
+    wrap.innerHTML = `<div style="font-size:12px; color:var(--text-muted); text-align:center; padding:50px 0;">No seat data.</div>`;
+    legWrap.innerHTML = "";
+    return;
+  }
+
+  // Convert to sorted lists
+  const hierarchy = Object.entries(streamData).map(([streamName, data]) => {
+    const sortedBranches = Object.entries(data.branches).map(([name, seats]) => ({
+      name,
+      seats,
+      pct: seats / totalIntake
+    })).sort((a, b) => b.seats - a.seats);
+
+    return {
+      name: streamName,
+      seats: data.seats,
+      pct: data.seats / totalIntake,
+      color: STREAM_COLORS[streamName] || "#94a3b8",
+      branches: sortedBranches
+    };
+  }).sort((a, b) => b.seats - a.seats);
+
+  // 2. Generate SVG arc paths
+  const cx = 160, cy = 160;
+  const r1_in = 45, r1_out = 80;
+  const r2_in = 83, r2_out = 125;
+
+  let currentAngle = 0;
+  const sectors1 = []; // Inner stream category arcs
+  const sectors2 = []; // Outer course branch arcs
+
+  const makeArcPath = (cx, cy, rIn, rOut, startAngle, endAngle) => {
+    const radStart = ((startAngle - 90) * Math.PI) / 180;
+    const radEnd = ((endAngle - 90) * Math.PI) / 180;
+    
+    const x1_out = cx + rOut * Math.cos(radStart);
+    const y1_out = cy + rOut * Math.sin(radStart);
+    const x2_out = cx + rOut * Math.cos(radEnd);
+    const y2_out = cy + rOut * Math.sin(radEnd);
+    
+    const x1_in = cx + rIn * Math.cos(radEnd);
+    const y1_in = cy + rIn * Math.sin(radEnd);
+    const x2_in = cx + rIn * Math.cos(radStart);
+    const y2_in = cy + rIn * Math.sin(radStart);
+    
+    const largeArc = (endAngle - startAngle) > 180 ? 1 : 0;
+    
+    return `M ${x1_out} ${y1_out} A ${rOut} ${rOut} 0 ${largeArc} 1 ${x2_out} ${y2_out} L ${x1_in} ${y1_in} A ${rIn} ${rIn} 0 ${largeArc} 0 ${x2_in} ${y2_in} Z`;
+  };
+
+  hierarchy.forEach(stream => {
+    const streamAngle = stream.pct * 360;
+    const startStreamAngle = currentAngle;
+    const endStreamAngle = currentAngle + streamAngle;
+
+    sectors1.push({
+      name: stream.name,
+      seats: stream.seats,
+      pct: stream.pct,
+      color: stream.color,
+      path: makeArcPath(cx, cy, r1_in, r1_out, startStreamAngle, endStreamAngle),
+      id: `sb-stream-${stream.name.replace(/\s+/g, '-')}`
+    });
+
+    let outerAngle = startStreamAngle;
+    stream.branches.forEach((branch, idx) => {
+      const branchPctOfTotal = branch.pct;
+      const branchAngle = branchPctOfTotal * 360;
+      const startBranchAngle = outerAngle;
+      const endBranchAngle = outerAngle + branchAngle;
+      outerAngle += branchAngle;
+
+      sectors2.push({
+        name: branch.name,
+        parentName: stream.name,
+        seats: branch.seats,
+        pct: branchPctOfTotal,
+        color: stream.color,
+        opacity: 0.55 + (idx % 4) * 0.15, // Lightness/opacity variation
+        path: makeArcPath(cx, cy, r2_in, r2_out, startBranchAngle, endBranchAngle)
+      });
+    });
+
+    currentAngle = endStreamAngle;
+  });
+
+  // Render SVG
+  const innerPathsHtml = sectors1.map(s => `
+    <path class="sunburst-sector sunburst-inner" d="${s.path}" fill="${s.color}" opacity="0.9" id="${s.id}" data-name="${s.name}" data-seats="${s.seats}" data-pct="${Math.round(s.pct * 100)}%"></path>
+  `).join('');
+
+  const outerPathsHtml = sectors2.map(s => `
+    <path class="sunburst-sector sunburst-outer" d="${s.path}" fill="${s.color}" opacity="${s.opacity}" data-parent="${s.parentName}" data-name="${s.name}" data-seats="${s.seats}" data-pct="${(s.pct * 100).toFixed(1)}%"></path>
+  `).join('');
+
+  wrap.innerHTML = `
+    <svg width="320" height="320" viewBox="0 0 320 320" style="position:relative; z-index:2;">
+      ${innerPathsHtml}
+      ${outerPathsHtml}
+      <circle cx="${cx}" cy="${cy}" r="40" fill="var(--bg-card2)"></circle>
+    </svg>
+    <div id="sunburst-center-card" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 76px; height: 76px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; pointer-events: none; z-index: 10;">
+      <div id="sb-center-title" style="font-size: 8px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">Admissions</div>
+      <div id="sb-center-seats" style="font-size: 11px; font-weight: 800; color: var(--text); line-height: 1.1;">Hover<br>Sectors</div>
+    </div>
+  `;
+
+  // Render legends grouped by streams
+  const legendHtml = hierarchy.map(stream => {
+    const branchesLegend = stream.branches.slice(0, 5).map(b => `
+      <div style="display:flex; justify-content:space-between; align-items:center; font-size:10px; color:var(--text-muted); margin-left:14px; padding:2px 0;">
+        <span>• ${b.name}</span>
+        <span style="font-weight:600; color:var(--text);">${b.seats.toLocaleString()}</span>
+      </div>
+    `).join('');
+
+    return `
+      <div style="background:rgba(255,255,255,0.01); border:1px solid var(--border); border-radius:8px; padding:10px; margin-bottom:8px;">
+        <div style="display:flex; align-items:center; gap:8px; font-size:11px; font-weight:700; color:var(--text); margin-bottom:6px;">
+          <span style="width:10px; height:10px; border-radius:50%; background:${stream.color}; display:inline-block;"></span>
+          <span>${stream.name}</span>
+          <span style="margin-left:auto; color:var(--text-muted); font-size:10px;">${stream.seats.toLocaleString()} (${Math.round(stream.pct * 100)}%)</span>
+        </div>
+        ${branchesLegend}
+        ${stream.branches.length > 5 ? `<div style="font-size:9px; color:var(--text-faint); margin-left:14px; margin-top:2px;">+ ${stream.branches.length - 5} more branches</div>` : ''}
+      </div>
+    `;
+  }).join('');
+  
+  legWrap.innerHTML = legendHtml;
+
+  // 3. Add Hover interactive highlights
+  const sectors = wrap.querySelectorAll('.sunburst-sector');
+  const centerTitle = wrap.querySelector('#sb-center-title');
+  const centerSeats = wrap.querySelector('#sb-center-seats');
+
+  sectors.forEach(sec => {
+    sec.addEventListener('mouseenter', () => {
+      // Fade out others
+      sectors.forEach(s => {
+        if (s !== sec) {
+          s.style.opacity = '0.15';
+        } else {
+          s.style.opacity = '1';
+        }
+      });
+
+      const name = sec.getAttribute('data-name');
+      const seats = parseInt(sec.getAttribute('data-seats')).toLocaleString();
+      const pct = sec.getAttribute('data-pct');
+      const isParent = sec.classList.contains('sunburst-inner');
+
+      if (isParent) {
+        centerTitle.textContent = name;
+        centerTitle.style.color = sec.getAttribute('fill');
+        centerSeats.innerHTML = `<span style="font-size:12px; font-weight:800;">${seats}</span><br><span style="font-size:9px; color:var(--text-muted);">${pct}</span>`;
+      } else {
+        const parent = sec.getAttribute('data-parent');
+        centerTitle.textContent = name;
+        centerTitle.style.color = sec.getAttribute('fill');
+        centerSeats.innerHTML = `<span style="font-size:12px; font-weight:800;">${seats}</span><br><span style="font-size:9px; color:var(--text-muted);">${pct}</span>`;
+      }
+    });
+
+    sec.addEventListener('mouseleave', () => {
+      // Restore opacities
+      sectors1.forEach(s => {
+        const el = wrap.querySelector(`#${s.id}`);
+        if (el) el.style.opacity = '0.9';
+      });
+      sectors2.forEach((s, idx) => {
+        const el = wrap.querySelectorAll('.sunburst-outer')[idx];
+        if (el) el.style.opacity = s.opacity.toString();
+      });
+
+      centerTitle.textContent = "Admissions";
+      centerTitle.style.color = "var(--text-muted)";
+      centerSeats.innerHTML = `Hover<br>Sectors`;
+    });
+  });
 }
 
 function polarToCart(cx, cy, r, angle) {
