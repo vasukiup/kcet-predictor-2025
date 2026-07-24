@@ -2394,6 +2394,26 @@ select option, .form-select option, .download-select option {
   stroke-width: 1px !important;
 }
 
+/* Sankey Flow Chart Styling */
+.sankey-node {
+  stroke-width: 0px;
+  rx: 4px;
+  ry: 4px;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+.sankey-node:hover {
+  filter: brightness(1.2);
+}
+.sankey-link {
+  transition: opacity 0.2s, stroke-width 0.2s;
+  cursor: pointer;
+}
+.sankey-link:hover {
+  opacity: 0.65 !important;
+}
+
+
 
 
 

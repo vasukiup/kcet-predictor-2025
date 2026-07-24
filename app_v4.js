@@ -2756,6 +2756,7 @@ function renderStats() {
   renderCourseBarChart();
   renderQuotaDistributionChart();
   renderSunburstChart();
+  renderSankeyChart();
 }
 
 function renderQuotaDistributionChart() {
@@ -3090,6 +3091,271 @@ function renderSunburstChart() {
       centerTitle.textContent = "Admissions";
       centerTitle.style.color = "var(--text-muted)";
       centerSeats.innerHTML = `Hover<br>Sectors`;
+    });
+  });
+}
+
+function renderSankeyChart() {
+  const wrap = document.getElementById('sankey-svg-wrap');
+  const tooltipPanel = document.getElementById('sankey-tooltip-panel');
+  if (!wrap) return;
+
+  // 1. Calculate flows and seats dynamically from active filtered dataset
+  let totalKeaSeats = 0;
+  
+  // Reservation totals
+  let resGeneral = 0;
+  let resRural = 0;
+  let resKannada = 0;
+  let resHk = 0;
+
+  // Stream totals
+  const streamSeats = {
+    "IT & Software": 0,
+    "Electronics & Electrical": 0,
+    "Allied & Emerging Tech": 0,
+    "Core Engineering": 0
+  };
+
+  // Flow details: Reservation Category -> Stream Category
+  const flowMatrix = {
+    "General Quota": { "IT & Software": 0, "Electronics & Electrical": 0, "Allied & Emerging Tech": 0, "Core Engineering": 0 },
+    "Rural Quota": { "IT & Software": 0, "Electronics & Electrical": 0, "Allied & Emerging Tech": 0, "Core Engineering": 0 },
+    "Kannada Medium": { "IT & Software": 0, "Electronics & Electrical": 0, "Allied & Emerging Tech": 0, "Core Engineering": 0 },
+    "HK Local Quota": { "IT & Software": 0, "Electronics & Electrical": 0, "Allied & Emerging Tech": 0, "Core Engineering": 0 }
+  };
+
+  filtered.forEach(c => {
+    c.courses.forEach(cr => {
+      const seats = cr.total_kea_seats || 0;
+      if (seats <= 0) return;
+
+      totalKeaSeats += seats;
+
+      // Classify branch stream
+      const stream = classifyCourseStream(cr.course_name);
+      streamSeats[stream] += seats;
+
+      // Reservation splits
+      const g = seats * 0.60;
+      const r = seats * 0.25;
+      const k = seats * 0.05;
+      const h = seats * 0.10;
+
+      resGeneral += g;
+      resRural += r;
+      resKannada += k;
+      resHk += h;
+
+      // Accumulate flows
+      flowMatrix["General Quota"][stream] += g;
+      flowMatrix["Rural Quota"][stream] += r;
+      flowMatrix["Kannada Medium"][stream] += k;
+      flowMatrix["HK Local Quota"][stream] += h;
+    });
+  });
+
+  if (totalKeaSeats === 0) {
+    wrap.innerHTML = `<div style="font-size:12px; color:var(--text-muted); text-align:center; padding:50px 0;">No KEA seats found.</div>`;
+    return;
+  }
+
+  // 2. Compute Nodes Heights & Y Coordinates (D3-like Proportional Scaler)
+  const svgW = 540, svgH = 340;
+  const colX = [30, 240, 450];
+  const nodeW = 16;
+  const nodePadding = 18;
+  const heightBudget = 250;
+  const scale = heightBudget / totalKeaSeats;
+
+  // Nodes definition
+  const nodes = {
+    col0: [
+      { name: "KEA Seat Pool", seats: totalKeaSeats, color: "var(--text-muted)", id: "n-kea" }
+    ],
+    col1: [
+      { name: "General Quota", seats: resGeneral, color: "#3b82f6", id: "n-res-gen" }, // Blue
+      { name: "Rural Quota", seats: resRural, color: "#14b8a6", id: "n-res-rur" }, // Teal
+      { name: "HK Local Quota", seats: resHk, color: "#f97316", id: "n-res-hk" }, // Orange
+      { name: "Kannada Medium", seats: resKannada, color: "#a855f7", id: "n-res-kan" } // Purple
+    ],
+    col2: [
+      { name: "IT & Software", seats: streamSeats["IT & Software"], color: "#3b82f6", id: "n-str-it" },
+      { name: "Electronics & Electrical", seats: streamSeats["Electronics & Electrical"], color: "#a855f7", id: "n-str-ec" },
+      { name: "Allied & Emerging Tech", seats: streamSeats["Allied & Emerging Tech"], color: "#14b8a6", id: "n-str-al" },
+      { name: "Core Engineering", seats: streamSeats["Core Engineering"], color: "#f97316", id: "n-str-co" }
+    ]
+  };
+
+  // Helper to compute node Ys (centered vertically)
+  const computeYs = (colNodes) => {
+    const totalHeight = colNodes.reduce((acc, n) => acc + (n.seats * scale), 0) + (colNodes.length - 1) * nodePadding;
+    let startY = 40 + (heightBudget - totalHeight) / 2;
+    colNodes.forEach(n => {
+      n.x = 0; // Set later based on column
+      n.y = startY;
+      n.h = n.seats * scale;
+      n.nextOutY = startY;
+      n.nextInY = startY;
+      startY += n.h + nodePadding;
+    });
+  };
+
+  computeYs(nodes.col0);
+  computeYs(nodes.col1);
+  computeYs(nodes.col2);
+
+  // Set X coordinates
+  nodes.col0[0].x = colX[0];
+  nodes.col1.forEach(n => n.x = colX[1]);
+  nodes.col2.forEach(n => n.x = colX[2]);
+
+  // Nodes rendering markup
+  const allNodes = [...nodes.col0, ...nodes.col1, ...nodes.col2];
+  const nodesHtml = allNodes.map(n => `
+    <rect class="sankey-node" id="${n.id}" x="${n.x}" y="${n.y}" width="${nodeW}" height="${n.h}" fill="${n.color}" opacity="0.85">
+      <title>${n.name}: ${Math.round(n.seats).toLocaleString()} seats</title>
+    </rect>
+    <text x="${n.x + (n.x === colX[2] ? -8 : nodeW + 8)}" y="${n.y + n.h/2 + 4}"
+          fill="var(--text)" font-size="10" font-weight="700"
+          text-anchor="${n.x === colX[2] ? 'end' : 'start'}"
+          style="pointer-events:none; font-family:'Space Grotesk', sans-serif;"
+    >
+      ${n.name}
+    </text>
+  `).join('');
+
+  // 3. Generate Link ribbons paths (Sequential Stack drawing)
+  const links = [];
+
+  const makeSankeyPath = (x0, y0, x1, y1, width) => {
+    const dx = (x1 - x0) * 0.45;
+    const topCurve = `M ${x0} ${y0} C ${x0 + dx} ${y0}, ${x1 - dx} ${y1}, ${x1} ${y1}`;
+    const rightEdge = `L ${x1} ${y1 + width}`;
+    const bottomCurve = `C ${x1 - dx} ${y1 + width}, ${x0 + dx} ${y0 + width}, ${x0} ${y0 + width}`;
+    return `${topCurve} ${rightEdge} ${bottomCurve} Z`;
+  };
+
+  // Link Flow Stage 1: KEA Pool -> Reservation categories
+  nodes.col1.forEach(resNode => {
+    const flowSeats = resNode.seats;
+    if (flowSeats <= 0) return;
+    const h = flowSeats * scale;
+
+    const sourceNode = nodes.col0[0];
+
+    links.push({
+      path: makeSankeyPath(sourceNode.x + nodeW, sourceNode.nextOutY, resNode.x, resNode.nextInY, h),
+      sourceId: sourceNode.id,
+      targetId: resNode.id,
+      seats: flowSeats,
+      color: resNode.color,
+      label: `KEA Pool ➔ ${resNode.name}: ${Math.round(flowSeats).toLocaleString()} seats`
+    });
+
+    sourceNode.nextOutY += h;
+    resNode.nextInY += h;
+  });
+
+  // Link Flow Stage 2: Reservation categories -> Streams
+  nodes.col1.forEach(resNode => {
+    nodes.col2.forEach(strNode => {
+      const flowSeats = flowMatrix[resNode.name]?.[strNode.name] || 0;
+      if (flowSeats <= 0) return;
+      const h = flowSeats * scale;
+
+      links.push({
+        path: makeSankeyPath(resNode.x + nodeW, resNode.nextOutY, strNode.x, strNode.nextInY, h),
+        sourceId: resNode.id,
+        targetId: strNode.id,
+        seats: flowSeats,
+        color: resNode.color,
+        label: `${resNode.name} ➔ ${strNode.name}: ${Math.round(flowSeats).toLocaleString()} seats`
+      });
+
+      resNode.nextOutY += h;
+      strNode.nextInY += h;
+    });
+  });
+
+  // Links rendering markup with Linear Gradients
+  const gradientsHtml = links.map((l, i) => `
+    <linearGradient id="sankey-grad-${i}" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="${l.color}" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="${l.color}" stop-opacity="0.1" />
+    </linearGradient>
+  `).join('');
+
+  const linksHtml = links.map((l, i) => `
+    <path class="sankey-link" d="${l.path}" fill="url(#sankey-grad-${i})" data-src="${l.sourceId}" data-tgt="${l.targetId}" data-seats="${Math.round(l.seats)}" data-lbl="${l.label}">
+      <title>${l.label}</title>
+    </path>
+  `).join('');
+
+  wrap.innerHTML = `
+    <svg width="${svgW}" height="${svgH}" viewBox="0 0 ${svgW} ${svgH}" style="position:relative; max-width: 100%;">
+      <defs>${gradientsHtml}</defs>
+      <g>${linksHtml}</g>
+      <g>${nodesHtml}</g>
+    </svg>
+  `;
+
+  // 4. Hook up Hover interactions
+  const allSvgLinks = wrap.querySelectorAll('.sankey-link');
+  const allSvgNodes = wrap.querySelectorAll('.sankey-node');
+
+  allSvgLinks.forEach(link => {
+    link.addEventListener('mouseenter', () => {
+      allSvgLinks.forEach(l => {
+        if (l !== link) {
+          l.style.opacity = '0.08';
+        } else {
+          l.style.opacity = '1';
+        }
+      });
+      if (tooltipPanel) {
+        tooltipPanel.innerHTML = `📊 ${link.getAttribute('data-lbl')} (${Math.round((parseInt(link.getAttribute('data-seats')) / totalKeaSeats) * 100)}% of KEA total)`;
+        tooltipPanel.style.color = "var(--blue)";
+      }
+    });
+
+    link.addEventListener('mouseleave', () => {
+      allSvgLinks.forEach(l => l.style.opacity = '');
+      if (tooltipPanel) {
+        tooltipPanel.textContent = "Hover links or nodes to inspect flow volumes";
+        tooltipPanel.style.color = "";
+      }
+    });
+  });
+
+  allSvgNodes.forEach(node => {
+    node.addEventListener('mouseenter', () => {
+      const nid = node.getAttribute('id');
+      const nname = allNodes.find(n => n.id === nid)?.name || '';
+      const nseats = allNodes.find(n => n.id === nid)?.seats || 0;
+      
+      allSvgLinks.forEach(l => {
+        const src = l.getAttribute('data-src');
+        const tgt = l.getAttribute('data-tgt');
+        if (src === nid || tgt === nid) {
+          l.style.opacity = '1';
+        } else {
+          l.style.opacity = '0.08';
+        }
+      });
+
+      if (tooltipPanel) {
+        tooltipPanel.innerHTML = `🏢 <strong>${nname}</strong>: ${Math.round(nseats).toLocaleString()} seats (${Math.round((nseats / totalKeaSeats) * 100)}% of total)`;
+        tooltipPanel.style.color = node.getAttribute('fill');
+      }
+    });
+
+    node.addEventListener('mouseleave', () => {
+      allSvgLinks.forEach(l => l.style.opacity = '');
+      if (tooltipPanel) {
+        tooltipPanel.textContent = "Hover links or nodes to inspect flow volumes";
+        tooltipPanel.style.color = "";
+      }
     });
   });
 }
