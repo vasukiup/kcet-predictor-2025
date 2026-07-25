@@ -9,6 +9,26 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style_v4.css?v=9"/>
+  <script>
+    window.addEventListener('error', function(e) {
+      console.error("Global Error Caught:", e.error);
+      const errDiv = document.createElement('div');
+      errDiv.style.position = 'fixed';
+      errDiv.style.bottom = '10px';
+      errDiv.style.left = '10px';
+      errDiv.style.right = '10px';
+      errDiv.style.background = '#f43f5e';
+      errDiv.style.color = '#fff';
+      errDiv.style.padding = '12px';
+      errDiv.style.borderRadius = '8px';
+      errDiv.style.zIndex = '100000';
+      errDiv.style.fontSize = '12px';
+      errDiv.style.fontFamily = 'monospace';
+      errDiv.style.boxShadow = '0 4px 12px rgba(0,0,0,0.5)';
+      errDiv.innerHTML = '<strong>JS Error:</strong> ' + e.message + '<br><span style="font-size:10px;color:rgba(255,255,255,0.8);">' + e.filename + ':' + e.lineno + '</span>';
+      document.body.appendChild(errDiv);
+    });
+  </script>
 </head>
 <body>
   <!-- Superuser Viewport Simulator Bar -->

@@ -111,13 +111,15 @@ async function loadYearData(year) {
     // Preserve exact KEA seat numbers from source JSON file
     allData.colleges.forEach(col => {
       let colKea = 0;
-      col.courses.forEach(c => {
-        const keaSeats = (c.total_kea_seats !== undefined && c.total_kea_seats !== null) 
-          ? c.total_kea_seats 
-          : ((c.kea_rk || 0) + (c.kea_hk || 0) + (c.kea_spl || 0) + (c.kea_ph || 0));
-        c.total_kea_seats = keaSeats;
-        colKea += keaSeats;
-      });
+      if (col.courses && Array.isArray(col.courses)) {
+        col.courses.forEach(c => {
+          const keaSeats = (c.total_kea_seats !== undefined && c.total_kea_seats !== null) 
+            ? c.total_kea_seats 
+            : ((c.kea_rk || 0) + (c.kea_hk || 0) + (c.kea_spl || 0) + (c.kea_ph || 0));
+          c.total_kea_seats = keaSeats;
+          colKea += keaSeats;
+        });
+      }
       if (!col.total_kea_seats) {
         col.total_kea_seats = colKea;
       }
@@ -717,11 +719,15 @@ function renderYoYStats() {
 }
 
 async function init() {
-  await loadYearData('2026');
-  bindEvents();
-  initAssistant();
-  initAuth();
-  initializeSessions();
+  try {
+    await loadYearData('2026');
+    bindEvents();
+    initAssistant();
+    initAuth();
+    initializeSessions();
+  } catch (err) {
+    console.error("Initialization error:", err);
+  }
 
   // Bind Year Selector Event
   const yearSelect = document.getElementById('year-select');
