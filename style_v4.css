@@ -1983,7 +1983,7 @@ select option, .form-select option, .download-select option {
     left: 0 !important;
   }
 
-  .main-content {
+  .main {
     width: 100% !important;
     padding: 16px !important;
   }
@@ -2335,13 +2335,16 @@ select option, .form-select option, .download-select option {
     display: flex !important;
   }
   
-  /* Hide horizontal top tabs to reclaim space */
-  .main-content > .tabs {
-    display: none !important;
+  /* Allow horizontal top tabs to scroll on mobile */
+  .main > .tabs {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    display: flex !important;
   }
 
   /* Prevent bottom nav from obscuring lists */
-  .main-content {
+  .main {
     padding-bottom: 90px !important;
   }
 }
@@ -2361,15 +2364,18 @@ select option, .form-select option, .download-select option {
   position: absolute !important;
 }
 
-#app-viewport-wrapper.sim-iphone15 .main-content > .tabs,
-#app-viewport-wrapper.sim-s23 .main-content > .tabs,
-#app-viewport-wrapper.sim-pixel8 .main-content > .tabs {
-  display: none !important;
+#app-viewport-wrapper.sim-iphone15 .main > .tabs,
+#app-viewport-wrapper.sim-s23 .main > .tabs,
+#app-viewport-wrapper.sim-pixel8 .main > .tabs {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  flex-wrap: nowrap !important;
+  display: flex !important;
 }
 
-#app-viewport-wrapper.sim-iphone15 .main-content,
-#app-viewport-wrapper.sim-s23 .main-content,
-#app-viewport-wrapper.sim-pixel8 .main-content {
+#app-viewport-wrapper.sim-iphone15 .main,
+#app-viewport-wrapper.sim-s23 .main,
+#app-viewport-wrapper.sim-pixel8 .main {
   padding-bottom: 90px !important;
 }
 

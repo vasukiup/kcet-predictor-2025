@@ -1541,16 +1541,7 @@ function applyUserRole() {
   // Show/Hide downloads tab based on eligibility
   const tabDownloads = document.getElementById('tab-downloads');
   if (tabDownloads) {
-    if (effectiveRole !== 'student') {
-      tabDownloads.style.display = 'block';
-    } else {
-      tabDownloads.style.display = 'none';
-      // If we are currently on the downloads tab, force redirect to colleges tab
-      if (currentTab === 'downloads') {
-        const collegesTab = document.getElementById('tab-colleges');
-        if (collegesTab) collegesTab.click();
-      }
-    }
+    tabDownloads.style.display = 'block';
   }
 
   // Render dashboard elements based on effective role
