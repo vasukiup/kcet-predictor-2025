@@ -1,3 +1,8 @@
+# =======================================================
+# Copyright (c) 2026 Vasuki Upadhya. All rights reserved.
+# Author: Vasuki Upadhya (vasuki.upadhya@gmail.com)
+# Application: KEA Seat Matrix & Prediction Portal
+# =======================================================
 import os
 import base64
 from fastapi import FastAPI, HTTPException

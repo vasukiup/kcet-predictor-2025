@@ -106,3 +106,10 @@ Browse the secure portal at: **[https://kcet-predictor.local](https://kcet-predi
 * **Counsellor Group (Advisors)**: `counsellor` or `mentor`
 * **Authority Group (KEA Admin)**: `authority`
 * **Superuser Group (SysAdmin)**: `superuser`
+
+---
+
+## 📝 Author & License
+
+* **Author**: Vasuki Upadhya (vasuki.upadhya@gmail.com)
+* **License**: Copyright © 2026 Vasuki Upadhya. All Rights Reserved. Proprietary and confidential. Unauthorized copying, modification, or distribution is strictly prohibited.

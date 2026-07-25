@@ -1,7 +1,8 @@
-/* =========================================
-   Karnataka Engineering Seat Matrix 2025
-   Main Application Logic
-   ========================================= */
+/* =======================================================
+   Copyright (c) 2026 Vasuki Upadhya. All rights reserved.
+   Author: Vasuki Upadhya (vasuki.upadhya@gmail.com)
+   Application: KEA Seat Matrix & Prediction Portal
+   ======================================================= */
 
 const ANNEXURE_LABELS = {
   A: 'Government',
