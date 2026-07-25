@@ -26,6 +26,14 @@ An enterprise-grade, high-performance web portal designed for students, counselo
 
 ---
 
+## 📂 Codebase Separation (Development vs. Production)
+
+The repository separates local developer assets from production deployment configurations:
+* **💻 Active Development**: The root directory contains the `archive/` folder, which holds all historical data cleaning, parsing, and extraction Python scripts, raw PDF files, and image captures. These remain available locally in your workspace for processing new datasets or seeders.
+* **🐳 Production Deployment**: All development-only archives, raw assets, local CA security credentials (`certs/`), and Git repositories are automatically ignored by Docker container builds using the `.dockerignore` file. This guarantees that your production Docker image remains lightweight, secure, and clean.
+
+---
+
 ## 💻 Local Native Development (SQLite Stack)
 
 Ensure you have Python 3.10+ installed.

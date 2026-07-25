@@ -8,3 +8,11 @@ installable/
 *.exe
 certs/
 
+# Ignore large archives, PDFs and PNGs
+archive/**/*.zip
+archive/**/*.pdf
+archive/**/*.png
+archive/test_IDE/
+*.zip
+*.pdf
+*.png

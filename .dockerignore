@@ -1,0 +1,27 @@
+# =======================================================
+# Copyright (c) 2026 Vasuki Upadhya. All rights reserved.
+# Author: Vasuki Upadhya (vasuki.upadhya@gmail.com)
+# Application: KEA Seat Matrix & Prediction Portal
+# =======================================================
+
+# Exclude Git metadata and worktrees
+.git/
+baseline/
+
+# Exclude development data cleaning, scripts, and archives
+archive/
+*.zip
+*.pdf
+*.png
+data_extraction_archive/
+
+# Exclude local SSL certificates and security keys
+certs/
+backend/.env
+
+# Exclude Python byte-code cache folders
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
