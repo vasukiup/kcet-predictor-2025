@@ -1,3 +1,12 @@
+# =======================================================
+# Copyright (c) 2026 Vasuki Upadhya. All rights reserved.
+# Author: Vasuki Upadhya (vasuki.upadhya@gmail.com)
+# Application: KEA Seat Matrix & Prediction Portal
+# =======================================================
+"""
+SSL Certificate Generation Utility.
+Creates a local certificate authority and issues SSL certificates for secure HTTPS proxying.
+"""
 import datetime
 import os
 from cryptography import x509

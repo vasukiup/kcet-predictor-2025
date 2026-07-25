@@ -1,3 +1,12 @@
+# =======================================================
+# Copyright (c) 2026 Vasuki Upadhya. All rights reserved.
+# Author: Vasuki Upadhya (vasuki.upadhya@gmail.com)
+# Application: KEA Seat Matrix & Prediction Portal
+# =======================================================
+"""
+Database Migration and Seeder Tool.
+Loads raw JSON seat matrices/cutoffs and populates the PostgreSQL database.
+"""
 import os
 import json
 import re

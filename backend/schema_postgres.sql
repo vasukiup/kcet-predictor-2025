@@ -1,3 +1,8 @@
+-- =======================================================
+-- Copyright (c) 2026 Vasuki Upadhya. All rights reserved.
+-- Author: Vasuki Upadhya (vasuki.upadhya@gmail.com)
+-- Application: KEA Seat Matrix & Prediction Portal
+-- =======================================================
 -- Schema for KCET Predictor PostgreSQL Database
 
 CREATE TABLE IF NOT EXISTS colleges (

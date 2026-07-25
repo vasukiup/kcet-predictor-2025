@@ -1,3 +1,12 @@
+# =======================================================
+# Copyright (c) 2026 Vasuki Upadhya. All rights reserved.
+# Author: Vasuki Upadhya (vasuki.upadhya@gmail.com)
+# Application: KEA Seat Matrix & Prediction Portal
+# =======================================================
+"""
+Agent Logic for the KCET Predictor Portal.
+Integrates Gemini API and matches database records for user queries.
+"""
 import os
 import sqlite3
 import re
@@ -7,6 +16,9 @@ import urllib.error
 
 # Load environment variables from .env file if it exists
 def load_dotenv():
+    """
+    Load environment variables from backend/.env file if it exists.
+    """
     env_path = os.path.join("backend", ".env")
     if os.path.exists(env_path):
         with open(env_path, "r", encoding="utf-8") as f:
@@ -136,6 +148,10 @@ def call_gemini_api(messages):
     return None
 
 def run_agent(user_query, chat_history=None):
+    """
+    Execute the conversational agent logic for a user query.
+    Queries the database and translates findings into natural language using Gemini.
+    """
     if chat_history is None:
         chat_history = []
         
