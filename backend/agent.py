@@ -8,7 +8,7 @@ Agent Logic for the KCET Predictor Portal.
 Integrates Gemini API and matches database records for user queries.
 """
 import os
-import sqlite3
+from backend.database import get_db_cursor
 import re
 import json
 import urllib.request
@@ -34,7 +34,7 @@ load_dotenv()
 SYSTEM_PROMPT = """You are a highly knowledgeable KCET (Karnataka Common Entrance Test) Admission AI Agent.
 Your job is to answer user queries about engineering colleges, course intakes, seat matrices, special category seats, and round-wise cutoffs for 2024, 2025, and 2026.
 
-You have access to a SQLite database 'backend/kcet.db' with the following schema:
+You have access to a PostgreSQL database with the following schema:
 
 1. colleges:
    - id (INTEGER PRIMARY KEY)
@@ -86,17 +86,15 @@ SELECT ...
 """
 
 def execute_sql(sql_query):
-    db_path = os.path.join("backend", "kcet.db")
     try:
-        conn = sqlite3.connect(db_path)
-        conn.row_factory = sqlite3.Row
-        cursor = conn.cursor()
-        cursor.execute(sql_query)
-        rows = cursor.fetchall()
-        columns = [desc[0] for desc in cursor.description]
-        results = [dict(row) for row in rows[:50]] # Limit to 50 results
-        conn.close()
-        return {"columns": columns, "rows": results}
+        with get_db_cursor() as cur:
+            cur.execute(sql_query)
+            if not cur.description:
+                return {"message": "Query executed successfully, no rows returned."}
+            columns = [desc[0] for desc in cur.description]
+            rows = cur.fetchall()
+            results = [dict(row) for row in rows[:50]] # Limit to 50 results
+            return {"columns": columns, "rows": results}
     except Exception as e:
         return {"error": str(e)}
 

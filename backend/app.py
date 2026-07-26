@@ -5,15 +5,19 @@
 # =======================================================
 import os
 import base64
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
-from starlette.responses import Response
+from starlette.responses import Response, StreamingResponse
 from pydantic import BaseModel
 from typing import List, Optional
+import io
+import csv
+import json
+
 from backend.agent import run_agent, load_dotenv
-import uvicorn
+from backend.database import get_db_cursor
 
 # Ensure environment variables are loaded
 load_dotenv()
@@ -63,6 +67,382 @@ app.add_middleware(
 # Apply global authentication middleware
 app.add_middleware(BasicAuthMiddleware)
 
+
+# ────────────────────────────────────────────────────────
+# DATABASE-BACKED API ENDPOINTS
+# ────────────────────────────────────────────────────────
+
+@app.get("/api/filters")
+async def get_filters(year: int = 2026):
+    """
+    Returns unique courses, districts, and college types for filtering.
+    """
+    try:
+        with get_db_cursor() as cur:
+            # Query unique course names
+            cur.execute("SELECT DISTINCT course_name FROM courses WHERE year = %s ORDER BY course_name", (year,))
+            courses = [row["course_name"] for row in cur.fetchall()]
+
+            # Query unique districts
+            cur.execute("SELECT DISTINCT district FROM colleges WHERE year = %s AND district IS NOT NULL AND district != '' ORDER BY district", (year,))
+            districts = [row["district"] for row in cur.fetchall()]
+
+            # Query unique college types
+            cur.execute("SELECT DISTINCT college_type FROM colleges WHERE year = %s AND college_type IS NOT NULL AND college_type != '' ORDER BY college_type", (year,))
+            types = [row["college_type"] for row in cur.fetchall()]
+
+            return {
+                "courses": courses,
+                "districts": districts,
+                "types": types
+            }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+
+
+@app.get("/api/colleges")
+async def get_colleges(
+    year: int = 2026,
+    q: str = "",
+    annexure: str = "all",
+    district: str = "",
+    course: str = "",
+    min_seats: int = 0,
+    affiliation: str = "",
+    naac: str = "",
+    nba: str = "",
+    min_salary: float = 0.0,
+    max_hostel: int = 150000,
+    limit: int = 30,
+    offset: int = 0
+):
+    """
+    Searches, filters, and returns paginated colleges and course totals from PostgreSQL.
+    """
+    try:
+        with get_db_cursor() as cur:
+            # Base query conditions
+            conditions = ["col.year = %s"]
+            params = [year]
+
+            # Text Search
+            if q:
+                conditions.append("(col.college_name ILIKE %s OR col.address ILIKE %s OR col.kea_code ILIKE %s)")
+                q_param = f"%{q}%"
+                params.extend([q_param, q_param, q_param])
+
+            # Filters
+            if annexure != "all":
+                conditions.append("col.annexure = %s")
+                params.append(annexure)
+            if district:
+                conditions.append("col.district = %s")
+                params.append(district)
+            if min_seats > 0:
+                conditions.append("col.total_intake >= %s")
+                params.append(min_seats)
+            if affiliation:
+                conditions.append("col.affiliation ILIKE %s")
+                params.append(f"%{affiliation}%")
+            if naac:
+                conditions.append("col.naac_grade ILIKE %s")
+                params.append(f"%{naac}%")
+            if nba:
+                conditions.append("col.nba_accredited ILIKE %s")
+                params.append(f"%{nba}%")
+
+            # Min salary filter
+            if min_salary > 0:
+                conditions.append("CAST(NULLIF(REGEXP_REPLACE(col.placements_avg_package, '[^0-9.]', '', 'g'), '') AS NUMERIC) >= %s")
+                params.append(min_salary)
+
+            # Max hostel fee filter
+            if max_hostel < 150000:
+                conditions.append("CAST(NULLIF(REGEXP_REPLACE(col.hostel_fees, '[^0-9]', '', 'g'), '') AS INTEGER) <= %s")
+                params.append(max_hostel)
+
+            # Course row filtering join
+            join_clause = ""
+            if course:
+                join_clause = "JOIN courses cr ON col.id = cr.college_id"
+                conditions.append("cr.course_name = %s")
+                params.append(course)
+
+            where_clause = " WHERE " + " AND ".join(conditions)
+
+            # Query Total Count and Total Seat sum
+            count_query = f"SELECT COUNT(DISTINCT col.id) as count, COALESCE(SUM(col.total_kea_seats), 0) as total_seats FROM colleges col {join_clause} {where_clause}"
+            cur.execute(count_query, tuple(params))
+            stats = cur.fetchone()
+            total_count = stats["count"]
+            total_seats = stats["total_seats"]
+
+            # Query Colleges list
+            col_query = f"""
+                SELECT DISTINCT 
+                    col.id, col.college_number, col.kea_code, col.college_name, col.address,
+                    col.annexure, col.college_type, col.district, col.total_intake, col.total_kea_seats,
+                    col.established_year, col.nirf_rank, col.naac_grade, col.nba_accredited,
+                    col.placements_avg_package, col.placements_highest_package, col.placements_rate,
+                    col.hostel_fees, col.hostel_capacity, col.hostel_mess_included, col.campus_size,
+                    col.campus_majestic_dist_km, col.campus_nearest_transit
+                FROM colleges col
+                {join_clause}
+                {where_clause}
+                ORDER BY col.college_name ASC
+                LIMIT %s OFFSET %s
+            """
+            cur.execute(col_query, tuple(params + [limit, offset]))
+            colleges = cur.fetchall()
+
+            # Attach courses and their cutoffs to each college
+            for col in colleges:
+                cur.execute("""
+                    SELECT 
+                        id, course_name, total_intake, total_kea_seats, snq_5pct,
+                        kea_ph, kea_spl, kea_hk, kea_rk, kea_tot, cat2_seats, cat3_seats,
+                        over_above_5pct, sports, ncc, sct_guides, defence, k_defence, ex_defence, capf, ai, xcapf, tot_special_seats,
+                        placements_min_package, placements_avg_package, placements_max_package, placements_rate, placements_industry, placements_recruiters
+                    FROM courses 
+                    WHERE college_id = %s AND year = %s
+                """, (col["id"], year))
+                col["courses"] = cur.fetchall()
+                
+                # Fetch and format cutoffs for each course
+                for cr in col["courses"]:
+                    cur.execute("""
+                        SELECT round, category, cutoff_rank 
+                        FROM cutoffs 
+                        WHERE course_id = %s AND year = %s
+                    """, (cr["id"], year))
+                    cutoffs = cur.fetchall()
+                    
+                    cr["mock_round1_cutoff"] = {}
+                    cr["round1_cutoff"] = {}
+                    cr["round2_cutoff"] = {}
+                    cr["round3_cutoff"] = {}
+                    for cut in cutoffs:
+                        r = cut["round"]
+                        cat = cut["category"]
+                        val = cut["cutoff_rank"]
+                        if r == 0:
+                            cr["mock_round1_cutoff"][cat] = val
+                        elif r == 1:
+                            cr["round1_cutoff"][cat] = val
+                        elif r == 2:
+                            cr["round2_cutoff"][cat] = val
+                        elif r == 3:
+                            cr["round3_cutoff"][cat] = val
+
+            return {
+                "colleges": colleges,
+                "total_count": total_count,
+                "total_seats": total_seats
+            }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+
+
+@app.get("/api/predictor")
+async def get_predictions(
+    rank: int,
+    category: str,
+    round_val: int = 1,
+    course_name: str = "",
+    year: int = 2026
+):
+    """
+    Predicts course allotment chances based on category, round, and cutoff rank threshold.
+    """
+    try:
+        with get_db_cursor() as cur:
+            conditions = [
+                "cut.year = %s",
+                "cut.round = %s",
+                "cut.category = %s",
+                "cut.cutoff_rank >= %s"
+            ]
+            params = [year, round_val, category, rank - 3000]
+
+            if course_name:
+                conditions.append("cr.course_name = %s")
+                params.append(course_name)
+
+            where_clause = " WHERE " + " AND ".join(conditions)
+
+            query = f"""
+                SELECT 
+                    col.college_name,
+                    col.college_number,
+                    col.kea_code,
+                    col.annexure,
+                    cr.course_name,
+                    cr.total_intake,
+                    cr.total_kea_seats,
+                    cut.cutoff_rank
+                FROM cutoffs cut
+                JOIN courses cr ON cut.course_id = cr.id
+                JOIN colleges col ON cr.college_id = col.id
+                {where_clause}
+                ORDER BY cut.cutoff_rank ASC
+                LIMIT 100
+            """
+            cur.execute(query, tuple(params))
+            predictions = cur.fetchall()
+
+            return predictions
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+
+
+@app.get("/api/compare")
+async def get_compare_colleges(ids: List[int] = Query(...), year: int = 2026):
+    """
+    Returns full structural details side-by-side for compared college IDs.
+    """
+    try:
+        with get_db_cursor() as cur:
+            placeholders = ", ".join(["%s"] * len(ids))
+            query = f"""
+                SELECT 
+                    id, college_number, kea_code, college_name, address,
+                    annexure, college_type, district, total_intake, total_kea_seats,
+                    established_year, nirf_rank, naac_grade, nba_accredited,
+                    placements_avg_package, placements_highest_package, placements_rate,
+                    hostel_fees, hostel_capacity, hostel_mess_included, campus_size,
+                    campus_majestic_dist_km, col.campus_nearest_transit
+                FROM colleges col
+                WHERE id IN ({placeholders}) AND year = %s
+            """
+            cur.execute(query, tuple(ids + [year]))
+            colleges = cur.fetchall()
+
+            for col in colleges:
+                cur.execute("""
+                    SELECT course_name, total_intake, total_kea_seats, placements_avg_package, placements_rate
+                    FROM courses 
+                    WHERE college_id = %s AND year = %s
+                """, (col["id"], year))
+                col["courses"] = cur.fetchall()
+
+            return colleges
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+
+
+@app.get("/api/stats")
+async def get_aggregate_stats(year: int = 2026):
+    """
+    Aggregates metrics directly from the DB for charts and statistics.
+    """
+    try:
+        with get_db_cursor() as cur:
+            # 1. Seats by College Type (Donut)
+            cur.execute("SELECT annexure, SUM(total_kea_seats) as seats FROM colleges WHERE year = %s GROUP BY annexure", (year,))
+            by_annexure = cur.fetchall()
+
+            # 2. Top Districts by seats (Bar)
+            cur.execute("SELECT district, SUM(total_kea_seats) as seats FROM colleges WHERE year = %s AND district IS NOT NULL GROUP BY district ORDER BY seats DESC LIMIT 10", (year,))
+            by_district = cur.fetchall()
+
+            # 3. Top Courses by intake (Bar)
+            cur.execute("SELECT course_name, SUM(total_intake) as intake FROM courses WHERE year = %s GROUP BY course_name ORDER BY intake DESC LIMIT 15", (year,))
+            by_course = cur.fetchall()
+
+            # 4. Quota allocation totals
+            cur.execute("SELECT SUM(total_kea_seats) as kea, SUM(cat2_seats) as comedk, SUM(cat3_seats) as mgmt FROM courses WHERE year = %s", (year,))
+            quota_sums = cur.fetchone()
+
+            # 5. YoY Compare (Current vs previous year)
+            cur.execute("SELECT year, SUM(total_intake) as total_intake, SUM(total_kea_seats) as kea_seats, COUNT(DISTINCT id) as colleges FROM colleges GROUP BY year ORDER BY year DESC")
+            yoy_compare = cur.fetchall()
+
+            return {
+                "by_annexure": by_annexure,
+                "by_district": by_district,
+                "by_course": by_course,
+                "quota_sums": quota_sums,
+                "yoy_compare": yoy_compare
+            }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+
+
+@app.get("/api/downloads")
+async def download_data(
+    year: int = 2026,
+    annexure: str = "all",
+    district: str = "",
+    course: str = "",
+    min_seats: int = 0,
+    format: str = "csv"
+):
+    """
+    Generates and returns streaming download files of custom-filtered datasets.
+    """
+    try:
+        with get_db_cursor() as cur:
+            # Build filters
+            conditions = ["col.year = %s"]
+            params = [year]
+
+            if annexure != "all":
+                conditions.append("col.annexure = %s")
+                params.append(annexure)
+            if district:
+                conditions.append("col.district = %s")
+                params.append(district)
+            if min_seats > 0:
+                conditions.append("col.total_intake >= %s")
+                params.append(min_seats)
+
+            join_clause = ""
+            if course:
+                join_clause = "JOIN courses cr ON col.id = cr.college_id"
+                conditions.append("cr.course_name = %s")
+                params.append(course)
+
+            where_clause = " WHERE " + " AND ".join(conditions)
+
+            query = f"""
+                SELECT 
+                    col.college_number, col.kea_code, col.college_name, col.annexure, col.district, col.total_kea_seats
+                FROM colleges col
+                {join_clause}
+                {where_clause}
+                ORDER BY col.college_name ASC
+            """
+            cur.execute(query, tuple(params))
+            records = cur.fetchall()
+
+            if format == "json":
+                return StreamingResponse(
+                    io.BytesIO(json.dumps(records, indent=2).encode("utf-8")),
+                    media_type="application/json",
+                    headers={"Content-Disposition": f"attachment; filename=kcet_matrix_{year}.json"}
+                )
+
+            # Default: CSV format
+            output = io.StringIO()
+            writer = csv.writer(output)
+            writer.writerow(["College Number", "KEA Code", "College Name", "Annexure", "District", "KEA Seats"])
+            for row in records:
+                writer.writerow([row["college_number"], row["kea_code"], row["college_name"], row["annexure"], row["district"], row["total_kea_seats"]])
+
+            output.seek(0)
+            return StreamingResponse(
+                io.BytesIO(output.getvalue().encode("utf-8")),
+                media_type="text/csv",
+                headers={"Content-Disposition": f"attachment; filename=kcet_matrix_{year}.csv"}
+            )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+
+
+# ────────────────────────────────────────────────────────
+# AGENT CHAT ENDPOINT
+# ────────────────────────────────────────────────────────
+
 class ChatMessage(BaseModel):
     role: str
     content: str
@@ -80,11 +460,10 @@ async def chat_endpoint(req: ChatRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
 # Mount static files from root directory last
 root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 app.mount("/", StaticFiles(directory=root_dir, html=True), name="static")
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
-    print(f"Starting secure server on port {port}...")
-    uvicorn.run("backend.app:app", host="0.0.0.0", port=port, reload=True)
+    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)

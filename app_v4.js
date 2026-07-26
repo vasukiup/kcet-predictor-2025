@@ -104,10 +104,33 @@ let superuserGroup = 'rvgroup';
 // Boot
 // ─────────────────────────────
 async function loadYearData(year) {
-  const filename = year === '2026' ? 'seat_matrix_data_2026.json' : (year === '2024' ? 'seat_matrix_data_2024.json' : 'seat_matrix_data.json');
   try {
-    const res = await fetch(filename + '?t=' + new Date().getTime());
-    allData = await res.json();
+    const resFilters = await fetch(`/api/filters?year=${year}`);
+    const filtersData = await resFilters.json();
+
+    const resColleges = await fetch(`/api/colleges?year=${year}&limit=1000`);
+    const collegesData = await resColleges.json();
+
+    allData = {
+      year: year,
+      colleges: collegesData.colleges,
+      all_courses: filtersData.courses,
+      districts: filtersData.districts,
+      types: filtersData.types,
+      stats: {
+        total_kea_seats: collegesData.total_seats,
+        by_annexure: {
+          'A': { kea_seats: 0 },
+          'B': { kea_seats: 0 },
+          'C': { kea_seats: 0 },
+          'D': { kea_seats: 0 },
+          'M': { kea_seats: 0 },
+          'O': { kea_seats: 0 },
+          'P': { kea_seats: 0 },
+          'Z': { kea_seats: 0 }
+        }
+      }
+    };
 
     // Preserve exact KEA seat numbers from source JSON file
     allData.colleges.forEach(col => {
@@ -169,7 +192,7 @@ async function loadYearData(year) {
     console.error('Failed to load data:', e);
     document.getElementById('colleges-grid').innerHTML =
       `<div class="empty-state"><div class="empty-state-icon">⚠️</div>
-       <div class="empty-state-text">Could not load ${filename}.<br>Make sure the file is in the same directory.</div></div>`;
+       <div class="empty-state-text">Could not load KCET Portal APIs.<br>Make sure the backend service is running.</div></div>`;
   }
 }
 
@@ -183,10 +206,16 @@ function triggerYoYStatsLoad(activeYear) {
     if (year === '2025' && cache2025) return callback();
     if (year === '2024' && cache2024) return callback();
 
-    const filename = year === '2026' ? 'seat_matrix_data_2026.json' : (year === '2024' ? 'seat_matrix_data_2024.json' : 'seat_matrix_data.json');
-    fetch(filename)
+    fetch(`/api/colleges?year=${year}&limit=1000`)
       .then(r => r.json())
-      .then(data => {
+      .then(collegesData => {
+        const data = {
+          year: year,
+          colleges: collegesData.colleges,
+          stats: {
+            total_kea_seats: collegesData.total_seats
+          }
+        };
         data.colleges.forEach(col => {
           let colKea = 0;
           col.courses.forEach(c => {
@@ -200,9 +229,6 @@ function triggerYoYStatsLoad(activeYear) {
             col.total_kea_seats = colKea;
           }
         });
-        let totalKea = 0;
-        data.colleges.forEach(col => { totalKea += col.total_kea_seats; });
-        data.stats.total_kea_seats = totalKea;
 
         if (year === '2026') cache2026 = data;
         else if (year === '2024') cache2024 = data;
