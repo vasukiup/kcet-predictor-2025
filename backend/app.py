@@ -304,26 +304,62 @@ async def get_colleges(
             cur.execute(col_query, tuple(params + [limit, offset]))
             colleges = cur.fetchall()
 
-            for col in colleges:
-                cur.execute("""
-                    SELECT 
-                        id, course_name, total_intake, total_kea_seats, snq_5pct,
-                        kea_ph, kea_spl, kea_hk, kea_rk, kea_tot, cat2_seats, cat3_seats,
-                        over_above_5pct, sports, ncc, sct_guides, defence, k_defence, ex_defence, capf, ai, xcapf, tot_special_seats,
-                        placements_min_package, placements_avg_package, placements_max_package, placements_rate, placements_industry, placements_recruiters
-                    FROM courses 
-                    WHERE college_id = %s AND year = %s
-                """, (col["id"], year))
-                col["courses"] = cur.fetchall()
+            if not colleges:
+                return {
+                    "colleges": [],
+                    "total_count": total_count,
+                    "total_seats": total_seats
+                }
+
+            college_ids = [col["id"] for col in colleges]
+            
+            # Fetch all courses for these colleges in one query
+            placeholders = ", ".join(["%s"] * len(college_ids))
+            cur.execute(f"""
+                SELECT 
+                    id, college_id, course_name, total_intake, total_kea_seats, snq_5pct,
+                    kea_ph, kea_spl, kea_hk, kea_rk, kea_tot, cat2_seats, cat3_seats,
+                    over_above_5pct, sports, ncc, sct_guides, defence, k_defence, ex_defence, capf, ai, xcapf, tot_special_seats,
+                    placements_min_package, placements_avg_package, placements_max_package, placements_rate, placements_industry, placements_recruiters
+                FROM courses 
+                WHERE college_id IN ({placeholders}) AND year = %s
+            """, tuple(college_ids + [year]))
+            all_courses = cur.fetchall()
+
+            course_ids = [cr["id"] for cr in all_courses]
+            
+            # Map college_id -> list of courses
+            courses_by_college = {}
+            for cr in all_courses:
+                cid = cr["college_id"]
+                if cid not in courses_by_college:
+                    courses_by_college[cid] = []
+                courses_by_college[cid].append(cr)
+
+            # Fetch all cutoffs for these courses in one query
+            cutoffs_by_course = {}
+            if course_ids:
+                course_placeholders = ", ".join(["%s"] * len(course_ids))
+                cur.execute(f"""
+                    SELECT course_id, round, category, cutoff_rank 
+                    FROM cutoffs 
+                    WHERE course_id IN ({course_placeholders}) AND year = %s
+                """, tuple(course_ids + [year]))
+                all_cutoffs = cur.fetchall()
                 
+                for cut in all_cutoffs:
+                    crid = cut["course_id"]
+                    if crid not in cutoffs_by_course:
+                        cutoffs_by_course[crid] = []
+                    cutoffs_by_course[crid].append(cut)
+
+            # Nest them in python
+            for col in colleges:
+                cid = col["id"]
+                col["courses"] = courses_by_college.get(cid, [])
                 for cr in col["courses"]:
-                    cur.execute("""
-                        SELECT round, category, cutoff_rank 
-                        FROM cutoffs 
-                        WHERE course_id = %s AND year = %s
-                    """, (cr["id"], year))
-                    cutoffs = cur.fetchall()
-                    
+                    crid = cr["id"]
+                    cutoffs = cutoffs_by_course.get(crid, [])
                     cr["mock_round1_cutoff"] = {}
                     cr["round1_cutoff"] = {}
                     cr["round2_cutoff"] = {}

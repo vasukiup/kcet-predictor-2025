@@ -6070,6 +6070,11 @@ function runPrediction() {
     })
   }).catch(err => console.error(err));
   
+  if (!allData || !allData.colleges) {
+    alert("Database is still loading. Please try again in a moment.");
+    return;
+  }
+
   const results = [];
   const seen = new Set();
   
@@ -7154,6 +7159,10 @@ function updateComparisonMatrix() {
   
   if (wrap) wrap.style.display = 'block';
   if (emptyState) emptyState.style.display = 'none';
+
+  if (!allData || !allData.colleges) {
+    return;
+  }
 
   // Log comparison event to backend PostgreSQL
   const codes = [col1Code, col2Code, col3Code].filter(Boolean).join(', ');
