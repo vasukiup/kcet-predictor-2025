@@ -747,11 +747,14 @@ function renderYoYStats() {
 
 async function init() {
   try {
-    await loadYearData('2026');
     bindEvents();
-    initAssistant();
     initAuth();
     initializeSessions();
+    
+    // Load PostgreSQL data asynchronously in the background
+    loadYearData('2026').then(() => {
+      initAssistant();
+    });
   } catch (err) {
     console.error("Initialization error:", err);
   }
@@ -1416,7 +1419,9 @@ function renderInstitutionHistory() {
 }
 
 function renderAuthorityDashboard() {
-  if (currentUser.role !== 'authority') return;
+  if (!currentUser) return;
+  const isSuper = (currentUser.role === 'superuser' && superuserPerspective === 'authority');
+  if (currentUser.role !== 'authority' && !isSuper) return;
 
   // 1. Populate Approvals Queue
   const tbody = document.getElementById('authority-pending-tbody');
@@ -1668,14 +1673,9 @@ function applyUserRole() {
   // Determine effective perspective/role
   const effectiveRole = currentUser.role === 'superuser' ? superuserPerspective : currentUser.role;
 
-  // Show/Hide downloads tab based on eligibility
-  const tabDownloads = document.getElementById('tab-downloads');
-  if (tabDownloads) {
-    tabDownloads.style.display = 'block';
-  }
-
   // Render dashboard elements based on effective role
   if (effectiveRole === 'student') {
+    if (tabDownloads) tabDownloads.style.display = 'none';
     if (studentProfileSection) {
       studentProfileSection.style.display = 'block';
       document.getElementById('profile-rank').value = currentUser.rank || 5000;
@@ -1693,6 +1693,7 @@ function applyUserRole() {
     if (prCat) prCat.value = currentUser.category || 'GM';
 
   } else if (effectiveRole === 'counsellor') {
+    if (tabDownloads) tabDownloads.style.display = 'block';
     if (studentProfileSection) studentProfileSection.style.display = 'none';
     if (counsellorPortfolioSection) counsellorPortfolioSection.style.display = 'block';
     if (tabInst) tabInst.style.display = 'none';
@@ -1702,6 +1703,7 @@ function applyUserRole() {
     renderCounsellorPortfolio();
 
   } else if (effectiveRole === 'institution') {
+    if (tabDownloads) tabDownloads.style.display = 'block';
     if (studentProfileSection) studentProfileSection.style.display = 'none';
     if (counsellorPortfolioSection) counsellorPortfolioSection.style.display = 'none';
     if (tabInst) tabInst.style.display = 'block';
@@ -1712,6 +1714,7 @@ function applyUserRole() {
     renderInstitutionDashboard();
 
   } else if (effectiveRole === 'authority') {
+    if (tabDownloads) tabDownloads.style.display = 'block';
     if (studentProfileSection) studentProfileSection.style.display = 'none';
     if (counsellorPortfolioSection) counsellorPortfolioSection.style.display = 'none';
     if (tabInst) tabInst.style.display = 'none';
@@ -2615,6 +2618,15 @@ function applyFilters() {
   if (sidebar && sidebar.classList.contains('open')) {
     sidebar.classList.remove('open');
     if (mobileOverlay) mobileOverlay.style.display = 'none';
+  }
+
+  // Handle asynchronous data load state
+  if (!allData || !allData.colleges) {
+    const grid = document.getElementById('colleges-grid');
+    if (grid) {
+      grid.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding:40px; font-family:var(--font);">⌛ Loading Seat Matrix & Cutoff Database from PostgreSQL...</div>';
+    }
+    return;
   }
 
   const { search, annexure, district, course, minSeats } = filters;
