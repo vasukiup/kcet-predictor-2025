@@ -1305,6 +1305,7 @@ function renderInstitutionDashboard() {
   if (!currentUser) return;
   const isSuper = (currentUser.role === 'superuser' && superuserPerspective === 'institution');
   if (currentUser.role !== 'institution' && !isSuper) return;
+  if (!allData || !allData.colleges) return;
 
   const groupId = isSuper ? superuserGroup : currentUser.institutionGroup;
   const group = INSTITUTION_GROUPS[groupId];
@@ -1422,6 +1423,7 @@ function renderAuthorityDashboard() {
   if (!currentUser) return;
   const isSuper = (currentUser.role === 'superuser' && superuserPerspective === 'authority');
   if (currentUser.role !== 'authority' && !isSuper) return;
+  if (!allData || !allData.colleges) return;
 
   // 1. Populate Approvals Queue
   const tbody = document.getElementById('authority-pending-tbody');
@@ -1912,6 +1914,7 @@ function saveCounsellorOptions() {
 }
 
 function renderCounsellorPortfolio() {
+  if (!allData || !allData.colleges) return;
   const select = document.getElementById('counsellor-student-select');
   if (!select || !currentUser || currentUser.role !== 'counsellor') return;
 
@@ -5521,6 +5524,7 @@ function getScopedBaseColleges() {
 }
 
 function updateDownloadPreview() {
+  if (!allData || !allData.colleges) return;
   const alertEl = document.getElementById('download-scope-alert');
   if (alertEl) {
     alertEl.innerHTML = `<span>📥 <strong>Data Export Scope:</strong> Select Year, College Group, Individual College, District, or Course filters to export custom CSV/JSON seat matrices and cutoff ranks.</span>`;
