@@ -185,7 +185,7 @@ async function loadYearData(year) {
     // Update document subtitle
     const subtitleEl = document.getElementById('brand-subtitle');
     if (subtitleEl) {
-      subtitleEl.textContent = `Engineering Admissions ${year}`;
+      subtitleEl.textContent = 'Engineering Admissions';
     }
 
     // Load and render YoY comparison asynchronously
@@ -757,7 +757,7 @@ async function init() {
     initializeSessions();
     
     // Load PostgreSQL data asynchronously in the background
-    loadYearData('2026').then(() => {
+    loadYearData('2025').then(() => {
       initAssistant();
     });
   } catch (err) {
