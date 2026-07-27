@@ -118,7 +118,10 @@ async function loadYearData(year) {
       districts: filtersData.districts,
       types: filtersData.types,
       stats: {
+        total_colleges: collegesData.total_count || collegesData.colleges.length,
+        total_seats: collegesData.total_seats,
         total_kea_seats: collegesData.total_seats,
+        total_courses: filtersData.courses.length,
         by_annexure: {
           'A': { kea_seats: 0 },
           'B': { kea_seats: 0 },
@@ -213,6 +216,8 @@ function triggerYoYStatsLoad(activeYear) {
           year: year,
           colleges: collegesData.colleges,
           stats: {
+            total_colleges: collegesData.total_count || collegesData.colleges.length,
+            total_seats: collegesData.total_seats,
             total_kea_seats: collegesData.total_seats
           }
         };
