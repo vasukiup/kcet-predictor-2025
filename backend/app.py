@@ -5,7 +5,7 @@
 # =======================================================
 import os
 import base64
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
@@ -69,6 +69,126 @@ app.add_middleware(BasicAuthMiddleware)
 
 
 # ────────────────────────────────────────────────────────
+# AUDIT LOGGING HELPER
+# ────────────────────────────────────────────────────────
+
+def log_activity(username: str, action: str, details: str = None, ip_address: str = None):
+    """
+    Inserts a row into the audit_logs table.
+    """
+    try:
+        with get_db_cursor() as cur:
+            cur.execute("""
+                INSERT INTO audit_logs (username, action, details, ip_address)
+                VALUES (%s, %s, %s, %s)
+            """, (username, action, details, ip_address))
+    except Exception as e:
+        print(f"Error logging activity '{action}' for '{username}': {e}")
+
+
+# ────────────────────────────────────────────────────────
+# AUTHENTICATION SCHEMAS & ROUTES
+# ────────────────────────────────────────────────────────
+
+class UserRegister(BaseModel):
+    username: str
+    email: Optional[str] = None
+    role: str
+
+class UserLogin(BaseModel):
+    username: str
+    role: str
+
+@app.post("/api/auth/register")
+async def register_user(user: UserRegister, request: Request):
+    try:
+        with get_db_cursor() as cur:
+            # Check if user already exists
+            cur.execute("SELECT id FROM users WHERE username = %s", (user.username,))
+            exists = cur.fetchone()
+            if not exists:
+                cur.execute("""
+                    INSERT INTO users (username, email, role)
+                    VALUES (%s, %s, %s)
+                """, (user.username, user.email, user.role.lower()))
+        
+        # Log registration activity
+        client_ip = request.client.host if request.client else "unknown"
+        log_activity(user.username, "REGISTER", f"Role: {user.role}, Email: {user.email}", client_ip)
+        return {"status": "success", "message": f"User {user.username} registered successfully."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+
+
+@app.post("/api/auth/login")
+async def login_user(user: UserLogin, request: Request):
+    try:
+        # Log login activity
+        client_ip = request.client.host if request.client else "unknown"
+        log_activity(user.username, "LOGIN", f"Role: {user.role}", client_ip)
+        return {"status": "success", "message": f"User {user.username} logged in successfully."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+class LogRequest(BaseModel):
+    username: str
+    action: str
+    details: Optional[str] = None
+
+@app.post("/api/log")
+async def log_client_activity(req: LogRequest, request: Request):
+    try:
+        client_ip = request.client.host if request.client else "unknown"
+        log_activity(req.username, req.action, req.details, client_ip)
+        return {"status": "success"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/admin/activities")
+async def get_admin_activities(year: int = 2026):
+    """
+    Returns aggregated metrics from users and audit_logs tables for the admin console.
+    """
+    try:
+        with get_db_cursor() as cur:
+            # 1. Total registered users count by role
+            cur.execute("SELECT role, COUNT(*) as count FROM users GROUP BY role")
+            registrations = {row["role"]: row["count"] for row in cur.fetchall()}
+
+            # Ensure default keys exist
+            for r in ["student", "counsellor", "institution", "authority", "superuser"]:
+                if r not in registrations:
+                    registrations[r] = 0
+
+            # 2. Action breakdown count
+            cur.execute("SELECT action, COUNT(*) as count FROM audit_logs GROUP BY action")
+            action_stats = {row["action"]: row["count"] for row in cur.fetchall()}
+
+            for act in ["REGISTER", "LOGIN", "PREDICTION", "OPTION_OPTIMIZE", "DOWNLOAD", "COMPARE"]:
+                if act not in action_stats:
+                    action_stats[act] = 0
+
+            # 3. Recent 50 audit logs
+            cur.execute("""
+                SELECT id, username, action, details, ip_address, 
+                       TO_CHAR(timestamp, 'YYYY-MM-DD HH24:MI:SS') as time_str 
+                FROM audit_logs 
+                ORDER BY timestamp DESC 
+                LIMIT 50
+            """)
+            recent_logs = cur.fetchall()
+
+            return {
+                "registrations": registrations,
+                "action_stats": action_stats,
+                "recent_logs": recent_logs
+            }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+
+
+# ────────────────────────────────────────────────────────
 # DATABASE-BACKED API ENDPOINTS
 # ────────────────────────────────────────────────────────
 
@@ -79,15 +199,12 @@ async def get_filters(year: int = 2026):
     """
     try:
         with get_db_cursor() as cur:
-            # Query unique course names
             cur.execute("SELECT DISTINCT course_name FROM courses WHERE year = %s ORDER BY course_name", (year,))
             courses = [row["course_name"] for row in cur.fetchall()]
 
-            # Query unique districts
             cur.execute("SELECT DISTINCT district FROM colleges WHERE year = %s AND district IS NOT NULL AND district != '' ORDER BY district", (year,))
             districts = [row["district"] for row in cur.fetchall()]
 
-            # Query unique college types
             cur.execute("SELECT DISTINCT college_type FROM colleges WHERE year = %s AND college_type IS NOT NULL AND college_type != '' ORDER BY college_type", (year,))
             types = [row["college_type"] for row in cur.fetchall()]
 
@@ -121,17 +238,14 @@ async def get_colleges(
     """
     try:
         with get_db_cursor() as cur:
-            # Base query conditions
             conditions = ["col.year = %s"]
             params = [year]
 
-            # Text Search
             if q:
                 conditions.append("(col.college_name ILIKE %s OR col.address ILIKE %s OR col.kea_code ILIKE %s)")
                 q_param = f"%{q}%"
                 params.extend([q_param, q_param, q_param])
 
-            # Filters
             if annexure != "all":
                 conditions.append("col.annexure = %s")
                 params.append(annexure)
@@ -151,17 +265,14 @@ async def get_colleges(
                 conditions.append("col.nba_accredited ILIKE %s")
                 params.append(f"%{nba}%")
 
-            # Min salary filter
             if min_salary > 0:
                 conditions.append("CAST(NULLIF(REGEXP_REPLACE(col.placements_avg_package, '[^0-9.]', '', 'g'), '') AS NUMERIC) >= %s")
                 params.append(min_salary)
 
-            # Max hostel fee filter
             if max_hostel < 150000:
                 conditions.append("CAST(NULLIF(REGEXP_REPLACE(col.hostel_fees, '[^0-9]', '', 'g'), '') AS INTEGER) <= %s")
                 params.append(max_hostel)
 
-            # Course row filtering join
             join_clause = ""
             if course:
                 join_clause = "JOIN courses cr ON col.id = cr.college_id"
@@ -170,14 +281,12 @@ async def get_colleges(
 
             where_clause = " WHERE " + " AND ".join(conditions)
 
-            # Query Total Count and Total Seat sum
             count_query = f"SELECT COUNT(DISTINCT col.id) as count, COALESCE(SUM(col.total_kea_seats), 0) as total_seats FROM colleges col {join_clause} {where_clause}"
             cur.execute(count_query, tuple(params))
             stats = cur.fetchone()
             total_count = stats["count"]
             total_seats = stats["total_seats"]
 
-            # Query Colleges list
             col_query = f"""
                 SELECT DISTINCT 
                     col.id, col.college_number, col.kea_code, col.college_name, col.address,
@@ -195,7 +304,6 @@ async def get_colleges(
             cur.execute(col_query, tuple(params + [limit, offset]))
             colleges = cur.fetchall()
 
-            # Attach courses and their cutoffs to each college
             for col in colleges:
                 cur.execute("""
                     SELECT 
@@ -208,7 +316,6 @@ async def get_colleges(
                 """, (col["id"], year))
                 col["courses"] = cur.fetchall()
                 
-                # Fetch and format cutoffs for each course
                 for cr in col["courses"]:
                     cur.execute("""
                         SELECT round, category, cutoff_rank 
@@ -249,12 +356,23 @@ async def get_predictions(
     category: str,
     round_val: int = 1,
     course_name: str = "",
-    year: int = 2026
+    year: int = 2026,
+    username: str = "guest",
+    request: Request = None
 ):
     """
-    Predicts course allotment chances based on category, round, and cutoff rank threshold.
+    Predicts course allotment chances and logs the event to audit logs.
     """
     try:
+        # Audit log prediction
+        client_ip = request.client.host if request and request.client else "unknown"
+        log_activity(
+            username, 
+            "PREDICTION", 
+            f"Rank: {rank}, Category: {category}, Round: {round_val}, Course: {course_name or 'All'}", 
+            client_ip
+        )
+
         with get_db_cursor() as cur:
             conditions = [
                 "cut.year = %s",
@@ -296,11 +414,19 @@ async def get_predictions(
 
 
 @app.get("/api/compare")
-async def get_compare_colleges(ids: List[int] = Query(...), year: int = 2026):
+async def get_compare_colleges(
+    ids: List[int] = Query(...), 
+    year: int = 2026, 
+    username: str = "guest",
+    request: Request = None
+):
     """
-    Returns full structural details side-by-side for compared college IDs.
+    Compares colleges side-by-side and logs the compare event.
     """
     try:
+        client_ip = request.client.host if request and request.client else "unknown"
+        log_activity(username, "COMPARE", f"Colleges compared IDs: {ids}", client_ip)
+
         with get_db_cursor() as cur:
             placeholders = ", ".join(["%s"] * len(ids))
             query = f"""
@@ -337,23 +463,18 @@ async def get_aggregate_stats(year: int = 2026):
     """
     try:
         with get_db_cursor() as cur:
-            # 1. Seats by College Type (Donut)
             cur.execute("SELECT annexure, SUM(total_kea_seats) as seats FROM colleges WHERE year = %s GROUP BY annexure", (year,))
             by_annexure = cur.fetchall()
 
-            # 2. Top Districts by seats (Bar)
             cur.execute("SELECT district, SUM(total_kea_seats) as seats FROM colleges WHERE year = %s AND district IS NOT NULL GROUP BY district ORDER BY seats DESC LIMIT 10", (year,))
             by_district = cur.fetchall()
 
-            # 3. Top Courses by intake (Bar)
             cur.execute("SELECT course_name, SUM(total_intake) as intake FROM courses WHERE year = %s GROUP BY course_name ORDER BY intake DESC LIMIT 15", (year,))
             by_course = cur.fetchall()
 
-            # 4. Quota allocation totals
             cur.execute("SELECT SUM(total_kea_seats) as kea, SUM(cat2_seats) as comedk, SUM(cat3_seats) as mgmt FROM courses WHERE year = %s", (year,))
             quota_sums = cur.fetchone()
 
-            # 5. YoY Compare (Current vs previous year)
             cur.execute("SELECT year, SUM(total_intake) as total_intake, SUM(total_kea_seats) as kea_seats, COUNT(DISTINCT id) as colleges FROM colleges GROUP BY year ORDER BY year DESC")
             yoy_compare = cur.fetchall()
 
@@ -375,14 +496,18 @@ async def download_data(
     district: str = "",
     course: str = "",
     min_seats: int = 0,
-    format: str = "csv"
+    format: str = "csv",
+    username: str = "admin",
+    request: Request = None
 ):
     """
-    Generates and returns streaming download files of custom-filtered datasets.
+    Generates downloads and logs the download event.
     """
     try:
+        client_ip = request.client.host if request and request.client else "unknown"
+        log_activity(username, "DOWNLOAD", f"Year: {year}, Format: {format}, Scope: {annexure}/{district}", client_ip)
+
         with get_db_cursor() as cur:
-            # Build filters
             conditions = ["col.year = %s"]
             params = [year]
 
@@ -422,7 +547,6 @@ async def download_data(
                     headers={"Content-Disposition": f"attachment; filename=kcet_matrix_{year}.json"}
                 )
 
-            # Default: CSV format
             output = io.StringIO()
             writer = csv.writer(output)
             writer.writerow(["College Number", "KEA Code", "College Name", "Annexure", "District", "KEA Seats"])
@@ -466,4 +590,5 @@ root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 app.mount("/", StaticFiles(directory=root_dir, html=True), name="static")
 
 if __name__ == "__main__":
+    import uvicorn
     uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)

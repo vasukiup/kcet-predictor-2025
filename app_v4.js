@@ -970,6 +970,14 @@ function initAuth() {
 
     currentUser = { role: 'student', name, email, rank, category, region };
     localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+    
+    // Log registration in PostgreSQL
+    fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: name, email: email, role: 'student' })
+    }).catch(err => console.error('Reg log error:', err));
+
     overlay.style.display = 'none';
     applyUserRole();
   });
@@ -991,6 +999,14 @@ function initAuth() {
       errorEl.style.display = 'none';
       currentUser = { role: 'institution', name: validGroups[groupVal], institutionGroup: groupVal };
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+      
+      // Log login event
+      fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: validGroups[groupVal], role: 'institution' })
+      }).catch(err => console.error(err));
+
       overlay.style.display = 'none';
       applyUserRole();
     } else {
@@ -1008,6 +1024,14 @@ function initAuth() {
       errorEl.style.display = 'none';
       currentUser = { role: 'authority', name: "KEA Admin Console" };
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+
+      // Log login event
+      fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: "KEA Admin Console", role: 'authority' })
+      }).catch(err => console.error(err));
+
       overlay.style.display = 'none';
       applyUserRole();
     } else {
@@ -1045,6 +1069,14 @@ function initAuth() {
         };
       }
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+
+      // Log login event
+      fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: currentUser.name, role: 'counsellor' })
+      }).catch(err => console.error(err));
+
       overlay.style.display = 'none';
       applyUserRole();
     } else {
@@ -1062,6 +1094,14 @@ function initAuth() {
       errorEl.style.display = 'none';
       currentUser = { role: 'superuser', name: "Global Admin" };
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+
+      // Log login event
+      fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: "Global Admin", role: 'superuser' })
+      }).catch(err => console.error(err));
+
       overlay.style.display = 'none';
       applyUserRole();
     } else {
@@ -1412,6 +1452,52 @@ function renderAuthorityDashboard() {
   const logEl = document.getElementById('auth-audit-logs');
   logEl.textContent = authorityLogs.join('\n');
   logEl.scrollTop = logEl.scrollHeight;
+
+  // 3. Fetch and Render Live Database Activity Log & Summary metrics
+  fetch('/api/admin/activities')
+    .then(res => res.json())
+    .then(data => {
+      // Set registered counts
+      const studentsCount = data.registrations.student || 0;
+      const advisorsCount = data.registrations.counsellor || 0;
+      document.getElementById('stat-students-count').textContent = studentsCount;
+      document.getElementById('stat-advisors-count').textContent = advisorsCount;
+
+      // Set action counts
+      document.getElementById('stat-predictions-count').textContent = data.action_stats.PREDICTION || 0;
+      document.getElementById('stat-downloads-count').textContent = data.action_stats.DOWNLOAD || 0;
+      document.getElementById('stat-compare-count').textContent = data.action_stats.COMPARE || 0;
+
+      // Render timeline list
+      const timelineEl = document.getElementById('admin-activity-timeline');
+      if (data.recent_logs && data.recent_logs.length > 0) {
+        timelineEl.innerHTML = data.recent_logs.map(log => {
+          let badgeColor = 'var(--text-muted)';
+          if (log.action === 'REGISTER') badgeColor = 'var(--blue)';
+          else if (log.action === 'LOGIN') badgeColor = 'var(--teal)';
+          else if (log.action === 'PREDICTION') badgeColor = 'var(--green)';
+          else if (log.action === 'OPTION_OPTIMIZE') badgeColor = 'rgba(168, 85, 247, 0.85)';
+          else if (log.action === 'DOWNLOAD') badgeColor = 'var(--orange)';
+          else if (log.action === 'COMPARE') badgeColor = 'var(--pink)';
+
+          return `
+            <div style="margin-bottom:8px; border-bottom:1px solid rgba(255,255,255,0.03); padding-bottom:6px; display:flex; align-items:flex-start; gap:8px;">
+              <span style="background:${badgeColor}; color:#fff; padding:2px 6px; border-radius:4px; font-size:9px; font-weight:700; text-transform:uppercase; margin-top:2px;">${log.action}</span>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:2px;">
+                  <strong>${log.username}</strong>
+                  <span style="color:var(--text-muted); font-size:10px;">${log.time_str} (${log.ip_address})</span>
+                </div>
+                <div style="color:var(--text-muted); font-size:10px; word-break:break-all;">${log.details || 'No details provided.'}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } else {
+        timelineEl.innerHTML = `<div style="color:var(--text-muted); text-align:center; padding:20px;">No user activities logged yet.</div>`;
+      }
+    })
+    .catch(err => console.error("Error fetching authority metrics:", err));
 }
 
 function approveRequest(id) {
@@ -1500,6 +1586,17 @@ function downloadAuthorityData(format) {
 }
 
 function triggerFileDownload(content, filename, contentType) {
+  // Log download action in PostgreSQL
+  fetch('/api/log', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      username: currentUser ? currentUser.name : 'guest',
+      action: 'DOWNLOAD',
+      details: `Downloaded file: ${filename} (${contentType})`
+    })
+  }).catch(err => console.error(err));
+
   const blob = new Blob([content], { type: contentType });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -2187,6 +2284,17 @@ function optimizeStudentOptionsList() {
     const cutB = b.cutoff || 999999;
     return cutA - cutB;
   });
+
+  // Log option optimization in PostgreSQL
+  fetch('/api/log', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      username: currentUser ? currentUser.name : 'guest',
+      action: 'OPTION_OPTIMIZE',
+      details: `Optimized sequence of ${studentOptionsList.length} choices`
+    })
+  }).catch(err => console.error(err));
 
   saveCounsellorOptions();
   renderOptionEntryList();
@@ -5048,6 +5156,12 @@ function bindEvents() {
   if (predBtn) {
     predBtn.addEventListener('click', runPrediction);
   }
+
+  // Refresh user activities dashboard
+  const refreshActivitiesBtn = document.getElementById('btn-refresh-activities');
+  if (refreshActivitiesBtn) {
+    refreshActivitiesBtn.addEventListener('click', renderAuthorityDashboard);
+  }
   const predRankInput = document.getElementById('pred-rank');
   if (predRankInput) {
     predRankInput.addEventListener('keydown', e => {
@@ -5932,6 +6046,17 @@ function runPrediction() {
   const category = catSel.value;
   const selectedRound = roundSel ? roundSel.value : 'round1';
   const preferredCourse = courseSel.value;
+
+  // Log prediction event to backend PostgreSQL
+  fetch('/api/log', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      username: currentUser ? currentUser.name : 'guest',
+      action: 'PREDICTION',
+      details: `Rank: ${userRank}, Category: ${category}, Round: ${selectedRound}, Course: ${preferredCourse || 'All'}`
+    })
+  }).catch(err => console.error(err));
   
   const results = [];
   const seen = new Set();
@@ -7017,6 +7142,18 @@ function updateComparisonMatrix() {
   
   if (wrap) wrap.style.display = 'block';
   if (emptyState) emptyState.style.display = 'none';
+
+  // Log comparison event to backend PostgreSQL
+  const codes = [col1Code, col2Code, col3Code].filter(Boolean).join(', ');
+  fetch('/api/log', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      username: currentUser ? currentUser.name : 'guest',
+      action: 'COMPARE',
+      details: `Comparing: ${codes}`
+    })
+  }).catch(err => console.error(err));
   
   const c1 = allData.colleges.find(c => c.kea_code === col1Code);
   const c2 = allData.colleges.find(c => c.kea_code === col2Code);

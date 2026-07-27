@@ -90,3 +90,23 @@ CREATE INDEX IF NOT EXISTS idx_pg_courses_year ON courses(year);
 CREATE INDEX IF NOT EXISTS idx_pg_cutoffs_course ON cutoffs(course_id);
 CREATE INDEX IF NOT EXISTS idx_pg_cutoffs_year ON cutoffs(year);
 CREATE INDEX IF NOT EXISTS idx_pg_cutoffs_lookup ON cutoffs(category, cutoff_rank);
+
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    username TEXT UNIQUE NOT NULL,
+    email TEXT,
+    role TEXT NOT NULL, -- 'student', 'counsellor', 'institution', 'authority', 'superuser'
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS audit_logs (
+    id SERIAL PRIMARY KEY,
+    username TEXT,
+    action TEXT NOT NULL, -- 'REGISTER', 'LOGIN', 'PREDICTION', 'OPTION_OPTIMIZE', 'DOWNLOAD', 'COMPARE'
+    details TEXT,
+    ip_address TEXT,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_pg_audit_logs_action ON audit_logs(action);
+CREATE INDEX IF NOT EXISTS idx_pg_audit_logs_timestamp ON audit_logs(timestamp);
