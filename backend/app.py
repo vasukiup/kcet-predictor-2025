@@ -109,15 +109,23 @@ async def register_user(user: UserRegister, request: Request):
     try:
         with get_db_cursor() as cur:
             # Check if email or username already exists
-            cur.execute("SELECT id FROM users WHERE username = %s OR email = %s", (user.username, user.email))
+            cur.execute("SELECT id, password FROM users WHERE username = %s OR email = %s", (user.username, user.email))
             exists = cur.fetchone()
             if exists:
-                raise HTTPException(status_code=400, detail="Username or email is already registered.")
-            
-            cur.execute("""
-                INSERT INTO users (username, email, password, role, rank, category, region)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
-            """, (user.username, user.email, user.password, user.role.lower(), user.rank, user.category, user.region))
+                if exists["password"] is None:
+                    # Account upgrade (legacy or seeded account without credentials)
+                    cur.execute("""
+                        UPDATE users 
+                        SET password = %s, rank = %s, category = %s, region = %s
+                        WHERE id = %s
+                    """, (user.password, user.rank, user.category, user.region, exists["id"]))
+                else:
+                    raise HTTPException(status_code=400, detail="Username or email is already registered.")
+            else:
+                cur.execute("""
+                    INSERT INTO users (username, email, password, role, rank, category, region)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s)
+                """, (user.username, user.email, user.password, user.role.lower(), user.rank, user.category, user.region))
         
         # Log registration activity
         client_ip = request.client.host if request.client else "unknown"
@@ -197,21 +205,21 @@ class UserResetPassword(BaseModel):
 async def reset_password(data: UserResetPassword, request: Request):
     try:
         with get_db_cursor() as cur:
-            # Verify if student exists with matching email and rank
+            # Verify if student exists with matching email/username and rank
             cur.execute("""
                 SELECT username FROM users 
-                WHERE email = %s AND rank = %s AND role = 'student'
-            """, (data.email, data.rank))
+                WHERE (email = %s OR username = %s) AND rank = %s AND role = 'student'
+            """, (data.email, data.email, data.rank))
             user = cur.fetchone()
             if not user:
-                raise HTTPException(status_code=400, detail="No registered candidate found matching entered Email and Rank.")
+                raise HTTPException(status_code=400, detail="No registered candidate found matching entered Email/Name and Rank.")
             
             # Update password
             cur.execute("""
                 UPDATE users 
                 SET password = %s 
-                WHERE email = %s AND rank = %s AND role = 'student'
-            """, (data.new_password, data.email, data.rank))
+                WHERE (email = %s OR username = %s) AND rank = %s AND role = 'student'
+            """, (data.new_password, data.email, data.email, data.rank))
             
         # Log password reset activity
         client_ip = request.client.host if request.client else "unknown"
