@@ -1845,6 +1845,7 @@ function applyUserRole() {
   const tabInst = document.getElementById('tab-institution');
   const tabAuth = document.getElementById('tab-authority');
   const tabOption = document.getElementById('tab-option-entry');
+  const tabDownloads = document.getElementById('tab-downloads');
   const superuserBar = document.getElementById('superuser-view-bar');
   const scrollingWrap = document.getElementById('scrolling-announcements-wrap');
 
