@@ -188,6 +188,15 @@ async function loadYearData(year) {
       subtitleEl.textContent = 'Engineering Admissions';
     }
 
+    // Update document title dynamically
+    document.title = `Karnataka Engineering Seat Matrix ${year} | Explore Colleges & Seats`;
+
+    // Update predictor tab title dynamically
+    const predTitleEl = document.getElementById('predictor-title');
+    if (predTitleEl) {
+      predTitleEl.textContent = `🔮 KCET ${year} College & Course Predictor`;
+    }
+
     // Load and render YoY comparison asynchronously
     triggerYoYStatsLoad(year);
 
@@ -757,7 +766,7 @@ async function init() {
     initializeSessions();
     
     // Load PostgreSQL data asynchronously in the background
-    loadYearData('2025').then(() => {
+    loadYearData('2026').then(() => {
       initAssistant();
     });
   } catch (err) {
