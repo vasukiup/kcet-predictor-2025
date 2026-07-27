@@ -187,6 +187,41 @@ async def login_user(user: UserLogin, request: Request):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
+class UserResetPassword(BaseModel):
+    email: str
+    rank: int
+    new_password: str
+
+@app.post("/api/auth/reset-password")
+async def reset_password(data: UserResetPassword, request: Request):
+    try:
+        with get_db_cursor() as cur:
+            # Verify if student exists with matching email and rank
+            cur.execute("""
+                SELECT username FROM users 
+                WHERE email = %s AND rank = %s AND role = 'student'
+            """, (data.email, data.rank))
+            user = cur.fetchone()
+            if not user:
+                raise HTTPException(status_code=400, detail="No registered candidate found matching entered Email and Rank.")
+            
+            # Update password
+            cur.execute("""
+                UPDATE users 
+                SET password = %s 
+                WHERE email = %s AND rank = %s AND role = 'student'
+            """, (data.new_password, data.email, data.rank))
+            
+        # Log password reset activity
+        client_ip = request.client.host if request.client else "unknown"
+        log_activity(user["username"], "PASSWORD_RESET", f"Email: {data.email}, Rank: {data.rank}", client_ip)
+        return {"status": "success", "message": "Password reset completed successfully."}
+    except HTTPException as he:
+        raise he
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 class LogRequest(BaseModel):
     username: str
     action: str

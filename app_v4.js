@@ -964,6 +964,9 @@ function initAuth() {
   const studentFormTitle = document.getElementById('student-form-title');
   const studentSubmitBtn = document.getElementById('btn-submit-student');
   const studentErrorEl = document.getElementById('student-auth-error');
+  const forgotPasswordLink = document.getElementById('student-forgot-password-link');
+  const loginRegisterWrap = document.getElementById('student-login-register-container');
+  const resetPasswordWrap = document.getElementById('student-reset-password-fields');
 
   if (studentAuthToggle) {
     studentAuthToggle.addEventListener('click', () => {
@@ -974,13 +977,97 @@ function initAuth() {
         if (studentFormTitle) studentFormTitle.textContent = "Student Login";
         if (studentSubmitBtn) studentSubmitBtn.textContent = "Login & Explore Portal";
         if (studentRegFields) studentRegFields.style.display = 'none';
+        if (forgotPasswordLink) forgotPasswordLink.style.display = 'block';
       } else {
         studentAuthMode = 'register';
         studentAuthToggle.textContent = "Already registered? Click here to Login";
         if (studentFormTitle) studentFormTitle.textContent = "Student Registration";
         if (studentSubmitBtn) studentSubmitBtn.textContent = "Register & Explore Portal";
         if (studentRegFields) studentRegFields.style.display = 'grid';
+        if (forgotPasswordLink) forgotPasswordLink.style.display = 'none';
       }
+    });
+  }
+
+  // Forgot password click
+  if (forgotPasswordLink) {
+    forgotPasswordLink.addEventListener('click', () => {
+      if (loginRegisterWrap) loginRegisterWrap.style.display = 'none';
+      if (resetPasswordWrap) resetPasswordWrap.style.display = 'flex';
+      
+      // Clear values and messages
+      document.getElementById('reset-email-input').value = '';
+      document.getElementById('reset-rank-input').value = '';
+      document.getElementById('reset-new-password').value = '';
+      document.getElementById('student-reset-error').style.display = 'none';
+      document.getElementById('student-reset-success').style.display = 'none';
+    });
+  }
+
+  // Cancel reset password click
+  const cancelResetBtn = document.getElementById('btn-cancel-reset-password');
+  if (cancelResetBtn) {
+    cancelResetBtn.addEventListener('click', () => {
+      if (loginRegisterWrap) loginRegisterWrap.style.display = 'block';
+      if (resetPasswordWrap) resetPasswordWrap.style.display = 'none';
+      if (studentErrorEl) studentErrorEl.style.display = 'none';
+    });
+  }
+
+  // Submit Password Reset
+  const submitResetBtn = document.getElementById('btn-submit-reset-password');
+  if (submitResetBtn) {
+    submitResetBtn.addEventListener('click', () => {
+      const email = document.getElementById('reset-email-input').value.trim();
+      const rank = parseInt(document.getElementById('reset-rank-input').value);
+      const newPassword = document.getElementById('reset-new-password').value;
+      const errorReset = document.getElementById('student-reset-error');
+      const successReset = document.getElementById('student-reset-success');
+
+      if (errorReset) errorReset.style.display = 'none';
+      if (successReset) successReset.style.display = 'none';
+
+      if (!email || isNaN(rank) || !newPassword) {
+        if (errorReset) {
+          errorReset.textContent = "❌ Please enter email, rank, and new password.";
+          errorReset.style.display = 'block';
+        }
+        return;
+      }
+
+      fetch('/api/auth/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          rank: rank,
+          new_password: newPassword
+        })
+      })
+      .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Reset failed.");
+        return data;
+      })
+      .then(data => {
+        if (successReset) {
+          successReset.textContent = `✅ Password updated successfully! Please login.`;
+          successReset.style.display = 'block';
+        }
+        // Redirect back to login container after 1.5 seconds
+        setTimeout(() => {
+          if (loginRegisterWrap) loginRegisterWrap.style.display = 'block';
+          if (resetPasswordWrap) resetPasswordWrap.style.display = 'none';
+          document.getElementById('reg-email').value = email;
+          document.getElementById('reg-password').value = '';
+        }, 1500);
+      })
+      .catch(err => {
+        if (errorReset) {
+          errorReset.textContent = `❌ ${err.message}`;
+          errorReset.style.display = 'block';
+        }
+      });
     });
   }
 

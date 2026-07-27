@@ -1387,9 +1387,6 @@
       <div class="auth-header-logo">
         <span class="auth-logo-icon">🎓</span>
         <h2 class="auth-logo-title">KCET Admissions Portal</h2>
-        <p class="auth-logo-subtitle">Access seat matrices, cutoff predictions, and institution controls</p>
-      </div>
-
       <div class="auth-role-tabs" style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 20px;">
         <button type="button" class="auth-role-tab active" data-role="student" style="flex: 1; min-width: 110px;">👨‍🎓 Student</button>
         <button type="button" class="auth-role-tab" data-role="institution" style="flex: 1; min-width: 110px;">🏫 Institution</button>
@@ -1400,57 +1397,88 @@
 
       <!-- Student Registration/Login Form -->
       <div class="auth-form active" id="auth-form-student">
-        <div class="form-title" id="student-form-title">Student Registration</div>
         
-        <!-- Registration Fields (hidden during login mode) -->
-        <div class="form-grid" id="student-reg-fields">
-          <div class="form-group">
-            <label class="form-label">Full Name</label>
-            <input type="text" id="reg-name" class="form-input" placeholder="Enter your name">
+        <!-- Login/Register Form Grid Wrapper -->
+        <div id="student-login-register-container">
+          <div class="form-title" id="student-form-title">Student Registration</div>
+          
+          <!-- Registration Fields (hidden during login mode) -->
+          <div class="form-grid" id="student-reg-fields">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" id="reg-name" class="form-input" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+              <label class="form-label">UGCET Rank</label>
+              <input type="number" id="reg-rank" class="form-input" placeholder="e.g. 5000" min="1">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Reservation Category</label>
+              <select id="reg-category" class="form-select">
+                <option value="GM">General Merit (GM)</option>
+                <option value="GMK">GM Kannada (GMK)</option>
+                <option value="GMR">GM Rural (GMR)</option>
+                <option value="1G">Category 1 General (1G)</option>
+                <option value="2AG">Category 2A General (2AG)</option>
+                <option value="2BG">Category 2B General (2BG)</option>
+                <option value="3AG">Category 3A General (3AG)</option>
+                <option value="3BG">Category 3B General (3BG)</option>
+                <option value="SCG">Scheduled Caste General (SCG)</option>
+                <option value="STG">Scheduled Tribe General (STG)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Region / Quota</label>
+              <select id="reg-region" class="form-select">
+                <option value="non-hk">Non-Hyderabad Karnataka (General)</option>
+                <option value="hk">Hyderabad-Karnataka (HK)</option>
+              </select>
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label">UGCET Rank</label>
-            <input type="number" id="reg-rank" class="form-input" placeholder="e.g. 5000" min="1">
+
+          <!-- Common Fields (always shown) -->
+          <div class="form-group" id="student-email-group">
+            <label class="form-label" id="student-user-label">Email Address</label>
+            <input type="text" id="reg-email" class="form-input" placeholder="name@domain.com" required>
           </div>
-          <div class="form-group">
-            <label class="form-label">Reservation Category</label>
-            <select id="reg-category" class="form-select">
-              <option value="GM">General Merit (GM)</option>
-              <option value="GMK">GM Kannada (GMK)</option>
-              <option value="GMR">GM Rural (GMR)</option>
-              <option value="1G">Category 1 General (1G)</option>
-              <option value="2AG">Category 2A General (2AG)</option>
-              <option value="2BG">Category 2B General (2BG)</option>
-              <option value="3AG">Category 3A General (3AG)</option>
-              <option value="3BG">Category 3B General (3BG)</option>
-              <option value="SCG">Scheduled Caste General (SCG)</option>
-              <option value="STG">Scheduled Tribe General (STG)</option>
-            </select>
+          <div class="form-group" id="student-password-group">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label class="form-label">Password</label>
+              <div id="student-forgot-password-link" style="font-size: 11px; color: var(--blue); cursor: pointer; text-decoration: underline; font-weight:600; display: none;">Forgot Password?</div>
+            </div>
+            <input type="password" id="reg-password" class="form-input" placeholder="••••••••" required>
           </div>
-          <div class="form-group">
-            <label class="form-label">Region / Quota</label>
-            <select id="reg-region" class="form-select">
-              <option value="non-hk">Non-Hyderabad Karnataka (General)</option>
-              <option value="hk">Hyderabad-Karnataka (HK)</option>
-            </select>
-          </div>
+
+          <div id="student-auth-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; text-align:center; margin-bottom:8px; margin-top:8px;"></div>
+
+          <button class="auth-submit-btn" id="btn-submit-student">Register & Explore Portal</button>
+
+          <div class="form-toggle-mode" id="student-auth-toggle" style="margin-top: 14px; font-size: 11px; text-align: center; color: var(--blue); cursor: pointer; text-decoration: underline; font-weight:600;">Already registered? Click here to Login</div>
         </div>
 
-        <!-- Common Fields (always shown) -->
-        <div class="form-group">
-          <label class="form-label" id="student-user-label">Email Address</label>
-          <input type="text" id="reg-email" class="form-input" placeholder="name@domain.com" required>
+        <!-- Reset Password Fields (hidden by default) -->
+        <div id="student-reset-password-fields" style="display: none; flex-direction: column; gap: 14px;">
+          <div class="form-title">Reset Student Password</div>
+          <div class="form-group">
+            <label class="form-label">Registered Email Address</label>
+            <input type="email" id="reset-email-input" class="form-input" placeholder="name@domain.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Registered UGCET Rank</label>
+            <input type="number" id="reset-rank-input" class="form-input" placeholder="e.g. 5000" min="1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">New Password</label>
+            <input type="password" id="reset-new-password" class="form-input" placeholder="••••••••">
+          </div>
+          
+          <div id="student-reset-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; text-align:center; margin-bottom:8px;"></div>
+          <div id="student-reset-success" style="display:none; color:var(--teal); font-size:11px; text-align:center; margin-bottom:8px; font-weight:600;"></div>
+
+          <button class="auth-submit-btn" id="btn-submit-reset-password" type="button">Update Password</button>
+
+          <div id="btn-cancel-reset-password" style="font-size: 11px; text-align: center; color: var(--blue); cursor: pointer; text-decoration: underline; font-weight:600; margin-top: 14px;">Back to Login</div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Password</label>
-          <input type="password" id="reg-password" class="form-input" placeholder="••••••••" required>
-        </div>
-
-        <div id="student-auth-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px; text-align:center; margin-bottom:8px;"></div>
-
-        <button class="auth-submit-btn" id="btn-submit-student">Register & Explore Portal</button>
-
-        <div class="form-toggle-mode" id="student-auth-toggle" style="margin-top: 14px; font-size: 11px; text-align: center; color: var(--blue); cursor: pointer; text-decoration: underline; font-weight:600;">Already registered? Click here to Login</div>
       </div>
 
       <!-- Institution Group Login Form -->
