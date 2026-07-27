@@ -1058,8 +1058,18 @@ function initAuth() {
         setTimeout(() => {
           if (loginRegisterWrap) loginRegisterWrap.style.display = 'block';
           if (resetPasswordWrap) resetPasswordWrap.style.display = 'none';
+          
+          // Force student auth mode to login
+          studentAuthMode = 'login';
+          if (studentAuthToggle) studentAuthToggle.textContent = "New user? Click here to Register";
+          if (studentFormTitle) studentFormTitle.textContent = "Student Login";
+          if (studentSubmitBtn) studentSubmitBtn.textContent = "Login & Explore Portal";
+          if (studentRegFields) studentRegFields.style.display = 'none';
+          if (forgotPasswordLink) forgotPasswordLink.style.display = 'block';
+
           document.getElementById('reg-email').value = email;
           document.getElementById('reg-password').value = '';
+          if (studentErrorEl) studentErrorEl.style.display = 'none';
         }, 1500);
       })
       .catch(err => {
