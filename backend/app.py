@@ -92,30 +92,39 @@ def log_activity(username: str, action: str, details: str = None, ip_address: st
 
 class UserRegister(BaseModel):
     username: str
-    email: Optional[str] = None
+    email: str
+    password: str
     role: str
+    rank: Optional[int] = None
+    category: Optional[str] = None
+    region: Optional[str] = None
 
 class UserLogin(BaseModel):
-    username: str
+    username_or_email: str
+    password: str
     role: str
 
 @app.post("/api/auth/register")
 async def register_user(user: UserRegister, request: Request):
     try:
         with get_db_cursor() as cur:
-            # Check if user already exists
-            cur.execute("SELECT id FROM users WHERE username = %s", (user.username,))
+            # Check if email or username already exists
+            cur.execute("SELECT id FROM users WHERE username = %s OR email = %s", (user.username, user.email))
             exists = cur.fetchone()
-            if not exists:
-                cur.execute("""
-                    INSERT INTO users (username, email, role)
-                    VALUES (%s, %s, %s)
-                """, (user.username, user.email, user.role.lower()))
+            if exists:
+                raise HTTPException(status_code=400, detail="Username or email is already registered.")
+            
+            cur.execute("""
+                INSERT INTO users (username, email, password, role, rank, category, region)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """, (user.username, user.email, user.password, user.role.lower(), user.rank, user.category, user.region))
         
         # Log registration activity
         client_ip = request.client.host if request.client else "unknown"
-        log_activity(user.username, "REGISTER", f"Role: {user.role}, Email: {user.email}", client_ip)
+        log_activity(user.username, "REGISTER", f"Role: {user.role}, Email: {user.email}, Rank: {user.rank}", client_ip)
         return {"status": "success", "message": f"User {user.username} registered successfully."}
+    except HTTPException as he:
+        raise he
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
@@ -123,10 +132,58 @@ async def register_user(user: UserRegister, request: Request):
 @app.post("/api/auth/login")
 async def login_user(user: UserLogin, request: Request):
     try:
-        # Log login activity
         client_ip = request.client.host if request.client else "unknown"
-        log_activity(user.username, "LOGIN", f"Role: {user.role}", client_ip)
-        return {"status": "success", "message": f"User {user.username} logged in successfully."}
+        role_lower = user.role.lower()
+
+        if role_lower == 'student':
+            with get_db_cursor() as cur:
+                cur.execute("""
+                    SELECT username, email, rank, category, region 
+                    FROM users 
+                    WHERE (username = %s OR email = %s) AND password = %s AND role = 'student'
+                """, (user.username_or_email, user.username_or_email, user.password))
+                db_user = cur.fetchone()
+                if not db_user:
+                    raise HTTPException(status_code=401, detail="Invalid student email/username or password.")
+                
+                # Log login activity
+                log_activity(db_user["username"], "LOGIN", f"Role: student (DB)", client_ip)
+                return {
+                    "status": "success", 
+                    "user": {
+                        "name": db_user["username"],
+                        "email": db_user["email"],
+                        "role": "student",
+                        "rank": db_user["rank"],
+                        "category": db_user["category"],
+                        "region": db_user["region"]
+                    }
+                }
+        else:
+            # Predefined staff credentials checks
+            if role_lower == 'superuser':
+                if user.username_or_email == 'superuser' and user.password == 'kcet2025':
+                    log_activity("Global Admin", "LOGIN", "Role: superuser", client_ip)
+                    return {"status": "success", "user": {"name": "Global Admin", "role": "superuser"}}
+            elif role_lower == 'authority':
+                if user.username_or_email == 'authority' and user.password == 'kcet2025':
+                    log_activity("KEA Admin Console", "LOGIN", "Role: authority", client_ip)
+                    return {"status": "success", "user": {"name": "KEA Admin Console", "role": "authority"}}
+            elif role_lower == 'counsellor':
+                if user.username_or_email == 'counsellor' and user.password == 'kcet2025':
+                    log_activity("Professional Advisor", "LOGIN", "Role: counsellor", client_ip)
+                    return {"status": "success", "user": {"name": "Professional Advisor", "role": "counsellor"}}
+            elif role_lower == 'institution':
+                # Check correct group id and password kcet2025
+                groups = ['rvgroup', 'bmsgroup', 'pesgroup', 'dsgroup']
+                if user.username_or_email in groups and user.password == 'kcet2025':
+                    gname = user.username_or_email.upper()
+                    log_activity(f"{gname} Admin", "LOGIN", f"Role: institution, Group: {user.username_or_email}", client_ip)
+                    return {"status": "success", "user": {"name": f"{gname} Admin", "role": "institution", "institutionGroup": user.username_or_email}}
+            
+            raise HTTPException(status_code=401, detail="Invalid credentials for staff role.")
+    except HTTPException as he:
+        raise he
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

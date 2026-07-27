@@ -957,32 +957,119 @@ function initAuth() {
     });
   });
 
-  // Submit Student
+  // Student Login/Register Toggle Mode
+  let studentAuthMode = 'register';
+  const studentAuthToggle = document.getElementById('student-auth-toggle');
+  const studentRegFields = document.getElementById('student-reg-fields');
+  const studentFormTitle = document.getElementById('student-form-title');
+  const studentSubmitBtn = document.getElementById('btn-submit-student');
+  const studentErrorEl = document.getElementById('student-auth-error');
+
+  if (studentAuthToggle) {
+    studentAuthToggle.addEventListener('click', () => {
+      if (studentErrorEl) studentErrorEl.style.display = 'none';
+      if (studentAuthMode === 'register') {
+        studentAuthMode = 'login';
+        studentAuthToggle.textContent = "New user? Click here to Register";
+        if (studentFormTitle) studentFormTitle.textContent = "Student Login";
+        if (studentSubmitBtn) studentSubmitBtn.textContent = "Login & Explore Portal";
+        if (studentRegFields) studentRegFields.style.display = 'none';
+      } else {
+        studentAuthMode = 'register';
+        studentAuthToggle.textContent = "Already registered? Click here to Login";
+        if (studentFormTitle) studentFormTitle.textContent = "Student Registration";
+        if (studentSubmitBtn) studentSubmitBtn.textContent = "Register & Explore Portal";
+        if (studentRegFields) studentRegFields.style.display = 'grid';
+      }
+    });
+  }
+
+  // Submit Student (Register / Login)
   document.getElementById('btn-submit-student').addEventListener('click', () => {
-    const name = document.getElementById('reg-name').value.trim();
+    if (studentErrorEl) studentErrorEl.style.display = 'none';
     const email = document.getElementById('reg-email').value.trim();
     const password = document.getElementById('reg-password').value;
-    const rank = parseInt(document.getElementById('reg-rank').value);
-    const category = document.getElementById('reg-category').value;
-    const region = document.getElementById('reg-region').value;
 
-    if (!name || !email || !password || !rank) {
-      alert("Please fill in all registration fields.");
+    if (!email || !password) {
+      if (studentErrorEl) {
+        studentErrorEl.textContent = "❌ Please enter email and password.";
+        studentErrorEl.style.display = 'block';
+      }
       return;
     }
 
-    currentUser = { role: 'student', name, email, rank, category, region };
-    localStorage.setItem('kcet_user', JSON.stringify(currentUser));
-    
-    // Log registration in PostgreSQL
-    fetch('/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: name, email: email, role: 'student' })
-    }).catch(err => console.error('Reg log error:', err));
+    if (studentAuthMode === 'register') {
+      const name = document.getElementById('reg-name').value.trim();
+      const rank = parseInt(document.getElementById('reg-rank').value);
+      const category = document.getElementById('reg-category').value;
+      const region = document.getElementById('reg-region').value;
 
-    overlay.style.display = 'none';
-    applyUserRole();
+      if (!name || isNaN(rank) || rank <= 0) {
+        if (studentErrorEl) {
+          studentErrorEl.textContent = "❌ Please fill in all registration fields.";
+          studentErrorEl.style.display = 'block';
+        }
+        return;
+      }
+
+      fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: name,
+          email: email,
+          password: password,
+          role: 'student',
+          rank: rank,
+          category: category,
+          region: region
+        })
+      })
+      .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Registration failed.");
+        return data;
+      })
+      .then(() => {
+        currentUser = { role: 'student', name, email, rank, category, region };
+        localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+        overlay.style.display = 'none';
+        applyUserRole();
+      })
+      .catch(err => {
+        if (studentErrorEl) {
+          studentErrorEl.textContent = `❌ ${err.message}`;
+          studentErrorEl.style.display = 'block';
+        }
+      });
+    } else {
+      fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username_or_email: email,
+          password: password,
+          role: 'student'
+        })
+      })
+      .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Login failed.");
+        return data;
+      })
+      .then(data => {
+        currentUser = data.user;
+        localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+        overlay.style.display = 'none';
+        applyUserRole();
+      })
+      .catch(err => {
+        if (studentErrorEl) {
+          studentErrorEl.textContent = `❌ ${err.message}`;
+          studentErrorEl.style.display = 'block';
+        }
+      });
+    }
   });
 
   // Submit Institution
@@ -990,31 +1077,34 @@ function initAuth() {
     const groupVal = document.getElementById('inst-group').value.trim().toLowerCase();
     const password = document.getElementById('inst-password').value;
     const errorEl = document.getElementById('inst-error');
+    if (errorEl) errorEl.style.display = 'none';
 
-    const validGroups = {
-      'rvgroup': 'RV Group of Institutions',
-      'bmsgroup': 'BMS Group of Institutions',
-      'pesgroup': 'PES Group of Institutions',
-      'dsgroup': 'Dayananda Sagar Group'
-    };
-
-    if (validGroups[groupVal] && password === 'kcet2025') {
-      errorEl.style.display = 'none';
-      currentUser = { role: 'institution', name: validGroups[groupVal], institutionGroup: groupVal };
+    fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username_or_email: groupVal,
+        password: password,
+        role: 'institution'
+      })
+    })
+    .then(async res => {
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Login failed.");
+      return data;
+    })
+    .then(data => {
+      currentUser = { role: 'institution', name: data.user.name, institutionGroup: data.user.institutionGroup };
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
-      
-      // Log login event
-      fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: validGroups[groupVal], role: 'institution' })
-      }).catch(err => console.error(err));
-
       overlay.style.display = 'none';
       applyUserRole();
-    } else {
-      errorEl.style.display = 'block';
-    }
+    })
+    .catch(err => {
+      if (errorEl) {
+        errorEl.textContent = `❌ ${err.message}`;
+        errorEl.style.display = 'block';
+      }
+    });
   });
 
   // Submit Authority
@@ -1022,24 +1112,34 @@ function initAuth() {
     const authId = document.getElementById('auth-id').value.trim();
     const password = document.getElementById('auth-password').value;
     const errorEl = document.getElementById('auth-error');
+    if (errorEl) errorEl.style.display = 'none';
 
-    if (authId === 'authority' && password === 'kcet2025') {
-      errorEl.style.display = 'none';
-      currentUser = { role: 'authority', name: "KEA Admin Console" };
+    fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username_or_email: authId,
+        password: password,
+        role: 'authority'
+      })
+    })
+    .then(async res => {
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Login failed.");
+      return data;
+    })
+    .then(data => {
+      currentUser = { role: 'authority', name: data.user.name };
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
-
-      // Log login event
-      fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: "KEA Admin Console", role: 'authority' })
-      }).catch(err => console.error(err));
-
       overlay.style.display = 'none';
       applyUserRole();
-    } else {
-      errorEl.style.display = 'block';
-    }
+    })
+    .catch(err => {
+      if (errorEl) {
+        errorEl.textContent = `❌ ${err.message}`;
+        errorEl.style.display = 'block';
+      }
+    });
   });
 
   // Submit Counsellor
@@ -1047,9 +1147,23 @@ function initAuth() {
     const cid = document.getElementById('counsellor-id').value.trim();
     const cpwd = document.getElementById('counsellor-password').value;
     const errorEl = document.getElementById('counsellor-error');
+    if (errorEl) errorEl.style.display = 'none';
 
-    if ((cid === 'counsellor' || cid === 'mentor') && cpwd === 'kcet2025') {
-      errorEl.style.display = 'none';
+    fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username_or_email: cid,
+        password: cpwd,
+        role: 'counsellor'
+      })
+    })
+    .then(async res => {
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Login failed.");
+      return data;
+    })
+    .then(data => {
       const saved = localStorage.getItem('kcet_user');
       if (saved) {
         try {
@@ -1062,7 +1176,7 @@ function initAuth() {
       if (!currentUser || currentUser.role !== 'counsellor') {
         currentUser = {
           role: 'counsellor',
-          name: "Professional Advisor",
+          name: data.user.name,
           students: [
             { id: 'cs1', name: "Aditi Rao", rank: 4200, category: "3BG", optionList: [] },
             { id: 'cs2', name: "Roshan Kumar", rank: 12500, category: "GM", optionList: [] },
@@ -1072,19 +1186,15 @@ function initAuth() {
         };
       }
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
-
-      // Log login event
-      fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: currentUser.name, role: 'counsellor' })
-      }).catch(err => console.error(err));
-
       overlay.style.display = 'none';
       applyUserRole();
-    } else {
-      errorEl.style.display = 'block';
-    }
+    })
+    .catch(err => {
+      if (errorEl) {
+        errorEl.textContent = `❌ ${err.message}`;
+        errorEl.style.display = 'block';
+      }
+    });
   });
 
   // Submit Super User
@@ -1092,24 +1202,34 @@ function initAuth() {
     const suid = document.getElementById('su-id').value.trim();
     const supwd = document.getElementById('su-password').value;
     const errorEl = document.getElementById('su-error');
+    if (errorEl) errorEl.style.display = 'none';
 
-    if (suid === 'superuser' && supwd === 'kcet2025') {
-      errorEl.style.display = 'none';
-      currentUser = { role: 'superuser', name: "Global Admin" };
+    fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username_or_email: suid,
+        password: supwd,
+        role: 'superuser'
+      })
+    })
+    .then(async res => {
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Login failed.");
+      return data;
+    })
+    .then(data => {
+      currentUser = { role: 'superuser', name: data.user.name };
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
-
-      // Log login event
-      fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: "Global Admin", role: 'superuser' })
-      }).catch(err => console.error(err));
-
       overlay.style.display = 'none';
       applyUserRole();
-    } else {
-      errorEl.style.display = 'block';
-    }
+    })
+    .catch(err => {
+      if (errorEl) {
+        errorEl.textContent = `❌ ${err.message}`;
+        errorEl.style.display = 'block';
+      }
+    });
   });
 
   // Logout
@@ -5083,6 +5203,23 @@ function bindEvents() {
   // Tabs
   document.querySelectorAll('.tab').forEach(tab => {
     tab.addEventListener('click', () => {
+      // Check authorization
+      const targetTab = tab.dataset.tab;
+      const effectiveRole = (currentUser && currentUser.role === 'superuser') ? superuserPerspective : (currentUser ? currentUser.role : 'student');
+      
+      if (targetTab === 'institution' && effectiveRole !== 'institution') {
+        alert("Access Denied: You are not authorized to view the Institution Admin Console.");
+        return;
+      }
+      if (targetTab === 'authority' && effectiveRole !== 'authority') {
+        alert("Access Denied: You are not authorized to view the KEA Authority Panel.");
+        return;
+      }
+      if (targetTab === 'downloads' && effectiveRole === 'student') {
+        alert("Access Denied: Candidates do not have download privileges.");
+        return;
+      }
+
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
       tab.classList.add('active');

@@ -95,7 +95,11 @@ CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username TEXT UNIQUE NOT NULL,
     email TEXT,
+    password TEXT,
     role TEXT NOT NULL, -- 'student', 'counsellor', 'institution', 'authority', 'superuser'
+    rank INTEGER,
+    category TEXT,
+    region TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

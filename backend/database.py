@@ -31,6 +31,22 @@ try:
         password=DB_PASSWORD
     )
     print("PostgreSQL ThreadedConnectionPool initialized successfully.")
+    
+    # Run dynamic schema alterations to support credentials and profiles
+    conn = connection_pool.getconn()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS password TEXT;")
+            cur.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS rank INTEGER;")
+            cur.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS category TEXT;")
+            cur.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS region TEXT;")
+        conn.commit()
+        print("Database schema auto-migration check completed successfully.")
+    except Exception as migration_error:
+        conn.rollback()
+        print(f"Database migration check failed: {migration_error}")
+    finally:
+        connection_pool.putconn(conn)
 except Exception as e:
     print(f"Error initializing PostgreSQL Connection Pool: {e}")
     connection_pool = None
