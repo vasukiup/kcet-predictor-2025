@@ -4005,7 +4005,7 @@ function openModal(college) {
       <tr class="course-main-row" data-course-idx="${idx}">
         <td class="course-name-cell" style="cursor:pointer;" title="Click to expand full sub-category matrix">
           <span class="drawer-toggle-icon" id="toggle-icon-${idx}" style="display:inline-block; transition:transform 0.2s; font-size:10px; margin-right:4px; color:var(--blue);">▶</span>
-          <strong>${escHtml(c.course_name)}</strong>
+          <strong>${idx + 1}. ${escHtml(c.course_name)}</strong>
           <button class="btn-add-option-inline" data-course-idx="${idx}" style="margin-left:8px; padding:2px 6px; font-size:9px; font-weight:700; background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.2); color:#22c55e; border-radius:4px; cursor:pointer; font-family:var(--font); display:inline-flex; align-items:center; gap:2px; vertical-align:middle; transition:background 0.2s;" title="Add this course to your Option Entry priority sheet">➕ Add</button>
         </td>
         <td class="td-total">${c.total_intake || 0}</td>
