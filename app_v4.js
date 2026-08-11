@@ -1393,7 +1393,7 @@ function initAuth() {
         
         if (studentOptionsList.length > 0) {
           studentOptionsList.forEach(opt => {
-            const col = allData.colleges.find(c => c.college_number == opt.collegeNum);
+            const col = allData.colleges.find(c => opt.keaCode ? c.kea_code == opt.keaCode : c.college_number == opt.collegeNum);
             if (col) {
               const course = col.courses.find(cr => cr.course_name === opt.courseName);
               if (course) {
@@ -1431,7 +1431,7 @@ function initAuth() {
         return;
       }
 
-      const collegeObj = allData.colleges.find(c => c.college_number == colNum);
+      const collegeObj = allData.colleges.find(c => c.kea_code == colNum || c.college_number == colNum);
       const reqId = Date.now();
       const newRequest = {
         id: reqId,
@@ -1582,12 +1582,12 @@ function renderInstitutionDashboard() {
 
   // 2. Populate College Dropdown
   const colSelect = document.getElementById('inst-edit-college');
-  colSelect.innerHTML = colleges.map(c => `<option value="${c.college_number}">${c.college_name}</option>`).join('');
+  colSelect.innerHTML = colleges.map(c => `<option value="${c.kea_code}">${c.college_name}</option>`).join('');
 
   // Course update listener
   const updateCoursesDropdown = () => {
     const colNum = colSelect.value;
-    const college = colleges.find(c => c.college_number == colNum);
+    const college = colleges.find(c => c.kea_code == colNum || c.college_number == colNum);
     const courseSelect = document.getElementById('inst-edit-course');
     if (college) {
       courseSelect.innerHTML = college.courses.map(c => `<option value="${escHtml(c.course_name)}">${c.course_name}</option>`).join('');
@@ -1598,7 +1598,7 @@ function renderInstitutionDashboard() {
   const updateSeatInputs = () => {
     const colNum = colSelect.value;
     const courseName = document.getElementById('inst-edit-course').value;
-    const college = colleges.find(c => c.college_number == colNum);
+    const college = colleges.find(c => c.kea_code == colNum || c.college_number == colNum);
     if (college) {
       const course = college.courses.find(c => c.course_name === courseName);
       if (course) {
@@ -1744,7 +1744,7 @@ function approveRequest(id) {
     req.status = 'Approved';
     
     // Update raw seat matrix data in-memory
-    const college = allData.colleges.find(c => c.college_number == req.collegeNum);
+    const college = allData.colleges.find(c => c.kea_code == req.collegeNum || c.college_number == req.collegeNum);
     if (college) {
       const course = college.courses.find(c => c.course_name === req.courseName);
       if (course) {
@@ -2365,7 +2365,7 @@ function renderOptionEntryList() {
     let cutoff = opt.cutoff;
     let chanceClass = opt.chanceClass;
     if (allData && allData.colleges) {
-      const collegeObj = allData.colleges.find(col => col.college_number == opt.collegeNum || col.kea_code == opt.keaCode);
+      const collegeObj = allData.colleges.find(col => opt.keaCode ? col.kea_code == opt.keaCode : col.college_number == opt.collegeNum);
       if (collegeObj) {
         const courseObj = collegeObj.courses.find(c => c.course_name === opt.courseName);
         if (courseObj) {
@@ -2443,7 +2443,7 @@ function auditStudentOptionsList() {
   // 1. Fee calculations & safety count
   studentOptionsList.forEach((opt) => {
     if (allData && allData.colleges) {
-      const collegeObj = allData.colleges.find(col => col.college_number == opt.collegeNum || col.kea_code == opt.keaCode);
+      const collegeObj = allData.colleges.find(col => opt.keaCode ? col.kea_code == opt.keaCode : col.college_number == opt.collegeNum);
       if (collegeObj) {
         const courseObj = collegeObj.courses.find(c => c.course_name === opt.courseName);
         if (courseObj) {
@@ -2705,7 +2705,7 @@ function bindOptionEntryEvents() {
         searchResults.innerHTML = `<div style="padding:10px; font-size:12px; color:var(--text-muted); text-align:center;">No colleges found.</div>`;
       } else {
         searchResults.innerHTML = matches.map(c => `
-          <div class="option-search-item" data-id="${c.college_number}">
+          <div class="option-search-item" data-kea-code="${c.kea_code || ''}">
             <strong>${c.college_name}</strong> <span style="font-size:10px; color:var(--blue); font-weight:700; margin-left:6px;">${c.kea_code || ''}</span>
           </div>
         `).join('');
@@ -2717,8 +2717,8 @@ function bindOptionEntryEvents() {
       const bindSearchResults = () => {
         document.querySelectorAll('.option-search-item').forEach(item => {
           item.addEventListener('click', () => {
-            const colId = item.dataset.id;
-            selectedCollegeForAdd = allData.colleges.find(c => c.college_number == colId);
+            const keaCode = item.dataset.keaCode;
+            selectedCollegeForAdd = allData.colleges.find(c => c.kea_code == keaCode);
             
             if (selectedCollegeForAdd) {
               searchInput.value = selectedCollegeForAdd.college_name;
@@ -2998,11 +2998,11 @@ function renderColleges() {
     lmb.textContent = `Load More Colleges (${filtered.length - displayCount} remaining)`;
   }
 
-  // Bind card clicks using unique college_number lookup
+  // Bind card clicks using unique KEA Code lookup
   grid.querySelectorAll('.college-card').forEach(el => {
     el.addEventListener('click', () => {
-      const colNum = el.dataset.collegeNumber;
-      const collegeObj = allData.colleges.find(c => c.college_number == colNum);
+      const keaCode = el.dataset.keaCode;
+      const collegeObj = allData.colleges.find(c => c.kea_code == keaCode);
       if (collegeObj) openModal(collegeObj);
     });
   });
@@ -3053,7 +3053,7 @@ function renderCollegeCard(college, index) {
   const hostelInfo = college.hostel_details ? `<span class="meta-badge" style="background:rgba(249,115,22,0.06); color:#f97316; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700; display:inline-flex; align-items:center; gap:3px; border:1px solid rgba(249,115,22,0.15);">🏠 Hostel: ₹${Math.round(college.hostel_details.annual_hostel_fees/1000)}k/yr</span>` : '';
 
   return `
-    <div class="college-card" style="animation-delay:${Math.min(index * 0.03, 0.3)}s" data-index="${index}" data-college-number="${college.college_number}">
+    <div class="college-card" style="animation-delay:${Math.min(index * 0.03, 0.3)}s" data-index="${index}" data-kea-code="${college.kea_code || ''}" data-college-number="${college.college_number}">
       <div class="card-top">
         <div class="card-badge badge-${ann}">${ANNEXURE_ICONS[ann]}</div>
         <div class="card-info">
@@ -6429,7 +6429,7 @@ function renderPredictionResults(results, selectedRound) {
       badgeBg = 'rgba(168,85,247,0.15)';
     }
     
-    return `<tr class="pred-row" data-college-number="${col.college_number}" style="cursor:pointer; transition:background 0.2s;">
+    return `<tr class="pred-row" data-kea-code="${col.kea_code || ''}" style="cursor:pointer; transition:background 0.2s;">
       <td><span class="card-type-pill pill-${col.annexure}" style="font-size:11px; padding: 2px 6px;">${col.kea_code || col.college_number}</span></td>
       <td><strong>${escHtml(col.college_name)}</strong><br><small style="color:var(--text-muted)">📍 ${escHtml(col.district)}</small></td>
       <td>${res.courseName}</td>
@@ -6446,8 +6446,8 @@ function renderPredictionResults(results, selectedRound) {
   // Attach event listener for row clicks
   tbody.querySelectorAll('.pred-row').forEach(row => {
     row.addEventListener('click', () => {
-      const colNum = row.dataset.collegeNumber;
-      const collegeObj = allData.colleges.find(c => c.college_number == colNum);
+      const keaCode = row.dataset.keaCode;
+      const collegeObj = allData.colleges.find(c => c.kea_code == keaCode);
       if (collegeObj) {
         openModal(collegeObj);
       }
@@ -6533,8 +6533,8 @@ function runAssistantQuery(query) {
       // Bind click events on cards inside assistant results
       resultsWrapper.querySelectorAll('.college-card').forEach(card => {
         card.addEventListener('click', () => {
-          const colNum = card.dataset.collegeNumber;
-          const collegeObj = allData.colleges.find(c => c.college_number == colNum);
+          const keaCode = card.dataset.keaCode;
+          const collegeObj = allData.colleges.find(c => c.kea_code == keaCode);
           if (collegeObj) {
             openModal(collegeObj);
           }
@@ -6544,8 +6544,8 @@ function runAssistantQuery(query) {
       // Bind click events on table rows
       resultsWrapper.querySelectorAll('.assistant-row-click').forEach(row => {
         row.addEventListener('click', () => {
-          const colNum = row.dataset.collegeNumber;
-          const collegeObj = allData.colleges.find(c => c.college_number == colNum);
+          const keaCode = row.dataset.keaCode;
+          const collegeObj = allData.colleges.find(c => c.kea_code == keaCode);
           if (collegeObj) {
             openModal(collegeObj);
           }
@@ -7027,7 +7027,7 @@ function generateAssistantResponse(analysis) {
       const diffText = res.diff >= 0 ? `+${res.diff.toLocaleString()}` : res.diff.toLocaleString();
       const diffClass = res.diff >= 0 ? 'text-green' : 'text-orange';
       
-      return `<tr class="pred-row assistant-row-click" data-college-number="${col.college_number}" style="cursor:pointer; transition:background 0.2s;">
+      return `<tr class="pred-row assistant-row-click" data-kea-code="${col.kea_code || ''}" style="cursor:pointer; transition:background 0.2s;">
         <td><span class="card-type-pill pill-${col.annexure}" style="font-size:11px; padding: 2px 6px;">${col.kea_code || col.college_number}</span></td>
         <td><strong>${col.college_name}</strong><br><small style="color:var(--text-muted)">📍 ${col.district}</small></td>
         <td>${abbrCourseName(res.courseName)}</td>

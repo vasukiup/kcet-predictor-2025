@@ -55,13 +55,20 @@ def import_database():
                 cutoff_count = 0
                 
                 for col in data.get("colleges", []):
+                    c_name = col.get("college_name")
+                    if c_name:
+                        import re
+                        c_name = re.sub(r'\bS\.?\s*J\.?\s*B(?:\.|\b)', 'SJB', c_name, flags=re.IGNORECASE)
+                        c_name = re.sub(r'\bS\.?\s*J\.?\s*C(?:\.|\b)', 'SJC', c_name, flags=re.IGNORECASE)
+                        c_name = c_name.replace("Technolory", "Technology")
+                        c_name = c_name.replace("Technoloy", "Technology")
                     cursor.execute("""
                         INSERT INTO colleges (college_number, kea_code, college_name, address, annexure, college_type, district, total_intake, total_kea_seats, year)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """, (
                         col.get("college_number"),
                         col.get("kea_code"),
-                        col.get("college_name"),
+                        c_name,
                         col.get("address"),
                         col.get("annexure"),
                         col.get("college_type"),

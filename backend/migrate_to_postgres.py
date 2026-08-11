@@ -12,10 +12,14 @@ import json
 import re
 import sys
 import psycopg2
+from dotenv import load_dotenv
 
 sys.stdout.reconfigure(encoding="utf-8")
 
 def migrate_database():
+    # Load environment variables from .env file in the same directory
+    load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
+
     # Load connection parameters from environment or default
     db_host = os.environ.get("DB_HOST", "localhost")
     db_port = os.environ.get("DB_PORT", "5432")
@@ -75,6 +79,13 @@ def migrate_database():
             cutoff_count = 0
 
             for col in data.get("colleges", []):
+                c_name = col.get("college_name")
+                if c_name:
+                    import re
+                    c_name = re.sub(r'\bS\.?\s*J\.?\s*B(?:\.|\b)', 'SJB', c_name, flags=re.IGNORECASE)
+                    c_name = re.sub(r'\bS\.?\s*J\.?\s*C(?:\.|\b)', 'SJC', c_name, flags=re.IGNORECASE)
+                    c_name = c_name.replace("Technolory", "Technology")
+                    c_name = c_name.replace("Technoloy", "Technology")
                 # Retrieve enriched metadata
                 established = col.get("established") or col.get("established_year")
                 nirf = col.get("nirf_rank")
@@ -107,7 +118,7 @@ def migrate_database():
                 """, (
                     col.get("college_number"),
                     col.get("kea_code"),
-                    col.get("college_name"),
+                    c_name,
                     col.get("address"),
                     col.get("annexure"),
                     col.get("college_type"),

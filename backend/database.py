@@ -8,6 +8,18 @@ Database Connection Utility for PostgreSQL pooling.
 """
 import os
 from contextlib import contextmanager
+
+# Inline load dotenv variables before connection pool initialization
+def _load_dotenv():
+    env_path = os.path.join("backend", ".env")
+    if os.path.exists(env_path):
+        with open(env_path, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith("#") and "=" in line:
+                    k, v = line.split("=", 1)
+                    os.environ[k.strip()] = v.strip()
+_load_dotenv()
 import psycopg2
 from psycopg2.pool import ThreadedConnectionPool
 from psycopg2.extras import RealDictCursor
