@@ -49,16 +49,12 @@
             "SNQ": "40984"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -96,16 +92,12 @@
             "SNQ": "40984"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -145,13 +137,12 @@
             "SNQ": "66754"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
               "Intel",
               "Texas Instruments"
             ]
@@ -195,37 +186,30 @@
             "SNQ": "65304"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
               "Intel",
               "Texas Instruments"
             ]
           }
         }
       ],
-      "established_year": 2015,
+      "established_year": 2026,
       "established": 2015,
       "nirf_ranking": null,
       "nirf_rank": null,
-      "affiliation": "State University Affiliated",
-      "naac_grade": "B",
+      "affiliation": "Constituent College of VTU",
+      "naac_grade": null,
       "nba_accredited": false,
       "placement_stats": {
-        "avg_package_lpa": 3.8,
-        "highest_package_lpa": 13.3,
-        "placement_rate_pct": 83,
-        "top_recruiters": [
-          "TCS",
-          "Infosys",
-          "Wipro",
-          "Cognizant",
-          "Capgemini"
-        ]
+        "avg_package_lpa": 0.0,
+        "highest_package_lpa": 0.0,
+        "placement_rate_pct": 0.0,
+        "top_recruiters": []
       },
       "placements": {
         "avg_package_lpa": 3.8,
@@ -241,15 +225,15 @@
       },
       "hostel_details": {
         "hostel_type": "Boys & Girls",
-        "annual_hostel_fees": 65000,
-        "hostel_capacity": 300,
+        "annual_hostel_fees": 45000,
+        "hostel_capacity": 150,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 13.5,
-        "nearest_railway_station": "Chikballapura Station",
-        "campus_area_acres": 55
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Chintamani Station",
+        "campus_area_acres": 9
       },
       "total_intake": 120,
       "total_kea_seats": 120
@@ -306,16 +290,12 @@
             "SNQ": "35343"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -362,16 +342,12 @@
             "SNQ": "37279"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -417,13 +393,12 @@
             "SNQ": "94346"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
               "Intel",
               "Texas Instruments"
             ]
@@ -472,37 +447,27 @@
             "XD": "182445"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         }
       ],
-      "established_year": 2015,
+      "established_year": 2025,
       "established": 2015,
       "nirf_ranking": null,
       "nirf_rank": null,
       "affiliation": "VTU Affiliated (Government)",
-      "naac_grade": "B",
+      "naac_grade": null,
       "nba_accredited": false,
       "placement_stats": {
-        "avg_package_lpa": 3.8,
-        "highest_package_lpa": 13.3,
-        "placement_rate_pct": 83,
-        "top_recruiters": [
-          "TCS",
-          "Infosys",
-          "Wipro",
-          "Cognizant",
-          "Capgemini"
-        ]
+        "avg_package_lpa": 0.0,
+        "highest_package_lpa": 0.0,
+        "placement_rate_pct": 0.0,
+        "top_recruiters": []
       },
       "placements": {
         "avg_package_lpa": 3.8,
@@ -518,15 +483,15 @@
       },
       "hostel_details": {
         "hostel_type": "Boys & Girls",
-        "annual_hostel_fees": 65000,
-        "hostel_capacity": 300,
+        "annual_hostel_fees": 18000,
+        "hostel_capacity": 150,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 13.5,
-        "nearest_railway_station": "Hassan Station",
-        "campus_area_acres": 55
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Arasikere Junction",
+        "campus_area_acres": 12
       },
       "total_intake": 240,
       "total_kea_seats": 240
@@ -7682,16 +7647,12 @@
             "SNQ": "56107"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -7732,16 +7693,12 @@
             "SNQ": "59797"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -7780,50 +7737,43 @@
             "SNQ": "41791"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
               "Intel",
               "Texas Instruments"
             ]
           }
         }
       ],
-      "established_year": 2015,
+      "established_year": 2025,
       "established": 2026,
       "nirf_ranking": null,
       "nirf_rank": null,
-      "affiliation": "State University Affiliated",
-      "naac_grade": "B",
+      "affiliation": "Constituent College of VTU",
+      "naac_grade": null,
       "nba_accredited": false,
       "placement_stats": {
-        "avg_package_lpa": 3.8,
-        "highest_package_lpa": 13.3,
-        "placement_rate_pct": 83,
-        "top_recruiters": [
-          "TCS",
-          "Infosys",
-          "Wipro",
-          "Cognizant",
-          "Capgemini"
-        ]
+        "avg_package_lpa": 0.0,
+        "highest_package_lpa": 0.0,
+        "placement_rate_pct": 0.0,
+        "top_recruiters": []
       },
       "placements": {},
       "hostel_details": {
         "hostel_type": "Boys & Girls",
-        "annual_hostel_fees": 65000,
-        "hostel_capacity": 300,
+        "annual_hostel_fees": 45000,
+        "hostel_capacity": 120,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 13.5,
-        "nearest_railway_station": "Belgaum Station",
-        "campus_area_acres": 55
+        "distance_from_bus_stand_km": 3.5,
+        "nearest_railway_station": "Gokak Road Station",
+        "campus_area_acres": 10
       },
       "total_intake": 90,
       "total_kea_seats": 90
@@ -12463,15 +12413,15 @@
             "SNQ": "79259"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.4,
+            "avg_package_lpa": 5.2,
+            "max_package_lpa": 10.0,
+            "placement_rate_pct": 84.0,
             "industry_type": "Software Services",
             "top_recruiters": [
-              "TCS",
               "Infosys",
-              "Wipro"
+              "Wipro",
+              "TCS"
             ]
           }
         },
@@ -12504,10 +12454,10 @@
             "SNQ": "47232"
           },
           "course_placements": {
-            "min_package_lpa": 1.5,
-            "avg_package_lpa": 2.5,
-            "max_package_lpa": 4.7,
-            "placement_rate_pct": 68.1,
+            "min_package_lpa": 1.6,
+            "avg_package_lpa": 2.6,
+            "max_package_lpa": 3.5,
+            "placement_rate_pct": 65.6,
             "industry_type": "Core Industry",
             "top_recruiters": [
               "L&T",
@@ -12553,15 +12503,15 @@
             "SNQ": "70673"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.4,
+            "avg_package_lpa": 5.2,
+            "max_package_lpa": 10.0,
+            "placement_rate_pct": 84.0,
             "industry_type": "Software Services",
             "top_recruiters": [
-              "TCS",
               "Infosys",
-              "Wipro"
+              "Wipro",
+              "TCS"
             ]
           }
         },
@@ -12599,50 +12549,50 @@
             "SNQ": "77451"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 2.0,
+            "avg_package_lpa": 3.8,
+            "max_package_lpa": 7.5,
+            "placement_rate_pct": 78.4,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
+              "Infosys",
               "Intel",
               "Texas Instruments"
             ]
           }
         }
       ],
-      "established_year": 2015,
+      "established_year": 2010,
       "established": 2026,
       "nirf_ranking": null,
       "nirf_rank": null,
       "affiliation": "VTU Affiliated",
-      "naac_grade": "B",
+      "naac_grade": null,
       "nba_accredited": false,
       "placement_stats": {
-        "avg_package_lpa": 3.8,
-        "highest_package_lpa": 13.3,
-        "placement_rate_pct": 83,
+        "avg_package_lpa": 4.0,
+        "highest_package_lpa": 10.0,
+        "placement_rate_pct": 80.0,
         "top_recruiters": [
-          "TCS",
           "Infosys",
           "Wipro",
-          "Cognizant",
+          "TCS",
+          "Tech Mahindra",
           "Capgemini"
         ]
       },
       "placements": {},
       "hostel_details": {
         "hostel_type": "Boys & Girls",
-        "annual_hostel_fees": 65000,
+        "annual_hostel_fees": 55000,
         "hostel_capacity": 300,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 13.5,
-        "nearest_railway_station": "Belgaum Station",
-        "campus_area_acres": 55
+        "distance_from_bus_stand_km": 12.0,
+        "nearest_railway_station": "Hubli Junction",
+        "campus_area_acres": 15
       },
       "total_intake": 210,
       "total_kea_seats": 95
@@ -13104,10 +13054,10 @@
             "SNQ": "91408"
           },
           "course_placements": {
-            "min_package_lpa": 2.1,
-            "avg_package_lpa": 4.5,
-            "max_package_lpa": 12.2,
-            "placement_rate_pct": 95.5,
+            "min_package_lpa": 3.0,
+            "avg_package_lpa": 6.5,
+            "max_package_lpa": 15.0,
+            "placement_rate_pct": 89.2,
             "industry_type": "Software Services",
             "top_recruiters": [
               "TCS",
@@ -13162,10 +13112,10 @@
             "SNQ": "78843"
           },
           "course_placements": {
-            "min_package_lpa": 2.1,
-            "avg_package_lpa": 4.5,
-            "max_package_lpa": 12.2,
-            "placement_rate_pct": 95.5,
+            "min_package_lpa": 3.0,
+            "avg_package_lpa": 6.5,
+            "max_package_lpa": 15.0,
+            "placement_rate_pct": 89.2,
             "industry_type": "Software Services",
             "top_recruiters": [
               "TCS",
@@ -13216,10 +13166,10 @@
             "SNQ": "97909"
           },
           "course_placements": {
-            "min_package_lpa": 2.1,
-            "avg_package_lpa": 4.5,
-            "max_package_lpa": 12.2,
-            "placement_rate_pct": 95.5,
+            "min_package_lpa": 3.0,
+            "avg_package_lpa": 6.5,
+            "max_package_lpa": 15.0,
+            "placement_rate_pct": 89.2,
             "industry_type": "Software Services",
             "top_recruiters": [
               "TCS",
@@ -13270,10 +13220,10 @@
             "SNQ": "114609"
           },
           "course_placements": {
-            "min_package_lpa": 2.1,
-            "avg_package_lpa": 4.5,
-            "max_package_lpa": 12.2,
-            "placement_rate_pct": 95.5,
+            "min_package_lpa": 3.0,
+            "avg_package_lpa": 6.5,
+            "max_package_lpa": 15.0,
+            "placement_rate_pct": 89.2,
             "industry_type": "Software Services",
             "top_recruiters": [
               "TCS",
@@ -13314,10 +13264,10 @@
             "SNQ": "100426"
           },
           "course_placements": {
-            "min_package_lpa": 1.4,
-            "avg_package_lpa": 2.3,
-            "max_package_lpa": 4.3,
-            "placement_rate_pct": 74.6,
+            "min_package_lpa": 2.0,
+            "avg_package_lpa": 3.2,
+            "max_package_lpa": 5.2,
+            "placement_rate_pct": 69.7,
             "industry_type": "Core Industry",
             "top_recruiters": [
               "Reliance",
@@ -13364,10 +13314,10 @@
             "SNQ": "98564"
           },
           "course_placements": {
-            "min_package_lpa": 1.8,
-            "avg_package_lpa": 3.3,
-            "max_package_lpa": 9.1,
-            "placement_rate_pct": 89.2,
+            "min_package_lpa": 2.5,
+            "avg_package_lpa": 4.8,
+            "max_package_lpa": 11.2,
+            "placement_rate_pct": 83.3,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
               "TCS",
@@ -13413,10 +13363,10 @@
             "SNQ": "139166"
           },
           "course_placements": {
-            "min_package_lpa": 2.1,
-            "avg_package_lpa": 4.5,
-            "max_package_lpa": 12.2,
-            "placement_rate_pct": 95.5,
+            "min_package_lpa": 3.0,
+            "avg_package_lpa": 6.5,
+            "max_package_lpa": 15.0,
+            "placement_rate_pct": 89.2,
             "industry_type": "Software Services",
             "top_recruiters": [
               "TCS",
@@ -13457,10 +13407,10 @@
             "SNQ": "126053"
           },
           "course_placements": {
-            "min_package_lpa": 1.4,
-            "avg_package_lpa": 2.3,
-            "max_package_lpa": 4.3,
-            "placement_rate_pct": 74.6,
+            "min_package_lpa": 2.0,
+            "avg_package_lpa": 3.2,
+            "max_package_lpa": 5.2,
+            "placement_rate_pct": 69.7,
             "industry_type": "Core Industry",
             "top_recruiters": [
               "Reliance",
@@ -13474,18 +13424,18 @@
       "nirf_ranking": null,
       "nirf_rank": null,
       "affiliation": "VTU Affiliated",
-      "naac_grade": "C",
+      "naac_grade": null,
       "nba_accredited": false,
       "placement_stats": {
-        "avg_package_lpa": 3.5,
-        "highest_package_lpa": 12.2,
-        "placement_rate_pct": 91,
+        "avg_package_lpa": 5.0,
+        "highest_package_lpa": 15.0,
+        "placement_rate_pct": 85.0,
         "top_recruiters": [
           "TCS",
           "Infosys",
           "Wipro",
-          "Cognizant",
-          "Capgemini"
+          "Capgemini",
+          "Cognizant"
         ]
       },
       "placements": {
@@ -13502,15 +13452,15 @@
       },
       "hostel_details": {
         "hostel_type": "Boys & Girls",
-        "annual_hostel_fees": 95000,
-        "hostel_capacity": 750,
+        "annual_hostel_fees": 120000,
+        "hostel_capacity": 400,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 9.5,
-        "nearest_railway_station": "Bangalore Station",
-        "campus_area_acres": 55
+        "distance_from_bus_stand_km": 35.0,
+        "nearest_railway_station": "Devanahalli Railway Station",
+        "campus_area_acres": 20
       },
       "total_intake": 900,
       "total_kea_seats": 405
@@ -15751,16 +15701,12 @@
             "SNQ": "72453"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -15803,16 +15749,12 @@
             "SNQ": "94231"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -15848,37 +15790,30 @@
             "SNQ": "104424"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
               "Intel",
               "Texas Instruments"
             ]
           }
         }
       ],
-      "established_year": 2015,
+      "established_year": 2024,
       "established": 2015,
       "nirf_ranking": null,
       "nirf_rank": null,
       "affiliation": "VTU Affiliated",
-      "naac_grade": "B",
+      "naac_grade": null,
       "nba_accredited": false,
       "placement_stats": {
-        "avg_package_lpa": 3.8,
-        "highest_package_lpa": 13.3,
-        "placement_rate_pct": 83,
-        "top_recruiters": [
-          "TCS",
-          "Infosys",
-          "Wipro",
-          "Cognizant",
-          "Capgemini"
-        ]
+        "avg_package_lpa": 0.0,
+        "highest_package_lpa": 0.0,
+        "placement_rate_pct": 0.0,
+        "top_recruiters": []
       },
       "placements": {
         "avg_package_lpa": 3.8,
@@ -15895,14 +15830,14 @@
       "hostel_details": {
         "hostel_type": "Boys & Girls",
         "annual_hostel_fees": 65000,
-        "hostel_capacity": 300,
+        "hostel_capacity": 200,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 13.5,
+        "distance_from_bus_stand_km": 6.5,
         "nearest_railway_station": "Belagavi Station",
-        "campus_area_acres": 55
+        "campus_area_acres": 10
       },
       "total_intake": 360,
       "total_kea_seats": 162
@@ -24749,16 +24684,12 @@
             "SNQ": "43995"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -24799,16 +24730,12 @@
             "SNQ": "88114"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -24843,13 +24770,12 @@
             "SNQ": "168362"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
               "Intel",
               "Texas Instruments"
             ]
@@ -24893,50 +24819,43 @@
             "SNQ": "95684"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
               "Intel",
               "Texas Instruments"
             ]
           }
         }
       ],
-      "established_year": 2015,
+      "established_year": 2026,
       "established": 2026,
       "nirf_ranking": null,
       "nirf_rank": null,
       "affiliation": "VTU Affiliated",
-      "naac_grade": "B",
+      "naac_grade": null,
       "nba_accredited": false,
       "placement_stats": {
-        "avg_package_lpa": 3.8,
-        "highest_package_lpa": 13.3,
-        "placement_rate_pct": 83,
-        "top_recruiters": [
-          "TCS",
-          "Infosys",
-          "Wipro",
-          "Cognizant",
-          "Capgemini"
-        ]
+        "avg_package_lpa": 0.0,
+        "highest_package_lpa": 0.0,
+        "placement_rate_pct": 0.0,
+        "top_recruiters": []
       },
       "placements": {},
       "hostel_details": {
         "hostel_type": "Boys & Girls",
         "annual_hostel_fees": 95000,
-        "hostel_capacity": 300,
+        "hostel_capacity": 250,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 13.5,
+        "distance_from_bus_stand_km": 18.0,
         "nearest_railway_station": "Bangalore Station",
-        "campus_area_acres": 55
+        "campus_area_acres": 8
       },
       "total_intake": 240,
       "total_kea_seats": 108
@@ -33314,16 +33233,12 @@
             "SNQ": "60259"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -33349,10 +33264,10 @@
             "SNQ": "185853"
           },
           "course_placements": {
-            "min_package_lpa": 1.5,
-            "avg_package_lpa": 2.5,
-            "max_package_lpa": 4.7,
-            "placement_rate_pct": 68.1,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Core Industry",
             "top_recruiters": [
               "L&T",
@@ -33397,16 +33312,12 @@
             "SNQ": "86416"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -33439,13 +33350,12 @@
             "SNQ": "87876"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
               "Intel",
               "Texas Instruments"
             ]
@@ -33476,10 +33386,10 @@
             "SNQ": "280310"
           },
           "course_placements": {
-            "min_package_lpa": 1.5,
-            "avg_package_lpa": 2.5,
-            "max_package_lpa": 4.7,
-            "placement_rate_pct": 68.1,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Core Industry",
             "top_recruiters": [
               "Reliance",
@@ -33488,37 +33398,31 @@
           }
         }
       ],
-      "established_year": 2015,
+      "established_year": 2026,
       "established": 2026,
       "nirf_ranking": null,
       "nirf_rank": null,
       "affiliation": "VTU Affiliated",
-      "naac_grade": "B",
+      "naac_grade": null,
       "nba_accredited": false,
       "placement_stats": {
-        "avg_package_lpa": 3.8,
-        "highest_package_lpa": 13.3,
-        "placement_rate_pct": 83,
-        "top_recruiters": [
-          "TCS",
-          "Infosys",
-          "Wipro",
-          "Cognizant",
-          "Capgemini"
-        ]
+        "avg_package_lpa": 0.0,
+        "highest_package_lpa": 0.0,
+        "placement_rate_pct": 0.0,
+        "top_recruiters": []
       },
       "placements": {},
       "hostel_details": {
         "hostel_type": "Boys & Girls",
-        "annual_hostel_fees": 65000,
-        "hostel_capacity": 300,
+        "annual_hostel_fees": 55000,
+        "hostel_capacity": 200,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 13.5,
-        "nearest_railway_station": "Dharwad Station",
-        "campus_area_acres": 55
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Hubli Junction",
+        "campus_area_acres": 10
       },
       "total_intake": 300,
       "total_kea_seats": 135
@@ -36033,15 +35937,15 @@
             "SNQ": "91434"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.1,
+            "avg_package_lpa": 4.5,
+            "max_package_lpa": 12.0,
+            "placement_rate_pct": 84.0,
             "industry_type": "Software Services",
             "top_recruiters": [
               "TCS",
-              "Infosys",
-              "Wipro"
+              "Wipro",
+              "Infosys"
             ]
           }
         },
@@ -36082,15 +35986,15 @@
             "SNQ": "74327"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.1,
+            "avg_package_lpa": 4.5,
+            "max_package_lpa": 12.0,
+            "placement_rate_pct": 84.0,
             "industry_type": "Software Services",
             "top_recruiters": [
               "TCS",
-              "Infosys",
-              "Wipro"
+              "Wipro",
+              "Infosys"
             ]
           }
         },
@@ -36130,15 +36034,15 @@
             "XD": "224063"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.1,
+            "avg_package_lpa": 4.5,
+            "max_package_lpa": 12.0,
+            "placement_rate_pct": 84.0,
             "industry_type": "Software Services",
             "top_recruiters": [
               "TCS",
-              "Infosys",
-              "Wipro"
+              "Wipro",
+              "Infosys"
             ]
           }
         },
@@ -36174,15 +36078,15 @@
             "SNQ": "130566"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.1,
+            "avg_package_lpa": 4.5,
+            "max_package_lpa": 12.0,
+            "placement_rate_pct": 84.0,
             "industry_type": "Software Services",
             "top_recruiters": [
               "TCS",
-              "Infosys",
-              "Wipro"
+              "Wipro",
+              "Infosys"
             ]
           }
         },
@@ -36218,10 +36122,10 @@
             "SNQ": "119200"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 1.8,
+            "avg_package_lpa": 3.3,
+            "max_package_lpa": 9.0,
+            "placement_rate_pct": 78.4,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
               "TCS",
@@ -36263,36 +36167,34 @@
             "SNQ": "119086"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.1,
+            "avg_package_lpa": 4.5,
+            "max_package_lpa": 12.0,
+            "placement_rate_pct": 84.0,
             "industry_type": "Software Services",
             "top_recruiters": [
               "TCS",
-              "Infosys",
-              "Wipro"
+              "Wipro",
+              "Infosys"
             ]
           }
         }
       ],
-      "established_year": 2015,
+      "established_year": 2025,
       "established": 2015,
       "nirf_ranking": null,
       "nirf_rank": null,
       "affiliation": "VTU Affiliated",
-      "naac_grade": "B",
+      "naac_grade": null,
       "nba_accredited": false,
       "placement_stats": {
-        "avg_package_lpa": 3.8,
-        "highest_package_lpa": 13.3,
-        "placement_rate_pct": 83,
+        "avg_package_lpa": 3.5,
+        "highest_package_lpa": 12.0,
+        "placement_rate_pct": 80.0,
         "top_recruiters": [
           "TCS",
-          "Infosys",
           "Wipro",
-          "Cognizant",
-          "Capgemini"
+          "Infosys"
         ]
       },
       "placements": {
@@ -36310,14 +36212,14 @@
       "hostel_details": {
         "hostel_type": "Boys & Girls",
         "annual_hostel_fees": 95000,
-        "hostel_capacity": 300,
+        "hostel_capacity": 250,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 13.5,
-        "nearest_railway_station": "Bangalore Station",
-        "campus_area_acres": 55
+        "distance_from_bus_stand_km": 26.0,
+        "nearest_railway_station": "Nelamangala Railway Station",
+        "campus_area_acres": 25
       },
       "total_intake": 360,
       "total_kea_seats": 162
@@ -44014,10 +43916,10 @@
             "SNQ": "93075"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.7,
+            "avg_package_lpa": 5.9,
+            "max_package_lpa": 12.0,
+            "placement_rate_pct": 86.1,
             "industry_type": "Software Services",
             "top_recruiters": [
               "TCS",
@@ -44061,10 +43963,10 @@
             "SNQ": "93075"
           },
           "course_placements": {
-            "min_package_lpa": 1.5,
-            "avg_package_lpa": 2.5,
-            "max_package_lpa": 4.7,
-            "placement_rate_pct": 68.1,
+            "min_package_lpa": 1.8,
+            "avg_package_lpa": 2.9,
+            "max_package_lpa": 4.2,
+            "placement_rate_pct": 67.2,
             "industry_type": "Core Industry",
             "top_recruiters": [
               "Reliance",
@@ -44096,10 +43998,10 @@
             "SNQ": "182101"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 2.2,
+            "avg_package_lpa": 4.3,
+            "max_package_lpa": 9.0,
+            "placement_rate_pct": 80.4,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
               "TCS",
@@ -44138,10 +44040,10 @@
             "SNQ": "165858"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 2.2,
+            "avg_package_lpa": 4.3,
+            "max_package_lpa": 9.0,
+            "placement_rate_pct": 80.4,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
               "TCS",
@@ -44184,10 +44086,10 @@
             "SNQ": "135742"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 2.2,
+            "avg_package_lpa": 4.3,
+            "max_package_lpa": 9.0,
+            "placement_rate_pct": 80.4,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
               "TCS",
@@ -44197,37 +44099,38 @@
           }
         }
       ],
-      "established_year": 2015,
+      "established_year": 2010,
       "established": 2026,
       "nirf_ranking": null,
       "nirf_rank": null,
       "affiliation": "VTU Affiliated",
-      "naac_grade": "B",
+      "naac_grade": null,
       "nba_accredited": false,
       "placement_stats": {
-        "avg_package_lpa": 3.8,
-        "highest_package_lpa": 13.3,
-        "placement_rate_pct": 83,
+        "avg_package_lpa": 4.5,
+        "highest_package_lpa": 12.0,
+        "placement_rate_pct": 82.0,
         "top_recruiters": [
           "TCS",
           "Infosys",
           "Wipro",
-          "Cognizant",
-          "Capgemini"
+          "IBM",
+          "Amazon",
+          "JP Morgan"
         ]
       },
       "placements": {},
       "hostel_details": {
         "hostel_type": "Boys & Girls",
         "annual_hostel_fees": 95000,
-        "hostel_capacity": 300,
+        "hostel_capacity": 350,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 13.5,
-        "nearest_railway_station": "Bangalore Station",
-        "campus_area_acres": 55
+        "distance_from_bus_stand_km": 14.0,
+        "nearest_railway_station": "Carmelaram Railway Station",
+        "campus_area_acres": 11
       },
       "total_intake": 300,
       "total_kea_seats": 135
@@ -81643,10 +81546,10 @@
             "DK": "74706.5"
           },
           "course_placements": {
-            "min_package_lpa": 1.4,
-            "avg_package_lpa": 2.3,
-            "max_package_lpa": 4.3,
-            "placement_rate_pct": 73.8,
+            "min_package_lpa": 2.6,
+            "avg_package_lpa": 4.2,
+            "max_package_lpa": 7.0,
+            "placement_rate_pct": 69.7,
             "industry_type": "Core Industry",
             "top_recruiters": [
               "Reliance",
@@ -81709,15 +81612,15 @@
             "SCG": "80403"
           },
           "course_placements": {
-            "min_package_lpa": 2.1,
-            "avg_package_lpa": 4.5,
-            "max_package_lpa": 12.2,
-            "placement_rate_pct": 94.5,
+            "min_package_lpa": 3.9,
+            "avg_package_lpa": 8.5,
+            "max_package_lpa": 20.0,
+            "placement_rate_pct": 89.2,
             "industry_type": "Software Services",
             "top_recruiters": [
-              "TCS",
+              "Accenture",
               "Infosys",
-              "Wipro"
+              "TCS"
             ]
           }
         },
@@ -81776,15 +81679,15 @@
             "SCG": "80403"
           },
           "course_placements": {
-            "min_package_lpa": 2.1,
-            "avg_package_lpa": 4.5,
-            "max_package_lpa": 12.2,
-            "placement_rate_pct": 94.5,
+            "min_package_lpa": 3.9,
+            "avg_package_lpa": 8.5,
+            "max_package_lpa": 20.0,
+            "placement_rate_pct": 89.2,
             "industry_type": "Software Services",
             "top_recruiters": [
-              "TCS",
+              "Accenture",
               "Infosys",
-              "Wipro"
+              "TCS"
             ]
           }
         },
@@ -81823,15 +81726,15 @@
             "SCG": "80403"
           },
           "course_placements": {
-            "min_package_lpa": 2.1,
-            "avg_package_lpa": 4.5,
-            "max_package_lpa": 12.2,
-            "placement_rate_pct": 94.5,
+            "min_package_lpa": 3.9,
+            "avg_package_lpa": 8.5,
+            "max_package_lpa": 20.0,
+            "placement_rate_pct": 89.2,
             "industry_type": "Software Services",
             "top_recruiters": [
-              "TCS",
+              "Accenture",
               "Infosys",
-              "Wipro"
+              "TCS"
             ]
           }
         },
@@ -81890,15 +81793,15 @@
             "SCG": "80403"
           },
           "course_placements": {
-            "min_package_lpa": 2.1,
-            "avg_package_lpa": 4.5,
-            "max_package_lpa": 12.2,
-            "placement_rate_pct": 94.5,
+            "min_package_lpa": 3.9,
+            "avg_package_lpa": 8.5,
+            "max_package_lpa": 20.0,
+            "placement_rate_pct": 89.2,
             "industry_type": "Software Services",
             "top_recruiters": [
-              "TCS",
+              "Accenture",
               "Infosys",
-              "Wipro"
+              "TCS"
             ]
           }
         },
@@ -81935,13 +81838,13 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 1.8,
-            "avg_package_lpa": 3.3,
-            "max_package_lpa": 9.1,
-            "placement_rate_pct": 88.2,
+            "min_package_lpa": 3.2,
+            "avg_package_lpa": 6.2,
+            "max_package_lpa": 15.0,
+            "placement_rate_pct": 83.3,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
+              "Accenture",
               "Intel",
               "Texas Instruments"
             ]
@@ -81982,15 +81885,15 @@
             "SCG": "80403"
           },
           "course_placements": {
-            "min_package_lpa": 2.1,
-            "avg_package_lpa": 4.5,
-            "max_package_lpa": 12.2,
-            "placement_rate_pct": 94.5,
+            "min_package_lpa": 3.9,
+            "avg_package_lpa": 8.5,
+            "max_package_lpa": 20.0,
+            "placement_rate_pct": 89.2,
             "industry_type": "Software Services",
             "top_recruiters": [
-              "TCS",
+              "Accenture",
               "Infosys",
-              "Wipro"
+              "TCS"
             ]
           }
         },
@@ -82027,15 +81930,15 @@
             "SCG": "158660"
           },
           "course_placements": {
-            "min_package_lpa": 2.1,
-            "avg_package_lpa": 4.5,
-            "max_package_lpa": 12.2,
-            "placement_rate_pct": 94.5,
+            "min_package_lpa": 3.9,
+            "avg_package_lpa": 8.5,
+            "max_package_lpa": 20.0,
+            "placement_rate_pct": 89.2,
             "industry_type": "Software Services",
             "top_recruiters": [
-              "TCS",
+              "Accenture",
               "Infosys",
-              "Wipro"
+              "TCS"
             ]
           }
         },
@@ -82094,15 +81997,15 @@
             "SCG": "80403"
           },
           "course_placements": {
-            "min_package_lpa": 2.1,
-            "avg_package_lpa": 4.5,
-            "max_package_lpa": 12.2,
-            "placement_rate_pct": 94.5,
+            "min_package_lpa": 3.9,
+            "avg_package_lpa": 8.5,
+            "max_package_lpa": 20.0,
+            "placement_rate_pct": 89.2,
             "industry_type": "Software Services",
             "top_recruiters": [
-              "TCS",
+              "Accenture",
               "Infosys",
-              "Wipro"
+              "TCS"
             ]
           }
         },
@@ -82125,10 +82028,10 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 1.4,
-            "avg_package_lpa": 2.3,
-            "max_package_lpa": 4.3,
-            "placement_rate_pct": 73.8,
+            "min_package_lpa": 2.6,
+            "avg_package_lpa": 4.2,
+            "max_package_lpa": 7.0,
+            "placement_rate_pct": 69.7,
             "industry_type": "Core Industry",
             "top_recruiters": [
               "Reliance",
@@ -82169,13 +82072,13 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 1.8,
-            "avg_package_lpa": 3.3,
-            "max_package_lpa": 9.1,
-            "placement_rate_pct": 88.2,
+            "min_package_lpa": 3.2,
+            "avg_package_lpa": 6.2,
+            "max_package_lpa": 15.0,
+            "placement_rate_pct": 83.3,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
+              "Accenture",
               "Intel",
               "Texas Instruments"
             ]
@@ -82214,13 +82117,13 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 1.8,
-            "avg_package_lpa": 3.3,
-            "max_package_lpa": 9.1,
-            "placement_rate_pct": 88.2,
+            "min_package_lpa": 3.2,
+            "avg_package_lpa": 6.2,
+            "max_package_lpa": 15.0,
+            "placement_rate_pct": 83.3,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
+              "Accenture",
               "Intel",
               "Texas Instruments"
             ]
@@ -82232,18 +82135,18 @@
       "nirf_ranking": null,
       "nirf_rank": null,
       "affiliation": "Private University",
-      "naac_grade": "C",
+      "naac_grade": null,
       "nba_accredited": false,
       "placement_stats": {
-        "avg_package_lpa": 3.5,
-        "highest_package_lpa": 12.2,
-        "placement_rate_pct": 90,
+        "avg_package_lpa": 6.5,
+        "highest_package_lpa": 20.0,
+        "placement_rate_pct": 85.0,
         "top_recruiters": [
-          "TCS",
+          "Accenture",
           "Infosys",
-          "Wipro",
-          "Cognizant",
-          "Capgemini"
+          "TCS",
+          "IBM",
+          "EY"
         ]
       },
       "placements": {
@@ -82260,15 +82163,15 @@
       },
       "hostel_details": {
         "hostel_type": "Boys & Girls",
-        "annual_hostel_fees": 95000,
-        "hostel_capacity": 600,
+        "annual_hostel_fees": 120000,
+        "hostel_capacity": 500,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 8.5,
+        "distance_from_bus_stand_km": 28.0,
         "nearest_railway_station": "Bangalore Station",
-        "campus_area_acres": 40
+        "campus_area_acres": 60
       },
       "total_intake": 1560,
       "total_kea_seats": 624
@@ -82317,15 +82220,15 @@
             "PH": "87633"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
-            "industry_type": "Software Services",
+            "min_package_lpa": 5.1,
+            "avg_package_lpa": 11.1,
+            "max_package_lpa": 30.0,
+            "placement_rate_pct": 89.2,
+            "industry_type": "Software Product",
             "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
+              "Amazon",
+              "Cisco",
+              "Oracle"
             ]
           }
         },
@@ -82364,13 +82267,13 @@
             "NCC": "40923"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 4.2,
+            "avg_package_lpa": 8.1,
+            "max_package_lpa": 22.5,
+            "placement_rate_pct": 83.3,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
+              "Amazon",
               "Intel",
               "Texas Instruments"
             ]
@@ -82411,10 +82314,10 @@
             "PH": "106741"
           },
           "course_placements": {
-            "min_package_lpa": 1.5,
-            "avg_package_lpa": 2.5,
-            "max_package_lpa": 4.7,
-            "placement_rate_pct": 68.1,
+            "min_package_lpa": 3.4,
+            "avg_package_lpa": 5.5,
+            "max_package_lpa": 10.5,
+            "placement_rate_pct": 69.7,
             "industry_type": "Core Industry",
             "top_recruiters": [
               "Reliance",
@@ -82423,37 +82326,36 @@
           }
         }
       ],
-      "established_year": 2015,
+      "established_year": 2023,
       "established": 2026,
       "nirf_ranking": null,
       "nirf_rank": null,
       "affiliation": "Private University",
-      "naac_grade": "B",
+      "naac_grade": null,
       "nba_accredited": false,
       "placement_stats": {
-        "avg_package_lpa": 3.8,
-        "highest_package_lpa": 13.3,
-        "placement_rate_pct": 83,
+        "avg_package_lpa": 8.5,
+        "highest_package_lpa": 30.0,
+        "placement_rate_pct": 85.0,
         "top_recruiters": [
-          "TCS",
-          "Infosys",
-          "Wipro",
-          "Cognizant",
-          "Capgemini"
+          "Amazon",
+          "Cisco",
+          "Oracle",
+          "Deloitte"
         ]
       },
       "placements": {},
       "hostel_details": {
         "hostel_type": "Boys & Girls",
-        "annual_hostel_fees": 95000,
-        "hostel_capacity": 300,
+        "annual_hostel_fees": 120000,
+        "hostel_capacity": 400,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 13.5,
-        "nearest_railway_station": "Bangalore Station",
-        "campus_area_acres": 55
+        "distance_from_bus_stand_km": 6.0,
+        "nearest_railway_station": "Majestic",
+        "campus_area_acres": 15
       },
       "total_intake": 180,
       "total_kea_seats": 72
@@ -84083,15 +83985,15 @@
             "SCG": "168884"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.7,
+            "avg_package_lpa": 5.9,
+            "max_package_lpa": 12.0,
+            "placement_rate_pct": 86.1,
             "industry_type": "Software Services",
             "top_recruiters": [
-              "TCS",
               "Infosys",
-              "Wipro"
+              "Wipro",
+              "Cognizant"
             ]
           }
         },
@@ -84130,15 +84032,15 @@
             "SCG": "281997"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.7,
+            "avg_package_lpa": 5.9,
+            "max_package_lpa": 12.0,
+            "placement_rate_pct": 86.1,
             "industry_type": "Software Services",
             "top_recruiters": [
-              "TCS",
               "Infosys",
-              "Wipro"
+              "Wipro",
+              "Cognizant"
             ]
           }
         },
@@ -84186,15 +84088,15 @@
             "XD": "157407"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.7,
+            "avg_package_lpa": 5.9,
+            "max_package_lpa": 12.0,
+            "placement_rate_pct": 86.1,
             "industry_type": "Software Services",
             "top_recruiters": [
-              "TCS",
               "Infosys",
-              "Wipro"
+              "Wipro",
+              "Cognizant"
             ]
           }
         },
@@ -84243,15 +84145,15 @@
             "SCG": "157255"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.7,
+            "avg_package_lpa": 5.9,
+            "max_package_lpa": 12.0,
+            "placement_rate_pct": 86.1,
             "industry_type": "Software Services",
             "top_recruiters": [
-              "TCS",
               "Infosys",
-              "Wipro"
+              "Wipro",
+              "Cognizant"
             ]
           }
         },
@@ -84300,15 +84202,15 @@
             "SCG": "157255"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.7,
+            "avg_package_lpa": 5.9,
+            "max_package_lpa": 12.0,
+            "placement_rate_pct": 86.1,
             "industry_type": "Software Services",
             "top_recruiters": [
-              "TCS",
               "Infosys",
-              "Wipro"
+              "Wipro",
+              "Cognizant"
             ]
           }
         },
@@ -84357,15 +84259,15 @@
             "SCG": "157255"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.7,
+            "avg_package_lpa": 5.9,
+            "max_package_lpa": 12.0,
+            "placement_rate_pct": 86.1,
             "industry_type": "Software Services",
             "top_recruiters": [
-              "TCS",
               "Infosys",
-              "Wipro"
+              "Wipro",
+              "Cognizant"
             ]
           }
         },
@@ -84403,13 +84305,13 @@
             "SCG": "272211"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 2.2,
+            "avg_package_lpa": 4.3,
+            "max_package_lpa": 9.0,
+            "placement_rate_pct": 80.4,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
+              "Infosys",
               "Intel",
               "Texas Instruments"
             ]
@@ -84458,13 +84360,13 @@
             "SCG": "202270"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 2.2,
+            "avg_package_lpa": 4.3,
+            "max_package_lpa": 9.0,
+            "placement_rate_pct": 80.4,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
+              "Infosys",
               "Intel",
               "Texas Instruments"
             ]
@@ -84508,15 +84410,15 @@
             "SCG": "218628"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.7,
+            "avg_package_lpa": 5.9,
+            "max_package_lpa": 12.0,
+            "placement_rate_pct": 86.1,
             "industry_type": "Software Services",
             "top_recruiters": [
-              "TCS",
               "Infosys",
-              "Wipro"
+              "Wipro",
+              "Cognizant"
             ]
           }
         },
@@ -84547,15 +84449,15 @@
             "SCG": "157255"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.7,
+            "avg_package_lpa": 5.9,
+            "max_package_lpa": 12.0,
+            "placement_rate_pct": 86.1,
             "industry_type": "Software Services",
             "top_recruiters": [
-              "TCS",
               "Infosys",
-              "Wipro"
+              "Wipro",
+              "Cognizant"
             ]
           }
         },
@@ -84584,10 +84486,10 @@
             "SCG": "281997"
           },
           "course_placements": {
-            "min_package_lpa": 1.5,
-            "avg_package_lpa": 2.5,
-            "max_package_lpa": 4.7,
-            "placement_rate_pct": 68.1,
+            "min_package_lpa": 1.8,
+            "avg_package_lpa": 2.9,
+            "max_package_lpa": 4.2,
+            "placement_rate_pct": 67.2,
             "industry_type": "Core Industry",
             "top_recruiters": [
               "Reliance",
@@ -84629,10 +84531,10 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 1.5,
-            "avg_package_lpa": 2.5,
-            "max_package_lpa": 4.7,
-            "placement_rate_pct": 68.1,
+            "min_package_lpa": 1.8,
+            "avg_package_lpa": 2.9,
+            "max_package_lpa": 4.2,
+            "placement_rate_pct": 67.2,
             "industry_type": "Core Industry",
             "top_recruiters": [
               "Reliance",
@@ -84674,10 +84576,10 @@
             "SCG": "253890"
           },
           "course_placements": {
-            "min_package_lpa": 1.5,
-            "avg_package_lpa": 2.5,
-            "max_package_lpa": 4.7,
-            "placement_rate_pct": 68.1,
+            "min_package_lpa": 1.8,
+            "avg_package_lpa": 2.9,
+            "max_package_lpa": 4.2,
+            "placement_rate_pct": 67.2,
             "industry_type": "Core Industry",
             "top_recruiters": [
               "L&T",
@@ -84708,10 +84610,10 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 1.5,
-            "avg_package_lpa": 2.5,
-            "max_package_lpa": 4.7,
-            "placement_rate_pct": 68.1,
+            "min_package_lpa": 1.8,
+            "avg_package_lpa": 2.9,
+            "max_package_lpa": 4.2,
+            "placement_rate_pct": 67.2,
             "industry_type": "Core Industry",
             "top_recruiters": [
               "Reliance",
@@ -84751,10 +84653,10 @@
             "SCG": "253890"
           },
           "course_placements": {
-            "min_package_lpa": 1.5,
-            "avg_package_lpa": 2.5,
-            "max_package_lpa": 4.7,
-            "placement_rate_pct": 68.1,
+            "min_package_lpa": 1.8,
+            "avg_package_lpa": 2.9,
+            "max_package_lpa": 4.2,
+            "placement_rate_pct": 67.2,
             "industry_type": "Core Industry",
             "top_recruiters": [
               "L&T",
@@ -84797,10 +84699,10 @@
             "SCG": "139108"
           },
           "course_placements": {
-            "min_package_lpa": 1.5,
-            "avg_package_lpa": 2.5,
-            "max_package_lpa": 4.7,
-            "placement_rate_pct": 68.1,
+            "min_package_lpa": 1.8,
+            "avg_package_lpa": 2.9,
+            "max_package_lpa": 4.2,
+            "placement_rate_pct": 67.2,
             "industry_type": "Core Industry",
             "top_recruiters": [
               "Reliance",
@@ -84809,23 +84711,22 @@
           }
         }
       ],
-      "established_year": 2015,
+      "established_year": 2023,
       "established": 2015,
       "nirf_ranking": null,
       "nirf_rank": null,
       "affiliation": "Private University",
-      "naac_grade": "B",
+      "naac_grade": null,
       "nba_accredited": false,
       "placement_stats": {
-        "avg_package_lpa": 3.8,
-        "highest_package_lpa": 13.3,
-        "placement_rate_pct": 83,
+        "avg_package_lpa": 4.5,
+        "highest_package_lpa": 12.0,
+        "placement_rate_pct": 82.0,
         "top_recruiters": [
-          "TCS",
           "Infosys",
           "Wipro",
           "Cognizant",
-          "Capgemini"
+          "TCS"
         ]
       },
       "placements": {
@@ -84848,9 +84749,9 @@
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 13.5,
-        "nearest_railway_station": "Davanagere Station",
-        "campus_area_acres": 55
+        "distance_from_bus_stand_km": 5.5,
+        "nearest_railway_station": "Davangere Railway Station",
+        "campus_area_acres": 30
       },
       "total_intake": 2940,
       "total_kea_seats": 1176
@@ -86153,15 +86054,15 @@
             "SCG": "201705"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.1,
+            "avg_package_lpa": 4.5,
+            "max_package_lpa": 10.0,
+            "placement_rate_pct": 84.0,
             "industry_type": "Software Services",
             "top_recruiters": [
               "TCS",
-              "Infosys",
-              "Wipro"
+              "Wipro",
+              "Infosys"
             ]
           }
         },
@@ -86204,15 +86105,15 @@
             "SCG": "282226"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.1,
+            "avg_package_lpa": 4.5,
+            "max_package_lpa": 10.0,
+            "placement_rate_pct": 84.0,
             "industry_type": "Software Services",
             "top_recruiters": [
               "TCS",
-              "Infosys",
-              "Wipro"
+              "Wipro",
+              "Infosys"
             ]
           }
         },
@@ -86251,15 +86152,15 @@
             "SCG": "201705"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.1,
+            "avg_package_lpa": 4.5,
+            "max_package_lpa": 10.0,
+            "placement_rate_pct": 84.0,
             "industry_type": "Software Services",
             "top_recruiters": [
               "TCS",
-              "Infosys",
-              "Wipro"
+              "Wipro",
+              "Infosys"
             ]
           }
         },
@@ -86284,10 +86185,10 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 1.8,
+            "avg_package_lpa": 3.3,
+            "max_package_lpa": 7.5,
+            "placement_rate_pct": 78.4,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
               "TCS",
@@ -86333,10 +86234,10 @@
             "SCG": "270835"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 1.8,
+            "avg_package_lpa": 3.3,
+            "max_package_lpa": 7.5,
+            "placement_rate_pct": 78.4,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
               "TCS",
@@ -86377,10 +86278,10 @@
             "SCG": "156617"
           },
           "course_placements": {
-            "min_package_lpa": 1.5,
-            "avg_package_lpa": 2.5,
-            "max_package_lpa": 4.7,
-            "placement_rate_pct": 68.1,
+            "min_package_lpa": 1.4,
+            "avg_package_lpa": 2.3,
+            "max_package_lpa": 3.5,
+            "placement_rate_pct": 65.6,
             "industry_type": "Core Industry",
             "top_recruiters": [
               "Reliance",
@@ -86389,23 +86290,21 @@
           }
         }
       ],
-      "established_year": 2015,
+      "established_year": 2023,
       "established": 2015,
       "nirf_ranking": null,
       "nirf_rank": null,
       "affiliation": "Private University",
-      "naac_grade": "B",
+      "naac_grade": null,
       "nba_accredited": false,
       "placement_stats": {
-        "avg_package_lpa": 3.8,
-        "highest_package_lpa": 13.3,
-        "placement_rate_pct": 83,
+        "avg_package_lpa": 3.5,
+        "highest_package_lpa": 10.0,
+        "placement_rate_pct": 80.0,
         "top_recruiters": [
           "TCS",
-          "Infosys",
           "Wipro",
-          "Cognizant",
-          "Capgemini"
+          "Infosys"
         ]
       },
       "placements": {
@@ -86423,14 +86322,14 @@
       "hostel_details": {
         "hostel_type": "Boys & Girls",
         "annual_hostel_fees": 65000,
-        "hostel_capacity": 300,
+        "hostel_capacity": 250,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 13.5,
-        "nearest_railway_station": "Koppal Station",
-        "campus_area_acres": 55
+        "distance_from_bus_stand_km": 8.0,
+        "nearest_railway_station": "Koppal Railway Station",
+        "campus_area_acres": 25
       },
       "total_intake": 1200,
       "total_kea_seats": 480
@@ -89507,15 +89406,15 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
-            "industry_type": "Software Services",
+            "min_package_lpa": 4.8,
+            "avg_package_lpa": 10.4,
+            "max_package_lpa": 52.0,
+            "placement_rate_pct": 89.2,
+            "industry_type": "Software Product",
             "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
+              "Amazon",
+              "MindTree",
+              "ABB"
             ]
           }
         },
@@ -89555,15 +89454,15 @@
             "NCC": "37641"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
-            "industry_type": "Software Services",
+            "min_package_lpa": 4.8,
+            "avg_package_lpa": 10.4,
+            "max_package_lpa": 52.0,
+            "placement_rate_pct": 89.2,
+            "industry_type": "Software Product",
             "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
+              "Amazon",
+              "MindTree",
+              "ABB"
             ]
           }
         },
@@ -89600,13 +89499,13 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 4.0,
+            "avg_package_lpa": 7.6,
+            "max_package_lpa": 39.0,
+            "placement_rate_pct": 83.3,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
+              "Amazon",
               "Intel",
               "Texas Instruments"
             ]
@@ -89643,50 +89542,50 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 4.0,
+            "avg_package_lpa": 7.6,
+            "max_package_lpa": 39.0,
+            "placement_rate_pct": 83.3,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
+              "Amazon",
               "Intel",
               "Texas Instruments"
             ]
           }
         }
       ],
-      "established_year": 2015,
+      "established_year": 2013,
       "established": 2026,
       "nirf_ranking": null,
       "nirf_rank": null,
       "affiliation": "Private University",
-      "naac_grade": "B",
-      "nba_accredited": false,
+      "naac_grade": "A+",
+      "nba_accredited": true,
       "placement_stats": {
-        "avg_package_lpa": 3.8,
-        "highest_package_lpa": 13.3,
-        "placement_rate_pct": 83,
+        "avg_package_lpa": 8.0,
+        "highest_package_lpa": 52.0,
+        "placement_rate_pct": 85.0,
         "top_recruiters": [
-          "TCS",
-          "Infosys",
+          "Amazon",
+          "MindTree",
+          "ABB",
           "Wipro",
-          "Cognizant",
-          "Capgemini"
+          "HCL"
         ]
       },
       "placements": {},
       "hostel_details": {
         "hostel_type": "Boys & Girls",
-        "annual_hostel_fees": 95000,
-        "hostel_capacity": 300,
+        "annual_hostel_fees": 120000,
+        "hostel_capacity": 1000,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 13.5,
-        "nearest_railway_station": "Bangalore Station",
-        "campus_area_acres": 55
+        "distance_from_bus_stand_km": 10.0,
+        "nearest_railway_station": "Lottegollahalli Railway Station",
+        "campus_area_acres": 80
       },
       "total_intake": 240,
       "total_kea_seats": 96
@@ -90578,16 +90477,12 @@
             "PH": "267177"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -90635,16 +90530,12 @@
             "NCC": "131830."
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -90683,16 +90574,12 @@
             "PH": "267177"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -90730,16 +90617,12 @@
             "PH": "142367"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -90781,50 +90664,43 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
               "Intel",
               "Texas Instruments"
             ]
           }
         }
       ],
-      "established_year": 2015,
+      "established_year": 2026,
       "established": 2026,
       "nirf_ranking": null,
       "nirf_rank": null,
       "affiliation": "Private University",
-      "naac_grade": "B",
+      "naac_grade": null,
       "nba_accredited": false,
       "placement_stats": {
-        "avg_package_lpa": 3.8,
-        "highest_package_lpa": 13.3,
-        "placement_rate_pct": 83,
-        "top_recruiters": [
-          "TCS",
-          "Infosys",
-          "Wipro",
-          "Cognizant",
-          "Capgemini"
-        ]
+        "avg_package_lpa": 0.0,
+        "highest_package_lpa": 0.0,
+        "placement_rate_pct": 0.0,
+        "top_recruiters": []
       },
       "placements": {},
       "hostel_details": {
         "hostel_type": "Boys & Girls",
-        "annual_hostel_fees": 65000,
+        "annual_hostel_fees": 110000,
         "hostel_capacity": 300,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 13.5,
-        "nearest_railway_station": "Mysore Station",
-        "campus_area_acres": 55
+        "distance_from_bus_stand_km": 20.0,
+        "nearest_railway_station": "Nanjangud Town Railway Station",
+        "campus_area_acres": 42
       },
       "total_intake": 600,
       "total_kea_seats": 240
@@ -93396,9 +93272,9 @@
             "PH": "255423"
           },
           "course_placements": {
-            "min_package_lpa": 1.4,
-            "avg_package_lpa": 2.3,
-            "max_package_lpa": 4.3,
+            "min_package_lpa": 3.4,
+            "avg_package_lpa": 5.5,
+            "max_package_lpa": 5.2,
             "placement_rate_pct": 72.2,
             "industry_type": "Core Industry",
             "top_recruiters": [
@@ -93449,15 +93325,15 @@
             "NCC": "223238."
           },
           "course_placements": {
-            "min_package_lpa": 2.1,
-            "avg_package_lpa": 4.5,
-            "max_package_lpa": 12.2,
+            "min_package_lpa": 5.1,
+            "avg_package_lpa": 11.1,
+            "max_package_lpa": 15.0,
             "placement_rate_pct": 92.4,
-            "industry_type": "Software Services",
+            "industry_type": "Software Product",
             "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
+              "Samsung",
+              "Wipro",
+              "TATA"
             ]
           }
         },
@@ -93496,13 +93372,13 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 1.8,
-            "avg_package_lpa": 3.3,
-            "max_package_lpa": 9.1,
+            "min_package_lpa": 4.2,
+            "avg_package_lpa": 8.1,
+            "max_package_lpa": 11.2,
             "placement_rate_pct": 86.2,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
+              "Samsung",
               "Intel",
               "Texas Instruments"
             ]
@@ -93542,9 +93418,9 @@
             "SCG": "93623"
           },
           "course_placements": {
-            "min_package_lpa": 1.4,
-            "avg_package_lpa": 2.3,
-            "max_package_lpa": 4.3,
+            "min_package_lpa": 3.4,
+            "avg_package_lpa": 5.5,
+            "max_package_lpa": 5.2,
             "placement_rate_pct": 72.2,
             "industry_type": "Core Industry",
             "top_recruiters": [
@@ -93589,9 +93465,9 @@
             "PH": "255423"
           },
           "course_placements": {
-            "min_package_lpa": 1.4,
-            "avg_package_lpa": 2.3,
-            "max_package_lpa": 4.3,
+            "min_package_lpa": 3.4,
+            "avg_package_lpa": 5.5,
+            "max_package_lpa": 5.2,
             "placement_rate_pct": 72.2,
             "industry_type": "Core Industry",
             "top_recruiters": [
@@ -93633,15 +93509,15 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 2.1,
-            "avg_package_lpa": 4.5,
-            "max_package_lpa": 12.2,
+            "min_package_lpa": 5.1,
+            "avg_package_lpa": 11.1,
+            "max_package_lpa": 15.0,
             "placement_rate_pct": 92.4,
-            "industry_type": "Software Services",
+            "industry_type": "Software Product",
             "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
+              "Samsung",
+              "Wipro",
+              "TATA"
             ]
           }
         },
@@ -93677,15 +93553,15 @@
             "SCG": "156659"
           },
           "course_placements": {
-            "min_package_lpa": 2.1,
-            "avg_package_lpa": 4.5,
-            "max_package_lpa": 12.2,
+            "min_package_lpa": 5.1,
+            "avg_package_lpa": 11.1,
+            "max_package_lpa": 15.0,
             "placement_rate_pct": 92.4,
-            "industry_type": "Software Services",
+            "industry_type": "Software Product",
             "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
+              "Samsung",
+              "Wipro",
+              "TATA"
             ]
           }
         },
@@ -93721,13 +93597,13 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 1.8,
-            "avg_package_lpa": 3.3,
-            "max_package_lpa": 9.1,
+            "min_package_lpa": 4.2,
+            "avg_package_lpa": 8.1,
+            "max_package_lpa": 11.2,
             "placement_rate_pct": 86.2,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
+              "Samsung",
               "Intel",
               "Texas Instruments"
             ]
@@ -93767,9 +93643,9 @@
             "SCG": "88439"
           },
           "course_placements": {
-            "min_package_lpa": 1.4,
-            "avg_package_lpa": 2.3,
-            "max_package_lpa": 4.3,
+            "min_package_lpa": 3.4,
+            "avg_package_lpa": 5.5,
+            "max_package_lpa": 5.2,
             "placement_rate_pct": 72.2,
             "industry_type": "Core Industry",
             "top_recruiters": [
@@ -93780,23 +93656,24 @@
           }
         }
       ],
-      "established_year": 2020,
+      "established_year": 2022,
       "established": 2020,
       "nirf_ranking": null,
       "nirf_rank": null,
       "affiliation": "Private University",
-      "naac_grade": "C",
+      "naac_grade": null,
       "nba_accredited": false,
       "placement_stats": {
-        "avg_package_lpa": 3.5,
-        "highest_package_lpa": 12.2,
-        "placement_rate_pct": 88,
+        "avg_package_lpa": 8.5,
+        "highest_package_lpa": 15.0,
+        "placement_rate_pct": 88.0,
         "top_recruiters": [
-          "TCS",
-          "Infosys",
+          "Samsung",
           "Wipro",
-          "Cognizant",
-          "Capgemini"
+          "TATA",
+          "KPMG",
+          "Mercedes Benz",
+          "BEL"
         ]
       },
       "placements": {
@@ -93813,15 +93690,15 @@
       },
       "hostel_details": {
         "hostel_type": "Boys & Girls",
-        "annual_hostel_fees": 95000,
-        "hostel_capacity": 300,
+        "annual_hostel_fees": 142000,
+        "hostel_capacity": 500,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 6.5,
-        "nearest_railway_station": "Bangalore Station",
-        "campus_area_acres": 10
+        "distance_from_bus_stand_km": 25.0,
+        "nearest_railway_station": "Devanahalli Railway Station",
+        "campus_area_acres": 116
       },
       "total_intake": 600,
       "total_kea_seats": 240
@@ -95582,15 +95459,15 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.7,
+            "avg_package_lpa": 5.9,
+            "max_package_lpa": 12.0,
+            "placement_rate_pct": 86.1,
             "industry_type": "Software Services",
             "top_recruiters": [
               "TCS",
-              "Infosys",
-              "Wipro"
+              "Wipro",
+              "Infosys"
             ]
           }
         },
@@ -95636,15 +95513,15 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.7,
+            "avg_package_lpa": 5.9,
+            "max_package_lpa": 12.0,
+            "placement_rate_pct": 86.1,
             "industry_type": "Software Services",
             "top_recruiters": [
               "TCS",
-              "Infosys",
-              "Wipro"
+              "Wipro",
+              "Infosys"
             ]
           }
         },
@@ -95677,10 +95554,10 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 1.5,
-            "avg_package_lpa": 2.5,
-            "max_package_lpa": 4.7,
-            "placement_rate_pct": 68.1,
+            "min_package_lpa": 1.8,
+            "avg_package_lpa": 2.9,
+            "max_package_lpa": 4.2,
+            "placement_rate_pct": 67.2,
             "industry_type": "Core Industry",
             "top_recruiters": [
               "Reliance",
@@ -95718,10 +95595,10 @@
             "SCG": "180994"
           },
           "course_placements": {
-            "min_package_lpa": 1.5,
-            "avg_package_lpa": 2.5,
-            "max_package_lpa": 4.7,
-            "placement_rate_pct": 68.1,
+            "min_package_lpa": 1.8,
+            "avg_package_lpa": 2.9,
+            "max_package_lpa": 4.2,
+            "placement_rate_pct": 67.2,
             "industry_type": "Core Industry",
             "top_recruiters": [
               "L&T",
@@ -95767,15 +95644,15 @@
             "SCG": "117332"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.7,
+            "avg_package_lpa": 5.9,
+            "max_package_lpa": 12.0,
+            "placement_rate_pct": 86.1,
             "industry_type": "Software Services",
             "top_recruiters": [
               "TCS",
-              "Infosys",
-              "Wipro"
+              "Wipro",
+              "Infosys"
             ]
           }
         },
@@ -95822,15 +95699,15 @@
             "SCG": "117332"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 2.7,
+            "avg_package_lpa": 5.9,
+            "max_package_lpa": 12.0,
+            "placement_rate_pct": 86.1,
             "industry_type": "Software Services",
             "top_recruiters": [
               "TCS",
-              "Infosys",
-              "Wipro"
+              "Wipro",
+              "Infosys"
             ]
           }
         },
@@ -95871,10 +95748,10 @@
             "SCG": "116644"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 2.2,
+            "avg_package_lpa": 4.3,
+            "max_package_lpa": 9.0,
+            "placement_rate_pct": 80.4,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
               "TCS",
@@ -95884,37 +95761,35 @@
           }
         }
       ],
-      "established_year": 2015,
+      "established_year": 2022,
       "established": 2026,
       "nirf_ranking": null,
       "nirf_rank": null,
-      "affiliation": "State University Affiliated",
-      "naac_grade": "B",
-      "nba_accredited": false,
+      "affiliation": "Constituent University College",
+      "naac_grade": "A++",
+      "nba_accredited": true,
       "placement_stats": {
-        "avg_package_lpa": 3.8,
-        "highest_package_lpa": 13.3,
-        "placement_rate_pct": 83,
+        "avg_package_lpa": 4.5,
+        "highest_package_lpa": 12.0,
+        "placement_rate_pct": 82.0,
         "top_recruiters": [
           "TCS",
-          "Infosys",
           "Wipro",
-          "Cognizant",
-          "Capgemini"
+          "Infosys"
         ]
       },
       "placements": {},
       "hostel_details": {
         "hostel_type": "Boys & Girls",
-        "annual_hostel_fees": 65000,
+        "annual_hostel_fees": 45000,
         "hostel_capacity": 300,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 13.5,
-        "nearest_railway_station": "Mysore Station",
-        "campus_area_acres": 55
+        "distance_from_bus_stand_km": 4.5,
+        "nearest_railway_station": "Mysuru Junction",
+        "campus_area_acres": 40
       },
       "total_intake": 240,
       "total_kea_seats": 240
@@ -95965,16 +95840,12 @@
             "SCG": "160661"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -96013,16 +95884,12 @@
             "SCG": "184449"
           },
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -96054,50 +95921,43 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
               "Intel",
               "Texas Instruments"
             ]
           }
         }
       ],
-      "established_year": 2015,
+      "established_year": 2025,
       "established": 2026,
       "nirf_ranking": null,
       "nirf_rank": null,
-      "affiliation": "State University Affiliated",
-      "naac_grade": "B",
+      "affiliation": "Constituent College of VTU",
+      "naac_grade": null,
       "nba_accredited": false,
       "placement_stats": {
-        "avg_package_lpa": 3.8,
-        "highest_package_lpa": 13.3,
-        "placement_rate_pct": 83,
-        "top_recruiters": [
-          "TCS",
-          "Infosys",
-          "Wipro",
-          "Cognizant",
-          "Capgemini"
-        ]
+        "avg_package_lpa": 0.0,
+        "highest_package_lpa": 0.0,
+        "placement_rate_pct": 0.0,
+        "top_recruiters": []
       },
       "placements": {},
       "hostel_details": {
         "hostel_type": "Boys & Girls",
-        "annual_hostel_fees": 65000,
-        "hostel_capacity": 300,
+        "annual_hostel_fees": 45000,
+        "hostel_capacity": 120,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 13.5,
-        "nearest_railway_station": "Belgaum Station",
-        "campus_area_acres": 55
+        "distance_from_bus_stand_km": 3.5,
+        "nearest_railway_station": "Gokak Road Station",
+        "campus_area_acres": 10
       },
       "total_intake": 90,
       "total_kea_seats": 90
@@ -96146,16 +96006,12 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -96193,16 +96049,12 @@
           "round3_cutoff": {},
           "mock_round1_cutoff": {},
           "course_placements": {
-            "min_package_lpa": 2.3,
-            "avg_package_lpa": 4.9,
-            "max_package_lpa": 13.3,
-            "placement_rate_pct": 87.2,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software Services",
-            "top_recruiters": [
-              "TCS",
-              "Infosys",
-              "Wipro"
-            ]
+            "top_recruiters": []
           }
         },
         {
@@ -96241,13 +96093,12 @@
             "SCG": "203122"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
               "Intel",
               "Texas Instruments"
             ]
@@ -96288,37 +96139,30 @@
             "SCG": "244290"
           },
           "course_placements": {
-            "min_package_lpa": 1.9,
-            "avg_package_lpa": 3.6,
-            "max_package_lpa": 10.0,
-            "placement_rate_pct": 81.3,
+            "min_package_lpa": 0.0,
+            "avg_package_lpa": 0.0,
+            "max_package_lpa": 0.0,
+            "placement_rate_pct": 0.0,
             "industry_type": "Software & Core VLSI",
             "top_recruiters": [
-              "TCS",
               "Intel",
               "Texas Instruments"
             ]
           }
         }
       ],
-      "established_year": 2015,
+      "established_year": 2026,
       "established": 2015,
       "nirf_ranking": null,
       "nirf_rank": null,
-      "affiliation": "State University Affiliated",
-      "naac_grade": "B",
+      "affiliation": "Constituent College of VTU",
+      "naac_grade": null,
       "nba_accredited": false,
       "placement_stats": {
-        "avg_package_lpa": 3.8,
-        "highest_package_lpa": 13.3,
-        "placement_rate_pct": 83,
-        "top_recruiters": [
-          "TCS",
-          "Infosys",
-          "Wipro",
-          "Cognizant",
-          "Capgemini"
-        ]
+        "avg_package_lpa": 0.0,
+        "highest_package_lpa": 0.0,
+        "placement_rate_pct": 0.0,
+        "top_recruiters": []
       },
       "placements": {
         "avg_package_lpa": 3.8,
@@ -96334,15 +96178,15 @@
       },
       "hostel_details": {
         "hostel_type": "Boys & Girls",
-        "annual_hostel_fees": 65000,
-        "hostel_capacity": 300,
+        "annual_hostel_fees": 45000,
+        "hostel_capacity": 150,
         "has_mess_included": true
       },
       "campus_life": {},
       "location_details": {
-        "distance_from_bus_stand_km": 13.5,
-        "nearest_railway_station": "Chikballapura Station",
-        "campus_area_acres": 55
+        "distance_from_bus_stand_km": 2.5,
+        "nearest_railway_station": "Chintamani Station",
+        "campus_area_acres": 9
       },
       "total_intake": 120,
       "total_kea_seats": 120
