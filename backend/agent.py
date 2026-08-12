@@ -1,5 +1,14 @@
+# =======================================================
+# Copyright (c) 2026 Vasuki Upadhya. All rights reserved.
+# Author: Vasuki Upadhya (vasuki.upadhya@gmail.com)
+# Application: KEA Seat Matrix & Prediction Portal
+# =======================================================
+"""
+Agent Logic for the KCET Predictor Portal.
+Integrates Gemini API and matches database records for user queries.
+"""
 import os
-import sqlite3
+from backend.database import get_db_cursor
 import re
 import json
 import urllib.request
@@ -7,6 +16,9 @@ import urllib.error
 
 # Load environment variables from .env file if it exists
 def load_dotenv():
+    """
+    Load environment variables from backend/.env file if it exists.
+    """
     env_path = os.path.join("backend", ".env")
     if os.path.exists(env_path):
         with open(env_path, "r", encoding="utf-8") as f:
@@ -22,7 +34,7 @@ load_dotenv()
 SYSTEM_PROMPT = """You are a highly knowledgeable KCET (Karnataka Common Entrance Test) Admission AI Agent.
 Your job is to answer user queries about engineering colleges, course intakes, seat matrices, special category seats, and round-wise cutoffs for 2024, 2025, and 2026.
 
-You have access to a SQLite database 'backend/kcet.db' with the following schema:
+You have access to a PostgreSQL database with the following schema:
 
 1. colleges:
    - id (INTEGER PRIMARY KEY)
@@ -74,17 +86,15 @@ SELECT ...
 """
 
 def execute_sql(sql_query):
-    db_path = os.path.join("backend", "kcet.db")
     try:
-        conn = sqlite3.connect(db_path)
-        conn.row_factory = sqlite3.Row
-        cursor = conn.cursor()
-        cursor.execute(sql_query)
-        rows = cursor.fetchall()
-        columns = [desc[0] for desc in cursor.description]
-        results = [dict(row) for row in rows[:50]] # Limit to 50 results
-        conn.close()
-        return {"columns": columns, "rows": results}
+        with get_db_cursor() as cur:
+            cur.execute(sql_query)
+            if not cur.description:
+                return {"message": "Query executed successfully, no rows returned."}
+            columns = [desc[0] for desc in cur.description]
+            rows = cur.fetchall()
+            results = [dict(row) for row in rows[:50]] # Limit to 50 results
+            return {"columns": columns, "rows": results}
     except Exception as e:
         return {"error": str(e)}
 
@@ -136,6 +146,10 @@ def call_gemini_api(messages):
     return None
 
 def run_agent(user_query, chat_history=None):
+    """
+    Execute the conversational agent logic for a user query.
+    Queries the database and translates findings into natural language using Gemini.
+    """
     if chat_history is None:
         chat_history = []
         

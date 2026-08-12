@@ -1,7 +1,29 @@
-/* =========================================
-   Karnataka Engineering Seat Matrix 2025
-   Main Application Logic
-   ========================================= */
+/* =======================================================
+   Copyright (c) 2026 Vasuki Upadhya. All rights reserved.
+   Author: Vasuki Upadhya (vasuki.upadhya@gmail.com)
+   Application: KEA Seat Matrix & Prediction Portal
+   ======================================================= */
+
+// Global fetch interceptor for Authentication and 401 handler
+const originalFetch = window.fetch;
+window.fetch = async function (url, options = {}) {
+  const token = localStorage.getItem('kcet_token');
+  if (token) {
+    options.headers = options.headers || {};
+    options.headers['X-Session-Token'] = token;
+  }
+  
+  const response = await originalFetch(url, options);
+  
+  if (response.status === 401 && !url.includes('/api/auth/')) {
+    localStorage.removeItem('kcet_user');
+    localStorage.removeItem('kcet_token');
+    const overlay = document.getElementById('auth-overlay');
+    if (overlay) overlay.style.display = 'flex';
+  }
+  
+  return response;
+};
 
 const ANNEXURE_LABELS = {
   A: 'Government',
@@ -103,10 +125,36 @@ let superuserGroup = 'rvgroup';
 // Boot
 // ─────────────────────────────
 async function loadYearData(year) {
-  const filename = year === '2026' ? 'seat_matrix_data_2026.json' : (year === '2024' ? 'seat_matrix_data_2024.json' : 'seat_matrix_data.json');
   try {
-    const res = await fetch(filename + '?t=' + new Date().getTime());
-    allData = await res.json();
+    const resFilters = await fetch(`/api/filters?year=${year}`);
+    const filtersData = await resFilters.json();
+
+    const resColleges = await fetch(`/api/colleges?year=${year}&limit=1000`);
+    const collegesData = await resColleges.json();
+
+    allData = {
+      year: year,
+      colleges: collegesData.colleges,
+      all_courses: filtersData.courses,
+      districts: filtersData.districts,
+      types: filtersData.types,
+      stats: {
+        total_colleges: collegesData.total_count || collegesData.colleges.length,
+        total_seats: collegesData.total_seats,
+        total_kea_seats: collegesData.total_seats,
+        total_courses: filtersData.courses.length,
+        by_annexure: {
+          'A': { kea_seats: 0 },
+          'B': { kea_seats: 0 },
+          'C': { kea_seats: 0 },
+          'D': { kea_seats: 0 },
+          'M': { kea_seats: 0 },
+          'O': { kea_seats: 0 },
+          'P': { kea_seats: 0 },
+          'Z': { kea_seats: 0 }
+        }
+      }
+    };
 
     // Preserve exact KEA seat numbers from source JSON file
     allData.colleges.forEach(col => {
@@ -158,7 +206,16 @@ async function loadYearData(year) {
     // Update document subtitle
     const subtitleEl = document.getElementById('brand-subtitle');
     if (subtitleEl) {
-      subtitleEl.textContent = `Engineering Admissions ${year}`;
+      subtitleEl.textContent = 'Engineering Admissions';
+    }
+
+    // Update document title dynamically
+    document.title = `Karnataka Engineering Seat Matrix ${year} | Explore Colleges & Seats`;
+
+    // Update predictor tab title dynamically
+    const predTitleEl = document.getElementById('predictor-title');
+    if (predTitleEl) {
+      predTitleEl.textContent = `🔮 KCET ${year} College & Course Predictor`;
     }
 
     // Load and render YoY comparison asynchronously
@@ -168,7 +225,7 @@ async function loadYearData(year) {
     console.error('Failed to load data:', e);
     document.getElementById('colleges-grid').innerHTML =
       `<div class="empty-state"><div class="empty-state-icon">⚠️</div>
-       <div class="empty-state-text">Could not load ${filename}.<br>Make sure the file is in the same directory.</div></div>`;
+       <div class="empty-state-text">Could not load KCET Portal APIs.<br>Make sure the backend service is running.</div></div>`;
   }
 }
 
@@ -182,10 +239,18 @@ function triggerYoYStatsLoad(activeYear) {
     if (year === '2025' && cache2025) return callback();
     if (year === '2024' && cache2024) return callback();
 
-    const filename = year === '2026' ? 'seat_matrix_data_2026.json' : (year === '2024' ? 'seat_matrix_data_2024.json' : 'seat_matrix_data.json');
-    fetch(filename)
+    fetch(`/api/colleges?year=${year}&limit=1000`)
       .then(r => r.json())
-      .then(data => {
+      .then(collegesData => {
+        const data = {
+          year: year,
+          colleges: collegesData.colleges,
+          stats: {
+            total_colleges: collegesData.total_count || collegesData.colleges.length,
+            total_seats: collegesData.total_seats,
+            total_kea_seats: collegesData.total_seats
+          }
+        };
         data.colleges.forEach(col => {
           let colKea = 0;
           col.courses.forEach(c => {
@@ -199,9 +264,6 @@ function triggerYoYStatsLoad(activeYear) {
             col.total_kea_seats = colKea;
           }
         });
-        let totalKea = 0;
-        data.colleges.forEach(col => { totalKea += col.total_kea_seats; });
-        data.stats.total_kea_seats = totalKea;
 
         if (year === '2026') cache2026 = data;
         else if (year === '2024') cache2024 = data;
@@ -720,11 +782,14 @@ function renderYoYStats() {
 
 async function init() {
   try {
-    await loadYearData('2026');
     bindEvents();
-    initAssistant();
     initAuth();
     initializeSessions();
+    
+    // Load PostgreSQL data asynchronously in the background
+    loadYearData('2026').then(() => {
+      initAssistant();
+    });
   } catch (err) {
     console.error("Initialization error:", err);
   }
@@ -927,24 +992,264 @@ function initAuth() {
     });
   });
 
-  // Submit Student
+  // Student Login/Register Toggle Mode
+  let studentAuthMode = 'register';
+  const studentAuthToggle = document.getElementById('student-auth-toggle');
+  const studentRegFields = document.getElementById('student-reg-fields');
+  const studentFormTitle = document.getElementById('student-form-title');
+  const studentSubmitBtn = document.getElementById('btn-submit-student');
+  const studentErrorEl = document.getElementById('student-auth-error');
+  const forgotPasswordLink = document.getElementById('student-forgot-password-link');
+  const loginRegisterWrap = document.getElementById('student-login-register-container');
+  const resetPasswordWrap = document.getElementById('student-reset-password-fields');
+  const forgotPasswordWrap = document.getElementById('student-forgot-password-container');
+
+  if (studentAuthToggle) {
+    studentAuthToggle.addEventListener('click', () => {
+      if (studentErrorEl) studentErrorEl.style.display = 'none';
+      if (studentAuthMode === 'register') {
+        studentAuthMode = 'login';
+        studentAuthToggle.textContent = "New user? Click here to Register";
+        if (studentFormTitle) studentFormTitle.textContent = "Student Login";
+        if (studentSubmitBtn) studentSubmitBtn.textContent = "Login & Explore Portal";
+        if (studentRegFields) studentRegFields.style.display = 'none';
+        if (forgotPasswordLink) forgotPasswordLink.style.display = 'block';
+      } else {
+        studentAuthMode = 'register';
+        studentAuthToggle.textContent = "Already registered? Click here to Login";
+        if (studentFormTitle) studentFormTitle.textContent = "Student Registration";
+        if (studentSubmitBtn) studentSubmitBtn.textContent = "Register & Explore Portal";
+        if (studentRegFields) studentRegFields.style.display = 'grid';
+        if (forgotPasswordLink) forgotPasswordLink.style.display = 'none';
+      }
+    });
+  }
+
+  // Forgot password click
+  if (forgotPasswordLink) {
+    forgotPasswordLink.addEventListener('click', () => {
+      if (loginRegisterWrap) loginRegisterWrap.style.display = 'none';
+      if (forgotPasswordWrap) forgotPasswordWrap.style.display = 'flex';
+      if (resetPasswordWrap) resetPasswordWrap.style.display = 'none';
+      
+      document.getElementById('forgot-email-input').value = '';
+      document.getElementById('student-forgot-error').style.display = 'none';
+    });
+  }
+
+  // Back to login click
+  document.querySelectorAll('.btn-back-to-login').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (loginRegisterWrap) loginRegisterWrap.style.display = 'block';
+      if (forgotPasswordWrap) forgotPasswordWrap.style.display = 'none';
+      if (resetPasswordWrap) resetPasswordWrap.style.display = 'none';
+      if (studentErrorEl) studentErrorEl.style.display = 'none';
+    });
+  });
+
+  // Submit Forgot Password (Send Reset Code)
+  const btnSendResetCode = document.getElementById('btn-send-reset-code');
+  let recoveryEmail = '';
+  if (btnSendResetCode) {
+    btnSendResetCode.addEventListener('click', () => {
+      const email = document.getElementById('forgot-email-input').value.trim();
+      const errorForgot = document.getElementById('student-forgot-error');
+      
+      if (errorForgot) errorForgot.style.display = 'none';
+      if (!email) {
+        if (errorForgot) {
+          errorForgot.textContent = "❌ Please enter your email.";
+          errorForgot.style.display = 'block';
+        }
+        return;
+      }
+      
+      fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+      })
+      .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Request failed.");
+        return data;
+      })
+      .then(data => {
+        recoveryEmail = email;
+        if (forgotPasswordWrap) forgotPasswordWrap.style.display = 'none';
+        if (resetPasswordWrap) resetPasswordWrap.style.display = 'flex';
+        
+        const successReset = document.getElementById('student-reset-success');
+        if (successReset) {
+          successReset.textContent = `✅ Reset code sent! Code: ${data.token}`;
+          successReset.style.display = 'block';
+        }
+        
+        document.getElementById('reset-token-input').value = data.token || '';
+        document.getElementById('reset-new-password').value = '';
+        document.getElementById('student-reset-error').style.display = 'none';
+      })
+      .catch(err => {
+        if (errorForgot) {
+          errorForgot.textContent = `❌ ${err.message}`;
+          errorForgot.style.display = 'block';
+        }
+      });
+    });
+  }
+
+  // Submit Password Reset (Verify token and reset password)
+  const submitResetBtn = document.getElementById('btn-submit-reset-password');
+  if (submitResetBtn) {
+    submitResetBtn.addEventListener('click', () => {
+      const token = document.getElementById('reset-token-input').value.trim();
+      const newPassword = document.getElementById('reset-new-password').value;
+      const errorReset = document.getElementById('student-reset-error');
+      const successReset = document.getElementById('student-reset-success');
+
+      if (errorReset) errorReset.style.display = 'none';
+      if (successReset) successReset.style.display = 'none';
+
+      if (!token || !newPassword) {
+        if (errorReset) {
+          errorReset.textContent = "❌ Please enter code and new password.";
+          errorReset.style.display = 'block';
+        }
+        return;
+      }
+
+      fetch('/api/auth/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: recoveryEmail,
+          token: token,
+          new_password: newPassword
+        })
+      })
+      .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Reset failed.");
+        return data;
+      })
+      .then(data => {
+        if (successReset) {
+          successReset.textContent = `✅ Password updated successfully! Please login.`;
+          successReset.style.display = 'block';
+        }
+        setTimeout(() => {
+          if (loginRegisterWrap) loginRegisterWrap.style.display = 'block';
+          if (resetPasswordWrap) resetPasswordWrap.style.display = 'none';
+          
+          studentAuthMode = 'login';
+          if (studentAuthToggle) studentAuthToggle.textContent = "New user? Click here to Register";
+          if (studentFormTitle) studentFormTitle.textContent = "Student Login";
+          if (studentSubmitBtn) studentSubmitBtn.textContent = "Login & Explore Portal";
+          if (studentRegFields) studentRegFields.style.display = 'none';
+          if (forgotPasswordLink) forgotPasswordLink.style.display = 'block';
+
+          document.getElementById('reg-email').value = recoveryEmail;
+          document.getElementById('reg-password').value = '';
+          if (studentErrorEl) studentErrorEl.style.display = 'none';
+        }, 1500);
+      })
+      .catch(err => {
+        if (errorReset) {
+          errorReset.textContent = `❌ ${err.message}`;
+          errorReset.style.display = 'block';
+        }
+      });
+    });
+  }
+
+  // Submit Student (Register / Login)
   document.getElementById('btn-submit-student').addEventListener('click', () => {
-    const name = document.getElementById('reg-name').value.trim();
+    if (studentErrorEl) studentErrorEl.style.display = 'none';
     const email = document.getElementById('reg-email').value.trim();
     const password = document.getElementById('reg-password').value;
-    const rank = parseInt(document.getElementById('reg-rank').value);
-    const category = document.getElementById('reg-category').value;
-    const region = document.getElementById('reg-region').value;
 
-    if (!name || !email || !password || !rank) {
-      alert("Please fill in all registration fields.");
+    if (!email || !password) {
+      if (studentErrorEl) {
+        studentErrorEl.textContent = "❌ Please enter email and password.";
+        studentErrorEl.style.display = 'block';
+      }
       return;
     }
 
-    currentUser = { role: 'student', name, email, rank, category, region };
-    localStorage.setItem('kcet_user', JSON.stringify(currentUser));
-    overlay.style.display = 'none';
-    applyUserRole();
+    if (studentAuthMode === 'register') {
+      const name = document.getElementById('reg-name').value.trim();
+      const rank = parseInt(document.getElementById('reg-rank').value);
+      const category = document.getElementById('reg-category').value;
+      const region = document.getElementById('reg-region').value;
+
+      if (!name || isNaN(rank) || rank <= 0) {
+        if (studentErrorEl) {
+          studentErrorEl.textContent = "❌ Please fill in all registration fields.";
+          studentErrorEl.style.display = 'block';
+        }
+        return;
+      }
+
+      fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: name,
+          email: email,
+          password: password,
+          role: 'student',
+          rank: rank,
+          category: category,
+          region: region
+        })
+      })
+      .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Registration failed.");
+        return data;
+      })
+      .then(data => {
+        currentUser = data.user;
+        localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+        localStorage.setItem('kcet_token', data.token);
+        overlay.style.display = 'none';
+        applyUserRole();
+      })
+      .catch(err => {
+        if (studentErrorEl) {
+          studentErrorEl.textContent = `❌ ${err.message}`;
+          studentErrorEl.style.display = 'block';
+        }
+      });
+    } else {
+      fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username_or_email: email,
+          password: password,
+          role: 'student'
+        })
+      })
+      .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Login failed.");
+        return data;
+      })
+      .then(data => {
+        currentUser = data.user;
+        localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+        localStorage.setItem('kcet_token', data.token);
+        overlay.style.display = 'none';
+        applyUserRole();
+      })
+      .catch(err => {
+        if (studentErrorEl) {
+          studentErrorEl.textContent = `❌ ${err.message}`;
+          studentErrorEl.style.display = 'block';
+        }
+      });
+    }
   });
 
   // Submit Institution
@@ -952,23 +1257,35 @@ function initAuth() {
     const groupVal = document.getElementById('inst-group').value.trim().toLowerCase();
     const password = document.getElementById('inst-password').value;
     const errorEl = document.getElementById('inst-error');
+    if (errorEl) errorEl.style.display = 'none';
 
-    const validGroups = {
-      'rvgroup': 'RV Group of Institutions',
-      'bmsgroup': 'BMS Group of Institutions',
-      'pesgroup': 'PES Group of Institutions',
-      'dsgroup': 'Dayananda Sagar Group'
-    };
-
-    if (validGroups[groupVal] && password === 'kcet2025') {
-      errorEl.style.display = 'none';
-      currentUser = { role: 'institution', name: validGroups[groupVal], institutionGroup: groupVal };
+    fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username_or_email: groupVal,
+        password: password,
+        role: 'institution'
+      })
+    })
+    .then(async res => {
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Login failed.");
+      return data;
+    })
+    .then(data => {
+      currentUser = { role: 'institution', name: data.user.name, institutionGroup: data.user.institutionGroup };
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+      localStorage.setItem('kcet_token', data.token);
       overlay.style.display = 'none';
       applyUserRole();
-    } else {
-      errorEl.style.display = 'block';
-    }
+    })
+    .catch(err => {
+      if (errorEl) {
+        errorEl.textContent = `❌ ${err.message}`;
+        errorEl.style.display = 'block';
+      }
+    });
   });
 
   // Submit Authority
@@ -976,16 +1293,35 @@ function initAuth() {
     const authId = document.getElementById('auth-id').value.trim();
     const password = document.getElementById('auth-password').value;
     const errorEl = document.getElementById('auth-error');
+    if (errorEl) errorEl.style.display = 'none';
 
-    if (authId === 'authority' && password === 'kcet2025') {
-      errorEl.style.display = 'none';
-      currentUser = { role: 'authority', name: "KEA Admin Console" };
+    fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username_or_email: authId,
+        password: password,
+        role: 'authority'
+      })
+    })
+    .then(async res => {
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Login failed.");
+      return data;
+    })
+    .then(data => {
+      currentUser = { role: 'authority', name: data.user.name };
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+      localStorage.setItem('kcet_token', data.token);
       overlay.style.display = 'none';
       applyUserRole();
-    } else {
-      errorEl.style.display = 'block';
-    }
+    })
+    .catch(err => {
+      if (errorEl) {
+        errorEl.textContent = `❌ ${err.message}`;
+        errorEl.style.display = 'block';
+      }
+    });
   });
 
   // Submit Counsellor
@@ -993,9 +1329,23 @@ function initAuth() {
     const cid = document.getElementById('counsellor-id').value.trim();
     const cpwd = document.getElementById('counsellor-password').value;
     const errorEl = document.getElementById('counsellor-error');
+    if (errorEl) errorEl.style.display = 'none';
 
-    if ((cid === 'counsellor' || cid === 'mentor') && cpwd === 'kcet2025') {
-      errorEl.style.display = 'none';
+    fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username_or_email: cid,
+        password: cpwd,
+        role: 'counsellor'
+      })
+    })
+    .then(async res => {
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Login failed.");
+      return data;
+    })
+    .then(data => {
       const saved = localStorage.getItem('kcet_user');
       if (saved) {
         try {
@@ -1008,7 +1358,7 @@ function initAuth() {
       if (!currentUser || currentUser.role !== 'counsellor') {
         currentUser = {
           role: 'counsellor',
-          name: "Professional Advisor",
+          name: data.user.name,
           students: [
             { id: 'cs1', name: "Aditi Rao", rank: 4200, category: "3BG", optionList: [] },
             { id: 'cs2', name: "Roshan Kumar", rank: 12500, category: "GM", optionList: [] },
@@ -1018,11 +1368,16 @@ function initAuth() {
         };
       }
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+      localStorage.setItem('kcet_token', data.token);
       overlay.style.display = 'none';
       applyUserRole();
-    } else {
-      errorEl.style.display = 'block';
-    }
+    })
+    .catch(err => {
+      if (errorEl) {
+        errorEl.textContent = `❌ ${err.message}`;
+        errorEl.style.display = 'block';
+      }
+    });
   });
 
   // Submit Super User
@@ -1030,22 +1385,43 @@ function initAuth() {
     const suid = document.getElementById('su-id').value.trim();
     const supwd = document.getElementById('su-password').value;
     const errorEl = document.getElementById('su-error');
+    if (errorEl) errorEl.style.display = 'none';
 
-    if (suid === 'superuser' && supwd === 'kcet2025') {
-      errorEl.style.display = 'none';
-      currentUser = { role: 'superuser', name: "Global Admin" };
+    fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username_or_email: suid,
+        password: supwd,
+        role: 'superuser'
+      })
+    })
+    .then(async res => {
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Login failed.");
+      return data;
+    })
+    .then(data => {
+      currentUser = { role: 'superuser', name: data.user.name };
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+      localStorage.setItem('kcet_token', data.token);
       overlay.style.display = 'none';
       applyUserRole();
-    } else {
-      errorEl.style.display = 'block';
-    }
+    })
+    .catch(err => {
+      if (errorEl) {
+        errorEl.textContent = `❌ ${err.message}`;
+        errorEl.style.display = 'block';
+      }
+    });
   });
 
   // Logout
   logoutBtn.addEventListener('click', (e) => {
     e.stopPropagation();
+    fetch('/api/auth/logout', { method: 'POST' }).catch(() => {});
     localStorage.removeItem('kcet_user');
+    localStorage.removeItem('kcet_token');
     currentUser = null;
     overlay.style.display = 'flex';
     applyUserRole();
@@ -1092,7 +1468,7 @@ function initAuth() {
         
         if (studentOptionsList.length > 0) {
           studentOptionsList.forEach(opt => {
-            const col = allData.colleges.find(c => c.college_number == opt.collegeNum);
+            const col = allData.colleges.find(c => opt.keaCode ? c.kea_code == opt.keaCode : c.college_number == opt.collegeNum);
             if (col) {
               const course = col.courses.find(cr => cr.course_name === opt.courseName);
               if (course) {
@@ -1130,7 +1506,7 @@ function initAuth() {
         return;
       }
 
-      const collegeObj = allData.colleges.find(c => c.college_number == colNum);
+      const collegeObj = allData.colleges.find(c => c.kea_code == colNum || c.college_number == colNum);
       const reqId = Date.now();
       const newRequest = {
         id: reqId,
@@ -1235,6 +1611,7 @@ function renderInstitutionDashboard() {
   if (!currentUser) return;
   const isSuper = (currentUser.role === 'superuser' && superuserPerspective === 'institution');
   if (currentUser.role !== 'institution' && !isSuper) return;
+  if (!allData || !allData.colleges) return;
 
   const groupId = isSuper ? superuserGroup : currentUser.institutionGroup;
   const group = INSTITUTION_GROUPS[groupId];
@@ -1280,12 +1657,12 @@ function renderInstitutionDashboard() {
 
   // 2. Populate College Dropdown
   const colSelect = document.getElementById('inst-edit-college');
-  colSelect.innerHTML = colleges.map(c => `<option value="${c.college_number}">${c.college_name}</option>`).join('');
+  colSelect.innerHTML = colleges.map(c => `<option value="${c.kea_code}">${c.college_name}</option>`).join('');
 
   // Course update listener
   const updateCoursesDropdown = () => {
     const colNum = colSelect.value;
-    const college = colleges.find(c => c.college_number == colNum);
+    const college = colleges.find(c => c.kea_code == colNum || c.college_number == colNum);
     const courseSelect = document.getElementById('inst-edit-course');
     if (college) {
       courseSelect.innerHTML = college.courses.map(c => `<option value="${escHtml(c.course_name)}">${c.course_name}</option>`).join('');
@@ -1296,7 +1673,7 @@ function renderInstitutionDashboard() {
   const updateSeatInputs = () => {
     const colNum = colSelect.value;
     const courseName = document.getElementById('inst-edit-course').value;
-    const college = colleges.find(c => c.college_number == colNum);
+    const college = colleges.find(c => c.kea_code == colNum || c.college_number == colNum);
     if (college) {
       const course = college.courses.find(c => c.course_name === courseName);
       if (course) {
@@ -1349,7 +1726,10 @@ function renderInstitutionHistory() {
 }
 
 function renderAuthorityDashboard() {
-  if (currentUser.role !== 'authority') return;
+  if (!currentUser) return;
+  const isSuper = (currentUser.role === 'superuser' && superuserPerspective === 'authority');
+  if (currentUser.role !== 'authority' && !isSuper) return;
+  if (!allData || !allData.colleges) return;
 
   // 1. Populate Approvals Queue
   const tbody = document.getElementById('authority-pending-tbody');
@@ -1385,6 +1765,52 @@ function renderAuthorityDashboard() {
   const logEl = document.getElementById('auth-audit-logs');
   logEl.textContent = authorityLogs.join('\n');
   logEl.scrollTop = logEl.scrollHeight;
+
+  // 3. Fetch and Render Live Database Activity Log & Summary metrics
+  fetch('/api/admin/activities')
+    .then(res => res.json())
+    .then(data => {
+      // Set registered counts
+      const studentsCount = data.registrations.student || 0;
+      const advisorsCount = data.registrations.counsellor || 0;
+      document.getElementById('stat-students-count').textContent = studentsCount;
+      document.getElementById('stat-advisors-count').textContent = advisorsCount;
+
+      // Set action counts
+      document.getElementById('stat-predictions-count').textContent = data.action_stats.PREDICTION || 0;
+      document.getElementById('stat-downloads-count').textContent = data.action_stats.DOWNLOAD || 0;
+      document.getElementById('stat-compare-count').textContent = data.action_stats.COMPARE || 0;
+
+      // Render timeline list
+      const timelineEl = document.getElementById('admin-activity-timeline');
+      if (data.recent_logs && data.recent_logs.length > 0) {
+        timelineEl.innerHTML = data.recent_logs.map(log => {
+          let badgeColor = 'var(--text-muted)';
+          if (log.action === 'REGISTER') badgeColor = 'var(--blue)';
+          else if (log.action === 'LOGIN') badgeColor = 'var(--teal)';
+          else if (log.action === 'PREDICTION') badgeColor = 'var(--green)';
+          else if (log.action === 'OPTION_OPTIMIZE') badgeColor = 'rgba(168, 85, 247, 0.85)';
+          else if (log.action === 'DOWNLOAD') badgeColor = 'var(--orange)';
+          else if (log.action === 'COMPARE') badgeColor = 'var(--pink)';
+
+          return `
+            <div style="margin-bottom:8px; border-bottom:1px solid rgba(255,255,255,0.03); padding-bottom:6px; display:flex; align-items:flex-start; gap:8px;">
+              <span style="background:${badgeColor}; color:#fff; padding:2px 6px; border-radius:4px; font-size:9px; font-weight:700; text-transform:uppercase; margin-top:2px;">${log.action}</span>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:2px;">
+                  <strong>${log.username}</strong>
+                  <span style="color:var(--text-muted); font-size:10px;">${log.time_str} (${log.ip_address})</span>
+                </div>
+                <div style="color:var(--text-muted); font-size:10px; word-break:break-all;">${log.details || 'No details provided.'}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } else {
+        timelineEl.innerHTML = `<div style="color:var(--text-muted); text-align:center; padding:20px;">No user activities logged yet.</div>`;
+      }
+    })
+    .catch(err => console.error("Error fetching authority metrics:", err));
 }
 
 function approveRequest(id) {
@@ -1393,7 +1819,7 @@ function approveRequest(id) {
     req.status = 'Approved';
     
     // Update raw seat matrix data in-memory
-    const college = allData.colleges.find(c => c.college_number == req.collegeNum);
+    const college = allData.colleges.find(c => c.kea_code == req.collegeNum || c.college_number == req.collegeNum);
     if (college) {
       const course = college.courses.find(c => c.course_name === req.courseName);
       if (course) {
@@ -1473,6 +1899,17 @@ function downloadAuthorityData(format) {
 }
 
 function triggerFileDownload(content, filename, contentType) {
+  // Log download action in PostgreSQL
+  fetch('/api/log', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      username: currentUser ? currentUser.name : 'guest',
+      action: 'DOWNLOAD',
+      details: `Downloaded file: ${filename} (${contentType})`
+    })
+  }).catch(err => console.error(err));
+
   const blob = new Blob([content], { type: contentType });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -1497,6 +1934,7 @@ function applyUserRole() {
   const tabInst = document.getElementById('tab-institution');
   const tabAuth = document.getElementById('tab-authority');
   const tabOption = document.getElementById('tab-option-entry');
+  const tabDownloads = document.getElementById('tab-downloads');
   const superuserBar = document.getElementById('superuser-view-bar');
   const scrollingWrap = document.getElementById('scrolling-announcements-wrap');
 
@@ -1544,14 +1982,9 @@ function applyUserRole() {
   // Determine effective perspective/role
   const effectiveRole = currentUser.role === 'superuser' ? superuserPerspective : currentUser.role;
 
-  // Show/Hide downloads tab based on eligibility
-  const tabDownloads = document.getElementById('tab-downloads');
-  if (tabDownloads) {
-    tabDownloads.style.display = 'block';
-  }
-
   // Render dashboard elements based on effective role
   if (effectiveRole === 'student') {
+    if (tabDownloads) tabDownloads.style.display = 'none';
     if (studentProfileSection) {
       studentProfileSection.style.display = 'block';
       document.getElementById('profile-rank').value = currentUser.rank || 5000;
@@ -1569,6 +2002,7 @@ function applyUserRole() {
     if (prCat) prCat.value = currentUser.category || 'GM';
 
   } else if (effectiveRole === 'counsellor') {
+    if (tabDownloads) tabDownloads.style.display = 'block';
     if (studentProfileSection) studentProfileSection.style.display = 'none';
     if (counsellorPortfolioSection) counsellorPortfolioSection.style.display = 'block';
     if (tabInst) tabInst.style.display = 'none';
@@ -1578,6 +2012,7 @@ function applyUserRole() {
     renderCounsellorPortfolio();
 
   } else if (effectiveRole === 'institution') {
+    if (tabDownloads) tabDownloads.style.display = 'block';
     if (studentProfileSection) studentProfileSection.style.display = 'none';
     if (counsellorPortfolioSection) counsellorPortfolioSection.style.display = 'none';
     if (tabInst) tabInst.style.display = 'block';
@@ -1588,6 +2023,7 @@ function applyUserRole() {
     renderInstitutionDashboard();
 
   } else if (effectiveRole === 'authority') {
+    if (tabDownloads) tabDownloads.style.display = 'block';
     if (studentProfileSection) studentProfileSection.style.display = 'none';
     if (counsellorPortfolioSection) counsellorPortfolioSection.style.display = 'none';
     if (tabInst) tabInst.style.display = 'none';
@@ -1785,6 +2221,7 @@ function saveCounsellorOptions() {
 }
 
 function renderCounsellorPortfolio() {
+  if (!allData || !allData.colleges) return;
   const select = document.getElementById('counsellor-student-select');
   if (!select || !currentUser || currentUser.role !== 'counsellor') return;
 
@@ -2003,7 +2440,7 @@ function renderOptionEntryList() {
     let cutoff = opt.cutoff;
     let chanceClass = opt.chanceClass;
     if (allData && allData.colleges) {
-      const collegeObj = allData.colleges.find(col => col.college_number == opt.collegeNum || col.kea_code == opt.keaCode);
+      const collegeObj = allData.colleges.find(col => opt.keaCode ? col.kea_code == opt.keaCode : col.college_number == opt.collegeNum);
       if (collegeObj) {
         const courseObj = collegeObj.courses.find(c => c.course_name === opt.courseName);
         if (courseObj) {
@@ -2081,7 +2518,7 @@ function auditStudentOptionsList() {
   // 1. Fee calculations & safety count
   studentOptionsList.forEach((opt) => {
     if (allData && allData.colleges) {
-      const collegeObj = allData.colleges.find(col => col.college_number == opt.collegeNum || col.kea_code == opt.keaCode);
+      const collegeObj = allData.colleges.find(col => opt.keaCode ? col.kea_code == opt.keaCode : col.college_number == opt.collegeNum);
       if (collegeObj) {
         const courseObj = collegeObj.courses.find(c => c.course_name === opt.courseName);
         if (courseObj) {
@@ -2160,6 +2597,17 @@ function optimizeStudentOptionsList() {
     const cutB = b.cutoff || 999999;
     return cutA - cutB;
   });
+
+  // Log option optimization in PostgreSQL
+  fetch('/api/log', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      username: currentUser ? currentUser.name : 'guest',
+      action: 'OPTION_OPTIMIZE',
+      details: `Optimized sequence of ${studentOptionsList.length} choices`
+    })
+  }).catch(err => console.error(err));
 
   saveCounsellorOptions();
   renderOptionEntryList();
@@ -2332,7 +2780,7 @@ function bindOptionEntryEvents() {
         searchResults.innerHTML = `<div style="padding:10px; font-size:12px; color:var(--text-muted); text-align:center;">No colleges found.</div>`;
       } else {
         searchResults.innerHTML = matches.map(c => `
-          <div class="option-search-item" data-id="${c.college_number}">
+          <div class="option-search-item" data-kea-code="${c.kea_code || ''}">
             <strong>${c.college_name}</strong> <span style="font-size:10px; color:var(--blue); font-weight:700; margin-left:6px;">${c.kea_code || ''}</span>
           </div>
         `).join('');
@@ -2344,8 +2792,8 @@ function bindOptionEntryEvents() {
       const bindSearchResults = () => {
         document.querySelectorAll('.option-search-item').forEach(item => {
           item.addEventListener('click', () => {
-            const colId = item.dataset.id;
-            selectedCollegeForAdd = allData.colleges.find(c => c.college_number == colId);
+            const keaCode = item.dataset.keaCode;
+            selectedCollegeForAdd = allData.colleges.find(c => c.kea_code == keaCode);
             
             if (selectedCollegeForAdd) {
               searchInput.value = selectedCollegeForAdd.college_name;
@@ -2482,6 +2930,15 @@ function applyFilters() {
     if (mobileOverlay) mobileOverlay.style.display = 'none';
   }
 
+  // Handle asynchronous data load state
+  if (!allData || !allData.colleges) {
+    const grid = document.getElementById('colleges-grid');
+    if (grid) {
+      grid.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding:40px; font-family:var(--font);">⌛ Loading Seat Matrix & Cutoff Database from PostgreSQL...</div>';
+    }
+    return;
+  }
+
   const { search, annexure, district, course, minSeats } = filters;
   const q = search.toLowerCase().trim();
   const affiliationVal = document.getElementById('affiliation-filter')?.value || '';
@@ -2616,11 +3073,11 @@ function renderColleges() {
     lmb.textContent = `Load More Colleges (${filtered.length - displayCount} remaining)`;
   }
 
-  // Bind card clicks using unique college_number lookup
+  // Bind card clicks using unique KEA Code lookup
   grid.querySelectorAll('.college-card').forEach(el => {
     el.addEventListener('click', () => {
-      const colNum = el.dataset.collegeNumber;
-      const collegeObj = allData.colleges.find(c => c.college_number == colNum);
+      const keaCode = el.dataset.keaCode;
+      const collegeObj = allData.colleges.find(c => c.kea_code == keaCode);
       if (collegeObj) openModal(collegeObj);
     });
   });
@@ -2671,7 +3128,7 @@ function renderCollegeCard(college, index) {
   const hostelInfo = college.hostel_details ? `<span class="meta-badge" style="background:rgba(249,115,22,0.06); color:#f97316; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700; display:inline-flex; align-items:center; gap:3px; border:1px solid rgba(249,115,22,0.15);">🏠 Hostel: ₹${Math.round(college.hostel_details.annual_hostel_fees/1000)}k/yr</span>` : '';
 
   return `
-    <div class="college-card" style="animation-delay:${Math.min(index * 0.03, 0.3)}s" data-index="${index}" data-college-number="${college.college_number}">
+    <div class="college-card" style="animation-delay:${Math.min(index * 0.03, 0.3)}s" data-index="${index}" data-kea-code="${college.kea_code || ''}" data-college-number="${college.college_number}">
       <div class="card-top">
         <div class="card-badge badge-${ann}">${ANNEXURE_ICONS[ann]}</div>
         <div class="card-info">
@@ -3623,7 +4080,7 @@ function openModal(college) {
       <tr class="course-main-row" data-course-idx="${idx}">
         <td class="course-name-cell" style="cursor:pointer;" title="Click to expand full sub-category matrix">
           <span class="drawer-toggle-icon" id="toggle-icon-${idx}" style="display:inline-block; transition:transform 0.2s; font-size:10px; margin-right:4px; color:var(--blue);">▶</span>
-          <strong>${escHtml(c.course_name)}</strong>
+          <strong>${idx + 1}. ${escHtml(c.course_name)}</strong>
           <button class="btn-add-option-inline" data-course-idx="${idx}" style="margin-left:8px; padding:2px 6px; font-size:9px; font-weight:700; background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.2); color:#22c55e; border-radius:4px; cursor:pointer; font-family:var(--font); display:inline-flex; align-items:center; gap:2px; vertical-align:middle; transition:background 0.2s;" title="Add this course to your Option Entry priority sheet">➕ Add</button>
         </td>
         <td class="td-total">${c.total_intake || 0}</td>
@@ -4933,6 +5390,23 @@ function bindEvents() {
   // Tabs
   document.querySelectorAll('.tab').forEach(tab => {
     tab.addEventListener('click', () => {
+      // Check authorization
+      const targetTab = tab.dataset.tab;
+      const effectiveRole = (currentUser && currentUser.role === 'superuser') ? superuserPerspective : (currentUser ? currentUser.role : 'student');
+      
+      if (targetTab === 'institution' && effectiveRole !== 'institution') {
+        alert("Access Denied: You are not authorized to view the Institution Admin Console.");
+        return;
+      }
+      if (targetTab === 'authority' && effectiveRole !== 'authority') {
+        alert("Access Denied: You are not authorized to view the KEA Authority Panel.");
+        return;
+      }
+      if (targetTab === 'downloads' && effectiveRole === 'student') {
+        alert("Access Denied: Candidates do not have download privileges.");
+        return;
+      }
+
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
       tab.classList.add('active');
@@ -5020,6 +5494,12 @@ function bindEvents() {
   const predBtn = document.getElementById('pred-btn');
   if (predBtn) {
     predBtn.addEventListener('click', runPrediction);
+  }
+
+  // Refresh user activities dashboard
+  const refreshActivitiesBtn = document.getElementById('btn-refresh-activities');
+  if (refreshActivitiesBtn) {
+    refreshActivitiesBtn.addEventListener('click', renderAuthorityDashboard);
   }
   const predRankInput = document.getElementById('pred-rank');
   if (predRankInput) {
@@ -5368,6 +5848,7 @@ function getScopedBaseColleges() {
 }
 
 function updateDownloadPreview() {
+  if (!allData || !allData.colleges) return;
   const alertEl = document.getElementById('download-scope-alert');
   if (alertEl) {
     alertEl.innerHTML = `<span>📥 <strong>Data Export Scope:</strong> Select Year, College Group, Individual College, District, or Course filters to export custom CSV/JSON seat matrices and cutoff ranks.</span>`;
@@ -5905,7 +6386,23 @@ function runPrediction() {
   const category = catSel.value;
   const selectedRound = roundSel ? roundSel.value : 'round1';
   const preferredCourse = courseSel.value;
+
+  // Log prediction event to backend PostgreSQL
+  fetch('/api/log', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      username: currentUser ? currentUser.name : 'guest',
+      action: 'PREDICTION',
+      details: `Rank: ${userRank}, Category: ${category}, Round: ${selectedRound}, Course: ${preferredCourse || 'All'}`
+    })
+  }).catch(err => console.error(err));
   
+  if (!allData || !allData.colleges) {
+    alert("Database is still loading. Please try again in a moment.");
+    return;
+  }
+
   const results = [];
   const seen = new Set();
   
@@ -6007,7 +6504,7 @@ function renderPredictionResults(results, selectedRound) {
       badgeBg = 'rgba(168,85,247,0.15)';
     }
     
-    return `<tr class="pred-row" data-college-number="${col.college_number}" style="cursor:pointer; transition:background 0.2s;">
+    return `<tr class="pred-row" data-kea-code="${col.kea_code || ''}" style="cursor:pointer; transition:background 0.2s;">
       <td><span class="card-type-pill pill-${col.annexure}" style="font-size:11px; padding: 2px 6px;">${col.kea_code || col.college_number}</span></td>
       <td><strong>${escHtml(col.college_name)}</strong><br><small style="color:var(--text-muted)">📍 ${escHtml(col.district)}</small></td>
       <td>${res.courseName}</td>
@@ -6024,8 +6521,8 @@ function renderPredictionResults(results, selectedRound) {
   // Attach event listener for row clicks
   tbody.querySelectorAll('.pred-row').forEach(row => {
     row.addEventListener('click', () => {
-      const colNum = row.dataset.collegeNumber;
-      const collegeObj = allData.colleges.find(c => c.college_number == colNum);
+      const keaCode = row.dataset.keaCode;
+      const collegeObj = allData.colleges.find(c => c.kea_code == keaCode);
       if (collegeObj) {
         openModal(collegeObj);
       }
@@ -6111,8 +6608,8 @@ function runAssistantQuery(query) {
       // Bind click events on cards inside assistant results
       resultsWrapper.querySelectorAll('.college-card').forEach(card => {
         card.addEventListener('click', () => {
-          const colNum = card.dataset.collegeNumber;
-          const collegeObj = allData.colleges.find(c => c.college_number == colNum);
+          const keaCode = card.dataset.keaCode;
+          const collegeObj = allData.colleges.find(c => c.kea_code == keaCode);
           if (collegeObj) {
             openModal(collegeObj);
           }
@@ -6122,8 +6619,8 @@ function runAssistantQuery(query) {
       // Bind click events on table rows
       resultsWrapper.querySelectorAll('.assistant-row-click').forEach(row => {
         row.addEventListener('click', () => {
-          const colNum = row.dataset.collegeNumber;
-          const collegeObj = allData.colleges.find(c => c.college_number == colNum);
+          const keaCode = row.dataset.keaCode;
+          const collegeObj = allData.colleges.find(c => c.kea_code == keaCode);
           if (collegeObj) {
             openModal(collegeObj);
           }
@@ -6605,7 +7102,7 @@ function generateAssistantResponse(analysis) {
       const diffText = res.diff >= 0 ? `+${res.diff.toLocaleString()}` : res.diff.toLocaleString();
       const diffClass = res.diff >= 0 ? 'text-green' : 'text-orange';
       
-      return `<tr class="pred-row assistant-row-click" data-college-number="${col.college_number}" style="cursor:pointer; transition:background 0.2s;">
+      return `<tr class="pred-row assistant-row-click" data-kea-code="${col.kea_code || ''}" style="cursor:pointer; transition:background 0.2s;">
         <td><span class="card-type-pill pill-${col.annexure}" style="font-size:11px; padding: 2px 6px;">${col.kea_code || col.college_number}</span></td>
         <td><strong>${col.college_name}</strong><br><small style="color:var(--text-muted)">📍 ${col.district}</small></td>
         <td>${abbrCourseName(res.courseName)}</td>
@@ -6990,6 +7487,22 @@ function updateComparisonMatrix() {
   
   if (wrap) wrap.style.display = 'block';
   if (emptyState) emptyState.style.display = 'none';
+
+  if (!allData || !allData.colleges) {
+    return;
+  }
+
+  // Log comparison event to backend PostgreSQL
+  const codes = [col1Code, col2Code, col3Code].filter(Boolean).join(', ');
+  fetch('/api/log', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      username: currentUser ? currentUser.name : 'guest',
+      action: 'COMPARE',
+      details: `Comparing: ${codes}`
+    })
+  }).catch(err => console.error(err));
   
   const c1 = allData.colleges.find(c => c.kea_code === col1Code);
   const c2 = allData.colleges.find(c => c.kea_code === col2Code);

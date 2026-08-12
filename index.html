@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!--
+   Copyright (c) 2026 Vasuki Upadhya. All rights reserved.
+   Author: Vasuki Upadhya (vasuki.upadhya@gmail.com)
+   Application: KEA Seat Matrix & Prediction Portal
+-->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -59,9 +64,9 @@
         <div>
           <div class="brand-title">Karnataka Seat Matrix</div>
           <div style="display: flex; align-items: center; gap: 8px;">
-            <div class="brand-subtitle" id="brand-subtitle">Engineering Admissions 2026</div>
+            <div class="brand-subtitle" id="brand-subtitle">Engineering Admissions</div>
             <select id="year-select" class="year-select" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #fff; border-radius: 6px; padding: 2px 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; outline: none; transition: all 0.2s; font-family: 'Space Grotesk', sans-serif;">
-              <option value="2026" style="background: #18181b; color: #fff;">2026</option>
+              <option value="2026" style="background: #18181b; color: #fff;" selected>2026</option>
               <option value="2025" style="background: #18181b; color: #fff;">2025</option>
               <option value="2024" style="background: #18181b; color: #fff;">2024</option>
             </select>
@@ -282,6 +287,12 @@
         <div class="ss-title">Showing</div>
         <div class="ss-val" id="ss-count">— colleges</div>
         <div class="ss-val muted" id="ss-seats">— seats</div>
+      </div>
+
+      <!-- Sidebar footer / copyright -->
+      <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-size: 10px; color: var(--text-muted);">
+        <div>© 2026 Vasuki Upadhya.</div>
+        <div style="margin-top: 2px;">All Rights Reserved.</div>
       </div>
     </aside>
 
@@ -620,7 +631,7 @@
       <!-- Rank Predictor tab -->
       <div class="tab-content" id="tab-content-predictor">
         <div class="predictor-card" style="background: var(--bg-card2); border: 1px solid var(--border); border-radius: 20px; padding: 24px; margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
-          <div style="font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px;">🔮 KCET 2025 College & Course Predictor</div>
+          <div id="predictor-title" style="font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px;">🔮 KCET 2025 College & Course Predictor</div>
           <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Enter your rank and category to predict engineering seat allotment chances based on Round 1 Cutoff ranks.</div>
           
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 20px;">
@@ -1140,6 +1151,46 @@
               </div>
             </div>
           </div>
+
+          <!-- Real-Time User Activities & Usage Metrics Dashboard -->
+          <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:20px; margin-top:24px;">
+            <div style="font-family:var(--font-display); font-size:14px; font-weight:700; color:var(--text); margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+              <span>👥 Real-Time User Activities & Usage Metrics Dashboard</span>
+              <button id="btn-refresh-activities" style="background:var(--blue); border:none; color:#fff; font-size:11px; font-weight:700; cursor:pointer; padding:6px 12px; border-radius:6px; font-family:var(--font);">🔄 Refresh Feed</button>
+            </div>
+            
+            <!-- Cards Grid: Quick Summary Stats -->
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:16px; margin-bottom:20px;">
+              <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); padding:16px; border-radius:12px; text-align:center;">
+                <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700; margin-bottom:4px;">Students Registered</div>
+                <div id="stat-students-count" style="font-size:24px; font-weight:800; color:var(--blue);">0</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); padding:16px; border-radius:12px; text-align:center;">
+                <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700; margin-bottom:4px;">Advisors Active</div>
+                <div id="stat-advisors-count" style="font-size:24px; font-weight:800; color:rgba(168, 85, 247, 0.85);">0</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); padding:16px; border-radius:12px; text-align:center;">
+                <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700; margin-bottom:4px;">Predictions Run</div>
+                <div id="stat-predictions-count" style="font-size:24px; font-weight:800; color:var(--green);">0</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); padding:16px; border-radius:12px; text-align:center;">
+                <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700; margin-bottom:4px;">Downloads Triggered</div>
+                <div id="stat-downloads-count" style="font-size:24px; font-weight:800; color:var(--teal);">0</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); padding:16px; border-radius:12px; text-align:center;">
+                <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700; margin-bottom:4px;">Compare Actions</div>
+                <div id="stat-compare-count" style="font-size:24px; font-weight:800; color:var(--pink);">0</div>
+              </div>
+            </div>
+
+            <!-- Recent Activity Timeline Feed -->
+            <div style="display:flex; flex-direction:column; max-height:250px;">
+              <div style="font-size:12px; font-weight:700; margin-bottom:8px; color:var(--text);">Timeline of Recent User Actions (Live database feed)</div>
+              <div id="admin-activity-timeline" style="height:150px; overflow-y:auto; border:1px solid var(--border); border-radius:8px; padding:12px; background:rgba(0,0,0,0.25); font-family:var(--font); font-size:11px; color:var(--text); line-height:1.6; box-sizing:border-box;">
+                <div style="color:var(--text-muted); text-align:center; padding:20px;">No user activities logged yet.</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1336,9 +1387,7 @@
       <div class="auth-header-logo">
         <span class="auth-logo-icon">🎓</span>
         <h2 class="auth-logo-title">KCET Admissions Portal</h2>
-        <p class="auth-logo-subtitle">Access seat matrices, cutoff predictions, and institution controls</p>
       </div>
-
       <div class="auth-role-tabs" style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 20px;">
         <button type="button" class="auth-role-tab active" data-role="student" style="flex: 1; min-width: 110px;">👨‍🎓 Student</button>
         <button type="button" class="auth-role-tab" data-role="institution" style="flex: 1; min-width: 110px;">🏫 Institution</button>
@@ -1347,50 +1396,97 @@
         <button type="button" class="auth-role-tab" data-role="superuser" style="flex: 1; min-width: 110px;">🔑 Super User</button>
       </div>
 
-      <!-- Student Registration Form -->
+      <!-- Student Registration/Login Form -->
       <div class="auth-form active" id="auth-form-student">
-        <div class="form-title">Student Registration</div>
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">Full Name</label>
-            <input type="text" id="reg-name" class="form-input" placeholder="Enter your name" required>
+        
+        <!-- Login/Register Form Grid Wrapper -->
+        <div id="student-login-register-container">
+          <div class="form-title" id="student-form-title">Student Registration</div>
+          
+          <!-- Registration Fields (hidden during login mode) -->
+          <div class="form-grid" id="student-reg-fields">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" id="reg-name" class="form-input" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+              <label class="form-label">UGCET Rank</label>
+              <input type="number" id="reg-rank" class="form-input" placeholder="e.g. 5000" min="1">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Reservation Category</label>
+              <select id="reg-category" class="form-select">
+                <option value="GM">General Merit (GM)</option>
+                <option value="GMK">GM Kannada (GMK)</option>
+                <option value="GMR">GM Rural (GMR)</option>
+                <option value="1G">Category 1 General (1G)</option>
+                <option value="2AG">Category 2A General (2AG)</option>
+                <option value="2BG">Category 2B General (2BG)</option>
+                <option value="3AG">Category 3A General (3AG)</option>
+                <option value="3BG">Category 3B General (3BG)</option>
+                <option value="SCG">Scheduled Caste General (SCG)</option>
+                <option value="STG">Scheduled Tribe General (STG)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Region / Quota</label>
+              <select id="reg-region" class="form-select">
+                <option value="non-hk">Non-Hyderabad Karnataka (General)</option>
+                <option value="hk">Hyderabad-Karnataka (HK)</option>
+              </select>
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label">Email Address</label>
-            <input type="email" id="reg-email" class="form-input" placeholder="name@domain.com" required>
+
+          <!-- Common Fields (always shown) -->
+          <div class="form-group" id="student-email-group">
+            <label class="form-label" id="student-user-label">Email Address</label>
+            <input type="text" id="reg-email" class="form-input" placeholder="name@domain.com" required>
           </div>
-          <div class="form-group">
-            <label class="form-label">Password</label>
+          <div class="form-group" id="student-password-group">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label class="form-label">Password</label>
+              <div id="student-forgot-password-link" style="font-size: 11px; color: var(--blue); cursor: pointer; text-decoration: underline; font-weight:600; display: none;">Forgot Password?</div>
+            </div>
             <input type="password" id="reg-password" class="form-input" placeholder="••••••••" required>
           </div>
-          <div class="form-group">
-            <label class="form-label">UGCET Rank</label>
-            <input type="number" id="reg-rank" class="form-input" placeholder="e.g. 5000" min="1" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Reservation Category</label>
-            <select id="reg-category" class="form-select">
-              <option value="GM">General Merit (GM)</option>
-              <option value="GMK">GM Kannada (GMK)</option>
-              <option value="GMR">GM Rural (GMR)</option>
-              <option value="1G">Category 1 General (1G)</option>
-              <option value="2AG">Category 2A General (2AG)</option>
-              <option value="2BG">Category 2B General (2BG)</option>
-              <option value="3AG">Category 3A General (3AG)</option>
-              <option value="3BG">Category 3B General (3BG)</option>
-              <option value="SCG">Scheduled Caste General (SCG)</option>
-              <option value="STG">Scheduled Tribe General (STG)</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Region / Quota</label>
-            <select id="reg-region" class="form-select">
-              <option value="non-hk">Non-Hyderabad Karnataka (General)</option>
-              <option value="hk">Hyderabad-Karnataka (HK)</option>
-            </select>
-          </div>
+
+          <div id="student-auth-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; text-align:center; margin-bottom:8px; margin-top:8px;"></div>
+
+          <button class="auth-submit-btn" id="btn-submit-student">Register & Explore Portal</button>
+
+          <div class="form-toggle-mode" id="student-auth-toggle" style="margin-top: 14px; font-size: 11px; text-align: center; color: var(--blue); cursor: pointer; text-decoration: underline; font-weight:600;">Already registered? Click here to Login</div>
         </div>
-        <button class="auth-submit-btn" id="btn-submit-student">Register & Explore Portal</button>
+
+        <!-- Forgot Password Request Container (hidden by default) -->
+        <div id="student-forgot-password-container" style="display: none; flex-direction: column; gap: 14px;">
+          <div class="form-title">Recover Student Account</div>
+          <div class="form-group">
+            <label class="form-label">Registered Email Address</label>
+            <input type="email" id="forgot-email-input" class="form-input" placeholder="name@domain.com">
+          </div>
+          <div id="student-forgot-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; text-align:center; margin-bottom:8px;"></div>
+          <button class="auth-submit-btn" id="btn-send-reset-code" type="button">Send Reset Code</button>
+          <div class="btn-back-to-login" style="font-size: 11px; text-align: center; color: var(--blue); cursor: pointer; text-decoration: underline; font-weight:600; margin-top: 14px;">Back to Login</div>
+        </div>
+
+        <!-- Reset Password Fields (hidden by default) -->
+        <div id="student-reset-password-fields" style="display: none; flex-direction: column; gap: 14px;">
+          <div class="form-title">Reset Student Password</div>
+          <div class="form-group">
+            <label class="form-label">Verification Reset Code</label>
+            <input type="text" id="reset-token-input" class="form-input" placeholder="Enter 6-character code">
+          </div>
+          <div class="form-group">
+            <label class="form-label">New Password</label>
+            <input type="password" id="reset-new-password" class="form-input" placeholder="••••••••">
+          </div>
+          
+          <div id="student-reset-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; text-align:center; margin-bottom:8px;"></div>
+          <div id="student-reset-success" style="display:none; color:var(--teal); font-size:11px; text-align:center; margin-bottom:8px; font-weight:600;"></div>
+
+          <button class="auth-submit-btn" id="btn-submit-reset-password" type="button">Update Password</button>
+          <div class="btn-back-to-login" style="font-size: 11px; text-align: center; color: var(--blue); cursor: pointer; text-decoration: underline; font-weight:600; margin-top: 14px;">Back to Login</div>
+        </div>
       </div>
 
       <!-- Institution Group Login Form -->
@@ -1402,9 +1498,9 @@
         </div>
         <div class="form-group">
           <label class="form-label">Access Code / Password</label>
-          <input type="password" id="inst-password" class="form-input" placeholder="Enter group password (kcet2025)">
+          <input type="password" id="inst-password" class="form-input" placeholder="Enter group password (kcet2026)">
         </div>
-        <div id="inst-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid group ID or password. Use 'rvgroup', 'bmsgroup', 'pesgroup' or 'dsgroup' and 'kcet2025'.</div>
+        <div id="inst-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid group ID or password. Use 'rvgroup', 'bmsgroup', 'pesgroup' or 'dsgroup' and 'kcet2026'.</div>
         <button class="auth-submit-btn" id="btn-submit-institution">Login as Institution Admin</button>
       </div>
 
@@ -1417,9 +1513,9 @@
         </div>
         <div class="form-group">
           <label class="form-label">Secret Security Key</label>
-          <input type="password" id="auth-password" class="form-input" placeholder="Enter authority key (kcet2025)">
+          <input type="password" id="auth-password" class="form-input" placeholder="Enter authority key (kcet2026)">
         </div>
-        <div id="auth-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid Admin ID or password. Use 'authority' / 'kcet2025'.</div>
+        <div id="auth-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid Admin ID or password. Use 'authority' / 'kcet2026'.</div>
         <button class="auth-submit-btn" id="btn-submit-authority">Authenticate & Unlock Console</button>
       </div>
 
@@ -1432,9 +1528,9 @@
         </div>
         <div class="form-group">
           <label class="form-label font-label">Mentor Password</label>
-          <input type="password" id="counsellor-password" class="form-input" placeholder="Enter password (kcet2025)">
+          <input type="password" id="counsellor-password" class="form-input" placeholder="Enter password (kcet2026)">
         </div>
-        <div id="counsellor-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid username or password. Try 'counsellor' / 'kcet2025'.</div>
+        <div id="counsellor-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid username or password. Try 'counsellor' / 'kcet2026'.</div>
         <button class="auth-submit-btn" id="btn-submit-counsellor">Login to Mentoring Dashboard</button>
       </div>
 
@@ -1443,13 +1539,13 @@
         <div class="form-title">Super User Console Authentication</div>
         <div class="form-group">
           <label class="form-label">Super User ID</label>
-          <input type="text" id="su-id" class="form-input" placeholder="e.g. superuser">
+          <input type="text" id="su-id" class="form-input" placeholder="e.g. admin, superuser">
         </div>
         <div class="form-group">
           <label class="form-label">Security Key</label>
-          <input type="password" id="su-password" class="form-input" placeholder="Enter key (kcet2025)">
+          <input type="password" id="su-password" class="form-input" placeholder="Enter key (kcet2026)">
         </div>
-        <div id="su-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid ID or security key. Use 'superuser' / 'kcet2025'.</div>
+        <div id="su-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid ID or security key. Use 'admin' / 'kcet2026'.</div>
         <button class="auth-submit-btn" id="btn-submit-superuser">Access Master Control Console</button>
       </div>
     </div>

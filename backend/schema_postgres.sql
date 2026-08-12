@@ -1,3 +1,8 @@
+-- =======================================================
+-- Copyright (c) 2026 Vasuki Upadhya. All rights reserved.
+-- Author: Vasuki Upadhya (vasuki.upadhya@gmail.com)
+-- Application: KEA Seat Matrix & Prediction Portal
+-- =======================================================
 -- Schema for KCET Predictor PostgreSQL Database
 
 CREATE TABLE IF NOT EXISTS colleges (
@@ -85,3 +90,44 @@ CREATE INDEX IF NOT EXISTS idx_pg_courses_year ON courses(year);
 CREATE INDEX IF NOT EXISTS idx_pg_cutoffs_course ON cutoffs(course_id);
 CREATE INDEX IF NOT EXISTS idx_pg_cutoffs_year ON cutoffs(year);
 CREATE INDEX IF NOT EXISTS idx_pg_cutoffs_lookup ON cutoffs(category, cutoff_rank);
+
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    username TEXT UNIQUE NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL, -- holds salt:hash
+    role TEXT NOT NULL, -- 'student', 'counsellor', 'institution', 'authority', 'superuser'
+    rank INTEGER,
+    category TEXT,
+    region TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS user_sessions (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    session_token TEXT UNIQUE NOT NULL,
+    expires_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS password_resets (
+    id SERIAL PRIMARY KEY,
+    email TEXT NOT NULL,
+    token TEXT NOT NULL,
+    expires_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS audit_logs (
+    id SERIAL PRIMARY KEY,
+    username TEXT,
+    action TEXT NOT NULL, -- 'REGISTER', 'LOGIN', 'PREDICTION', 'OPTION_OPTIMIZE', 'DOWNLOAD', 'COMPARE'
+    details TEXT,
+    ip_address TEXT,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_pg_audit_logs_action ON audit_logs(action);
+CREATE INDEX IF NOT EXISTS idx_pg_audit_logs_timestamp ON audit_logs(timestamp);
