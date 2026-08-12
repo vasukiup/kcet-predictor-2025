@@ -87,25 +87,25 @@ def migrate_database():
                     c_name = c_name.replace("Technolory", "Technology")
                     c_name = c_name.replace("Technoloy", "Technology")
                 # Retrieve enriched metadata
-                established = col.get("established") or col.get("established_year")
-                nirf = col.get("nirf_rank")
+                established = col.get("established_year") or col.get("established")
+                nirf = col.get("nirf_ranking") or col.get("nirf_rank")
                 naac = col.get("naac_grade")
                 nba = col.get("nba_accredited")
                 
-                placements = col.get("placements") or {}
-                avg_pkg = placements.get("avg_package") or placements.get("average_package")
-                max_pkg = placements.get("highest_package") or placements.get("max_package")
-                pct_placed = placements.get("placement_rate")
+                placements = col.get("placement_stats") or col.get("placements") or {}
+                avg_pkg = placements.get("avg_package_lpa") or placements.get("avg_package") or placements.get("average_package")
+                max_pkg = placements.get("highest_package_lpa") or placements.get("highest_package") or placements.get("max_package")
+                pct_placed = placements.get("placement_rate_pct") or placements.get("placement_rate")
 
                 hostels = col.get("hostel_details") or {}
-                h_fees = hostels.get("hostel_fees")
+                h_fees = hostels.get("annual_hostel_fees") or hostels.get("hostel_fees")
                 h_cap = hostels.get("hostel_capacity")
-                h_mess = hostels.get("mess_included")
+                h_mess = hostels.get("has_mess_included") or hostels.get("mess_included")
 
-                campus = col.get("campus_life") or {}
-                c_size = campus.get("campus_size")
-                c_dist = campus.get("majestic_dist_km") or campus.get("distance_to_majestic")
-                c_transit = campus.get("nearest_transit")
+                loc_details = col.get("location_details") or {}
+                c_size = loc_details.get("campus_area_acres") or col.get("campus_life", {}).get("campus_size")
+                c_dist = loc_details.get("distance_from_bus_stand_km") or col.get("campus_life", {}).get("majestic_dist_km") or col.get("campus_life", {}).get("distance_to_majestic")
+                c_transit = loc_details.get("nearest_railway_station") or col.get("campus_life", {}).get("nearest_transit")
 
                 # Insert into colleges
                 cursor.execute("""
@@ -145,13 +145,13 @@ def migrate_database():
 
                 for cr in col.get("courses", []):
                     c_placements = cr.get("course_placements") or {}
-                    c_min = c_placements.get("min_package")
-                    c_avg = c_placements.get("avg_package") or c_placements.get("average_package")
-                    c_max = c_placements.get("max_package") or c_placements.get("highest_package")
-                    c_pct = c_placements.get("placement_rate")
-                    c_industry = c_placements.get("industry")
+                    c_min = c_placements.get("min_package_lpa") or c_placements.get("min_package")
+                    c_avg = c_placements.get("avg_package_lpa") or c_placements.get("avg_package") or c_placements.get("average_package")
+                    c_max = c_placements.get("max_package_lpa") or c_placements.get("max_package") or c_placements.get("highest_package")
+                    c_pct = c_placements.get("placement_rate_pct") or c_placements.get("placement_rate")
+                    c_industry = c_placements.get("industry_type") or c_placements.get("industry")
                     
-                    recruiters_val = c_placements.get("recruiters")
+                    recruiters_val = c_placements.get("top_recruiters") or c_placements.get("recruiters")
                     if isinstance(recruiters_val, list):
                         c_recruiters = ", ".join(recruiters_val)
                     else:
