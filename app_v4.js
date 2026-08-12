@@ -4,6 +4,27 @@
    Application: KEA Seat Matrix & Prediction Portal
    ======================================================= */
 
+// Global fetch interceptor for Authentication and 401 handler
+const originalFetch = window.fetch;
+window.fetch = async function (url, options = {}) {
+  const token = localStorage.getItem('kcet_token');
+  if (token) {
+    options.headers = options.headers || {};
+    options.headers['X-Session-Token'] = token;
+  }
+  
+  const response = await originalFetch(url, options);
+  
+  if (response.status === 401 && !url.includes('/api/auth/')) {
+    localStorage.removeItem('kcet_user');
+    localStorage.removeItem('kcet_token');
+    const overlay = document.getElementById('auth-overlay');
+    if (overlay) overlay.style.display = 'flex';
+  }
+  
+  return response;
+};
+
 const ANNEXURE_LABELS = {
   A: 'Government',
   B: 'Govt Aided',
@@ -981,6 +1002,7 @@ function initAuth() {
   const forgotPasswordLink = document.getElementById('student-forgot-password-link');
   const loginRegisterWrap = document.getElementById('student-login-register-container');
   const resetPasswordWrap = document.getElementById('student-reset-password-fields');
+  const forgotPasswordWrap = document.getElementById('student-forgot-password-container');
 
   if (studentAuthToggle) {
     studentAuthToggle.addEventListener('click', () => {
@@ -1007,33 +1029,80 @@ function initAuth() {
   if (forgotPasswordLink) {
     forgotPasswordLink.addEventListener('click', () => {
       if (loginRegisterWrap) loginRegisterWrap.style.display = 'none';
-      if (resetPasswordWrap) resetPasswordWrap.style.display = 'flex';
+      if (forgotPasswordWrap) forgotPasswordWrap.style.display = 'flex';
+      if (resetPasswordWrap) resetPasswordWrap.style.display = 'none';
       
-      // Clear values and messages
-      document.getElementById('reset-email-input').value = '';
-      document.getElementById('reset-rank-input').value = '';
-      document.getElementById('reset-new-password').value = '';
-      document.getElementById('student-reset-error').style.display = 'none';
-      document.getElementById('student-reset-success').style.display = 'none';
+      document.getElementById('forgot-email-input').value = '';
+      document.getElementById('student-forgot-error').style.display = 'none';
     });
   }
 
-  // Cancel reset password click
-  const cancelResetBtn = document.getElementById('btn-cancel-reset-password');
-  if (cancelResetBtn) {
-    cancelResetBtn.addEventListener('click', () => {
+  // Back to login click
+  document.querySelectorAll('.btn-back-to-login').forEach(btn => {
+    btn.addEventListener('click', () => {
       if (loginRegisterWrap) loginRegisterWrap.style.display = 'block';
+      if (forgotPasswordWrap) forgotPasswordWrap.style.display = 'none';
       if (resetPasswordWrap) resetPasswordWrap.style.display = 'none';
       if (studentErrorEl) studentErrorEl.style.display = 'none';
     });
+  });
+
+  // Submit Forgot Password (Send Reset Code)
+  const btnSendResetCode = document.getElementById('btn-send-reset-code');
+  let recoveryEmail = '';
+  if (btnSendResetCode) {
+    btnSendResetCode.addEventListener('click', () => {
+      const email = document.getElementById('forgot-email-input').value.trim();
+      const errorForgot = document.getElementById('student-forgot-error');
+      
+      if (errorForgot) errorForgot.style.display = 'none';
+      if (!email) {
+        if (errorForgot) {
+          errorForgot.textContent = "❌ Please enter your email.";
+          errorForgot.style.display = 'block';
+        }
+        return;
+      }
+      
+      fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+      })
+      .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Request failed.");
+        return data;
+      })
+      .then(data => {
+        recoveryEmail = email;
+        if (forgotPasswordWrap) forgotPasswordWrap.style.display = 'none';
+        if (resetPasswordWrap) resetPasswordWrap.style.display = 'flex';
+        
+        const successReset = document.getElementById('student-reset-success');
+        if (successReset) {
+          successReset.textContent = `✅ Reset code sent! Code: ${data.token}`;
+          successReset.style.display = 'block';
+        }
+        
+        document.getElementById('reset-token-input').value = data.token || '';
+        document.getElementById('reset-new-password').value = '';
+        document.getElementById('student-reset-error').style.display = 'none';
+      })
+      .catch(err => {
+        if (errorForgot) {
+          errorForgot.textContent = `❌ ${err.message}`;
+          errorForgot.style.display = 'block';
+        }
+      });
+    });
   }
 
-  // Submit Password Reset
+  // Submit Password Reset (Verify token and reset password)
   const submitResetBtn = document.getElementById('btn-submit-reset-password');
   if (submitResetBtn) {
     submitResetBtn.addEventListener('click', () => {
-      const email = document.getElementById('reset-email-input').value.trim();
-      const rank = parseInt(document.getElementById('reset-rank-input').value);
+      const token = document.getElementById('reset-token-input').value.trim();
       const newPassword = document.getElementById('reset-new-password').value;
       const errorReset = document.getElementById('student-reset-error');
       const successReset = document.getElementById('student-reset-success');
@@ -1041,9 +1110,9 @@ function initAuth() {
       if (errorReset) errorReset.style.display = 'none';
       if (successReset) successReset.style.display = 'none';
 
-      if (!email || isNaN(rank) || !newPassword) {
+      if (!token || !newPassword) {
         if (errorReset) {
-          errorReset.textContent = "❌ Please enter email, rank, and new password.";
+          errorReset.textContent = "❌ Please enter code and new password.";
           errorReset.style.display = 'block';
         }
         return;
@@ -1053,8 +1122,8 @@ function initAuth() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email: email,
-          rank: rank,
+          email: recoveryEmail,
+          token: token,
           new_password: newPassword
         })
       })
@@ -1068,12 +1137,10 @@ function initAuth() {
           successReset.textContent = `✅ Password updated successfully! Please login.`;
           successReset.style.display = 'block';
         }
-        // Redirect back to login container after 1.5 seconds
         setTimeout(() => {
           if (loginRegisterWrap) loginRegisterWrap.style.display = 'block';
           if (resetPasswordWrap) resetPasswordWrap.style.display = 'none';
           
-          // Force student auth mode to login
           studentAuthMode = 'login';
           if (studentAuthToggle) studentAuthToggle.textContent = "New user? Click here to Register";
           if (studentFormTitle) studentFormTitle.textContent = "Student Login";
@@ -1081,7 +1148,7 @@ function initAuth() {
           if (studentRegFields) studentRegFields.style.display = 'none';
           if (forgotPasswordLink) forgotPasswordLink.style.display = 'block';
 
-          document.getElementById('reg-email').value = email;
+          document.getElementById('reg-email').value = recoveryEmail;
           document.getElementById('reg-password').value = '';
           if (studentErrorEl) studentErrorEl.style.display = 'none';
         }, 1500);
@@ -1141,9 +1208,10 @@ function initAuth() {
         if (!res.ok) throw new Error(data.detail || "Registration failed.");
         return data;
       })
-      .then(() => {
-        currentUser = { role: 'student', name, email, rank, category, region };
+      .then(data => {
+        currentUser = data.user;
         localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+        localStorage.setItem('kcet_token', data.token);
         overlay.style.display = 'none';
         applyUserRole();
       })
@@ -1171,6 +1239,7 @@ function initAuth() {
       .then(data => {
         currentUser = data.user;
         localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+        localStorage.setItem('kcet_token', data.token);
         overlay.style.display = 'none';
         applyUserRole();
       })
@@ -1207,6 +1276,7 @@ function initAuth() {
     .then(data => {
       currentUser = { role: 'institution', name: data.user.name, institutionGroup: data.user.institutionGroup };
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+      localStorage.setItem('kcet_token', data.token);
       overlay.style.display = 'none';
       applyUserRole();
     })
@@ -1242,6 +1312,7 @@ function initAuth() {
     .then(data => {
       currentUser = { role: 'authority', name: data.user.name };
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+      localStorage.setItem('kcet_token', data.token);
       overlay.style.display = 'none';
       applyUserRole();
     })
@@ -1297,6 +1368,7 @@ function initAuth() {
         };
       }
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+      localStorage.setItem('kcet_token', data.token);
       overlay.style.display = 'none';
       applyUserRole();
     })
@@ -1332,6 +1404,7 @@ function initAuth() {
     .then(data => {
       currentUser = { role: 'superuser', name: data.user.name };
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
+      localStorage.setItem('kcet_token', data.token);
       overlay.style.display = 'none';
       applyUserRole();
     })
@@ -1346,7 +1419,9 @@ function initAuth() {
   // Logout
   logoutBtn.addEventListener('click', (e) => {
     e.stopPropagation();
+    fetch('/api/auth/logout', { method: 'POST' }).catch(() => {});
     localStorage.removeItem('kcet_user');
+    localStorage.removeItem('kcet_token');
     currentUser = null;
     overlay.style.display = 'flex';
     applyUserRole();

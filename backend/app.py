@@ -23,39 +23,113 @@ from backend.database import get_db_cursor
 load_dotenv()
 
 # Global Basic Auth Middleware
-class BasicAuthMiddleware(BaseHTTPMiddleware):
+import hashlib
+import secrets
+from datetime import datetime, timedelta
+
+# Password hashing helpers
+def hash_password(password: str, salt: str = None) -> str:
+    if salt is None:
+        salt = secrets.token_hex(16)
+    hashed = hashlib.sha256((password + salt).encode("utf-8")).hexdigest()
+    return f"{salt}:{hashed}"
+
+def verify_password(password: str, stored_password_str: str) -> bool:
+    if not stored_password_str or ":" not in stored_password_str:
+        return False
+    salt, stored_hash = stored_password_str.split(":", 1)
+    hashed = hashlib.sha256((password + salt).encode("utf-8")).hexdigest()
+    return hashed == stored_hash
+
+# Global Unified Auth Middleware
+class UnifiedAuthMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request, call_next):
-        # Expose custom username and password from environment (default: admin / kcet2025)
+        # Expose custom username and password from environment (default: admin / kcet2026)
         username = os.environ.get("PORTAL_USERNAME", "admin")
-        password = os.environ.get("PORTAL_PASSWORD", "kcet2025")
+        password = os.environ.get("PORTAL_PASSWORD", "kcet2026")
         
-        # Bypass healthcheck or docs if needed, otherwise secure everything
+        path = request.url.path
+        
+        # 1. Bypass public paths
+        public_prefixes = [
+            "/api/auth/register", 
+            "/api/auth/login", 
+            "/api/auth/forgot-password", 
+            "/api/auth/reset-password"
+        ]
+        if any(path.startswith(prefix) for prefix in public_prefixes):
+            return await call_next(request)
+            
+        # Bypass static assets, frontend SPA pages and data JSON files
+        public_exact = [
+            "/", 
+            "/index.html", 
+            "/favicon.ico", 
+            "/style_v4.css", 
+            "/app_v4.js", 
+            "/course_standardization_map.json",
+            "/docs",
+            "/openapi.json",
+            "/redoc"
+        ]
+        if path in public_exact or path.endswith(".json") or path.startswith("/static/"):
+            return await call_next(request)
+            
+        # 2. Check Superadmin/Staff Basic Auth
         auth_header = request.headers.get("Authorization")
-        if not auth_header or not auth_header.startswith("Basic "):
-            return Response(
-                "Unauthorized",
-                status_code=401,
-                headers={"WWW-Authenticate": "Basic realm='KCET Predictor Portal'"}
-            )
-            
-        try:
-            auth_type, encoded_creds = auth_header.split(" ", 1)
-            decoded_creds = base64.b64decode(encoded_creds).decode("utf-8")
-            req_username, req_password = decoded_creds.split(":", 1)
-            if req_username == username and req_password == password:
-                return await call_next(request)
-        except Exception:
-            pass
-            
+        if auth_header and auth_header.startswith("Basic "):
+            try:
+                auth_type, encoded_creds = auth_header.split(" ", 1)
+                decoded_creds = base64.b64decode(encoded_creds).decode("utf-8")
+                req_username, req_password = decoded_creds.split(":", 1)
+                
+                # Superadmin password kcet2026 check
+                if (req_username in [username, "superuser"]) and req_password == password:
+                    request.state.username = req_username
+                    request.state.role = "superuser"
+                    return await call_next(request)
+                # Other staff roles with kcet2026 check
+                elif (req_username in ["authority", "counsellor", "rvgroup", "bmsgroup", "pesgroup", "dsgroup"]) and req_password == password:
+                    request.state.username = req_username
+                    request.state.role = "authority" if req_username == "authority" else ("counsellor" if req_username == "counsellor" else "institution")
+                    return await call_next(request)
+            except Exception:
+                pass
+                
+        # 3. Check Custom Session Token (X-Session-Token)
+        session_token = request.headers.get("X-Session-Token")
+        if session_token:
+            try:
+                with get_db_cursor() as cur:
+                    cur.execute("""
+                        SELECT u.username, u.role, u.rank, u.category, u.region 
+                        FROM user_sessions s
+                        JOIN users u ON s.user_id = u.id
+                        WHERE s.session_token = %s AND s.expires_at > CURRENT_TIMESTAMP
+                    """, (session_token,))
+                    session_user = cur.fetchone()
+                    if session_user:
+                        request.state.username = session_user["username"]
+                        request.state.role = session_user["role"]
+                        request.state.user_metadata = {
+                            "rank": session_user["rank"],
+                            "category": session_user["category"],
+                            "region": session_user["region"]
+                        }
+                        return await call_next(request)
+            except Exception as db_err:
+                print(f"Auth middleware DB error: {db_err}")
+                
+        # 4. Unauthorized
         return Response(
-            "Unauthorized",
+            json.dumps({"detail": "Unauthorized"}),
             status_code=401,
-            headers={"WWW-Authenticate": "Basic realm='KCET Predictor Portal'"}
+            media_type="application/json"
         )
 
 app = FastAPI(title="KCET Predictor AI Agent Backend")
 
-# Enable CORS for local development
+# Enable CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -65,7 +139,7 @@ app.add_middleware(
 )
 
 # Apply global authentication middleware
-app.add_middleware(BasicAuthMiddleware)
+app.add_middleware(UnifiedAuthMiddleware)
 
 
 # ────────────────────────────────────────────────────────
@@ -73,9 +147,6 @@ app.add_middleware(BasicAuthMiddleware)
 # ────────────────────────────────────────────────────────
 
 def log_activity(username: str, action: str, details: str = None, ip_address: str = None):
-    """
-    Inserts a row into the audit_logs table.
-    """
     try:
         with get_db_cursor() as cur:
             cur.execute("""
@@ -104,33 +175,54 @@ class UserLogin(BaseModel):
     password: str
     role: str
 
+class ForgotPasswordRequest(BaseModel):
+    email: str
+
+class UserResetPassword(BaseModel):
+    email: str
+    token: str
+    new_password: str
+
 @app.post("/api/auth/register")
 async def register_user(user: UserRegister, request: Request):
     try:
+        stored_pwd = hash_password(user.password)
         with get_db_cursor() as cur:
-            # Check if email or username already exists
-            cur.execute("SELECT id, password FROM users WHERE username = %s OR email = %s", (user.username, user.email))
+            cur.execute("SELECT id FROM users WHERE username = %s OR email = %s", (user.username, user.email))
             exists = cur.fetchone()
             if exists:
-                if exists["password"] is None:
-                    # Account upgrade (legacy or seeded account without credentials)
-                    cur.execute("""
-                        UPDATE users 
-                        SET password = %s, rank = %s, category = %s, region = %s
-                        WHERE id = %s
-                    """, (user.password, user.rank, user.category, user.region, exists["id"]))
-                else:
-                    raise HTTPException(status_code=400, detail="Username or email is already registered.")
+                raise HTTPException(status_code=400, detail="Username or email is already registered.")
             else:
                 cur.execute("""
                     INSERT INTO users (username, email, password, role, rank, category, region)
                     VALUES (%s, %s, %s, %s, %s, %s, %s)
-                """, (user.username, user.email, user.password, user.role.lower(), user.rank, user.category, user.region))
+                    RETURNING id
+                """, (user.username, user.email, stored_pwd, user.role.lower(), user.rank, user.category, user.region))
+                user_id = cur.fetchone()["id"]
+                
+                # Generate session token for auto-login
+                session_token = secrets.token_hex(32)
+                expires_at = datetime.utcnow() + timedelta(hours=24)
+                cur.execute("""
+                    INSERT INTO user_sessions (user_id, session_token, expires_at)
+                    VALUES (%s, %s, %s)
+                """, (user_id, session_token, expires_at))
         
-        # Log registration activity
         client_ip = request.client.host if request.client else "unknown"
         log_activity(user.username, "REGISTER", f"Role: {user.role}, Email: {user.email}, Rank: {user.rank}", client_ip)
-        return {"status": "success", "message": f"User {user.username} registered successfully."}
+        return {
+            "status": "success", 
+            "message": f"User {user.username} registered successfully.",
+            "token": session_token,
+            "user": {
+                "name": user.username,
+                "email": user.email,
+                "role": "student",
+                "rank": user.rank,
+                "category": user.category,
+                "region": user.region
+            }
+        }
     except HTTPException as he:
         raise he
     except Exception as e:
@@ -143,21 +235,32 @@ async def login_user(user: UserLogin, request: Request):
         client_ip = request.client.host if request.client else "unknown"
         role_lower = user.role.lower()
 
+        # Update staff passwords to kcet2026 check
+        staff_pwd = "kcet2026"
+        
         if role_lower == 'student':
             with get_db_cursor() as cur:
                 cur.execute("""
-                    SELECT username, email, rank, category, region 
+                    SELECT id, username, email, password, rank, category, region 
                     FROM users 
-                    WHERE (username = %s OR email = %s) AND password = %s AND role = 'student'
-                """, (user.username_or_email, user.username_or_email, user.password))
+                    WHERE (username = %s OR email = %s) AND role = 'student'
+                """, (user.username_or_email, user.username_or_email))
                 db_user = cur.fetchone()
-                if not db_user:
+                if not db_user or not verify_password(user.password, db_user["password"]):
                     raise HTTPException(status_code=401, detail="Invalid student email/username or password.")
                 
-                # Log login activity
+                # Generate session token
+                session_token = secrets.token_hex(32)
+                expires_at = datetime.utcnow() + timedelta(hours=24)
+                cur.execute("""
+                    INSERT INTO user_sessions (user_id, session_token, expires_at)
+                    VALUES (%s, %s, %s)
+                """, (db_user["id"], session_token, expires_at))
+                
                 log_activity(db_user["username"], "LOGIN", f"Role: student (DB)", client_ip)
                 return {
                     "status": "success", 
+                    "token": session_token,
                     "user": {
                         "name": db_user["username"],
                         "email": db_user["email"],
@@ -168,67 +271,146 @@ async def login_user(user: UserLogin, request: Request):
                     }
                 }
         else:
-            # Predefined staff credentials checks
+            # Handle Predefined staff login
+            username = user.username_or_email
             if role_lower == 'superuser':
-                if user.username_or_email == 'superuser' and user.password == 'kcet2025':
-                    log_activity("Global Admin", "LOGIN", "Role: superuser", client_ip)
-                    return {"status": "success", "user": {"name": "Global Admin", "role": "superuser"}}
+                if username not in ['admin', 'superuser'] or user.password != staff_pwd:
+                    raise HTTPException(status_code=401, detail="Invalid superuser credentials.")
+                username = 'admin' # Standardize username
             elif role_lower == 'authority':
-                if user.username_or_email == 'authority' and user.password == 'kcet2025':
-                    log_activity("KEA Admin Console", "LOGIN", "Role: authority", client_ip)
-                    return {"status": "success", "user": {"name": "KEA Admin Console", "role": "authority"}}
+                if username != 'authority' or user.password != staff_pwd:
+                    raise HTTPException(status_code=401, detail="Invalid authority credentials.")
             elif role_lower == 'counsellor':
-                if user.username_or_email == 'counsellor' and user.password == 'kcet2025':
-                    log_activity("Professional Advisor", "LOGIN", "Role: counsellor", client_ip)
-                    return {"status": "success", "user": {"name": "Professional Advisor", "role": "counsellor"}}
+                if username != 'counsellor' or user.password != staff_pwd:
+                    raise HTTPException(status_code=401, detail="Invalid counsellor credentials.")
             elif role_lower == 'institution':
-                # Check correct group id and password kcet2025
                 groups = ['rvgroup', 'bmsgroup', 'pesgroup', 'dsgroup']
-                if user.username_or_email in groups and user.password == 'kcet2025':
-                    gname = user.username_or_email.upper()
-                    log_activity(f"{gname} Admin", "LOGIN", f"Role: institution, Group: {user.username_or_email}", client_ip)
-                    return {"status": "success", "user": {"name": f"{gname} Admin", "role": "institution", "institutionGroup": user.username_or_email}}
-            
-            raise HTTPException(status_code=401, detail="Invalid credentials for staff role.")
+                if username not in groups or user.password != staff_pwd:
+                    raise HTTPException(status_code=401, detail="Invalid institution credentials.")
+            else:
+                raise HTTPException(status_code=401, detail="Invalid role specified.")
+
+            # Create or find user row for the staff user
+            with get_db_cursor() as cur:
+                cur.execute("SELECT id FROM users WHERE username = %s AND role = %s", (username, role_lower))
+                staff_row = cur.fetchone()
+                if not staff_row:
+                    hashed_pwd = hash_password(staff_pwd)
+                    cur.execute("""
+                        INSERT INTO users (username, email, password, role)
+                        VALUES (%s, %s, %s, %s)
+                    """, (username, f"{username}@portal.local", hashed_pwd, role_lower))
+                    cur.execute("SELECT id FROM users WHERE username = %s AND role = %s", (username, role_lower))
+                    user_id = cur.fetchone()["id"]
+                else:
+                    user_id = staff_row["id"]
+
+                # Generate session token
+                session_token = secrets.token_hex(32)
+                expires_at = datetime.utcnow() + timedelta(hours=24)
+                cur.execute("""
+                    INSERT INTO user_sessions (user_id, session_token, expires_at)
+                    VALUES (%s, %s, %s)
+                """, (user_id, session_token, expires_at))
+
+            log_activity(username, "LOGIN", f"Role: {role_lower}", client_ip)
+            return {
+                "status": "success",
+                "token": session_token,
+                "user": {
+                    "name": username,
+                    "email": f"{username}@portal.local",
+                    "role": role_lower
+                }
+            }
     except HTTPException as he:
         raise he
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
-class UserResetPassword(BaseModel):
-    email: str
-    rank: int
-    new_password: str
+@app.post("/api/auth/logout")
+async def logout_user(request: Request):
+    try:
+        session_token = request.headers.get("X-Session-Token")
+        if session_token:
+            with get_db_cursor() as cur:
+                cur.execute("DELETE FROM user_sessions WHERE session_token = %s", (session_token,))
+        return {"status": "success", "message": "Logged out successfully."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/auth/forgot-password")
+async def forgot_password(req: ForgotPasswordRequest, request: Request):
+    try:
+        with get_db_cursor() as cur:
+            cur.execute("SELECT id, username FROM users WHERE email = %s AND role = 'student'", (req.email,))
+            user = cur.fetchone()
+            if not user:
+                raise HTTPException(status_code=400, detail="No registered student found with this email.")
+            
+            # Generate a 6-character reset token
+            token = secrets.token_hex(3).upper()
+            expires_at = datetime.utcnow() + timedelta(minutes=15)
+            
+            cur.execute("""
+                INSERT INTO password_resets (email, token, expires_at)
+                VALUES (%s, %s, %s)
+            """, (req.email, token, expires_at))
+            
+            # Print to stdout/console so it is accessible in logs
+            print(f"\n========================================\n[PASSWORD RECOVERY] Reset token for {req.email} is: {token}\n========================================\n")
+            
+            client_ip = request.client.host if request.client else "unknown"
+            log_activity(user["username"], "FORGOT_PASSWORD_REQUEST", f"Email: {req.email}", client_ip)
+            
+            return {
+                "status": "success", 
+                "message": "Verification reset code has been sent. Check server console logs.",
+                "token": token # Expose for ease of validation
+            }
+    except HTTPException as he:
+        raise he
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 @app.post("/api/auth/reset-password")
 async def reset_password(data: UserResetPassword, request: Request):
     try:
         with get_db_cursor() as cur:
-            # Verify if student exists with matching email/username and rank
+            # Validate token and expiration
             cur.execute("""
-                SELECT username FROM users 
-                WHERE (email = %s OR username = %s) AND rank = %s AND role = 'student'
-            """, (data.email, data.email, data.rank))
-            user = cur.fetchone()
-            if not user:
-                raise HTTPException(status_code=400, detail="No registered candidate found matching entered Email/Name and Rank.")
+                SELECT id FROM password_resets 
+                WHERE email = %s AND token = %s AND expires_at > CURRENT_TIMESTAMP
+            """, (data.email, data.token))
+            reset_row = cur.fetchone()
+            if not reset_row:
+                raise HTTPException(status_code=400, detail="Invalid or expired verification reset code.")
             
-            # Update password
+            # Update password using hash helper
+            hashed_pwd = hash_password(data.new_password)
             cur.execute("""
                 UPDATE users 
                 SET password = %s 
-                WHERE (email = %s OR username = %s) AND rank = %s AND role = 'student'
-            """, (data.new_password, data.email, data.email, data.rank))
+                WHERE email = %s AND role = 'student'
+                RETURNING username
+            """, (hashed_pwd, data.email))
+            user_row = cur.fetchone()
             
-        # Log password reset activity
+            # Clean up the used token
+            cur.execute("DELETE FROM password_resets WHERE id = %s", (reset_row["id"],))
+            
+        username = user_row["username"] if user_row else "unknown"
         client_ip = request.client.host if request.client else "unknown"
-        log_activity(user["username"], "PASSWORD_RESET", f"Email: {data.email}, Rank: {data.rank}", client_ip)
+        log_activity(username, "PASSWORD_RESET", f"Email: {data.email}", client_ip)
         return {"status": "success", "message": "Password reset completed successfully."}
     except HTTPException as he:
         raise he
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 class LogRequest(BaseModel):
     username: str

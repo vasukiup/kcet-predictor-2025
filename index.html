@@ -1457,16 +1457,24 @@
           <div class="form-toggle-mode" id="student-auth-toggle" style="margin-top: 14px; font-size: 11px; text-align: center; color: var(--blue); cursor: pointer; text-decoration: underline; font-weight:600;">Already registered? Click here to Login</div>
         </div>
 
+        <!-- Forgot Password Request Container (hidden by default) -->
+        <div id="student-forgot-password-container" style="display: none; flex-direction: column; gap: 14px;">
+          <div class="form-title">Recover Student Account</div>
+          <div class="form-group">
+            <label class="form-label">Registered Email Address</label>
+            <input type="email" id="forgot-email-input" class="form-input" placeholder="name@domain.com">
+          </div>
+          <div id="student-forgot-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; text-align:center; margin-bottom:8px;"></div>
+          <button class="auth-submit-btn" id="btn-send-reset-code" type="button">Send Reset Code</button>
+          <div class="btn-back-to-login" style="font-size: 11px; text-align: center; color: var(--blue); cursor: pointer; text-decoration: underline; font-weight:600; margin-top: 14px;">Back to Login</div>
+        </div>
+
         <!-- Reset Password Fields (hidden by default) -->
         <div id="student-reset-password-fields" style="display: none; flex-direction: column; gap: 14px;">
           <div class="form-title">Reset Student Password</div>
           <div class="form-group">
-            <label class="form-label">Registered Email or Full Name</label>
-            <input type="text" id="reset-email-input" class="form-input" placeholder="Enter email or name">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Registered UGCET Rank</label>
-            <input type="number" id="reset-rank-input" class="form-input" placeholder="e.g. 5000" min="1">
+            <label class="form-label">Verification Reset Code</label>
+            <input type="text" id="reset-token-input" class="form-input" placeholder="Enter 6-character code">
           </div>
           <div class="form-group">
             <label class="form-label">New Password</label>
@@ -1477,8 +1485,7 @@
           <div id="student-reset-success" style="display:none; color:var(--teal); font-size:11px; text-align:center; margin-bottom:8px; font-weight:600;"></div>
 
           <button class="auth-submit-btn" id="btn-submit-reset-password" type="button">Update Password</button>
-
-          <div id="btn-cancel-reset-password" style="font-size: 11px; text-align: center; color: var(--blue); cursor: pointer; text-decoration: underline; font-weight:600; margin-top: 14px;">Back to Login</div>
+          <div class="btn-back-to-login" style="font-size: 11px; text-align: center; color: var(--blue); cursor: pointer; text-decoration: underline; font-weight:600; margin-top: 14px;">Back to Login</div>
         </div>
       </div>
 
@@ -1491,9 +1498,9 @@
         </div>
         <div class="form-group">
           <label class="form-label">Access Code / Password</label>
-          <input type="password" id="inst-password" class="form-input" placeholder="Enter group password (kcet2025)">
+          <input type="password" id="inst-password" class="form-input" placeholder="Enter group password (kcet2026)">
         </div>
-        <div id="inst-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid group ID or password. Use 'rvgroup', 'bmsgroup', 'pesgroup' or 'dsgroup' and 'kcet2025'.</div>
+        <div id="inst-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid group ID or password. Use 'rvgroup', 'bmsgroup', 'pesgroup' or 'dsgroup' and 'kcet2026'.</div>
         <button class="auth-submit-btn" id="btn-submit-institution">Login as Institution Admin</button>
       </div>
 
@@ -1506,9 +1513,9 @@
         </div>
         <div class="form-group">
           <label class="form-label">Secret Security Key</label>
-          <input type="password" id="auth-password" class="form-input" placeholder="Enter authority key (kcet2025)">
+          <input type="password" id="auth-password" class="form-input" placeholder="Enter authority key (kcet2026)">
         </div>
-        <div id="auth-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid Admin ID or password. Use 'authority' / 'kcet2025'.</div>
+        <div id="auth-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid Admin ID or password. Use 'authority' / 'kcet2026'.</div>
         <button class="auth-submit-btn" id="btn-submit-authority">Authenticate & Unlock Console</button>
       </div>
 
@@ -1521,9 +1528,9 @@
         </div>
         <div class="form-group">
           <label class="form-label font-label">Mentor Password</label>
-          <input type="password" id="counsellor-password" class="form-input" placeholder="Enter password (kcet2025)">
+          <input type="password" id="counsellor-password" class="form-input" placeholder="Enter password (kcet2026)">
         </div>
-        <div id="counsellor-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid username or password. Try 'counsellor' / 'kcet2025'.</div>
+        <div id="counsellor-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid username or password. Try 'counsellor' / 'kcet2026'.</div>
         <button class="auth-submit-btn" id="btn-submit-counsellor">Login to Mentoring Dashboard</button>
       </div>
 
@@ -1532,13 +1539,13 @@
         <div class="form-title">Super User Console Authentication</div>
         <div class="form-group">
           <label class="form-label">Super User ID</label>
-          <input type="text" id="su-id" class="form-input" placeholder="e.g. superuser">
+          <input type="text" id="su-id" class="form-input" placeholder="e.g. admin, superuser">
         </div>
         <div class="form-group">
           <label class="form-label">Security Key</label>
-          <input type="password" id="su-password" class="form-input" placeholder="Enter key (kcet2025)">
+          <input type="password" id="su-password" class="form-input" placeholder="Enter key (kcet2026)">
         </div>
-        <div id="su-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid ID or security key. Use 'superuser' / 'kcet2025'.</div>
+        <div id="su-error" class="auth-error-msg" style="display:none; color:var(--pink); font-size:11px; margin-top:8px;">❌ Invalid ID or security key. Use 'admin' / 'kcet2026'.</div>
         <button class="auth-submit-btn" id="btn-submit-superuser">Access Master Control Console</button>
       </div>
     </div>

@@ -44,7 +44,7 @@ def migrate_database():
     cursor = conn.cursor()
 
     print("Dropping existing tables to refresh schema...")
-    cursor.execute("DROP TABLE IF EXISTS cutoffs, courses, colleges CASCADE;")
+    cursor.execute("DROP TABLE IF EXISTS cutoffs, courses, colleges, users, user_sessions, password_resets, audit_logs CASCADE;")
     conn.commit()
 
     # Load and execute the schema script

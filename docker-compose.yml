@@ -30,7 +30,7 @@ services:
       - DB_USER=postgres
       - DB_PASSWORD=postgres
       - PORTAL_USERNAME=admin
-      - PORTAL_PASSWORD=kcet2025
+      - PORTAL_PASSWORD=kcet2026
     depends_on:
       - db
 

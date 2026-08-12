@@ -94,12 +94,29 @@ CREATE INDEX IF NOT EXISTS idx_pg_cutoffs_lookup ON cutoffs(category, cutoff_ran
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username TEXT UNIQUE NOT NULL,
-    email TEXT,
-    password TEXT,
+    email TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL, -- holds salt:hash
     role TEXT NOT NULL, -- 'student', 'counsellor', 'institution', 'authority', 'superuser'
     rank INTEGER,
     category TEXT,
     region TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS user_sessions (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    session_token TEXT UNIQUE NOT NULL,
+    expires_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS password_resets (
+    id SERIAL PRIMARY KEY,
+    email TEXT NOT NULL,
+    token TEXT NOT NULL,
+    expires_at TIMESTAMP NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
