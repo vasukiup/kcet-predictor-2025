@@ -175,10 +175,13 @@ async function loadYearData(year) {
 
     // Re-calculate statistics dynamically to ensure accuracy across dashboards/summary cards
     let totalKea = 0;
+    let totalIntake = 0;
     allData.colleges.forEach(col => {
-      totalKea += col.total_kea_seats;
+      totalKea += col.total_kea_seats || 0;
+      totalIntake += col.total_intake || 0;
     });
     allData.stats.total_kea_seats = totalKea;
+    allData.stats.total_seats = totalIntake;
 
     // Re-calculate by_annexure KEA seats
     if (allData.stats && allData.stats.by_annexure) {
@@ -251,6 +254,8 @@ function triggerYoYStatsLoad(activeYear) {
             total_kea_seats: collegesData.total_seats
           }
         };
+        let totalKea = 0;
+        let totalIntake = 0;
         data.colleges.forEach(col => {
           let colKea = 0;
           col.courses.forEach(c => {
@@ -263,7 +268,11 @@ function triggerYoYStatsLoad(activeYear) {
           if (!col.total_kea_seats) {
             col.total_kea_seats = colKea;
           }
+          totalKea += col.total_kea_seats;
+          totalIntake += col.total_intake || 0;
         });
+        data.stats.total_kea_seats = totalKea;
+        data.stats.total_seats = totalIntake;
 
         if (year === '2026') cache2026 = data;
         else if (year === '2024') cache2024 = data;
