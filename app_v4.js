@@ -3534,7 +3534,7 @@ function renderSunburstChart() {
     sec.addEventListener('mouseleave', () => {
       // Restore opacities
       sectors1.forEach(s => {
-        const el = wrap.querySelector(`#${s.id}`);
+        const el = document.getElementById(s.id);
         if (el) el.style.opacity = '0.9';
       });
       sectors2.forEach((s, idx) => {
@@ -3816,7 +3816,7 @@ function renderSankeyChart() {
 
 function polarToCart(cx, cy, r, angle) {
   const rad = (angle * Math.PI) / 180;
-  return { x: cx + r * Math.cos(rad), y: cx + r * Math.sin(rad) };
+  return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
 }
 
 function renderDistrictBarChart() {
