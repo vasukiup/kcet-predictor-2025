@@ -212,14 +212,16 @@ def migrate_database():
                         for cat, rank in cutoff_dict.items():
                             if rank is not None:
                                 try:
-                                    rank_clean = re.sub(r'[^\d]', '', str(rank))
-                                    if rank_clean:
-                                        rank_int = int(rank_clean)
-                                        cursor.execute("""
-                                            INSERT INTO cutoffs (course_id, round, category, cutoff_rank, year)
-                                            VALUES (%s, %s, %s, %s, %s)
-                                        """, (course_id, rd, cat, rank_int, year))
-                                        cutoff_count += 1
+                                    rank_str = str(rank).strip().replace(',', '')
+                                    if rank_str:
+                                        match = re.match(r'^\d+(?:\.\d+)?', rank_str)
+                                        if match:
+                                            rank_int = int(float(match.group(0)))
+                                            cursor.execute("""
+                                                INSERT INTO cutoffs (course_id, round, category, cutoff_rank, year)
+                                                VALUES (%s, %s, %s, %s, %s)
+                                            """, (course_id, rd, cat, rank_int, year))
+                                            cutoff_count += 1
                                 except ValueError:
                                     pass
 
