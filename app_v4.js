@@ -5378,6 +5378,22 @@ function bindEvents() {
     });
   });
 
+  // Year Selector
+  const yearSelect = document.getElementById('year-select');
+  if (yearSelect) {
+    yearSelect.addEventListener('change', async (e) => {
+      const selectedYear = e.target.value;
+      const activeAnn = filters.annexure || 'all';
+      displayCount = 30;
+      await loadYearData(selectedYear);
+      filters.annexure = activeAnn;
+      document.querySelectorAll('.chip').forEach(c => {
+        c.classList.toggle('active', c.dataset.annexure === activeAnn);
+      });
+      applyFilters();
+    });
+  }
+
   // Search
   const searchInput = document.getElementById('search-input');
   let searchTimeout;
