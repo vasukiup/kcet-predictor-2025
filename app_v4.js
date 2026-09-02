@@ -140,23 +140,49 @@ let currentSessionId = '';
 let superuserPerspective = 'student'; // 'student', 'institution', 'authority', 'counsellor'
 let superuserGroup = 'rvgroup';
 
+let currentYear = '2026';
+
 // ─────────────────────────────
 // Boot
 // ─────────────────────────────
 async function loadYearData(year) {
+  const strYear = String(year);
+  currentYear = strYear;
+
+  // Sync year select dropdowns
+  const ys = document.getElementById('year-select');
+  if (ys && ys.value !== strYear) ys.value = strYear;
+  const dys = document.getElementById('download-year-select');
+  if (dys && dys.value !== strYear) dys.value = strYear;
+
+  // Instant cache load check
+  if (strYear === '2026' && cache2026) {
+    allData = cache2026;
+    renderLoadedYear(strYear);
+    return;
+  } else if (strYear === '2025' && cache2025) {
+    allData = cache2025;
+    renderLoadedYear(strYear);
+    return;
+  } else if (strYear === '2024' && cache2024) {
+    allData = cache2024;
+    renderLoadedYear(strYear);
+    return;
+  }
+
   try {
     let filtersData = null;
     let collegesData = null;
 
     try {
-      const resFilters = await fetch(`/api/filters?year=${year}`);
+      const resFilters = await fetch(`/api/filters?year=${strYear}`);
       if (resFilters.ok) {
         filtersData = await resFilters.json();
       } else if (resFilters.status === 401) {
         return;
       }
 
-      const resColleges = await fetch(`/api/colleges?year=${year}&limit=1000`);
+      const resColleges = await fetch(`/api/colleges?year=${strYear}&limit=1000`);
       if (resColleges.ok) {
         collegesData = await resColleges.json();
       } else if (resColleges.status === 401) {
@@ -168,7 +194,7 @@ async function loadYearData(year) {
 
     // Local static JSON fallback if backend API is offline or unreachable
     if (!filtersData || !filtersData.courses || !collegesData || !collegesData.colleges) {
-      const jsonFileName = year === '2026' ? 'seat_matrix_data_2026.json' : (year === '2024' ? 'seat_matrix_data_2024.json' : 'seat_matrix_data.json');
+      const jsonFileName = strYear === '2026' ? 'seat_matrix_data_2026.json' : (strYear === '2024' ? 'seat_matrix_data_2024.json' : 'seat_matrix_data.json');
       try {
         const staticRes = await fetch(jsonFileName);
         if (staticRes.ok) {
@@ -208,7 +234,7 @@ async function loadYearData(year) {
     }
 
     allData = {
-      year: year,
+      year: strYear,
       colleges: collegesData.colleges,
       all_courses: filtersData.courses,
       districts: filtersData.districts,
@@ -270,37 +296,11 @@ async function loadYearData(year) {
     }
 
     // Cache the loaded year data
-    if (year === '2024') cache2024 = allData;
-    else if (year === '2026') cache2026 = allData;
+    if (strYear === '2024') cache2024 = allData;
+    else if (strYear === '2026') cache2026 = allData;
     else cache2025 = allData;
 
-    populateFilters();
-    updateHeaderStats();
-    applyFilters();
-    renderCourseTable();
-    renderStats();
-    renderTotals('ALL');
-    if (typeof runPredictor === 'function') runPredictor();
-    if (typeof renderCompareTable === 'function') renderCompareTable();
-    updateDownloadDropdown(year);
-
-    // Update document subtitle
-    const subtitleEl = document.getElementById('brand-subtitle');
-    if (subtitleEl) {
-      subtitleEl.textContent = 'Engineering Admissions';
-    }
-
-    // Update document title dynamically
-    document.title = `Karnataka Engineering Seat Matrix ${year} | Explore Colleges & Seats`;
-
-    // Update predictor tab title dynamically
-    const predTitleEl = document.getElementById('predictor-title');
-    if (predTitleEl) {
-      predTitleEl.textContent = `🔮 KCET ${year} College & Course Predictor`;
-    }
-
-    // Load and render YoY comparison asynchronously
-    triggerYoYStatsLoad(year);
+    renderLoadedYear(strYear);
 
   } catch (e) {
     console.error('Failed to load data:', e);
@@ -308,6 +308,28 @@ async function loadYearData(year) {
       `<div class="empty-state"><div class="empty-state-icon">⚠️</div>
        <div class="empty-state-text">Could not load KCET Portal APIs.<br>Make sure the backend service is running.</div></div>`;
   }
+}
+
+function renderLoadedYear(year) {
+  populateFilters();
+  updateHeaderStats();
+  applyFilters();
+  renderCourseTable();
+  renderStats();
+  renderTotals('ALL');
+  if (typeof runPredictor === 'function') runPredictor();
+  if (typeof renderCompareTable === 'function') renderCompareTable();
+  updateDownloadDropdown(year);
+
+  const subtitleEl = document.getElementById('brand-subtitle');
+  if (subtitleEl) subtitleEl.textContent = 'Engineering Admissions';
+
+  document.title = `Karnataka Engineering Seat Matrix ${year} | Explore Colleges & Seats`;
+
+  const predTitleEl = document.getElementById('predictor-title');
+  if (predTitleEl) predTitleEl.textContent = `🔮 KCET ${year} College & Course Predictor`;
+
+  triggerYoYStatsLoad(year);
 }
 
 function triggerYoYStatsLoad(activeYear) {
