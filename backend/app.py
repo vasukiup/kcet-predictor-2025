@@ -652,10 +652,15 @@ async def get_colleges(
                 for cr in col["courses"]:
                     crid = cr["id"]
                     cutoffs = cutoffs_by_course.get(crid, [])
-                    cr["mock_round1_cutoff"] = {}
-                    cr["round1_cutoff"] = {}
-                    cr["round2_cutoff"] = {}
-                    cr["round3_cutoff"] = {}
+                    existing_r1 = cr.get("round1_cutoff") if isinstance(cr.get("round1_cutoff"), dict) else {}
+                    existing_r2 = cr.get("round2_cutoff") if isinstance(cr.get("round2_cutoff"), dict) else {}
+                    existing_r3 = cr.get("round3_cutoff") if isinstance(cr.get("round3_cutoff"), dict) else {}
+
+                    cr["mock_round1_cutoff"] = cr.get("mock_round1_cutoff") if isinstance(cr.get("mock_round1_cutoff"), dict) else {}
+                    cr["round1_cutoff"] = existing_r1
+                    cr["round2_cutoff"] = existing_r2
+                    cr["round3_cutoff"] = existing_r3
+
                     for cut in cutoffs:
                         r = cut["round"]
                         cat = cut["category"]
