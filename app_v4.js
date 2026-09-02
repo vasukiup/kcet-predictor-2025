@@ -145,21 +145,65 @@ let superuserGroup = 'rvgroup';
 // ─────────────────────────────
 async function loadYearData(year) {
   try {
-    const resFilters = await fetch(`/api/filters?year=${year}`);
-    if (!resFilters.ok) {
-      if (resFilters.status === 401) return;
-      throw new Error(`Filters API error (${resFilters.status})`);
-    }
-    const filtersData = await resFilters.json();
+    let filtersData = null;
+    let collegesData = null;
 
-    const resColleges = await fetch(`/api/colleges?year=${year}&limit=1000`);
-    if (!resColleges.ok) {
-      if (resColleges.status === 401) return;
-      throw new Error(`Colleges API error (${resColleges.status})`);
+    try {
+      const resFilters = await fetch(`/api/filters?year=${year}`);
+      if (resFilters.ok) {
+        filtersData = await resFilters.json();
+      } else if (resFilters.status === 401) {
+        return;
+      }
+
+      const resColleges = await fetch(`/api/colleges?year=${year}&limit=1000`);
+      if (resColleges.ok) {
+        collegesData = await resColleges.json();
+      } else if (resColleges.status === 401) {
+        return;
+      }
+    } catch (netErr) {
+      console.warn('API network error, attempting static JSON fallback:', netErr);
     }
-    const collegesData = await resColleges.json();
+
+    // Local static JSON fallback if backend API is offline or unreachable
+    if (!filtersData || !filtersData.courses || !collegesData || !collegesData.colleges) {
+      const jsonFileName = year === '2026' ? 'seat_matrix_data_2026.json' : (year === '2024' ? 'seat_matrix_data_2024.json' : 'seat_matrix_data.json');
+      try {
+        const staticRes = await fetch(jsonFileName);
+        if (staticRes.ok) {
+          const rawData = await staticRes.json();
+          const collegesList = rawData.colleges || rawData || [];
+          collegesData = {
+            colleges: collegesList,
+            total_count: collegesList.length,
+            total_seats: collegesList.reduce((s, col) => s + (col.total_intake || 0), 0)
+          };
+          const courseSet = new Set();
+          const distSet = new Set();
+          const typeSet = new Set();
+          collegesList.forEach(col => {
+            if (col.district) distSet.add(col.district);
+            if (col.college_type) typeSet.add(col.college_type);
+            (col.courses || []).forEach(c => {
+              if (c.course_name) courseSet.add(c.course_name);
+            });
+          });
+          filtersData = {
+            courses: Array.from(courseSet).sort(),
+            districts: Array.from(distSet).sort(),
+            types: Array.from(typeSet).sort()
+          };
+        }
+      } catch (staticErr) {
+        console.error('Failed to load static JSON fallback:', staticErr);
+      }
+    }
 
     if (!filtersData || !filtersData.courses || !collegesData || !collegesData.colleges) {
+      document.getElementById('colleges-grid').innerHTML =
+        `<div class="empty-state"><div class="empty-state-icon">⚠️</div>
+         <div class="empty-state-text">Could not load KCET Portal data.<br>Please launch the local server or refresh the page.</div></div>`;
       return;
     }
 
@@ -281,7 +325,18 @@ function triggerYoYStatsLoad(activeYear) {
         if (!r.ok) return null;
         return r.json();
       })
-      .then(collegesData => {
+      .then(async collegesData => {
+        if (!collegesData || !collegesData.colleges) {
+          const jsonFileName = year === '2026' ? 'seat_matrix_data_2026.json' : (year === '2024' ? 'seat_matrix_data_2024.json' : 'seat_matrix_data.json');
+          try {
+            const staticRes = await fetch(jsonFileName);
+            if (staticRes.ok) {
+              const rawData = await staticRes.json();
+              const list = rawData.colleges || rawData || [];
+              collegesData = { colleges: list, total_count: list.length, total_seats: list.reduce((s, c) => s + (c.total_intake || 0), 0) };
+            }
+          } catch(e) {}
+        }
         if (!collegesData || !collegesData.colleges) return;
         const data = {
           year: year,
