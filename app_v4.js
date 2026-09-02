@@ -5,8 +5,17 @@
    ======================================================= */
 
 // Global fetch interceptor for Authentication and 401 handler
+const API_BASE_URL = (window.location.protocol === 'file:' || !window.location.port) 
+  ? 'http://127.0.0.1:8000' 
+  : '';
+
 const originalFetch = window.fetch;
 window.fetch = async function (url, options = {}) {
+  let targetUrl = url;
+  if (typeof url === 'string' && url.startsWith('/api/')) {
+    targetUrl = API_BASE_URL + url;
+  }
+
   const token = localStorage.getItem('kcet_token');
   if (token) {
     options.headers = options.headers || {};
@@ -17,9 +26,9 @@ window.fetch = async function (url, options = {}) {
     }
   }
   
-  const response = await originalFetch(url, options);
+  const response = await originalFetch(targetUrl, options);
   
-  if (response.status === 401 && !url.includes('/api/auth/')) {
+  if (response.status === 401 && typeof url === 'string' && !url.includes('/api/auth/')) {
     localStorage.removeItem('kcet_user');
     localStorage.removeItem('kcet_token');
     const overlay = document.getElementById('auth-overlay');

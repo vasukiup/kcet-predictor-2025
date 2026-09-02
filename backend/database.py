@@ -4,7 +4,7 @@
 # Application: KEA Seat Matrix & Prediction Portal
 # =======================================================
 """
-Database Connection Utility with PostgreSQL pooling and automatic SQLite (kcet.db) fallback.
+Database Connection Utility with PostgreSQL pooling and lock-free SQLite (kcet.db WAL mode) fallback.
 """
 import os
 import sys
@@ -154,7 +154,6 @@ class SQLiteDictCursorAdapter:
         self.cursor.row_factory = sqlite3.Row
 
     def execute(self, query, vars=None):
-        # Convert PostgreSQL RETURNING and %s placeholders for SQLite
         sqlite_query = query
         has_returning = "RETURNING id" in sqlite_query
         if has_returning:
@@ -187,11 +186,21 @@ class SQLiteDictCursorAdapter:
     def __getattr__(self, name):
         return getattr(self.cursor, name)
 
+def _get_sqlite_connection():
+    sqlite_path = os.path.join("backend", "kcet.db")
+    conn = sqlite3.connect(sqlite_path, timeout=30.0, check_same_thread=False)
+    try:
+        conn.execute("PRAGMA journal_mode=WAL;")
+        conn.execute("PRAGMA busy_timeout=30000;")
+    except Exception:
+        pass
+    return conn
+
 @contextmanager
 def get_db_cursor():
     """
     Context manager yielding a database cursor.
-    Uses PostgreSQL connection pool if available; falls back to SQLite (backend/kcet.db) seamlessly.
+    Uses PostgreSQL connection pool if available; falls back to WAL-mode SQLite (backend/kcet.db) seamlessly.
     """
     global connection_pool
     pool = init_connection_pool()
@@ -216,9 +225,8 @@ def get_db_cursor():
                     pass
                 pg_conn = None
             connection_pool = None
-            # Fallback to SQLite on network drop
-            sqlite_path = os.path.join("backend", "kcet.db")
-            with sqlite3.connect(sqlite_path) as s_conn:
+            # Fallback to WAL SQLite on network drop
+            with _get_sqlite_connection() as s_conn:
                 s_cursor = SQLiteDictCursorAdapter(s_conn)
                 yield s_cursor
                 s_conn.commit()
@@ -236,9 +244,8 @@ def get_db_cursor():
                 except Exception:
                     pass
     else:
-        # SQLite Fallback
-        sqlite_path = os.path.join("backend", "kcet.db")
-        with sqlite3.connect(sqlite_path) as s_conn:
+        # Lock-free SQLite Fallback
+        with _get_sqlite_connection() as s_conn:
             s_cursor = SQLiteDictCursorAdapter(s_conn)
             try:
                 yield s_cursor
