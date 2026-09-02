@@ -158,6 +158,13 @@ class SQLiteDictCursorAdapter:
         has_returning = "RETURNING id" in sqlite_query
         if has_returning:
             sqlite_query = sqlite_query.replace("RETURNING id", "")
+
+        # Dialect transformations for SQLite compatibility
+        sqlite_query = sqlite_query.replace(" ILIKE ", " LIKE ")
+        sqlite_query = sqlite_query.replace("ilike ", "LIKE ")
+        sqlite_query = sqlite_query.replace("TO_CHAR(timestamp, 'YYYY-MM-DD HH24:MI:SS')", "strftime('%Y-%m-%d %H:%M:%S', timestamp)")
+        sqlite_query = sqlite_query.replace("CAST(NULLIF(REGEXP_REPLACE(col.placements_avg_package, '[^0-9.]', '', 'g'), '') AS NUMERIC)", "CAST(col.placements_avg_package AS NUMERIC)")
+        sqlite_query = sqlite_query.replace("CAST(NULLIF(REGEXP_REPLACE(col.hostel_fees, '[^0-9]', '', 'g'), '') AS INTEGER)", "CAST(col.hostel_fees AS INTEGER)")
             
         sqlite_query = sqlite_query.replace("%s", "?")
         if vars:

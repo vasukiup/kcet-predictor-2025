@@ -524,7 +524,7 @@ async def get_colleges(
             params = [year]
 
             if q:
-                conditions.append("(col.college_name ILIKE %s OR col.address ILIKE %s OR col.kea_code ILIKE %s)")
+                conditions.append("(LOWER(col.college_name) LIKE LOWER(%s) OR LOWER(col.address) LIKE LOWER(%s) OR LOWER(col.kea_code) LIKE LOWER(%s))")
                 q_param = f"%{q}%"
                 params.extend([q_param, q_param, q_param])
 
@@ -538,13 +538,13 @@ async def get_colleges(
                 conditions.append("col.total_intake >= %s")
                 params.append(min_seats)
             if affiliation:
-                conditions.append("col.affiliation ILIKE %s")
+                conditions.append("LOWER(col.affiliation) LIKE LOWER(%s)")
                 params.append(f"%{affiliation}%")
             if naac:
-                conditions.append("col.naac_grade ILIKE %s")
+                conditions.append("LOWER(col.naac_grade) LIKE LOWER(%s)")
                 params.append(f"%{naac}%")
             if nba:
-                conditions.append("col.nba_accredited ILIKE %s")
+                conditions.append("LOWER(col.nba_accredited) LIKE LOWER(%s)")
                 params.append(f"%{nba}%")
 
             if min_salary > 0:
