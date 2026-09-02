@@ -2449,11 +2449,27 @@ function matchesBranch(courseName, branchCode) {
   return patterns.some(p => lower.includes(p));
 }
 
+function getCutoffObj(course, roundName) {
+  if (!course) return {};
+  let val = course[roundName];
+  if (!val) return {};
+  if (typeof val === 'string') {
+    try { return JSON.parse(val); } catch(e) { return {}; }
+  }
+  if (typeof val === 'object') return val;
+  return {};
+}
+
 function getCourseCutoff(course, category) {
-  const r1 = course.round1_cutoff ? parseInt(course.round1_cutoff[category]) : NaN;
-  const r2 = course.round2_cutoff ? parseInt(course.round2_cutoff[category]) : NaN;
-  const r3 = course.round3_cutoff ? parseInt(course.round3_cutoff[category]) : NaN;
-  return r3 || r2 || r1 || NaN;
+  const cat = category || 'GM';
+  const r1Obj = getCutoffObj(course, 'round1_cutoff');
+  const r2Obj = getCutoffObj(course, 'round2_cutoff');
+  const r3Obj = getCutoffObj(course, 'round3_cutoff');
+
+  const r1 = r1Obj[cat] ? parseInt(r1Obj[cat]) : NaN;
+  const r2 = r2Obj[cat] ? parseInt(r2Obj[cat]) : NaN;
+  const r3 = r3Obj[cat] ? parseInt(r3Obj[cat]) : NaN;
+  return r2 || r1 || r3 || NaN;
 }
 
 function generateSeedPriorities() {
@@ -3231,7 +3247,9 @@ function renderCollegeCard(college, index) {
 
   const r2CutoffValues = (college.courses || [])
     .map(c => {
-      const cut = (c.round2_cutoff || c.round1_cutoff || {})['GM'];
+      const r2Obj = getCutoffObj(c, 'round2_cutoff');
+      const r1Obj = getCutoffObj(c, 'round1_cutoff');
+      const cut = r2Obj['GM'] || r1Obj['GM'];
       return parseInt(cut);
     })
     .filter(n => !isNaN(n) && n > 0)
@@ -4300,15 +4318,49 @@ function openModal(college) {
                 </tbody>
               </table>
 
-              ${c.round1_cutoff ? `
-                <div style="font-size:11px; font-weight:600; color:var(--text-muted); margin-bottom:6px;">Round 1 Cut-off Ranks by Category:</div>
-                <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap:6px; font-size:11px;">
-                  ${Object.entries(c.round1_cutoff).map(([catKey, val]) => `
-                    <div style="background:var(--bg-card); padding:5px 8px; border-radius:6px; border:1px solid var(--border); display:flex; justify-content:space-between;">
-                      <span style="font-weight:600;">${catKey}:</span>
-                      <span style="color:var(--blue); font-weight:700;">${parseInt(val).toLocaleString()}</span>
+              ${(c.round2_cutoff || c.round1_cutoff || c.round3_cutoff) ? `
+                <div style="margin-top:10px;">
+                  ${c.round2_cutoff ? `
+                    <div style="font-size:11px; font-weight:700; color:var(--purple); margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+                      <span>🎯</span> 2026 Round 2 Cut-off Ranks by Category:
                     </div>
-                  `).join('')}
+                    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap:6px; font-size:11px; margin-bottom:12px;">
+                      ${Object.entries(getCutoffObj(c, 'round2_cutoff')).map(([catKey, val]) => `
+                        <div style="background:var(--bg-card); padding:5px 8px; border-radius:6px; border:1px solid rgba(168,85,247,0.25); display:flex; justify-content:space-between;">
+                          <span style="font-weight:600; color:var(--text-muted);">${catKey}:</span>
+                          <span style="color:var(--purple); font-weight:700;">${parseInt(val).toLocaleString()}</span>
+                        </div>
+                      `).join('')}
+                    </div>
+                  ` : ''}
+
+                  ${c.round1_cutoff ? `
+                    <div style="font-size:11px; font-weight:700; color:var(--blue); margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+                      <span>📋</span> Round 1 Cut-off Ranks by Category:
+                    </div>
+                    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap:6px; font-size:11px; margin-bottom:12px;">
+                      ${Object.entries(getCutoffObj(c, 'round1_cutoff')).map(([catKey, val]) => `
+                        <div style="background:var(--bg-card); padding:5px 8px; border-radius:6px; border:1px solid rgba(59,130,246,0.25); display:flex; justify-content:space-between;">
+                          <span style="font-weight:600; color:var(--text-muted);">${catKey}:</span>
+                          <span style="color:var(--blue); font-weight:700;">${parseInt(val).toLocaleString()}</span>
+                        </div>
+                      `).join('')}
+                    </div>
+                  ` : ''}
+
+                  ${c.round3_cutoff ? `
+                    <div style="font-size:11px; font-weight:700; color:var(--pink); margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+                      <span>🏁</span> Round 3 Cut-off Ranks by Category:
+                    </div>
+                    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap:6px; font-size:11px;">
+                      ${Object.entries(getCutoffObj(c, 'round3_cutoff')).map(([catKey, val]) => `
+                        <div style="background:var(--bg-card); padding:5px 8px; border-radius:6px; border:1px solid rgba(236,72,153,0.25); display:flex; justify-content:space-between;">
+                          <span style="font-weight:600; color:var(--text-muted);">${catKey}:</span>
+                          <span style="color:var(--pink); font-weight:700;">${parseInt(val).toLocaleString()}</span>
+                        </div>
+                      `).join('')}
+                    </div>
+                  ` : ''}
                 </div>
               ` : ''}
             </div>
