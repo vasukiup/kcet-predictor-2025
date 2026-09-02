@@ -137,10 +137,22 @@ let superuserGroup = 'rvgroup';
 async function loadYearData(year) {
   try {
     const resFilters = await fetch(`/api/filters?year=${year}`);
+    if (!resFilters.ok) {
+      if (resFilters.status === 401) return;
+      throw new Error(`Filters API error (${resFilters.status})`);
+    }
     const filtersData = await resFilters.json();
 
     const resColleges = await fetch(`/api/colleges?year=${year}&limit=1000`);
+    if (!resColleges.ok) {
+      if (resColleges.status === 401) return;
+      throw new Error(`Colleges API error (${resColleges.status})`);
+    }
     const collegesData = await resColleges.json();
+
+    if (!filtersData || !filtersData.courses || !collegesData || !collegesData.colleges) {
+      return;
+    }
 
     allData = {
       year: year,
@@ -253,8 +265,12 @@ function triggerYoYStatsLoad(activeYear) {
     if (year === '2024' && cache2024) return callback();
 
     fetch(`/api/colleges?year=${year}&limit=1000`)
-      .then(r => r.json())
+      .then(r => {
+        if (!r.ok) return null;
+        return r.json();
+      })
       .then(collegesData => {
+        if (!collegesData || !collegesData.colleges) return;
         const data = {
           year: year,
           colleges: collegesData.colleges,
