@@ -602,11 +602,21 @@ async def get_colleges(
                     id, college_id, course_name, total_intake, total_kea_seats, snq_5pct,
                     kea_ph, kea_spl, kea_hk, kea_rk, kea_tot, cat2_seats, cat3_seats,
                     over_above_5pct, sports, ncc, sct_guides, defence, k_defence, ex_defence, capf, ai, xcapf, tot_special_seats,
-                    placements_min_package, placements_avg_package, placements_max_package, placements_rate, placements_industry, placements_recruiters
+                    placements_min_package, placements_avg_package, placements_max_package, placements_rate, placements_industry, placements_recruiters,
+                    round1_cutoff, round2_cutoff, round3_cutoff
                 FROM courses 
                 WHERE college_id IN ({placeholders}) AND year = %s
             """, tuple(college_ids + [year]))
             all_courses = cur.fetchall()
+
+            # Parse JSON cutoff strings if SQLite returns text
+            for cr in all_courses:
+                for cutoff_field in ["round1_cutoff", "round2_cutoff", "round3_cutoff"]:
+                    if isinstance(cr.get(cutoff_field), str) and cr[cutoff_field]:
+                        try:
+                            cr[cutoff_field] = json.loads(cr[cutoff_field])
+                        except Exception:
+                            pass
 
             course_ids = [cr["id"] for cr in all_courses]
             
