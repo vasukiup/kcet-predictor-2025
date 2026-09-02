@@ -901,42 +901,20 @@ async function init() {
   if (yearSelect) {
     yearSelect.addEventListener('change', async (e) => {
       const selectedYear = e.target.value;
-      
-      // Reset sidebar filters first
-      filters = { search: '', annexure: 'all', district: '', course: '', minSeats: 0 };
-      const searchInput = document.getElementById('search-input');
-      if (searchInput) searchInput.value = '';
-      const distFilter = document.getElementById('district-filter');
-      if (distFilter) distFilter.value = '';
-      const courseFilter = document.getElementById('course-filter');
-      if (courseFilter) courseFilter.value = '';
-      const affFilter = document.getElementById('affiliation-filter');
-      if (affFilter) affFilter.value = '';
-      const naacFilter = document.getElementById('naac-filter');
-      if (naacFilter) naacFilter.value = '';
-      const nbaFilter = document.getElementById('nba-filter');
-      if (nbaFilter) nbaFilter.value = '';
-      const salarySlider = document.getElementById('min-salary');
-      const salarySliderVal = document.getElementById('min-salary-val');
-      if (salarySlider && salarySliderVal) {
-        salarySlider.value = 0;
-        salarySliderVal.textContent = '0 LPA+';
-      }
-      const hostelSlider = document.getElementById('max-hostel');
-      const hostelSliderVal = document.getElementById('max-hostel-val');
-      if (hostelSlider && hostelSliderVal) {
-        hostelSlider.value = 150000;
-        hostelSliderVal.textContent = 'Any Fee';
-      }
-      const slider = document.getElementById('min-seats');
-      if (slider) slider.value = 0;
-      const sliderVal = document.getElementById('min-seats-val');
-      if (sliderVal) sliderVal.textContent = '0+';
-      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-      const allChip = document.querySelector('[data-annexure="all"]');
-      if (allChip) allChip.classList.add('active');
+      const activeAnn = filters.annexure || 'all';
 
       await loadYearData(selectedYear);
+
+      // Re-apply preserved active chip selection if valid
+      filters.annexure = activeAnn;
+      document.querySelectorAll('.chip').forEach(c => {
+        if (c.dataset.annexure === activeAnn) {
+          c.classList.add('active');
+        } else {
+          c.classList.remove('active');
+        }
+      });
+      applyFilters();
     });
   }
 }
