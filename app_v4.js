@@ -10,7 +10,11 @@ window.fetch = async function (url, options = {}) {
   const token = localStorage.getItem('kcet_token');
   if (token) {
     options.headers = options.headers || {};
-    options.headers['X-Session-Token'] = token;
+    if (options.headers instanceof Headers) {
+      options.headers.set('X-Session-Token', token);
+    } else {
+      options.headers['X-Session-Token'] = token;
+    }
   }
   
   const response = await originalFetch(url, options);
@@ -24,6 +28,12 @@ window.fetch = async function (url, options = {}) {
   
   return response;
 };
+
+function onAuthSuccess() {
+  applyUserRole();
+  const yearToLoad = (typeof currentYear !== 'undefined' && currentYear) ? currentYear : '2026';
+  loadYearData(yearToLoad);
+}
 
 const ANNEXURE_LABELS = {
   A: 'Government',
@@ -1222,7 +1232,7 @@ function initAuth() {
         localStorage.setItem('kcet_user', JSON.stringify(currentUser));
         localStorage.setItem('kcet_token', data.token);
         overlay.style.display = 'none';
-        applyUserRole();
+        onAuthSuccess();
       })
       .catch(err => {
         if (studentErrorEl) {
@@ -1250,7 +1260,7 @@ function initAuth() {
         localStorage.setItem('kcet_user', JSON.stringify(currentUser));
         localStorage.setItem('kcet_token', data.token);
         overlay.style.display = 'none';
-        applyUserRole();
+        onAuthSuccess();
       })
       .catch(err => {
         if (studentErrorEl) {
@@ -1287,7 +1297,7 @@ function initAuth() {
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
       localStorage.setItem('kcet_token', data.token);
       overlay.style.display = 'none';
-      applyUserRole();
+      onAuthSuccess();
     })
     .catch(err => {
       if (errorEl) {
@@ -1323,7 +1333,7 @@ function initAuth() {
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
       localStorage.setItem('kcet_token', data.token);
       overlay.style.display = 'none';
-      applyUserRole();
+      onAuthSuccess();
     })
     .catch(err => {
       if (errorEl) {
@@ -1379,7 +1389,7 @@ function initAuth() {
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
       localStorage.setItem('kcet_token', data.token);
       overlay.style.display = 'none';
-      applyUserRole();
+      onAuthSuccess();
     })
     .catch(err => {
       if (errorEl) {
@@ -1415,7 +1425,7 @@ function initAuth() {
       localStorage.setItem('kcet_user', JSON.stringify(currentUser));
       localStorage.setItem('kcet_token', data.token);
       overlay.style.display = 'none';
-      applyUserRole();
+      onAuthSuccess();
     })
     .catch(err => {
       if (errorEl) {
