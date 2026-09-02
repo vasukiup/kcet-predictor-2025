@@ -233,8 +233,11 @@ async function loadYearData(year) {
     populateFilters();
     updateHeaderStats();
     applyFilters();
+    renderCourseTable();
     renderStats();
     renderTotals('ALL');
+    if (typeof runPredictor === 'function') runPredictor();
+    if (typeof renderCompareTable === 'function') renderCompareTable();
     updateDownloadDropdown(year);
 
     // Update document subtitle
@@ -5465,13 +5468,21 @@ function bindEvents() {
         }
       });
       
-      if (currentTab === 'totals') {
+      if (currentTab === 'colleges') {
+        renderColleges();
+      } else if (currentTab === 'courses') {
+        renderCourseTable();
+      } else if (currentTab === 'totals') {
         const activeBtn = document.querySelector('.totals-ann-btn.active');
         const activeAnnFilter = activeBtn ? activeBtn.dataset.ann : 'ALL';
         renderTotals(activeAnnFilter);
       } else if (currentTab === 'stats') {
         renderStats();
         renderYoYStats();
+      } else if (currentTab === 'predictor') {
+        if (typeof runPredictor === 'function') runPredictor();
+      } else if (currentTab === 'compare') {
+        if (typeof renderCompareTable === 'function') renderCompareTable();
       } else if (currentTab === 'institution') {
         renderInstitutionDashboard();
       } else if (currentTab === 'authority') {
