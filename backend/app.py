@@ -576,11 +576,7 @@ async def get_colleges(
             col_query = f"""
                 SELECT DISTINCT 
                     col.id, col.college_number, col.kea_code, col.college_name, col.address,
-                    col.annexure, col.college_type, col.district, col.total_intake, col.total_kea_seats,
-                    col.established_year, col.nirf_rank, col.naac_grade, col.nba_accredited,
-                    col.placements_avg_package, col.placements_highest_package, col.placements_rate,
-                    col.hostel_fees, col.hostel_capacity, col.hostel_mess_included, col.campus_size,
-                    col.campus_majestic_dist_km, col.campus_nearest_transit
+                    col.annexure, col.college_type, col.district, col.total_intake, col.total_kea_seats
                 FROM colleges col
                 {join_clause}
                 {where_clause}
@@ -599,19 +595,23 @@ async def get_colleges(
 
             college_ids = [col["id"] for col in colleges]
             
-            # Fetch all courses for these colleges in one query
-            placeholders = ", ".join(["%s"] * len(college_ids))
-            cur.execute(f"""
-                SELECT 
-                    id, college_id, course_name, total_intake, total_kea_seats, snq_5pct,
-                    kea_ph, kea_spl, kea_hk, kea_rk, kea_tot, cat2_seats, cat3_seats,
-                    over_above_5pct, sports, ncc, sct_guides, defence, k_defence, ex_defence, capf, ai, xcapf, tot_special_seats,
-                    placements_min_package, placements_avg_package, placements_max_package, placements_rate, placements_industry, placements_recruiters,
-                    round1_cutoff, round2_cutoff, round3_cutoff
-                FROM courses 
-                WHERE college_id IN ({placeholders}) AND year = %s
-            """, tuple(college_ids + [year]))
-            all_courses = cur.fetchall()
+            # Fetch all courses for these colleges in chunks to stay under SQLite variable limits
+            all_courses = []
+            chunk_size = 300
+            for i in range(0, len(college_ids), chunk_size):
+                chunk = college_ids[i:i + chunk_size]
+                placeholders = ", ".join(["%s"] * len(chunk))
+                cur.execute(f"""
+                    SELECT 
+                        id, college_id, course_name, total_intake, total_kea_seats, snq_5pct,
+                        kea_ph, kea_spl, kea_hk, kea_rk, kea_tot, cat2_seats, cat3_seats,
+                        over_above_5pct, sports, ncc, sct_guides, defence, k_defence, ex_defence, capf, ai, xcapf, tot_special_seats,
+                        placements_min_package, placements_avg_package, placements_max_package, placements_rate, placements_industry, placements_recruiters,
+                        round1_cutoff, round2_cutoff, round3_cutoff
+                    FROM courses 
+                    WHERE college_id IN ({placeholders}) AND year = %s
+                """, tuple(chunk + [year]))
+                all_courses.extend(cur.fetchall())
 
             # Parse JSON cutoff strings if SQLite returns text
             for cr in all_courses:
@@ -632,22 +632,23 @@ async def get_colleges(
                     courses_by_college[cid] = []
                 courses_by_college[cid].append(cr)
 
-            # Fetch all cutoffs for these courses in one query
+            # Fetch all cutoffs for these courses in chunks
             cutoffs_by_course = {}
             if course_ids:
-                course_placeholders = ", ".join(["%s"] * len(course_ids))
-                cur.execute(f"""
-                    SELECT course_id, round, category, cutoff_rank 
-                    FROM cutoffs 
-                    WHERE course_id IN ({course_placeholders}) AND year = %s
-                """, tuple(course_ids + [year]))
-                all_cutoffs = cur.fetchall()
-                
-                for cut in all_cutoffs:
-                    crid = cut["course_id"]
-                    if crid not in cutoffs_by_course:
-                        cutoffs_by_course[crid] = []
-                    cutoffs_by_course[crid].append(cut)
+                for i in range(0, len(course_ids), chunk_size):
+                    chunk = course_ids[i:i + chunk_size]
+                    course_placeholders = ", ".join(["%s"] * len(chunk))
+                    cur.execute(f"""
+                        SELECT course_id, round, category, cutoff_rank 
+                        FROM cutoffs 
+                        WHERE course_id IN ({course_placeholders}) AND year = %s
+                    """, tuple(chunk + [year]))
+                    chunk_cutoffs = cur.fetchall()
+                    for cut in chunk_cutoffs:
+                        crid = cut["course_id"]
+                        if crid not in cutoffs_by_course:
+                            cutoffs_by_course[crid] = []
+                        cutoffs_by_course[crid].append(cut)
 
             # Nest them in python
             for col in colleges:
