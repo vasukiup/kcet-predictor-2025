@@ -2460,6 +2460,27 @@ function getCutoffObj(course, roundName) {
   return {};
 }
 
+function getCutoffVal(cutoffObj, category) {
+  if (!cutoffObj || typeof cutoffObj !== 'object') return null;
+  const cat = category || 'GM';
+  
+  if (cutoffObj[cat] !== undefined && cutoffObj[cat] !== null && cutoffObj[cat] !== '') {
+    return cutoffObj[cat];
+  }
+  
+  // Smart category alias resolution for PH, D, DK, XD
+  if (cat === 'PH' || cat === 'D' || cat === 'DK' || cat === 'XD') {
+    return cutoffObj['PH'] || cutoffObj['D'] || cutoffObj['DK'] || cutoffObj['XD'] || cutoffObj['S1G'] || null;
+  }
+  
+  // Fallback for Special Categories
+  if (cat.startsWith('S1') || cat.startsWith('S2') || cat.startsWith('S3') || cat.startsWith('S4')) {
+    return cutoffObj[cat] || cutoffObj[cat.replace(/H|K|R/g, 'G')] || null;
+  }
+  
+  return null;
+}
+
 function getCourseCutoff(course, category) {
   const cat = category || 'GM';
   const r1Obj = getCutoffObj(course, 'round1_cutoff');
@@ -4162,15 +4183,15 @@ function openModal(college, selectedCatOverride) {
     const rkCol = hasRk ? `<td class="td-rk">${parseInt(c.kea_rk) || 0}</td>` : '';
     
     const r1_cutoffs = getCutoffObj(c, 'round1_cutoff');
-    const r1_cutoff_val = r1_cutoffs[defaultCat];
+    const r1_cutoff_val = getCutoffVal(r1_cutoffs, defaultCat);
     let initialCutoffR1 = r1_cutoff_val ? parseInt(r1_cutoff_val).toLocaleString() : '—';
 
     const r2_cutoffs = getCutoffObj(c, 'round2_cutoff');
-    const r2_cutoff_val = r2_cutoffs[defaultCat];
+    const r2_cutoff_val = getCutoffVal(r2_cutoffs, defaultCat);
     let initialCutoffR2 = r2_cutoff_val ? parseInt(r2_cutoff_val).toLocaleString() : '—';
 
     const r3_cutoffs = getCutoffObj(c, 'round3_cutoff');
-    const r3_cutoff_val = r3_cutoffs[defaultCat];
+    const r3_cutoff_val = getCutoffVal(r3_cutoffs, defaultCat);
     let initialCutoffR3 = r3_cutoff_val ? parseInt(r3_cutoff_val).toLocaleString() : '—';
 
     // YoY Cutoff comparison logic
