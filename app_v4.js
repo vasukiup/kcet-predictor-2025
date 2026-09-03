@@ -3251,24 +3251,7 @@ function renderCollegeCard(college, index) {
     .filter(n => !isNaN(n) && n > 0)
     .sort((a, b) => a - b);
 
-  const r2BadgeText = r2CutoffValues.length > 0 ? `🎯 2026 R2 Cutoff (GM): Top ${r2CutoffValues[0].toLocaleString()}` : '';
-  const r2Badge = r2BadgeText ? `<span class="meta-badge" style="background:rgba(168,85,247,0.12); color:#c084fc; padding:3px 8px; border-radius:6px; font-size:11px; font-weight:700; display:inline-flex; align-items:center; gap:3px; border:1px solid rgba(168,85,247,0.3); font-family:var(--font-display);">${r2BadgeText}</span>` : '';
-
-  return `
-    <div class="college-card" style="animation-delay:${Math.min(index * 0.03, 0.3)}s" data-index="${index}" data-kea-code="${college.kea_code || ''}" data-college-number="${college.college_number}">
-      <div class="card-top">
-        <div class="card-badge badge-${ann}">${ANNEXURE_ICONS[ann]}</div>
-        <div class="card-info">
-          <div class="card-name">${college.kea_code ? `<span class="kea-code-badge">${college.kea_code}</span> ` : ''}${escHtml(college.college_name)}</div>
-          <div class="card-location">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-               <circle cx="12" cy="9" r="2.5"/>
-            </svg>
-            ${escHtml(college.district || 'Karnataka')}
-          </div>
           <div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:6px;">
-            ${r2Badge}
             ${estBadg}
             ${affBadg}
             ${nirfBadg}
