@@ -55,7 +55,11 @@ class UnifiedAuthMiddleware(BaseHTTPMiddleware):
             "/api/auth/register", 
             "/api/auth/login", 
             "/api/auth/forgot-password", 
-            "/api/auth/reset-password"
+            "/api/auth/reset-password",
+            "/api/colleges",
+            "/api/filters",
+            "/api/stats",
+            "/api/predict"
         ]
         if any(path.startswith(prefix) for prefix in public_prefixes):
             return await call_next(request)
