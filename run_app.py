@@ -18,19 +18,19 @@ def main():
     project_root = os.path.dirname(os.path.abspath(__file__))
     os.chdir(project_root)
     
-    url = "http://127.0.0.1:8000"
+    url = "http://127.0.0.1:8050"
     print(f"\n[1/2] Opening browser at {url}...")
     webbrowser.open(url)
     
-    print("\n[2/2] Starting backend FastAPI server on http://127.0.0.1:8000...")
+    print("\n[2/2] Starting backend FastAPI server on http://127.0.0.1:8050...")
     print("Press Ctrl+C in this window at any time to stop the server.\n")
     
     try:
         import uvicorn
-        uvicorn.run("backend.app:app", host="127.0.0.1", port=8000, reload=True)
+        uvicorn.run("backend.app:app", host="127.0.0.1", port=8050, reload=True)
     except ImportError:
         print("uvicorn is not installed in current Python environment. Running via python -m uvicorn...")
-        subprocess.run([sys.executable, "-m", "uvicorn", "backend.app:app", "--host", "127.0.0.1", "--port", "8000", "--reload"])
+        subprocess.run([sys.executable, "-m", "uvicorn", "backend.app:app", "--host", "127.0.0.1", "--port", "8050", "--reload"])
 
 if __name__ == "__main__":
     main()
