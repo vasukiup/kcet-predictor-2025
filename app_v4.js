@@ -178,15 +178,11 @@ async function loadYearData(year) {
       const resFilters = await fetch(`/api/filters?year=${strYear}`);
       if (resFilters.ok) {
         filtersData = await resFilters.json();
-      } else if (resFilters.status === 401) {
-        return;
       }
 
       const resColleges = await fetch(`/api/colleges?year=${strYear}&limit=1000`);
       if (resColleges.ok) {
         collegesData = await resColleges.json();
-      } else if (resColleges.status === 401) {
-        return;
       }
     } catch (netErr) {
       console.warn('API network error, attempting static JSON fallback:', netErr);
