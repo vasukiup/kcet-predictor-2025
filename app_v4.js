@@ -944,20 +944,24 @@ function populateFilters() {
   const sortedCourses = [...(allData.all_courses || [])].sort((a, b) => a.localeCompare(b));
 
   const distSel = document.getElementById('district-filter');
-  distSel.innerHTML = '<option value="">All Districts</option>';
-  (allData.districts || []).forEach(d => {
-    const opt = document.createElement('option');
-    opt.value = d; opt.textContent = d;
-    distSel.appendChild(opt);
-  });
+  if (distSel) {
+    distSel.innerHTML = '<option value="">All Districts</option>';
+    (allData.districts || []).forEach(d => {
+      const opt = document.createElement('option');
+      opt.value = d; opt.textContent = d;
+      distSel.appendChild(opt);
+    });
+  }
 
   const courseSel = document.getElementById('course-filter');
-  courseSel.innerHTML = '<option value="">All Courses</option>';
-  sortedCourses.forEach(c => {
-    const opt = document.createElement('option');
-    opt.value = c; opt.textContent = c;
-    courseSel.appendChild(opt);
-  });
+  if (courseSel) {
+    courseSel.innerHTML = '<option value="">All Courses</option>';
+    sortedCourses.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c; opt.textContent = c;
+      courseSel.appendChild(opt);
+    });
+  }
 
   const predCourseSel = document.getElementById('pred-course');
   if (predCourseSel) {
