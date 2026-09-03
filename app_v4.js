@@ -2468,16 +2468,6 @@ function getCutoffVal(cutoffObj, category) {
     return cutoffObj[cat];
   }
   
-  // Smart category alias resolution for PH, D, DK, XD
-  if (cat === 'PH' || cat === 'D' || cat === 'DK' || cat === 'XD') {
-    return cutoffObj['PH'] || cutoffObj['D'] || cutoffObj['DK'] || cutoffObj['XD'] || cutoffObj['S1G'] || null;
-  }
-  
-  // Fallback for Special Categories
-  if (cat.startsWith('S1') || cat.startsWith('S2') || cat.startsWith('S3') || cat.startsWith('S4')) {
-    return cutoffObj[cat] || cutoffObj[cat.replace(/H|K|R/g, 'G')] || null;
-  }
-  
   return null;
 }
 
@@ -4507,14 +4497,19 @@ function openModal(college, selectedCatOverride) {
   `;
 
   const categories = [
-    'GM', 'SNQ', '1G', '2AG', '2BG', '3AG', '3BG', 'SCG', 'STG',
+    'GM', 'SNQ', 'PH', 'D', 'DK', 'XD', '1G', '2AG', '2BG', '3AG', '3BG', 'SCG', 'STG',
     'GMK', 'GMR', '1K', '1R', '2AK', '2AR', '2BK', '2BR', '3AK', '3AR', '3BK', '3BR', 'SCK', 'SCR', 'STK', 'STR',
     'GMH', '1H', '2AH', '2BH', '3AH', '3BH', 'SCH', 'STH',
-    'D', 'S1G', 'S2G', 'S3G', 'S4G', 'SPO', 'NCC', 'DEF'
+    'S1G', 'S2G', 'S3G', 'S4G', 'S1R', 'S2R', 'S3R', 'S4R', 'S1K', 'S2K', 'S3K', 'S4K',
+    'S1H', 'S2H', 'S3H', 'S4H', 'SPO', 'NCC', 'CAP', 'XCP', 'AGL', 'DEF'
   ];
   const categoryLabels = {
     'GM': 'GM (General Merit)',
     'SNQ': '🎁 SNQ (Supernumerary / Fee Waiver)',
+    'PH': '♿ PH (Physically Handicapped)',
+    'D': '♿ D (Differently Abled)',
+    'DK': '♿ DK (Differently Abled Kannada)',
+    'XD': '♿ XD (Ex-Disabled Quota)',
     '1G': '1G (Category 1 General)',
     '2AG': '2AG (Category 2A General)',
     '2BG': '2BG (Category 2B General)',
@@ -4532,12 +4527,15 @@ function openModal(college, selectedCatOverride) {
     '3BH': '3BH (HK 371-J Category 3B)',
     'SCH': 'SCH (HK 371-J SC)',
     'STH': 'STH (HK 371-J ST)',
-    'D': '♿ D / PH (Differently Abled)',
     'S1G': '🛡️ S1G (Special Category 1)',
     'S2G': '🛡️ S2G (Special Category 2)',
     'S3G': '🛡️ S3G (Special Category 3)',
+    'S4G': '🛡️ S4G (Special Category 4)',
     'SPO': '🏅 SPO (Sports Quota)',
     'NCC': '🎗️ NCC (NCC Quota)',
+    'CAP': '👮 CAP (CAPF Quota)',
+    'XCP': '👮 XCP (Ex-CAPF Quota)',
+    'AGL': '🌾 AGL (Agriculturalist Quota)',
     'DEF': '🎖️ DEF (Defence Quota)'
   };
   const optionsHtml = categories
