@@ -4163,15 +4163,15 @@ function openModal(college) {
     const hkCol = hasHk ? `<td class="td-hk">${parseInt(c.kea_hk) || 0}</td>` : '';
     const rkCol = hasRk ? `<td class="td-rk">${parseInt(c.kea_rk) || 0}</td>` : '';
     
-    const r1_cutoffs = c.round1_cutoff || {};
+    const r1_cutoffs = getCutoffObj(c, 'round1_cutoff');
     const r1_cutoff_val = r1_cutoffs[defaultCat];
     let initialCutoffR1 = r1_cutoff_val ? parseInt(r1_cutoff_val).toLocaleString() : '—';
 
-    const r2_cutoffs = c.round2_cutoff || {};
+    const r2_cutoffs = getCutoffObj(c, 'round2_cutoff');
     const r2_cutoff_val = r2_cutoffs[defaultCat];
     let initialCutoffR2 = r2_cutoff_val ? parseInt(r2_cutoff_val).toLocaleString() : '—';
 
-    const r3_cutoffs = c.round3_cutoff || {};
+    const r3_cutoffs = getCutoffObj(c, 'round3_cutoff');
     const r3_cutoff_val = r3_cutoffs[defaultCat];
     let initialCutoffR3 = r3_cutoff_val ? parseInt(r3_cutoff_val).toLocaleString() : '—';
 
