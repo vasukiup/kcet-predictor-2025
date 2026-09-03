@@ -940,6 +940,128 @@ async function init() {
 // ─────────────────────────────
 // Populate filter dropdowns
 // ─────────────────────────────
+const COURSE_GROUPS = {
+  "💻 Computer Science & IT": [
+    "Computer Science and Engineering",
+    "Artificial Intelligence and Machine Learning",
+    "Artificial Intelligence and Data Science",
+    "Artificial Intelligence",
+    "Information Science and Engineering",
+    "Information Technology",
+    "Computer Science",
+    "Computer Science and Technology",
+    "Computer Science and Design",
+    "Computer Science and Business Systems",
+    "Computer Science and Engineering (Cyber Security)",
+    "Computer Science and Engineering (Data Science)",
+    "Computer Science and Engineering (Internet of Things)",
+    "Computer Science and Engineering (Cloud Computing)",
+    "Computer Science and Engineering (Blockchain)",
+    "Computer Science and Engineering (DevOps)",
+    "Computer Science and Engineering (Full Stack Development)",
+    "Computer Science and Engineering (Robotics)",
+    "Computer Science (Information Security)",
+    "Computer Engineering (Software Product Development)",
+    "Computer Science and Information Technology",
+    "Computer Science and Medical Engineering",
+    "Computer and Communication Engineering",
+    "Information Technology (Augmented Reality and Virtual Reality)",
+    "Information Technology (Data Analytics)",
+    "Mathematics and Computing",
+    "Quantum Computing"
+  ],
+  "⚡ Electronics & Electrical": [
+    "Electronics and Communication Engineering",
+    "Electrical and Electronics Engineering",
+    "Electronics and Computer Engineering",
+    "Electronics and Instrumentation Engineering",
+    "Telecommunication Engineering",
+    "Medical Electronics Engineering",
+    "VLSI Design and Technology",
+    "Electrical Engineering and Computer Science",
+    "Electrical and Computer Engineering",
+    "Electrical and Electronics Engineering (Electric Vehicle Technology)",
+    "Electronics Engineering"
+  ],
+  "⚙️ Mechanical, Civil & Core": [
+    "Mechanical Engineering",
+    "Civil Engineering",
+    "Mechatronics Engineering",
+    "Aerospace Engineering",
+    "Aeronautical Engineering",
+    "Automobile Engineering",
+    "Environmental Engineering",
+    "Civil Environmental Engineering",
+    "Civil and Infrastructure Engineering",
+    "Civil Engineering and Townplanning",
+    "Mechanical and Aerospace Engineering",
+    "Mechanical and Smart Manufacturing",
+    "Mechanical Engineering (Kannada Medium)",
+    "Industrial and Production Engineering",
+    "Industrial Engineering and Management",
+    "Production Engineering",
+    "Mining Engineering",
+    "Marine Engineering",
+    "Engineering Design"
+  ],
+  "🤖 Robotics & Automation": [
+    "Robotics and Automation"
+  ],
+  "🧬 Chemical, Bio & Allied": [
+    "Bio-Technology",
+    "Chemical Engineering",
+    "Bio-Medical Engineering",
+    "Agricultural Engineering",
+    "Petroleum Engineering",
+    "Pharmaceutical Engineering",
+    "Polymer Science and Technology",
+    "Silk Technology",
+    "Textiles Technology",
+    "Ceramics and Cement Engineering",
+    "Energy Engineering"
+  ],
+  "🎨 Design & Specializations": [
+    "Communication Design",
+    "Fashion Design",
+    "Industrial Design",
+    "Lifestyle and Accessory Design"
+  ]
+};
+
+function populateCourseSelectOptions(selectEl, sortedCourses) {
+  selectEl.innerHTML = '<option value="">All Courses</option>';
+  
+  const courseSet = new Set(sortedCourses);
+  const addedCourses = new Set();
+
+  for (const [groupName, members] of Object.entries(COURSE_GROUPS)) {
+    const matched = members.filter(m => courseSet.has(m));
+    if (matched.length > 0) {
+      const optGroup = document.createElement('optgroup');
+      optGroup.label = groupName;
+      matched.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c; opt.textContent = c;
+        optGroup.appendChild(opt);
+        addedCourses.add(c);
+      });
+      selectEl.appendChild(optGroup);
+    }
+  }
+
+  const remaining = sortedCourses.filter(c => c && !addedCourses.has(c));
+  if (remaining.length > 0) {
+    const optGroup = document.createElement('optgroup');
+    optGroup.label = "🎓 Other Specialized Engineering Branches";
+    remaining.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c; opt.textContent = c;
+      optGroup.appendChild(opt);
+    });
+    selectEl.appendChild(optGroup);
+  }
+}
+
 function populateFilters() {
   const sortedCourses = [...(allData.all_courses || [])].sort((a, b) => a.localeCompare(b));
 
@@ -955,22 +1077,12 @@ function populateFilters() {
 
   const courseSel = document.getElementById('course-filter');
   if (courseSel) {
-    courseSel.innerHTML = '<option value="">All Courses</option>';
-    sortedCourses.forEach(c => {
-      const opt = document.createElement('option');
-      opt.value = c; opt.textContent = c;
-      courseSel.appendChild(opt);
-    });
+    populateCourseSelectOptions(courseSel, sortedCourses);
   }
 
   const predCourseSel = document.getElementById('pred-course');
   if (predCourseSel) {
-    predCourseSel.innerHTML = '<option value="">All Courses</option>';
-    sortedCourses.forEach(c => {
-      const opt = document.createElement('option');
-      opt.value = c; opt.textContent = c;
-      predCourseSel.appendChild(opt);
-    });
+    populateCourseSelectOptions(predCourseSel, sortedCourses);
   }
 
   // Populate download tab filters
