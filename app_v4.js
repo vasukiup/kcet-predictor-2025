@@ -4066,7 +4066,18 @@ function maxZero(val) {
 // ─────────────────────────────
 // Modal
 // ─────────────────────────────
-function openModal(college) {
+let currentModalCollege = null;
+let currentModalCat = 'GM';
+
+function updateModalCategoryView(newCat) {
+  currentModalCat = newCat;
+  if (currentModalCollege) {
+    openModal(currentModalCollege, newCat);
+  }
+}
+
+function openModal(college, selectedCatOverride) {
+  currentModalCollege = college;
   const ann = college.annexure || 'C';
   const annLabel = ANNEXURE_LABELS[ann] || ann;
 
@@ -4098,9 +4109,11 @@ function openModal(college) {
       <div class="msb-lbl" style="color: #22c55e;">SNQ (5%)</div>
     </div>` : '';
 
-  // Get default category from predictor if available, else default to GM
+  // Get selected category override or fallback
   const predCatEl = document.getElementById('pred-category');
-  const defaultCat = predCatEl ? predCatEl.value : 'GM';
+  const cutoffCatEl = document.getElementById('cutoff-category-select');
+  const defaultCat = selectedCatOverride || currentModalCat || (cutoffCatEl && cutoffCatEl.value) || (predCatEl && predCatEl.value) || 'GM';
+  currentModalCat = defaultCat;
 
   // Quota Advantage Calculator
   let quotaAdvantageHtml = '';
@@ -4473,11 +4486,41 @@ function openModal(college) {
   `;
 
   const categories = [
-    'GM', 'GMK', 'GMR', '1G', '1K', '1R', '2AG', '2AK', '2AR', '2BG', '2BK', '2BR', '3AG', '3AK', '3AR', '3BG', '3BK', '3BR', 'SCG', 'SCK', 'SCR', 'STG', 'STK', 'STR',
-    'GMH', 'GMKH', 'GMRH', '1H', '1KH', '1RH', '2AH', '2AKH', '2ARH', '2BH', '2BKH', '2BRH', '3AH', '3AKH', '3ARH', '3BH', '3BKH', '3BRH', 'SCH', 'SCKH', 'SCRH', 'STH', 'STKH', 'STRH'
+    'GM', 'SNQ', '1G', '2AG', '2BG', '3AG', '3BG', 'SCG', 'STG',
+    'GMK', 'GMR', '1K', '1R', '2AK', '2AR', '2BK', '2BR', '3AK', '3AR', '3BK', '3BR', 'SCK', 'SCR', 'STK', 'STR',
+    'GMH', '1H', '2AH', '2BH', '3AH', '3BH', 'SCH', 'STH',
+    'D', 'S1G', 'S2G', 'S3G', 'S4G', 'SPO', 'NCC', 'DEF'
   ];
+  const categoryLabels = {
+    'GM': 'GM (General Merit)',
+    'SNQ': '🎁 SNQ (Supernumerary / Fee Waiver)',
+    '1G': '1G (Category 1 General)',
+    '2AG': '2AG (Category 2A General)',
+    '2BG': '2BG (Category 2B General)',
+    '3AG': '3AG (Category 3A General)',
+    '3BG': '3BG (Category 3B General)',
+    'SCG': 'SCG (Scheduled Caste General)',
+    'STG': 'STG (Scheduled Tribe General)',
+    'GMK': 'GMK (GM Kannada Medium)',
+    'GMR': 'GMR (GM Rural Quota)',
+    'GMH': 'GMH (HK 371-J General)',
+    '1H': '1H (HK 371-J Category 1)',
+    '2AH': '2AH (HK 371-J Category 2A)',
+    '2BH': '2BH (HK 371-J Category 2B)',
+    '3AH': '3AH (HK 371-J Category 3A)',
+    '3BH': '3BH (HK 371-J Category 3B)',
+    'SCH': 'SCH (HK 371-J SC)',
+    'STH': 'STH (HK 371-J ST)',
+    'D': '♿ D / PH (Differently Abled)',
+    'S1G': '🛡️ S1G (Special Category 1)',
+    'S2G': '🛡️ S2G (Special Category 2)',
+    'S3G': '🛡️ S3G (Special Category 3)',
+    'SPO': '🏅 SPO (Sports Quota)',
+    'NCC': '🎗️ NCC (NCC Quota)',
+    'DEF': '🎖️ DEF (Defence Quota)'
+  };
   const optionsHtml = categories
-    .map(cat => `<option value="${cat}" ${cat === defaultCat ? 'selected' : ''}>${cat}</option>`)
+    .map(cat => `<option value="${cat}" ${cat === defaultCat ? 'selected' : ''}>${categoryLabels[cat] || cat}</option>`)
     .join('');
 
   const ageSpan = college.established_year ? `<span style="font-size:12px; font-weight:600; color:var(--text-muted); background:rgba(255,255,255,0.03); border:1px solid var(--border); padding:4px 10px; border-radius:6px; display:inline-flex; align-items:center; gap:4px;">📅 Established: <strong>${college.established_year}</strong> (${new Date().getFullYear() - college.established_year} years old)</span>` : '';
@@ -4524,9 +4567,9 @@ function openModal(college) {
 
     <div class="modal-cutoff-filter-row" style="display:flex; justify-content:space-between; align-items:center; margin-top:24px; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
       <div class="modal-courses-title" style="margin:0;">Course-wise Seat Breakdown & Cut-offs</div>
-      <div style="display:flex; align-items:center; gap:8px;">
-        <label style="font-size:11px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Cut-off Category:</label>
-        <select id="modal-cutoff-category" class="select-filter" style="margin:0; padding:4px 8px; font-size:12px; background:var(--bg-card); border-color:var(--border); color:var(--text); border-radius:var(--radius-sm); width:auto;">
+      <div style="display:flex; align-items:center; gap:8px; background:rgba(168,85,247,0.08); padding:6px 12px; border-radius:8px; border:1px solid rgba(168,85,247,0.25);">
+        <label style="font-size:11px; font-weight:700; color:var(--purple); text-transform:uppercase; letter-spacing:0.05em;">🎯 Cut-off Category View:</label>
+        <select id="modal-cutoff-category" class="select-filter" style="margin:0; padding:4px 8px; font-size:12px; background:var(--bg-card); border-color:var(--purple); color:var(--text); font-weight:700; border-radius:var(--radius-sm); width:auto;" onchange="updateModalCategoryView(this.value)">
           ${optionsHtml}
         </select>
       </div>
