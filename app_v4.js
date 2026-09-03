@@ -3239,18 +3239,19 @@ function renderCollegeCard(college, index) {
   const naacBadg = college.naac_grade ? `<span class="meta-badge" style="background:rgba(168,85,247,0.06); color:#a855f7; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700; display:inline-flex; align-items:center; gap:3px; border:1px solid rgba(168,85,247,0.15);">🎖️ NAAC ${college.naac_grade}</span>` : '';
   const nbaBadg = college.nba_accredited ? `<span class="meta-badge" style="background:rgba(20,184,166,0.06); color:#14b8a6; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700; display:inline-flex; align-items:center; gap:3px; border:1px solid rgba(20,184,166,0.15);">🛡️ NBA</span>` : '';
   const placementInfo = college.placement_stats ? `<span class="meta-badge" style="background:rgba(34,197,94,0.06); color:#22c55e; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700; display:inline-flex; align-items:center; gap:3px; border:1px solid rgba(34,197,94,0.15);">💼 Avg: ${college.placement_stats.avg_package_lpa} LPA</span>` : '';
-  const hostelInfo = college.hostel_details ? `<span class="meta-badge" style="background:rgba(249,115,22,0.06); color:#f97316; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:700; display:inline-flex; align-items:center; gap:3px; border:1px solid rgba(249,115,22,0.15);">🏠 Hostel: ₹${Math.round(college.hostel_details.annual_hostel_fees/1000)}k/yr</span>` : '';
-
-  const r2CutoffValues = (college.courses || [])
-    .map(c => {
-      const r2Obj = getCutoffObj(c, 'round2_cutoff');
-      const r1Obj = getCutoffObj(c, 'round1_cutoff');
-      const cut = r2Obj['GM'] || r1Obj['GM'];
-      return parseInt(cut);
-    })
-    .filter(n => !isNaN(n) && n > 0)
-    .sort((a, b) => a - b);
-
+  return `
+    <div class="college-card" style="animation-delay:${Math.min(index * 0.03, 0.3)}s" data-index="${index}" data-kea-code="${college.kea_code || ''}" data-college-number="${college.college_number}">
+      <div class="card-top">
+        <div class="card-badge badge-${ann}">${ANNEXURE_ICONS[ann]}</div>
+        <div class="card-info">
+          <div class="card-name">${college.kea_code ? `<span class="kea-code-badge">${college.kea_code}</span> ` : ''}${escHtml(college.college_name)}</div>
+          <div class="card-location">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+               <circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            ${escHtml(college.district || 'Karnataka')}
+          </div>
           <div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:6px;">
             ${estBadg}
             ${affBadg}
