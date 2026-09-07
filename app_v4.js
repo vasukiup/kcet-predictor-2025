@@ -2583,6 +2583,21 @@ function getCutoffVal(cutoffObj, category) {
   return null;
 }
 
+function formatCutoffRank(val) {
+  if (val === null || val === undefined || val === '' || val === '—') return '—';
+  let numStr = String(val).trim().replace(/,/g, '');
+  let num = parseFloat(numStr);
+  if (isNaN(num)) return '—';
+  
+  if (Number.isInteger(num)) {
+    return num.toLocaleString('en-IN');
+  } else {
+    const parts = numStr.split('.');
+    const intPart = parseInt(parts[0], 10).toLocaleString('en-IN');
+    return `${intPart}.${parts[1]}`;
+  }
+}
+
 function getCourseCutoff(course, category) {
   const cat = category || 'GM';
   const r1Obj = getCutoffObj(course, 'round1_cutoff');
@@ -4286,25 +4301,25 @@ function openModal(college, selectedCatOverride) {
     
     const r1_cutoffs = getCutoffObj(c, 'round1_cutoff');
     const r1_cutoff_val = getCutoffVal(r1_cutoffs, defaultCat);
-    let initialCutoffR1 = r1_cutoff_val ? parseInt(r1_cutoff_val).toLocaleString() : '—';
+    let initialCutoffR1 = formatCutoffRank(r1_cutoff_val);
 
     const r2_cutoffs = getCutoffObj(c, 'round2_cutoff');
     const r2_cutoff_val = getCutoffVal(r2_cutoffs, defaultCat);
-    let initialCutoffR2 = r2_cutoff_val ? parseInt(r2_cutoff_val).toLocaleString() : '—';
+    let initialCutoffR2 = formatCutoffRank(r2_cutoff_val);
 
     const r3_cutoffs = getCutoffObj(c, 'round3_cutoff');
     const r3_cutoff_val = getCutoffVal(r3_cutoffs, defaultCat);
-    let initialCutoffR3 = r3_cutoff_val ? parseInt(r3_cutoff_val).toLocaleString() : '—';
+    let initialCutoffR3 = formatCutoffRank(r3_cutoff_val);
 
     // YoY Cutoff comparison logic
     const activeYear = allData.year || '2025';
     const yoyData = getYoYCutoffData(activeYear, college.kea_code, c.course_name);
 
     const enrichCutoff = (currentValStr, otherCutoffsRound) => {
-      if (!currentValStr || !otherCutoffsRound || !otherCutoffsRound[defaultCat]) return currentValStr ? parseInt(currentValStr).toLocaleString() : '—';
-      const currentVal = parseInt(currentValStr);
-      const otherVal = parseInt(otherCutoffsRound[defaultCat]);
-      if (!otherVal || !currentVal) return currentValStr ? parseInt(currentValStr).toLocaleString() : '—';
+      if (!currentValStr || !otherCutoffsRound || !otherCutoffsRound[defaultCat]) return formatCutoffRank(currentValStr);
+      const currentVal = parseFloat(String(currentValStr).replace(/,/g, ''));
+      const otherVal = parseFloat(String(otherCutoffsRound[defaultCat]).replace(/,/g, ''));
+      if (isNaN(otherVal) || isNaN(currentVal)) return formatCutoffRank(currentValStr);
       
       let changePercent = 0;
       if (activeYear === '2025') {
@@ -4315,11 +4330,11 @@ function openModal(college, selectedCatOverride) {
         changePercent = Math.round((change / currentVal) * 100);
       }
       
-      let displayStr = currentVal.toLocaleString();
+      let displayStr = formatCutoffRank(currentValStr);
       if (changePercent < 0) {
-        displayStr += `<br><span style="color:var(--pink); font-size:9px; font-weight:600; white-space:nowrap;" title="YoY Shift: ${otherVal.toLocaleString()} in other year">🔥 ${Math.abs(changePercent)}% tougher</span>`;
+        displayStr += `<br><span style="color:var(--pink); font-size:9px; font-weight:600; white-space:nowrap;" title="YoY Shift: ${formatCutoffRank(otherVal)} in other year">🔥 ${Math.abs(changePercent)}% tougher</span>`;
       } else if (changePercent > 0) {
-        displayStr += `<br><span style="color:var(--green); font-size:9px; font-weight:600; white-space:nowrap;" title="YoY Shift: ${otherVal.toLocaleString()} in other year">📉 -${changePercent}% easier</span>`;
+        displayStr += `<br><span style="color:var(--green); font-size:9px; font-weight:600; white-space:nowrap;" title="YoY Shift: ${formatCutoffRank(otherVal)} in other year">📉 -${changePercent}% easier</span>`;
       }
       return displayStr;
     };
@@ -4449,7 +4464,7 @@ function openModal(college, selectedCatOverride) {
                       ${Object.entries(getCutoffObj(c, 'round2_cutoff')).map(([catKey, val]) => `
                         <div style="background:var(--bg-card); padding:5px 8px; border-radius:6px; border:1px solid rgba(168,85,247,0.25); display:flex; justify-content:space-between;">
                           <span style="font-weight:600; color:var(--text-muted);">${catKey}:</span>
-                          <span style="color:var(--purple); font-weight:700;">${parseInt(val).toLocaleString()}</span>
+                          <span style="color:var(--purple); font-weight:700;">${formatCutoffRank(val)}</span>
                         </div>
                       `).join('')}
                     </div>
@@ -4463,7 +4478,7 @@ function openModal(college, selectedCatOverride) {
                       ${Object.entries(getCutoffObj(c, 'round1_cutoff')).map(([catKey, val]) => `
                         <div style="background:var(--bg-card); padding:5px 8px; border-radius:6px; border:1px solid rgba(59,130,246,0.25); display:flex; justify-content:space-between;">
                           <span style="font-weight:600; color:var(--text-muted);">${catKey}:</span>
-                          <span style="color:var(--blue); font-weight:700;">${parseInt(val).toLocaleString()}</span>
+                          <span style="color:var(--blue); font-weight:700;">${formatCutoffRank(val)}</span>
                         </div>
                       `).join('')}
                     </div>
@@ -4477,7 +4492,7 @@ function openModal(college, selectedCatOverride) {
                       ${Object.entries(getCutoffObj(c, 'round3_cutoff')).map(([catKey, val]) => `
                         <div style="background:var(--bg-card); padding:5px 8px; border-radius:6px; border:1px solid rgba(236,72,153,0.25); display:flex; justify-content:space-between;">
                           <span style="font-weight:600; color:var(--text-muted);">${catKey}:</span>
-                          <span style="color:var(--pink); font-weight:700;">${parseInt(val).toLocaleString()}</span>
+                          <span style="color:var(--pink); font-weight:700;">${formatCutoffRank(val)}</span>
                         </div>
                       `).join('')}
                     </div>
@@ -4921,22 +4936,22 @@ function openModal(college, selectedCatOverride) {
         const idx = parseInt(td.dataset.courseIdx);
         const course = college.courses[idx];
         const cutoffs = course.round1_cutoff || {};
-        const val = cutoffs[selectedCat];
-        td.textContent = val ? parseInt(val).toLocaleString() : '—';
+        const val = getCutoffVal(cutoffs, selectedCat);
+        td.textContent = formatCutoffRank(val);
       });
       document.querySelectorAll('.td-cutoff-r2').forEach(td => {
         const idx = parseInt(td.dataset.courseIdx);
         const course = college.courses[idx];
         const cutoffs = course.round2_cutoff || {};
-        const val = cutoffs[selectedCat];
-        td.textContent = val ? parseInt(val).toLocaleString() : '—';
+        const val = getCutoffVal(cutoffs, selectedCat);
+        td.textContent = formatCutoffRank(val);
       });
       document.querySelectorAll('.td-cutoff-r3').forEach(td => {
         const idx = parseInt(td.dataset.courseIdx);
         const course = college.courses[idx];
         const cutoffs = course.round3_cutoff || {};
-        const val = cutoffs[selectedCat];
-        td.textContent = val ? parseInt(val).toLocaleString() : '—';
+        const val = getCutoffVal(cutoffs, selectedCat);
+        td.textContent = formatCutoffRank(val);
       });
     });
   }
