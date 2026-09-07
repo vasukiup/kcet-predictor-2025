@@ -1,27 +1,45 @@
 # System Design & Coding Guidelines
-**Comprehensive Engineering Best Practices for Educational & Counseling Predictor Applications**
+**Comprehensive Engineering Best Practices & Post-Mortem Analysis for Educational & Counseling Predictor Applications**
 
 ---
 
 ## 📌 Executive Summary
 
-This document synthesizes key architectural principles, data engineering standards, frontend patterns, and backend reliability protocols established while building the **KEA Seat Matrix & Cutoff Prediction Portal**. 
+This document synthesizes key architectural principles, data engineering standards, post-mortem mistake audits, and backend/frontend reliability protocols established while building the **KEA Seat Matrix & Cutoff Prediction Portal**. 
 
-It serves as a reusable blueprint for building similar data-heavy portal applications (such as NEET, JOSAIA/CSAB, COMEDK, or state-level counseling predictors).
+It serves as a reusable, production-grade blueprint for building similar data-heavy portal applications (such as NEET, JoSAA/CSAB, COMEDK, or state-level counseling predictors).
 
 ---
 
-## 1. 📊 Data Extraction, Parsing & Numeric Precision
+## 📜 Part I: Mistakes Committed, Root Causes & Applied Corrections
 
-### 1.1 Store Native Numeric Types (Avoid Early String Truncation)
+Below is a detailed log of real-world bugs, failure modes, and operational mistakes encountered during development, along with the exact engineering corrections applied.
+
+| # | Bug / Issue | Root Cause | Engineering Correction Applied |
+| :-: | :--- | :--- | :--- |
+| **1** | **Blank Cutoffs for Valid PDF Courses** *(e.g. E005 Telecommunication Round 2 showing blank instead of 722)* | **Course Row Duplication**: Canonicalizing branch names (e.g. mapping `Computer Science (AIML)` ➔ `AIML`) after data loading created duplicate course rows per college. 1-to-1 matcher assigned PDF cutoffs to row 1, leaving row 2 with blank `{}` cutoffs. | **Per-College Pre-Deduplication**: Aggregate intake/seats and merge duplicate course rows per institution **before** running PDF matching. Enforce composite uniqueness on `(college_id, canonical_course_name)`. |
+| **2** | **Unmatched PDF Courses due to Line Breaks** | **PDF Text Extraction Artifacts**: Raw PDF extraction introduced internal space breaks (e.g. `ELECTRONICS AND TELECOMMUNICA TION`), causing fuzzy string similarity against `Telecommunication Engineering` to fall below the 0.75 threshold. | **Layout-Aware String Normalization**: Strip mid-word spacing artifacts and maintain explicit alias maps (`ELECTRONICS AND TELECOMMUNICATION` ↔ `Telecommunication Engineering`). |
+| **3** | **Decimal Cutoff Display Distortion** *(e.g. 2457.5 rendered as 24575 or 2457)* | **String Truncation & Lossy Integer Parsing**: Removing commas/dots via regex or calling `parseInt()` converted floating-point ranks (e.g., `2457.5`) into integers or truncated strings. | **End-to-End Native Float Storage**: Store raw cutoffs as native `REAL/FLOAT` in database/JSON. Use a custom `formatCutoffRank()` formatter on frontend that preserves decimals while formatting integers with regional locale commas (`2,457.5`). |
+| **4** | **Stale API Data Overwriting Fresh Data** | **Secondary Database Overwrite**: API router merged secondary relational SQL table rows over primary JSON dictionary data, replacing updated decimal floats with legacy integer values. | **Single-Source-of-Truth Priority**: Enforce non-destructive payload merging—relational tables may only append *missing* category keys, never overwrite primary JSON dictionary values. |
+| **5** | **Special Quota Category Leakage** | **Lossy Quota Grouping**: Combining distinct special quota codes (`PH`, `D`, `DK`, `XD`) into generic categories caused cutoffs to render across incorrect courses. | **Strict Category Tagging**: Treat `PH`, `SNQ`, `GM`, `1G`, `2AG`, etc., as distinct, first-class category identifiers. Filter out categories that have no non-null values for the active context. |
+| **6** | **UI Not Reflecting Code Updates** | **Browser Disk Caching**: Browser cached `app.js` and `seat_matrix_data_2026.json` static assets aggressively without checking the backend for changes. | **HTTP No-Cache Headers & Cache Busting**: Added FastAPI `Cache-Control: no-cache, no-store, must-revalidate` middleware and appended timestamp version tags (`app.js?v=20260907_170500`) to static script tags. |
+| **7** | **SQLite Variable Limit Crash** | **Unbound `IN (...)` SQL Clauses**: Fetching details for 1,000+ courses in a single `WHERE id IN (...)` query breached SQLite's 999 parameter limit. | **Chunked SQL Batch Processing**: Slice parameter arrays into chunks of 300 items or fewer before executing parameter-bound SQL queries. |
+
+---
+
+## 📊 Part II: Core Engineering & Architectural Guidelines
+
+### 1. Data Extraction, Parsing & Numeric Precision
+
+#### 1.1 Store Native Numeric Types (Avoid Early String Truncation)
 * **Rule**: Cutoff ranks, scores, fees, and seat counts MUST be parsed and stored as native `INT` or `REAL/FLOAT` numeric types, never as raw unparsed strings or lossy integers.
-* **Fractional Cutoffs**: Counseling bodies frequently issue fractional ranks (e.g., `2457.5`, `20319.5`). **NEVER** use `parseInt()` or `Math.round()` on raw cutoff strings, as this silently drops decimal values (converting `2457.5` to `2457` or `24575`).
+* **Fractional Cutoffs**: Counseling bodies frequently issue fractional ranks (e.g., `2457.5`, `20319.5`). **NEVER** use `parseInt()` or `Math.round()` on raw cutoff strings, as this silently drops decimal values.
 * **Non-Numeric Token Handling**: Raw PDF/table cells often contain non-numeric tokens (`--`, `ALLOTTED`, `EXTENDED`, `SATISFIED`, `N/A`). Parse these explicitly to `NULL`/`None` during ETL rather than throwing exceptions or assigning dummy `0` values.
 
 ```python
 # ✅ CORRECT: Native Numeric Parser (ETL Phase)
 def parse_cutoff_rank(val):
-    if val is None or str(val).strip() in ("", "--", "—", "ALLOTTED", "EXTENDED"):
+    if val is None or str(val).strip() in ("", "--", "—", "ALLOTTED", "EXTENDED", "N/A"):
         return None
     cleaned = str(val).replace(",", "").strip()
     try:
@@ -31,9 +49,7 @@ def parse_cutoff_rank(val):
         return None
 ```
 
----
-
-### 1.2 Robust Formatting Layer (Separation of Storage & Presentation)
+#### 1.2 Robust Formatting Layer (Separation of Storage & Presentation)
 * **Rule**: Keep raw numeric values in data stores and API payloads. Only apply locale formatting (e.g. thousand separators) in the UI presentation layer.
 * **Custom Formatter**: Avoid generic `parseInt(val).toLocaleString()`. Implement a dedicated formatter that preserves decimal points while applying regional locale standards (e.g., `en-IN`).
 
@@ -53,15 +69,19 @@ function formatCutoffRank(val) {
     return `${intPart}.${parts[1]}`;
   }
 }
-// formatCutoffRank(2457.5) -> "2,457.5"
-// formatCutoffRank(106260) -> "1,06,260"
+// formatCutoffRank(2457.5)  -> "2,457.5"
+// formatCutoffRank(106260)  -> "1,06,260"
 ```
 
 ---
 
-## 2. 🧩 Data Matching & Disambiguation Architecture
+### 2. Data Matching & Disambiguation Architecture
 
-### 2.1 Enforce Strict 1-to-1 Course Matching Per Institution
+#### 2.1 Pre-Deduplicate Courses Prior to External Dataset Matching
+* **Rule**: Institutions MUST have clean, deduplicated course rows before running matching pipelines against external PDFs or seat matrix catalogs.
+* **Aggregating Seats**: When merging duplicate rows resulting from branch canonicalization, sum intake/seat counts and merge non-null cutoff records.
+
+#### 2.2 Enforce Strict 1-to-1 Course Matching Per Institution
 * **The Problem**: Counseling PDFs and seat matrix catalogs often list similar branch names (e.g., `Artificial Intelligence & Machine Learning`, `Artificial Intelligence & Data Science`, and `Computer Science & Engineering (AIML)`). Greedy fuzzy matching can mistakenly map a single PDF cutoff entry to multiple courses in the same institution.
 * **The Solution**: Enforce **strict 1-to-1 matching per college**. Once a PDF course entry is matched to an institutional course, mark it as used so it cannot be assigned to any sibling course.
 
@@ -84,9 +104,7 @@ for course in college_courses:
         course.cutoffs = pdf_courses[best_match]
 ```
 
----
-
-### 2.2 Domain & Sub-Domain Negative Exclusion Rules
+#### 2.3 Domain & Sub-Domain Negative Exclusion Rules
 * **Rule**: Apply strict negative matching constraints to prevent cross-domain contamination.
   * `Data Science` MUST NOT match `Machine Learning`.
   * `Electronics & Communication` MUST NOT match `Telecommunication` or `Instrumentation`.
@@ -94,9 +112,9 @@ for course in college_courses:
 
 ---
 
-## 3. 🗄️ Database & API Reliability
+### 3. Database & API Reliability
 
-### 3.1 Batch SQL Parameter Queries (Avoid Database Variable Limits)
+#### 3.1 Batch SQL Parameter Queries (Avoid Database Variable Limits)
 * **Rule**: When executing `IN (...)` queries in SQLite or PostgreSQL, chunk parameter lists into batches of 300 items or fewer. SQLite throws an exception if `IN (...)` exceeds 999 parameters.
 
 ```python
@@ -110,10 +128,8 @@ for i in range(0, len(college_ids), chunk_size):
     all_courses.extend(cur.fetchall())
 ```
 
----
-
-### 3.2 Single Source of Truth & Safe API Merging
-* **Rule**: When assembling API payloads from multiple database tables (e.g. `courses` table JSON strings vs `cutoffs` relational table rows), preserve primary JSON dictionary values and DO NOT allow secondary legacy tables to overwrite primary data.
+#### 3.2 Single Source of Truth & Safe API Merging
+* **Rule**: When assembling API payloads from multiple data layers, preserve primary JSON dictionary values and DO NOT allow secondary legacy tables to overwrite primary data.
 
 ```python
 # ✅ CORRECT: Non-Destructive Payload Assembly
@@ -127,15 +143,13 @@ for cut in relational_cutoffs:
 
 ---
 
-## 4. 🎨 Frontend UI & Accessibility Standards
+### 4. Frontend UI & Accessibility Standards
 
-### 4.1 Granular Multi-Category Subcategory Support
+#### 4.1 Granular Multi-Category Subcategory Support
 * **Rule**: Do not combine distinct legal quotas or subcategories into a single lossy dropdown option.
 * **Separation**: Keep `PH` (Physically Handicapped), `D` (Differently Abled), `DK` (Differently Abled Kannada), and `XD` (Ex-Disabled) as **separate, first-class selectable categories**. Each code represents a distinct allotment matrix in state counseling.
 
----
-
-### 4.2 Categorized Dropdown Grouping (`<optgroup>`)
+#### 4.2 Categorized Dropdown Grouping (`<optgroup>`)
 * **Rule**: When presenting long selection lists (e.g. 70+ engineering disciplines), group options into structured `<optgroup>` categories with emoji identifiers instead of displaying a flat list.
 
 ```html
@@ -154,9 +168,9 @@ for cut in relational_cutoffs:
 
 ---
 
-## 5. ⚡ Cache Management & Deployment Protocol
+### 5. Cache Management & Deployment Protocol
 
-### 5.1 Server-Side HTTP No-Cache Headers
+#### 5.1 Server-Side HTTP No-Cache Headers
 * **Rule**: Middleware serving static assets (`.js`, `.css`, `.html`, `.json`) and API endpoints MUST emit explicit Cache-Control headers to prevent stale browser disk caching.
 
 ```python
@@ -172,9 +186,7 @@ class NoCacheMiddleware(BaseHTTPMiddleware):
         return response
 ```
 
----
-
-### 5.2 Timestamped Asset Versioning
+#### 5.2 Timestamped Asset Versioning
 * **Rule**: Always append a timestamp or commit hash version tag to static script tags in HTML files.
 
 ```html
@@ -184,15 +196,18 @@ class NoCacheMiddleware(BaseHTTPMiddleware):
 
 ---
 
-## 6. 🏆 Summary Checklist for Future Counseling Applications
+## 🏆 Part III: Quality Assurance & Pre-Flight Checklist
 
-| Phase | Engineering Requirement | Status |
+Use this pre-flight checklist prior to releasing updates or launching any new predictor application:
+
+| Phase | Check Item | Status |
 | :--- | :--- | :---: |
-| **ETL & Data** | Preserve fractional cutoffs (`2457.5`) as native floats/reals; avoid `parseInt` truncation | ✅ Enforced |
-| **ETL & Data** | Implement strict 1-to-1 course matching per institution with negative domain exclusions | ✅ Enforced |
-| **Backend API** | Chunk SQL `IN (...)` parameters into batches of <= 300 to prevent database limit crashes | ✅ Enforced |
-| **Backend API** | Prevent secondary relational tables from overwriting JSON dictionary primary cutoffs | ✅ Enforced |
-| **Frontend UI** | Format numbers with custom `formatCutoffRank()` for regional locale thousand separators | ✅ Enforced |
-| **Frontend UI** | Separate `PH`, `D`, `DK`, `XD` and special categories into distinct first-class dropdown lookups | ✅ Enforced |
-| **Frontend UI** | Group 70+ course options into structured `<optgroup>` categories | ✅ Enforced |
-| **Deployment** | Enforce `No-Cache` HTTP headers and timestamped script version tags (`app.js?v=TIMESTAMP`) | ✅ Enforced |
+| **ETL & Data** | Preserve fractional cutoffs (`2457.5`) as native floats; eliminate lossy `parseInt()` | ✅ Verified |
+| **ETL & Data** | Pre-deduplicate courses per institution before running fuzzy PDF matchers | ✅ Verified |
+| **ETL & Data** | Apply PDF layout line-break stripping (`TELECOMMUNICA TION`) and domain exclusion rules | ✅ Verified |
+| **Backend API** | Chunk SQL `IN (...)` parameters into batches of $\le 300$ to prevent SQLite crashes | ✅ Verified |
+| **Backend API** | Enforce single-source-of-truth priority so secondary SQL tables don't overwrite JSON floats | ✅ Verified |
+| **Frontend UI** | Format ranks with `formatCutoffRank()` preserving decimals and adding regional commas | ✅ Verified |
+| **Frontend UI** | Keep `PH`, `SNQ`, `GM`, `1G`, `2AG`, etc., as distinct selectable categories | ✅ Verified |
+| **Frontend UI** | Group 70+ course options into structured `<optgroup>` categories | ✅ Verified |
+| **Deployment** | Enable `Cache-Control: no-cache` middleware and timestamp script tags (`app.js?v=TIMESTAMP`) | ✅ Verified |
