@@ -131,6 +131,16 @@ class UnifiedAuthMiddleware(BaseHTTPMiddleware):
             media_type="application/json"
         )
 
+class NoCacheMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        response = await call_next(request)
+        path = request.url.path.lower()
+        if path.endswith((".html", ".js", ".css", ".json")) or path.startswith("/api/"):
+            response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+            response.headers["Pragma"] = "no-cache"
+            response.headers["Expires"] = "0"
+        return response
+
 app = FastAPI(title="KCET Predictor AI Agent Backend")
 
 # Enable CORS
@@ -141,6 +151,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Apply no-cache middleware
+app.add_middleware(NoCacheMiddleware)
 
 # Apply global authentication middleware
 app.add_middleware(UnifiedAuthMiddleware)
