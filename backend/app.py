@@ -684,13 +684,17 @@ async def get_colleges(
                         cat = cut["category"]
                         val = cut["cutoff_rank"]
                         if r == 0:
-                            cr["mock_round1_cutoff"][cat] = val
+                            if cat not in cr["mock_round1_cutoff"]:
+                                cr["mock_round1_cutoff"][cat] = val
                         elif r == 1:
-                            cr["round1_cutoff"][cat] = val
+                            if cat not in cr["round1_cutoff"]:
+                                cr["round1_cutoff"][cat] = val
                         elif r == 2:
-                            cr["round2_cutoff"][cat] = val
+                            if cat not in cr["round2_cutoff"]:
+                                cr["round2_cutoff"][cat] = val
                         elif r == 3:
-                            cr["round3_cutoff"][cat] = val
+                            if cat not in cr["round3_cutoff"]:
+                                cr["round3_cutoff"][cat] = val
 
             return {
                 "colleges": colleges,
