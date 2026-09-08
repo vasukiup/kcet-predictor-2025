@@ -701,33 +701,43 @@ function renderYoYStats() {
   if (elCooling) elCooling.innerHTML = cooling.map(item => renderShiftItem(item, false)).join('');
 
   // YoY Structural Shifts - Colleges Added/Removed
-  const clean24Names = new Set(prevCache.colleges.map(c => getCleanCollegeName(c.college_name)));
-  const clean25Names = new Set(activeCache.colleges.map(c => getCleanCollegeName(c.college_name)));
+  const activeCodes = new Set(activeCache.colleges.map(c => c.kea_code).filter(Boolean));
+  const activeNames = new Set(activeCache.colleges.map(c => getCleanCollegeName(c.college_name)));
 
-  const addedColleges = activeCache.colleges.filter(c => !clean24Names.has(getCleanCollegeName(c.college_name)));
-  const removedColleges = prevCache.colleges.filter(c => !clean25Names.has(getCleanCollegeName(c.college_name)));
+  const prevCodes = new Set(prevCache.colleges.map(c => c.kea_code).filter(Boolean));
+  const prevNames = new Set(prevCache.colleges.map(c => getCleanCollegeName(c.college_name)));
+
+  const addedColleges = activeCache.colleges.filter(c => {
+    if (c.kea_code && prevCodes.has(c.kea_code)) return false;
+    return !prevNames.has(getCleanCollegeName(c.college_name));
+  });
+
+  const removedColleges = prevCache.colleges.filter(c => {
+    if (c.kea_code && activeCodes.has(c.kea_code)) return false;
+    return !activeNames.has(getCleanCollegeName(c.college_name));
+  });
 
   const addedColHtml = addedColleges.length > 0 
     ? addedColleges.map(col => {
         const codeDisplay = col.kea_code ? `<strong>${col.kea_code}</strong> - ` : '';
         return `
-          <div style="font-size:11px; color:var(--text); padding:4px 6px; background:rgba(74,222,128,0.05); border-radius:6px; border:1px solid rgba(74,222,128,0.1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${col.college_name}">
+          <div style="font-size:13px; font-weight:600; color:#22c55e; padding:6px 10px; background:rgba(34,197,94,0.08); border-radius:6px; border:1px solid rgba(34,197,94,0.25); white-space:normal; word-break:break-word; line-height:1.4;" title="${col.college_name}">
             🟢 ${codeDisplay}${col.college_name}
           </div>
         `;
       }).join('')
-    : '<div style="font-size:11px; color:var(--text-muted);">None detected</div>';
+    : '<div style="font-size:13px; color:var(--text-muted);">None detected</div>';
 
   const removedColHtml = removedColleges.length > 0
     ? removedColleges.map(col => {
         const codeDisplay = col.kea_code ? `<strong>${col.kea_code}</strong> - ` : '';
         return `
-          <div style="font-size:11px; color:var(--text); padding:4px 6px; background:rgba(244,63,94,0.05); border-radius:6px; border:1px solid rgba(244,63,94,0.1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${col.college_name}">
+          <div style="font-size:13px; font-weight:600; color:#f43f5e; padding:6px 10px; background:rgba(244,63,94,0.08); border-radius:6px; border:1px solid rgba(244,63,94,0.25); white-space:normal; word-break:break-word; line-height:1.4;" title="${col.college_name}">
             🔴 ${codeDisplay}${col.college_name}
           </div>
         `;
       }).join('')
-    : '<div style="font-size:11px; color:var(--text-muted);">None detected</div>';
+    : '<div style="font-size:13px; color:var(--text-muted);">None detected</div>';
 
   const elColAdded = document.getElementById('colleges-added-list');
   const elColRemoved = document.getElementById('colleges-removed-list');
@@ -743,19 +753,19 @@ function renderYoYStats() {
 
   const addedCoursesHtml = addedCourses.length > 0
     ? addedCourses.map(c => `
-        <div style="font-size:11px; color:var(--text); padding:3px 6px; background:rgba(74,222,128,0.02); border-radius:4px; border:1px solid rgba(255,255,255,0.02); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${c}">
+        <div style="font-size:13px; font-weight:600; color:#22c55e; padding:6px 10px; background:rgba(34,197,94,0.08); border-radius:6px; border:1px solid rgba(34,197,94,0.25); white-space:normal; word-break:break-word; line-height:1.4;" title="${c}">
           ✨ ${c}
         </div>
       `).join('')
-    : '<div style="font-size:11px; color:var(--text-muted);">None detected</div>';
+    : '<div style="font-size:13px; color:var(--text-muted);">None detected</div>';
 
   const removedCoursesHtml = removedCourses.length > 0
     ? removedCourses.map(c => `
-        <div style="font-size:11px; color:var(--text-muted); padding:3px 6px; background:rgba(255,255,255,0.01); border-radius:4px; border:1px solid rgba(255,255,255,0.02); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${c}">
+        <div style="font-size:13px; font-weight:600; color:#f43f5e; padding:6px 10px; background:rgba(244,63,94,0.08); border-radius:6px; border:1px solid rgba(244,63,94,0.25); white-space:normal; word-break:break-word; line-height:1.4;" title="${c}">
           🚫 ${c}
         </div>
       `).join('')
-    : '<div style="font-size:11px; color:var(--text-muted);">None detected</div>';
+    : '<div style="font-size:13px; color:var(--text-muted);">None detected</div>';
 
   const elCoursesAdded = document.getElementById('courses-added-list');
   const elCoursesRemoved = document.getElementById('courses-removed-list');
