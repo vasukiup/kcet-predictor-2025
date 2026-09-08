@@ -56,10 +56,7 @@ def init_connection_pool():
 
     hosts_to_try = [
         (primary_host, primary_port),
-        ("127.0.0.1", "5433"),
-        ("localhost", "5433"),
-        ("127.0.0.1", "5432"),
-        ("localhost", "5432")
+        (primary_host, "5432" if primary_port != "5432" else "5433")
     ]
     if in_docker:
         hosts_to_try.insert(0, ("db", "5432"))
@@ -81,7 +78,8 @@ def init_connection_pool():
                 port=int(p),
                 database=db_name,
                 user=db_user,
-                password=db_pass
+                password=db_pass,
+                connect_timeout=1
             )
             connection_pool = pool
             print(f"PostgreSQL ThreadedConnectionPool initialized successfully on {h}:{p}.", flush=True)

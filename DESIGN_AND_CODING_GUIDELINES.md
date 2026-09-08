@@ -114,7 +114,36 @@ for course in college_courses:
 
 ### 3. Database & API Reliability
 
-#### 3.1 Batch SQL Parameter Queries (Avoid Database Variable Limits)
+#### 3.1 PostgreSQL Primary with Lock-Free SQLite (WAL) Fallback Strategy
+* **Rule**: Educational predictor portals should prioritize **PostgreSQL as the primary high-concurrency database** and automatically fall back to **lock-free SQLite (`WAL` mode)** if PostgreSQL is unavailable or unreachable.
+* **Probing & Failover Optimization**: Use explicit connection timeouts (`connect_timeout=1`) when initializing the PostgreSQL connection pool. This ensures PostgreSQL is preferred by default, but if PostgreSQL is offline (e.g. during local developer execution or database maintenance), the backend switches to SQLite seamlessly within $\le 1$ second without throwing runtime errors.
+* **Dialect Compatibility Layer**: Implement a database adapter that standardizes SQL query syntax across both PostgreSQL (`ILIKE`, `RETURNING id`, `%s`) and SQLite (`LIKE`, `lastrowid`, `?`).
+
+```python
+# ✅ CORRECT: PostgreSQL Primary with Automatic SQLite Fallback
+@contextmanager
+def get_db_cursor():
+    pool = init_connection_pool()  # Tries PG on DB_HOST:DB_PORT with connect_timeout=1
+    pg_conn = _get_healthy_pg_connection(pool) if pool else None
+
+    if pg_conn:
+        try:
+            with pg_conn.cursor(cursor_factory=RealDictCursor) as cursor:
+                yield cursor
+                pg_conn.commit()
+        except Exception:
+            pg_conn.rollback()
+            raise
+        finally:
+            pool.putconn(pg_conn)
+    else:
+        # Fallback to WAL-mode SQLite
+        with _get_sqlite_connection() as s_conn:
+            yield SQLiteDictCursorAdapter(s_conn)
+            s_conn.commit()
+```
+
+#### 3.2 Batch SQL Parameter Queries (Avoid Database Variable Limits)
 * **Rule**: When executing `IN (...)` queries in SQLite or PostgreSQL, chunk parameter lists into batches of 300 items or fewer. SQLite throws an exception if `IN (...)` exceeds 999 parameters.
 
 ```python
