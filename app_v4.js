@@ -4224,6 +4224,70 @@ function updateModalCategoryView(newCat) {
   }
 }
 
+function renderMultiYearCourseTrend(col, course) {
+  let c24 = null, c25 = null, c26 = null;
+  const colCode = col ? col.kea_code : null;
+  const cName = course.course_name.toUpperCase().trim();
+
+  const findCourseInCache = (cache) => {
+    if (!cache || !cache.colleges) return null;
+    const matchCol = cache.colleges.find(colObj => (colCode && colObj.kea_code === colCode) || (col && colObj.college_name === col.college_name));
+    if (!matchCol) return null;
+    return matchCol.courses.find(cr => cr.course_name.toUpperCase().trim() === cName);
+  };
+
+  c24 = findCourseInCache(cache2024);
+  c25 = findCourseInCache(cache2025);
+  c26 = findCourseInCache(cache2026) || course;
+
+  const gm24 = (c24?.round1_cutoff || c24?.cutoffs?.round1 || {})['GM'];
+  const gm25 = (c25?.round1_cutoff || c25?.cutoffs?.round1 || {})['GM'];
+  const gm26 = (c26?.round1_cutoff || c26?.cutoffs?.round1 || {})['GM'];
+
+  if (!gm24 && !gm25 && !gm26) return '';
+
+  let trendText = '';
+  let trendClass = '';
+  if (gm25 && gm26) {
+    const diff = parseFloat(gm26) - parseFloat(gm25);
+    if (diff < 0) {
+      trendText = `🔥 High Demand: Tightened by ${Math.abs(diff).toLocaleString()} positions in 2026`;
+      trendClass = 'color:#22c55e; background:rgba(34,197,94,0.08); border:1px solid rgba(34,197,94,0.25);';
+    } else if (diff > 0) {
+      trendText = `💡 Capacity Expansion: Relaxed by +${diff.toLocaleString()} positions in 2026`;
+      trendClass = 'color:#f43f5e; background:rgba(244,63,94,0.08); border:1px solid rgba(244,63,94,0.25);';
+    } else {
+      trendText = `⚖️ Stable Demand: Unchanged YoY`;
+      trendClass = 'color:var(--text-muted); background:rgba(255,255,255,0.03); border:1px solid var(--border);';
+    }
+  }
+
+  return `
+    <div style="margin-top:12px; padding:10px 12px; background:rgba(0,0,0,0.25); border-radius:8px; border:1px solid var(--border);">
+      <div style="font-size:12px; font-weight:700; color:var(--text); margin-bottom:6px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px;">
+        <span>📈 Multi-Year Cutoff Trajectory (R1 GM)</span>
+        ${trendText ? `<span style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:6px; ${trendClass}">${trendText}</span>` : ''}
+      </div>
+      <div style="display:flex; align-items:center; gap:16px; font-size:12px; margin-top:6px;">
+        <div style="display:flex; flex-direction:column;">
+          <span style="font-size:10px; color:var(--text-muted);">2024 Cutoff</span>
+          <span style="font-weight:700; color:var(--text);">${formatCutoffRank(gm24)}</span>
+        </div>
+        <span style="color:var(--text-muted); font-size:14px;">➔</span>
+        <div style="display:flex; flex-direction:column;">
+          <span style="font-size:10px; color:var(--cyan);">2025 Cutoff</span>
+          <span style="font-weight:700; color:var(--cyan);">${formatCutoffRank(gm25)}</span>
+        </div>
+        <span style="color:var(--text-muted); font-size:14px;">➔</span>
+        <div style="display:flex; flex-direction:column;">
+          <span style="font-size:10px; color:var(--green);">2026 Cutoff</span>
+          <span style="font-weight:700; color:var(--green);">${formatCutoffRank(gm26)}</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
 function openModal(college, selectedCatOverride) {
   currentModalCollege = college;
   const ann = college.annexure || 'C';
@@ -4296,70 +4360,6 @@ function openModal(college, selectedCatOverride) {
   const hasSpl = college.courses.some(c => (c.kea_spl || 0) > 0);
   const hasHk = college.courses.some(c => (c.kea_hk || 0) > 0);
   const hasRk = college.courses.some(c => (c.kea_rk || 0) > 0);
-
-function renderMultiYearCourseTrend(col, course) {
-  let c24 = null, c25 = null, c26 = null;
-  const colCode = col ? col.kea_code : null;
-  const cName = course.course_name.toUpperCase().trim();
-
-  const findCourseInCache = (cache) => {
-    if (!cache || !cache.colleges) return null;
-    const matchCol = cache.colleges.find(colObj => (colCode && colObj.kea_code === colCode) || (col && colObj.college_name === col.college_name));
-    if (!matchCol) return null;
-    return matchCol.courses.find(cr => cr.course_name.toUpperCase().trim() === cName);
-  };
-
-  c24 = findCourseInCache(cache2024);
-  c25 = findCourseInCache(cache2025);
-  c26 = findCourseInCache(cache2026) || course;
-
-  const gm24 = (c24?.round1_cutoff || c24?.cutoffs?.round1 || {})['GM'];
-  const gm25 = (c25?.round1_cutoff || c25?.cutoffs?.round1 || {})['GM'];
-  const gm26 = (c26?.round1_cutoff || c26?.cutoffs?.round1 || {})['GM'];
-
-  if (!gm24 && !gm25 && !gm26) return '';
-
-  let trendText = '';
-  let trendClass = '';
-  if (gm25 && gm26) {
-    const diff = parseFloat(gm26) - parseFloat(gm25);
-    if (diff < 0) {
-      trendText = `🔥 High Demand: Tightened by ${Math.abs(diff).toLocaleString()} positions in 2026`;
-      trendClass = 'color:#22c55e; background:rgba(34,197,94,0.08); border:1px solid rgba(34,197,94,0.25);';
-    } else if (diff > 0) {
-      trendText = `💡 Capacity Expansion: Relaxed by +${diff.toLocaleString()} positions in 2026`;
-      trendClass = 'color:#f43f5e; background:rgba(244,63,94,0.08); border:1px solid rgba(244,63,94,0.25);';
-    } else {
-      trendText = `⚖️ Stable Demand: Unchanged YoY`;
-      trendClass = 'color:var(--text-muted); background:rgba(255,255,255,0.03); border:1px solid var(--border);';
-    }
-  }
-
-  return `
-    <div style="margin-top:12px; padding:10px 12px; background:rgba(0,0,0,0.25); border-radius:8px; border:1px solid var(--border);">
-      <div style="font-size:12px; font-weight:700; color:var(--text); margin-bottom:6px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px;">
-        <span>📈 Multi-Year Cutoff Trajectory (R1 GM)</span>
-        ${trendText ? `<span style="font-size:11px; font-weight:600; padding:2px 8px; border-radius:6px; ${trendClass}">${trendText}</span>` : ''}
-      </div>
-      <div style="display:flex; align-items:center; gap:16px; font-size:12px; margin-top:6px;">
-        <div style="display:flex; flex-direction:column;">
-          <span style="font-size:10px; color:var(--text-muted);">2024 Cutoff</span>
-          <span style="font-weight:700; color:var(--text);">${formatCutoffRank(gm24)}</span>
-        </div>
-        <span style="color:var(--text-muted); font-size:14px;">➔</span>
-        <div style="display:flex; flex-direction:column;">
-          <span style="font-size:10px; color:var(--cyan);">2025 Cutoff</span>
-          <span style="font-weight:700; color:var(--cyan);">${formatCutoffRank(gm25)}</span>
-        </div>
-        <span style="color:var(--text-muted); font-size:14px;">➔</span>
-        <div style="display:flex; flex-direction:column;">
-          <span style="font-size:10px; color:var(--green);">2026 Cutoff</span>
-          <span style="font-weight:700; color:var(--green);">${formatCutoffRank(gm26)}</span>
-        </div>
-      </div>
-    </div>
-  `;
-}
 
   const modalOverlay = document.getElementById('modal-overlay');
   const modalContent = document.getElementById('modal-content');
@@ -4570,9 +4570,11 @@ function renderMultiYearCourseTrend(col, course) {
                         </div>
                       `).join('')}
                     </div>
-                  ${renderMultiYearCourseTrend(col, c)}
+                  ` : ''}
                 </div>
               ` : ''}
+
+              ${renderMultiYearCourseTrend(college, c)}
             </div>
 
             <!-- Right side: Course Placement Profile -->
