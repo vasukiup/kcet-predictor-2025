@@ -128,16 +128,16 @@ def import_database():
                             for cat, rank in cutoff_dict.items():
                                 if rank is not None:
                                     try:
-                                        # Clean rank string to keep only digits
-                                        rank_clean = re.sub(r'[^\d]', '', str(rank))
-                                        if rank_clean:
-                                            rank_int = int(rank_clean)
+                                        r_str = str(rank).strip().replace(',', '')
+                                        if r_str and r_str not in ("", "--", "—", "ALLOTTED", "EXTENDED", "N/A"):
+                                            val = float(r_str)
+                                            rank_val = int(val) if val.is_integer() else val
                                             cursor.execute("""
                                                 INSERT INTO cutoffs (course_id, round, category, cutoff_rank, year)
                                                 VALUES (?, ?, ?, ?, ?)
-                                            """, (course_id, rd, cat, rank_int, year))
+                                            """, (course_id, rd, cat, rank_val, year))
                                             cutoff_count += 1
-                                    except ValueError:
+                                    except (ValueError, TypeError):
                                         pass
                 print(f"Year {year} data imported:")
                 print(f"  Colleges: {col_count}")
